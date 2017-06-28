@@ -136,10 +136,5 @@ namespace LibAtem
             byte[] res = BitConverter.GetBytes((short) (val * scale));
             AddByte(res[1], res[0]);
         }
-
-        public void AddVideoSource(VideoSource src)
-        {
-           AddUInt16((int)src);
-        }
     }
 }

@@ -139,11 +139,6 @@ namespace LibAtem
             return Encoding.ASCII.GetString(Body, (int)pos++, length);
         }
 
-        public VideoSource GetVideoSource()
-        {
-            return (VideoSource)GetUInt16();
-        }
-
         //        public VideoSource? GetVideoSource()
         //        {
         //            VideoSource src = (VideoSource) GetUInt16();

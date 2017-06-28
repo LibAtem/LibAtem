@@ -12,14 +12,14 @@ namespace LibAtem.Commands
         {
             cmd.AddUInt8(Id);
             cmd.Pad();
-            cmd.AddVideoSource(Source);
+            cmd.AddUInt16((int)Source);
         }
 
         public void Deserialize(ParsedCommand cmd)
         {
             Id = cmd.GetUInt8();
             cmd.Skip();
-            Source = cmd.GetVideoSource();
+            Source = (VideoSource) cmd.GetUInt16();
         }
     }
 }

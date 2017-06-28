@@ -1,25 +1,24 @@
-﻿using LibAtem.Common;
+using LibAtem.Common;
 
-namespace LibAtem.Commands
+namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("CAuS")]
-    public class AuxSourceSetCommand : ICommand
+    [CommandName("CPvI")]
+    public class PreviewInputSetCommand : ICommand
     {
-        public uint Id { get; set; }
+        public MixEffectBlockId Index {get; set; }
         public VideoSource Source { get; set; }
 
         public void Serialize(CommandBuilder cmd)
         {
-            cmd.AddBoolArray(true);
-            cmd.AddUInt8(Id);
+            cmd.AddUInt8((int)Index);
+            cmd.Pad();
             cmd.AddUInt16((int)Source);
         }
 
         public void Deserialize(ParsedCommand cmd)
         {
+            Index = (MixEffectBlockId) cmd.GetUInt8();
             cmd.Skip();
-
-            Id = cmd.GetUInt8();
             Source = (VideoSource) cmd.GetUInt16();
         }
     }
