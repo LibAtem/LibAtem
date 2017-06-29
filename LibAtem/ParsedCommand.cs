@@ -1,6 +1,5 @@
 using System;
 using System.Text;
-using LibAtem.Common;
 
 namespace LibAtem
 {
@@ -108,7 +107,7 @@ namespace LibAtem
             return val;
         }
 
-        public bool[] GetBool()
+        public bool[] GetBoolArray()
         {
             byte b = Body[pos++];
             return new[]
@@ -129,32 +128,9 @@ namespace LibAtem
             pos += i;
         }
 
-        //        public AtemBool GetAtemBool(int index, int bit = 0)
-        //        {
-        //            return GetBool(index, bit).ToAtemBool();
-        //        }
-
         public string GetString(int length)
         {
             return Encoding.ASCII.GetString(Body, (int)pos++, length);
         }
-
-        //        public VideoSource? GetVideoSource()
-        //        {
-        //            VideoSource src = (VideoSource) GetUInt16();
-        //            if (Enum.IsDefined(typeof(VideoSource), src))
-        //                return src;
-        //
-        //            return null;
-        //        }
-
-        //        public MixEffectBlockId? GetMixEffectBlockId(int index)
-        //        {
-        //            MixEffectBlockId me = (MixEffectBlockId)GetUInt8(index);
-        //            if (Enum.IsDefined(typeof(MixEffectBlockId), me))
-        //                return me;
-        //
-        //            return null;
-        //        }
     }
 }

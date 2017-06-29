@@ -8,8 +8,4 @@
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\MixEffects\" />
-  </ItemGroup>
-
 </Project>
