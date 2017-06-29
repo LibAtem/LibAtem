@@ -8,7 +8,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
         public void Serialize(CommandBuilder cmd)
         {
             cmd.AddUInt16((uint) Id);
-            cmd.AddByte(0x00, 0x00, 0x00, 0x0A);
+            cmd.AddByte(0x00, 0x0A);
         }
 
         public void Deserialize(ParsedCommand cmd)
