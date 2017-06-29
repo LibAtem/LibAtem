@@ -29,14 +29,4 @@ namespace LibAtem.Commands
             return attribute.Name;
         }
     }
-
-    public static class CommandExtensions
-    {
-        public static CommandBuilder SerializeTemp(this ICommand cmd)
-        {
-            var builder = new CommandBuilder(CommandNameAttribute.GetName(cmd.GetType()));
-            cmd.Serialize(builder);
-            return builder;
-        }
-    }
 }

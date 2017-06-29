@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using LibAtem.Util;
 
 namespace LibAtem
 {
@@ -90,6 +91,11 @@ namespace LibAtem
             return val;
         }
 
+        public byte GetByte()
+        {
+            return Body[pos++];
+        }
+
         public uint GetUInt8()
         {
             return Body[pos++];
@@ -128,9 +134,15 @@ namespace LibAtem
             pos += i;
         }
 
-        public string GetString(int length)
+        public void SkipToNearestPowerOfTwo()
         {
-            return Encoding.ASCII.GetString(Body, (int)pos++, length);
+            int targetLen = MathExt.NextPowerOf2(Body.Length);
+            Skip((uint) (targetLen - Body.Length));
+        }
+
+        public string GetString(uint length)
+        {
+            return Encoding.ASCII.GetString(Body, (int) pos++, (int) length);
         }
     }
 }
