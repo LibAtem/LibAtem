@@ -1,4 +1,4 @@
-﻿namespace LibAtem.Commands
+﻿namespace LibAtem.Commands.DeviceProfile
 {
     [CommandName("_ver")]
     public class VersionCommand : ICommand
@@ -14,8 +14,8 @@
 
         public void Serialize(CommandBuilder cmd)
         {
-            cmd.AddUInt16(Version.ApiMajor);
-            cmd.AddUInt16(Version.ApiMinor);
+            cmd.AddUInt16(ApiMajor);
+            cmd.AddUInt16(ApiMinor);
         }
 
         public void Deserialize(ParsedCommand cmd)

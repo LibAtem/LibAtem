@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LibAtem.Common;
 using LibAtem.Util;
 
 namespace LibAtem
@@ -108,9 +107,14 @@ namespace LibAtem
         public void AddString(int length, string str)
         {
             byte[] res = new byte[length];
-            for (var i = 0; i < length && i < str.Length; i++)
+            int i;
+            for (i = 0; i < length && i < str.Length; i++)
             {
                 res[i] = (byte)str[i];
+            }
+            for (; i < length; i++)
+            {
+                res[i] = 0;
             }
 
             _data.AddRange(res);

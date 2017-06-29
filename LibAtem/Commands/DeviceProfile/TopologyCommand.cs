@@ -1,4 +1,4 @@
-﻿namespace LibAtem.Commands
+﻿namespace LibAtem.Commands.DeviceProfile
 {
     [CommandName("_top")]
     public class TopologyCommand : ICommand
