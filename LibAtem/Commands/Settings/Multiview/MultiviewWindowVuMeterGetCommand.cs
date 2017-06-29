@@ -1,6 +1,6 @@
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("MvIn")]
+    [CommandName("VuMC")]
     public class MultiviewWindowVuMeterGetCommand : ICommand
     {
         public uint MultiviewIndex { get; set; }

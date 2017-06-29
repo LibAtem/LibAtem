@@ -2,7 +2,7 @@ using LibAtem.Common;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("CMvP")]
+    [CommandName("MvPr")]
     public class MultiviewPropertiesGetCommand : ICommand
     {
         public uint MultiviewIndex { get; set; }
@@ -12,7 +12,7 @@ namespace LibAtem.Commands.Settings.Multiview
 
         public void Serialize(CommandBuilder cmd)
         {
-            cmd.AddUInt8((uint) MultiviewIndex);
+            cmd.AddUInt8(MultiviewIndex);
             cmd.AddUInt8((uint)Layout);
             cmd.AddBoolArray(SafeAreaEnabled);
             cmd.AddBoolArray(ProgramPreviewSwapped);
