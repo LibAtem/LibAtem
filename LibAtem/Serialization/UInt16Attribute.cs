@@ -26,16 +26,16 @@ namespace LibAtem.Serialization
     public class UInt16DAttribute : UInt16Attribute, IRandomGeneratorAttribute
     {
         private readonly double _scale;
-        private readonly uint _min;
-        private readonly uint _max;
+        private readonly uint _scaledMin;
+        private readonly uint _scaledMax;
 
-        public UInt16DAttribute(double scale, uint min, uint max)
+        public UInt16DAttribute(double scale, uint scaledMin, uint scaledMax)
         {
             _scale = scale;
-            _min = min;
-            _max = max;
+            _scaledMin = scaledMin;
+            _scaledMax = scaledMax;
 
-            if (min >= max)
+            if (scaledMin >= scaledMax)
                 throw new ArgumentException("Min must be less than Max");
         }
 
@@ -50,23 +50,23 @@ namespace LibAtem.Serialization
             uint rawVal = (uint) base.Deserialize(data, start, prop);
             double val = rawVal / _scale;
 
-            if (val < _min)
-                return _min;
-            if (val > _max)
-                return _max;
+            if (val < _scaledMin / _scale)
+                return _scaledMin / _scale;
+            if (val > _scaledMax / _scale)
+                return _scaledMax / _scale;
 
             return val;
         }
 
         public object GetRandom(Random random)
         {
-            uint range = _max - _min;
-            return random.NextDouble() * range + _min;
+            uint range = _scaledMax - _scaledMin;
+            return (random.NextDouble() * range + _scaledMin) / _scale;
         }
 
         public bool IsValid(object obj)
         {
-            return (double) obj >= _min && (double) obj <= _max;
+            return (double) obj >= _scaledMin && (double) obj <= _scaledMax;
         }
 
         public override bool AreEqual(object val1, object val2)

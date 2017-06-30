@@ -1,10 +1,11 @@
 ﻿using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("CSSc")]
-    public class SuperSourcePropertiesSetCommand : ICommand
+    [CommandName("CSSc", 36)]
+    public class SuperSourcePropertiesSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -31,87 +32,48 @@ namespace LibAtem.Commands.SuperSource
             LightSourceAltitude = 1 << 19,
         }
 
+        [Serializable(0), Enum32]
         public MaskFlags Mask { get; set; }
+        [Serializable(4), Enum16]
         public VideoSource ArtFillInput { get; set; }
+        [Serializable(6), Enum16]
         public VideoSource ArtKeyInput { get; set; }
+        [Serializable(8), Enum8]
         public SuperSourceArtOption ArtOption { get; set; }
+        [Serializable(9), Bool]
         public bool ArtPreMultiplied { get; set; }
+        [Serializable(10), UInt16D(1000, 0, 1000)]
         public double ArtClip { get; set; }
+        [Serializable(12), UInt16D(1000, 0, 1000)]
         public double ArtGain { get; set; }
+        [Serializable(14), Bool]
         public bool ArtInvertKey { get; set; }
 
+        [Serializable(15), Bool]
         public bool BorderEnabled { get; set; }
+        [Serializable(16), Enum8]
         public BorderBevel BorderBevel { get; set; }
+        [Serializable(18), UInt16D(100, 0, 1600)]
         public double BorderWidthOut { get; set; }
+        [Serializable(20), UInt16D(100, 0, 1600)]
         public double BorderWidthIn { get; set; }
+        [Serializable(22), UInt8D(100, 0, 100)]
         public double BorderSoftnessOut { get; set; }
+        [Serializable(23), UInt8D(100, 0, 100)]
         public double BorderSoftnessIn { get; set; }
+        [Serializable(24), UInt8D(100, 0, 100)]
         public double BorderBevelSoftness { get; set; }
+        [Serializable(25), UInt8D(100, 0, 100)]
         public double BorderBevelPosition { get; set; }
+        [Serializable(26), UInt16D(10, 0, 3599)]
         public double BorderHue { get; set; }
+        [Serializable(28), UInt16D(10, 0, 1000)]
         public double BorderSaturation { get; set; }
+        [Serializable(30), UInt16D(10, 0, 1000)]
         public double BorderLuma { get; set; }
+        [Serializable(32), UInt16D(10, 0, 3590)]
         public double BorderLightSourceDirection { get; set; }
+        [Serializable(34), UInt8D(1, 0, 100)]
         public double BorderLightSourceAltitude { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddInt32((int) Mask);
-            cmd.AddUInt16((uint)ArtFillInput);
-            cmd.AddUInt16((uint)ArtKeyInput);
-            cmd.AddUInt8((int)ArtOption);
-            cmd.AddBoolArray(ArtPreMultiplied);
-            cmd.AddUInt16(1000, ArtClip);
-            cmd.AddUInt16(1000, ArtGain);
-            cmd.AddBoolArray(ArtInvertKey);
-
-            cmd.AddBoolArray(BorderEnabled);
-            cmd.AddUInt8((int)BorderBevel);
-            cmd.Pad();
-            cmd.AddUInt16(100, BorderWidthOut);
-            cmd.AddUInt16(100, BorderWidthIn);
-            cmd.AddUInt8(100, BorderSoftnessOut);
-            cmd.AddUInt8(100, BorderSoftnessIn);
-            cmd.AddUInt8(100, BorderBevelSoftness);
-            cmd.AddUInt8(100, BorderBevelPosition);
-            cmd.AddUInt16(10, BorderHue);
-            cmd.AddUInt16(10, BorderSaturation);
-            cmd.AddUInt16(10, BorderLuma);
-
-            cmd.AddUInt16(10, BorderLightSourceDirection);
-            cmd.AddUInt8(1, BorderLightSourceAltitude);
-
-            cmd.Pad();
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetInt32();
-            ArtFillInput = (VideoSource)cmd.GetUInt16();
-            ArtKeyInput = (VideoSource)cmd.GetUInt16();
-            ArtOption = (SuperSourceArtOption) cmd.GetUInt8();
-            ArtPreMultiplied = cmd.GetBoolArray()[0];
-            ArtClip = cmd.GetUInt16(0, 1000) / 1000d;
-            ArtGain = cmd.GetUInt16(0, 1000) / 1000d;
-            ArtInvertKey = cmd.GetBoolArray()[0];
-
-            BorderEnabled = cmd.GetBoolArray()[0];
-            BorderBevel = (BorderBevel) cmd.GetUInt8();
-            cmd.Skip();
-            BorderWidthOut = cmd.GetUInt16(0, 1600) / 100d;
-            BorderWidthIn = cmd.GetUInt16(0, 1600) / 100d;
-            BorderSoftnessOut = cmd.GetUInt8(0, 100) / 100d;
-            BorderSoftnessIn = cmd.GetUInt8(0, 100) / 100d;
-            BorderBevelSoftness = cmd.GetUInt8(0, 100) / 100d;
-            BorderBevelPosition = cmd.GetUInt8(0, 100) / 100d;
-            BorderHue = cmd.GetUInt16(0, 3599) / 10d;
-            BorderSaturation = cmd.GetUInt16(0, 1000) / 10d;
-            BorderLuma = cmd.GetUInt16(0, 1000) / 10d;
-
-            BorderLightSourceDirection = cmd.GetUInt16(0, 3590) / 10d;
-            BorderLightSourceAltitude = cmd.GetUInt8(10, 100);
-
-            cmd.Skip();
-        }
     }
 }

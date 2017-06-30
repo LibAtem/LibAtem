@@ -1,18 +1,20 @@
-﻿using System;
+using System;
 using System.Reflection;
 
 namespace LibAtem.Serialization
 {
-    public class UInt8Attribute : SerializableAttributeBase
+    public class Int16Attribute : SerializableAttributeBase
     {
         public override void Serialize(byte[] data, uint start, object val)
         {
-            data[start] = BitConverter.GetBytes((uint) val)[0];
+            byte[] bytes = BitConverter.GetBytes((short)val);
+            data[start] = bytes[1];
+            data[start + 1] = bytes[0];
         }
 
         public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
         {
-            return (uint) data[start];
+            return (int)BitConverter.ToInt16(new[] { data[start + 1], data[start] }, 0);
         }
 
         public override bool AreEqual(object val1, object val2)
@@ -21,35 +23,13 @@ namespace LibAtem.Serialization
         }
     }
 
-    public class UInt8RangeAttribute : UInt8Attribute, IRandomGeneratorAttribute
-    {
-        private readonly int _min;
-        private readonly int _max;
-
-        public UInt8RangeAttribute(int min, int max)
-        {
-            _min = min;
-            _max = max;
-        }
-
-        public object GetRandom(Random random)
-        {
-            return (uint)random.Next(_min, _max);
-        }
-
-        public bool IsValid(object obj)
-        {
-            return (uint)obj >= _min && (uint)obj <= _max;
-        }
-    }
-
-    public class UInt8DAttribute : UInt8Attribute, IRandomGeneratorAttribute
+    public class Int16DAttribute : Int16Attribute, IRandomGeneratorAttribute
     {
         private readonly double _scale;
-        private readonly uint _scaledMin;
-        private readonly uint _scaledMax;
+        private readonly int _scaledMin;
+        private readonly int _scaledMax;
 
-        public UInt8DAttribute(double scale, uint scaledMin, uint scaledMax)
+        public Int16DAttribute(double scale, int scaledMin, int scaledMax)
         {
             _scale = scale;
             _scaledMin = scaledMin;
@@ -62,25 +42,25 @@ namespace LibAtem.Serialization
         public override void Serialize(byte[] data, uint start, object val)
         {
             double value = Math.Round((double)val * _scale);
-            base.Serialize(data, start, (uint)value);
+            base.Serialize(data, start, (short)value);
         }
 
         public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
         {
-            uint rawVal = (uint)base.Deserialize(data, start, prop);
+            int rawVal = (int)base.Deserialize(data, start, prop);
             double val = rawVal / _scale;
 
-            if (val < _scaledMin / _scale)
-                return _scaledMin / _scale;
-            if (val > _scaledMax / _scale)
-                return _scaledMax / _scale;
+            if (val < _scaledMin)
+                return _scaledMin;
+            if (val > _scaledMax)
+                return _scaledMax;
 
             return val;
         }
 
         public object GetRandom(Random random)
         {
-            uint range = _scaledMax - _scaledMin;
+            int range = _scaledMax - _scaledMin;
             return (random.NextDouble() * range + _scaledMin) / _scale;
         }
 

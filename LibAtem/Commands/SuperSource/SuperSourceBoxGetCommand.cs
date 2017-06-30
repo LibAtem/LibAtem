@@ -1,55 +1,42 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("SSBP")]
-    public class SuperSourceBoxGetCommand : ICommand
+    [CommandName("SSBP", 20)]
+    public class SuperSourceBoxGetCommand : SerializableCommandBase
     {
+        [Serializable(0), UInt8Range(0, 3)]
         public uint Index { get; set; }
+        
+        [Serializable(1), Bool]
         public bool Enabled { get; set; }
+        
+        [Serializable(2), Enum16]
         public VideoSource InputSource { get; set; }
+        
+        [Serializable(4), Int16D(100, -4800, 4800)]
         public double PositionX { get; set; }
+        
+        [Serializable(6), Int16D(100, -4800, 4800)]
         public double PositionY { get; set; }
+        
+        [Serializable(8), UInt16D(1000, 70, 1000)]
         public double Size { get; set; }
-
+        
+        [Serializable(10), Bool]
         public bool Cropped { get; set; }
+
+        [Serializable(12), UInt16D(1000, 0, 18000)]
         public double CropTop { get; set; }
+        
+        [Serializable(14), UInt16D(1000, 0, 18000)]
         public double CropBottom { get; set; }
+        
+        [Serializable(16), UInt16D(1000, 0, 32000)]
         public double CropLeft { get; set; }
+
+        [Serializable(18), UInt16D(1000, 0, 32000)]
         public double CropRight { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8(Index);
-            cmd.AddBoolArray(Enabled);
-            cmd.AddUInt16((uint)InputSource);
-            cmd.AddInt16(100, PositionX);
-            cmd.AddInt16(100, PositionY);
-            cmd.AddUInt16(1000, Size);
-            cmd.AddBoolArray(Cropped);
-            cmd.Pad();
-            cmd.AddUInt16(1000, CropTop);
-            cmd.AddUInt16(1000, CropBottom);
-            cmd.AddUInt16(1000, CropLeft);
-            cmd.AddUInt16(1000, CropRight);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = cmd.GetUInt8();
-            Enabled = cmd.GetBoolArray()[0];
-            InputSource = (VideoSource)cmd.GetUInt16();
-            PositionX = cmd.GetInt16(-4800, 4800) / 100d;
-            PositionY = cmd.GetInt16(-4800, 4800) / 100d;
-            Size = cmd.GetUInt16(70, 1000) / 1000d;
-
-            Cropped = cmd.GetBoolArray()[0];
-            cmd.Skip();
-
-            CropTop = cmd.GetUInt16(0, 18000) / 1000d;
-            CropBottom = cmd.GetUInt16(0, 18000) / 1000d;
-            CropLeft = cmd.GetUInt16(0, 32000) / 1000d;
-            CropRight = cmd.GetUInt16(0, 32000) / 1000d;
-        }
     }
 }

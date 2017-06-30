@@ -1,9 +1,10 @@
 using System;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
-    [CommandName("CClV")]
-    public class ColorGeneratorSetCommand : ICommand
+    [CommandName("CClV", 8)]
+    public class ColorGeneratorSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -12,29 +13,20 @@ namespace LibAtem.Commands
             Saturation = 1 << 1,
             Luma = 1 << 2,
         }
-
+        
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        
+        [Serializable(1), UInt8Range(0, 1)]
         public uint Index { get; set; }
+
+        [Serializable(2), UInt16D(10, 0, 3599)]
         public double Hue { get; set; }
+
+        [Serializable(4), UInt16D(10, 0, 1000)]
         public double Saturation { get; set; }
+
+        [Serializable(6), UInt16D(10, 0, 1000)]
         public double Luma { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((uint) Mask);
-            cmd.AddUInt8(Index);
-            cmd.AddUInt16(10, Hue);
-            cmd.AddUInt16(10, Saturation);
-            cmd.AddUInt16(10, Luma);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags)cmd.GetUInt8();
-            Index = cmd.GetUInt8();
-            Hue = cmd.GetUInt16() / 10d;
-            Saturation = cmd.GetUInt16() / 10d;
-            Luma = cmd.GetUInt16() / 10d;
-        }
     }
 }

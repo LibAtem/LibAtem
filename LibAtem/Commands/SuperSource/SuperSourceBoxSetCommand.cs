@@ -1,10 +1,11 @@
 ﻿using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("CSBP")]
-    public class SuperSourceBoxSetCommand : ICommand
+    [CommandName("CSBP", 24)]
+    public class SuperSourceBoxSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -20,61 +21,41 @@ namespace LibAtem.Commands.SuperSource
             CropLeft = 1 << 8,
             CropRight = 1 << 9,
         }
-
-        public MaskFlags Mask { get; set; }
-        public uint Index { get; set; }
-        public bool Enabled { get; set; }
-        public VideoSource InputSource { get; set; }
-        public double PositionX { get; set; }
-        public double PositionY { get; set; }
-        public double Size { get; set; }
-
-        public bool Cropped { get; set; }
-        public double CropTop { get; set; }
-        public double CropBottom { get; set; }
-        public double CropLeft { get; set; }
-        public double CropRight { get; set; }
         
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt16((int)Mask);
-            cmd.AddUInt8(Index);
-            cmd.AddBoolArray(Enabled);
-            cmd.AddUInt16((uint)InputSource);
-            cmd.AddInt16(100, PositionX);
-            cmd.AddInt16(100, PositionY);
-            cmd.AddUInt16(1000, Size);
-            
-            cmd.AddBoolArray(Cropped);
-            cmd.Pad();
+        [Serializable(0), Enum16]
+        public MaskFlags Mask { get; set; }
+        
+        [Serializable(2), UInt8Range(0, 3)]
+        public uint Index { get; set; }
+        
+        [Serializable(3), Bool]
+        public bool Enabled { get; set; }
+        
+        [Serializable(4), Enum16]
+        public VideoSource InputSource { get; set; }
+        
+        [Serializable(6), Int16D(100, -4800, 4800)]
+        public double PositionX { get; set; }
+        
+        [Serializable(8), Int16D(100, -4800, 4800)]
+        public double PositionY { get; set; }
+        
+        [Serializable(10), UInt16D(1000, 70, 1000)]
+        public double Size { get; set; }
+        
+        [Serializable(12), Bool]
+        public bool Cropped { get; set; }
 
-            cmd.AddUInt16(1000, CropTop);
-            cmd.AddUInt16(1000, CropBottom);
-            cmd.AddUInt16(1000, CropLeft);
-            cmd.AddUInt16(1000, CropRight);
+        [Serializable(14), UInt16D(1000, 0, 18000)]
+        public double CropTop { get; set; }
+        
+        [Serializable(16), UInt16D(1000, 0, 18000)]
+        public double CropBottom { get; set; }
 
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags)cmd.GetUInt16();
-            Index = cmd.GetUInt8();
-            Enabled = cmd.GetBoolArray()[0];
-            InputSource = (VideoSource) cmd.GetUInt16();
-            PositionX = cmd.GetInt16(-4800, 4800) / 100d;
-            PositionY = cmd.GetInt16(-4800, 4800) / 100d;
-            Size = cmd.GetUInt16(70, 1000) / 1000d;
-
-            Cropped = cmd.GetBoolArray()[0];
-            cmd.Skip();
-
-            CropTop = cmd.GetUInt16(0, 18000) / 1000d;
-            CropBottom = cmd.GetUInt16(0, 18000) / 1000d;
-            CropLeft = cmd.GetUInt16(0, 32000) / 1000d;
-            CropRight = cmd.GetUInt16(0, 32000) / 1000d;
-
-            cmd.Skip(2);
-        }
+        [Serializable(18), UInt16D(1000, 0, 32000)]
+        public double CropLeft { get; set; }
+        
+        [Serializable(20), UInt16D(1000, 0, 32000)]
+        public double CropRight { get; set; }
     }
 }

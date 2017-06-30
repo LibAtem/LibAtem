@@ -6,12 +6,10 @@ namespace LibAtem.Commands
     [CommandName("AuxS", 4)]
     public class AuxSourceGetCommand : SerializableCommandBase
     {
-        [UInt8Range(0, 5)]
-        [Serializable(0)]
+        [Serializable(0), UInt8Range(0, 5)]
         public uint Id { get; set; }
 
-        [Enum16]
-        [Serializable(2)]
+        [Serializable(2), Enum16]
         public VideoSource Source { get; set; }
     }
 }
