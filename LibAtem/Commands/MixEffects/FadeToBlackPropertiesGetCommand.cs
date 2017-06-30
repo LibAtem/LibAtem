@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("FtbC")]
+    [CommandName("FtbP")]
     public class FadeToBlackPropertiesGetCommand : ICommand
     {
         public MixEffectBlockId Index { get; set; }
