@@ -1,29 +1,24 @@
+using LibAtem.Serialization;
+
 namespace LibAtem.Commands
 {
-    [CommandName("ColV")]
-    public class ColorGeneratorGetCommand : ICommand
+    [CommandName("ColV", 8)]
+    public class ColorGeneratorGetCommand : SerializableCommandBase
     {
+        [UInt8Range(0, 1)]
+        [Serializable(0)]
         public uint Index { get; set; }
+
+        [UInt16D(10, 0, 100)]
+        [Serializable(2)]
         public double Hue { get; set; }
+
+        [UInt16D(10, 0, 100)]
+        [Serializable(4)]
         public double Saturation { get; set; }
+
+        [UInt16D(10, 0, 100)]
+        [Serializable(6)]
         public double Luma { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8(Index);
-            cmd.Pad();
-            cmd.AddUInt16(10, Hue);
-            cmd.AddUInt16(10, Saturation);
-            cmd.AddUInt16(10, Luma);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = cmd.GetUInt8();
-            cmd.Skip();
-            Hue = cmd.GetUInt16() / 10d;
-            Saturation = cmd.GetUInt16() / 10d;
-            Luma = cmd.GetUInt16() / 10d;
-        }
     }
 }

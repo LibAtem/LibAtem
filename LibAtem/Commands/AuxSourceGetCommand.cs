@@ -1,25 +1,17 @@
 ﻿using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
-    [CommandName("AuxS")]
-    public class AuxSourceGetCommand : ICommand
+    [CommandName("AuxS", 4)]
+    public class AuxSourceGetCommand : SerializableCommandBase
     {
+        [UInt8Range(0, 5)]
+        [Serializable(0)]
         public uint Id { get; set; }
+
+        [Enum16]
+        [Serializable(2)]
         public VideoSource Source { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8(Id);
-            cmd.Pad();
-            cmd.AddUInt16((int)Source);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Id = cmd.GetUInt8();
-            cmd.Skip();
-            Source = (VideoSource) cmd.GetUInt16();
-        }
     }
 }

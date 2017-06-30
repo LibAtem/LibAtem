@@ -7,9 +7,14 @@ namespace LibAtem.Util
 {
     public static class EnumExtensions
     {
-        public static bool IsValid<T>(this T src)
+        public static bool IsValid<T>(this T src) where T: IComparable, IConvertible, IFormattable
         {
-            return Enum.IsDefined(typeof(T), src);
+            if (!typeof(T).GetTypeInfo().GetCustomAttributes<FlagsAttribute>().Any())
+                return Enum.IsDefined(typeof(T), src);
+
+            // Is a flags, handle seperately
+            return Convert.ToInt32(src) <= Enum.GetValues(typeof(T)).Cast<int>().Max();
+
         }
 
         public static T GetAttribute<Te, T>(this Te src) where T : Attribute where Te : IConvertible

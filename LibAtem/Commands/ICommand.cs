@@ -14,13 +14,15 @@ namespace LibAtem.Commands
 
     public class CommandNameAttribute : Attribute
     {
-        public CommandNameAttribute(string name)
+        public CommandNameAttribute(string name, int length=-1)
         {
             Name = name;
+            Length = length;
         }
 
         public string Name { get; }
-        
+        public int Length { get; }
+
         public static string GetName(Type type)
         {
             CommandNameAttribute attribute = type.GetTypeInfo().GetCustomAttributes(typeof(CommandNameAttribute), true).OfType<CommandNameAttribute>().FirstOrDefault();

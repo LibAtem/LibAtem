@@ -1,26 +1,21 @@
 ﻿using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
-    [CommandName("CAuS")]
-    public class AuxSourceSetCommand : ICommand
+    [CommandName("CAuS", 4)]
+    public class AuxSourceSetCommand : SerializableCommandBase
     {
+        [UInt8]
+        [Serializable(0)]
+        public uint Mask => 1;
+
+        [UInt8Range(0, 5)]
+        [Serializable(1)]
         public uint Id { get; set; }
+
+        [Enum16]
+        [Serializable(2)]
         public VideoSource Source { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddBoolArray(true);
-            cmd.AddUInt8(Id);
-            cmd.AddUInt16((int)Source);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            cmd.Skip();
-
-            Id = cmd.GetUInt8();
-            Source = (VideoSource) cmd.GetUInt16();
-        }
     }
 }
