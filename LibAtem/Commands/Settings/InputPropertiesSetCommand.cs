@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("CInL")]
-    public class InputPropertiesSetCommand : ICommand
+    [CommandName("CInL", 32)]
+    public class InputPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -14,31 +15,15 @@ namespace LibAtem.Commands.Settings
             ExternalPortType = 1 << 2,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(2), Enum16]
         public VideoSource Id { get; set; }
+        [Serializable(4), String(20)]
         public string LongName { get; set; }
+        [Serializable(24), String(4)]
         public string ShortName { get; set; }
+        [Serializable(30), Enum16]
         public ExternalPortType ExternalPortType { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.Pad();
-            cmd.AddUInt16((int) Id);
-            cmd.AddString(20, LongName);
-            cmd.AddString(4, ShortName);
-            cmd.AddUInt16((int) ExternalPortType);
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            Id = (VideoSource) cmd.GetUInt16();
-            LongName = cmd.GetString(20);
-            ShortName = cmd.GetString(4);
-            ExternalPortType = (ExternalPortType) cmd.GetUInt16();
-            cmd.Skip(2);
-        }
     }
 }

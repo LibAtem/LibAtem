@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26621.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibAtem", "LibAtem\LibAtem.csproj", "{4754F2C9-CC19-4ACE-9628-B2F3CE659C0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibAtem", "LibAtem\LibAtem.csproj", "{4754F2C9-CC19-4ACE-9628-B2F3CE659C0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibAtem.Test", "LibAtem.Test\LibAtem.Test.csproj", "{5D5733BF-F39D-4D1C-8881-DF20942E3536}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{4754F2C9-CC19-4ACE-9628-B2F3CE659C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4754F2C9-CC19-4ACE-9628-B2F3CE659C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4754F2C9-CC19-4ACE-9628-B2F3CE659C0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D5733BF-F39D-4D1C-8881-DF20942E3536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D5733BF-F39D-4D1C-8881-DF20942E3536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D5733BF-F39D-4D1C-8881-DF20942E3536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D5733BF-F39D-4D1C-8881-DF20942E3536}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36AF9B78-56BB-4A6D-832F-75142812643F}
 	EndGlobalSection
 EndGlobal

@@ -1,26 +1,15 @@
+using LibAtem.Serialization;
+
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("VuMC")]
-    public class MultiviewWindowVuMeterGetCommand : ICommand
+    [CommandName("VuMC", 4)]
+    public class MultiviewWindowVuMeterGetCommand : SerializableCommandBase
     {
+        [Serializable(0), UInt8]
         public uint MultiviewIndex { get; set; }
+        [Serializable(1), UInt8Range(0, 9)]
         public uint WindowIndex { get; set; }
+        [Serializable(2), Bool]
         public bool VuEnabled { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8(MultiviewIndex);
-            cmd.AddUInt8(WindowIndex);
-            cmd.AddBoolArray(VuEnabled);
-            cmd.Pad();
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            MultiviewIndex = cmd.GetUInt8();
-            WindowIndex = cmd.GetUInt8();
-            VuEnabled = cmd.GetBoolArray()[0];
-            cmd.Skip();
-        }
     }
 }

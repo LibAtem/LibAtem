@@ -1,22 +1,12 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("V3sl")]
-    public class SDI3GLeveloutputGetCommand : ICommand
+    [CommandName("V3sl", 4)]
+    public class SDI3GLeveloutputGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public SDI3GOutputLevel SDI3GOutputLevel { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)SDI3GOutputLevel);
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            SDI3GOutputLevel = (SDI3GOutputLevel)cmd.GetUInt8();
-            cmd.Skip(3);
-        }
     }
 }

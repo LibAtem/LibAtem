@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("CMvP")]
-    public class MultiviewPropertiesSetCommand : ICommand
+    [CommandName("CMvP", 8)]
+    public class MultiviewPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -14,30 +15,15 @@ namespace LibAtem.Commands.Settings.Multiview
             ProgramPreviewSwapped = 1 << 2,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), UInt8]
         public uint MultiviewIndex { get; set; }
+        [Serializable(2), Enum8]
         public MultiViewLayout Layout { get; set; }
+        [Serializable(3), Bool]
         public bool SafeAreaEnabled { get; set; }
+        [Serializable(4), Bool]
         public bool ProgramPreviewSwapped { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((uint) Mask);
-            cmd.AddUInt8(MultiviewIndex);
-            cmd.AddUInt8((uint)Layout);
-            cmd.AddBoolArray(SafeAreaEnabled);
-            cmd.AddBoolArray(ProgramPreviewSwapped);
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            MultiviewIndex = cmd.GetUInt8();
-            Layout = (MultiViewLayout) cmd.GetUInt8();
-            SafeAreaEnabled = cmd.GetBoolArray()[0];
-            ProgramPreviewSwapped = cmd.GetBoolArray()[0];
-            cmd.Skip(3);
-        }
     }
 }

@@ -1,29 +1,16 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("MvIn")]
-    public class MultiviewWindowInputGetCommand : ICommand
+    [CommandName("MvIn", 8)]
+    public class MultiviewWindowInputGetCommand : SerializableCommandBase
     {
+        [Serializable(0), UInt8]
         public uint MultiviewIndex { get; set; }
+        [Serializable(1), UInt8Range(0, 9)]
         public uint WindowIndex { get; set; }
+        [Serializable(2), Enum16]
         public VideoSource Source { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8(MultiviewIndex);
-            cmd.AddUInt8(WindowIndex);
-            cmd.AddUInt16((uint)Source);
-            cmd.AddByte(0x00); // ??
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            MultiviewIndex = cmd.GetUInt8();
-            WindowIndex = cmd.GetUInt8();
-            Source = (VideoSource)cmd.GetUInt16();
-            cmd.Skip(4);
-        }
     }
 }

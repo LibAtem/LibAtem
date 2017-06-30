@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace LibAtem.Serialization
 {
-    public class UInt8Attribute : SerializableAttributeBase
+    public class UInt8Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
         public override void Serialize(byte[] data, uint start, object val)
         {
@@ -19,9 +19,19 @@ namespace LibAtem.Serialization
         {
             return Equals(val1, val2);
         }
+
+        public virtual object GetRandom(Random random)
+        {
+            return (uint) random.Next(255);
+        }
+
+        public virtual bool IsValid(object obj)
+        {
+            return true;
+        }
     }
 
-    public class UInt8RangeAttribute : UInt8Attribute, IRandomGeneratorAttribute
+    public class UInt8RangeAttribute : UInt8Attribute
     {
         private readonly int _min;
         private readonly int _max;
@@ -32,18 +42,18 @@ namespace LibAtem.Serialization
             _max = max;
         }
 
-        public object GetRandom(Random random)
+        public override object GetRandom(Random random)
         {
             return (uint)random.Next(_min, _max);
         }
 
-        public bool IsValid(object obj)
+        public override bool IsValid(object obj)
         {
             return (uint)obj >= _min && (uint)obj <= _max;
         }
     }
 
-    public class UInt8DAttribute : UInt8Attribute, IRandomGeneratorAttribute
+    public class UInt8DAttribute : UInt8Attribute
     {
         private readonly double _scale;
         private readonly uint _scaledMin;
@@ -78,13 +88,13 @@ namespace LibAtem.Serialization
             return val;
         }
 
-        public object GetRandom(Random random)
+        public override object GetRandom(Random random)
         {
             uint range = _scaledMax - _scaledMin;
             return (random.NextDouble() * range + _scaledMin) / _scale;
         }
 
-        public bool IsValid(object obj)
+        public override bool IsValid(object obj)
         {
             return (double)obj >= _scaledMin && (double)obj <= _scaledMax;
         }

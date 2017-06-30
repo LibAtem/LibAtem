@@ -1,29 +1,18 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("MvPr")]
-    public class MultiviewPropertiesGetCommand : ICommand
+    [CommandName("MvPr", 4)]
+    public class MultiviewPropertiesGetCommand : SerializableCommandBase
     {
+        [Serializable(0), UInt8Range(0, 9)]
         public uint MultiviewIndex { get; set; }
+        [Serializable(1), Enum8]
         public MultiViewLayout Layout { get; set; }
+        [Serializable(2), Bool]
         public bool SafeAreaEnabled { get; set; }
+        [Serializable(3), Bool]
         public bool ProgramPreviewSwapped { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8(MultiviewIndex);
-            cmd.AddUInt8((uint)Layout);
-            cmd.AddBoolArray(SafeAreaEnabled);
-            cmd.AddBoolArray(ProgramPreviewSwapped);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            MultiviewIndex = cmd.GetUInt8();
-            Layout = (MultiViewLayout)cmd.GetUInt8();
-            SafeAreaEnabled = cmd.GetBoolArray()[0];
-            ProgramPreviewSwapped = cmd.GetBoolArray()[0];
-        }
     }
 }
