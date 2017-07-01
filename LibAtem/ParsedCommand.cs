@@ -29,8 +29,9 @@ namespace LibAtem
 
         public uint GetUInt16()
         {
-            return (uint)((Body[pos++] << 8) + Body[pos++]);
+            return (uint) ((Body[pos++] << 8) + Body[pos++]);
         }
+
         public uint GetUInt16(uint min, uint max)
         {
             uint val = GetUInt16();
@@ -55,7 +56,7 @@ namespace LibAtem
         {
             uint index = pos;
             pos += 2;
-            return BitConverter.ToInt16(new[] { Body[index + 1], Body[index] }, 0);
+            return BitConverter.ToInt16(new[] {Body[index + 1], Body[index]}, 0);
         }
 
         public int GetInt16(int min, int max)
@@ -75,7 +76,7 @@ namespace LibAtem
         {
             uint index = pos;
             pos += 4;
-            return BitConverter.ToInt16(new[] { Body[index + 3], Body[index + 2], Body[index + 1], Body[index] }, 0);
+            return BitConverter.ToInt16(new[] {Body[index + 3], Body[index + 2], Body[index + 1], Body[index]}, 0);
         }
 
         public int GetInt32(int min, int max)
@@ -100,6 +101,7 @@ namespace LibAtem
         {
             return Body[pos++];
         }
+
         public uint GetUInt8(uint min, uint max)
         {
             uint val = GetUInt8();
@@ -136,8 +138,8 @@ namespace LibAtem
 
         public void SkipToNearestPowerOfTwo()
         {
-            int targetLen = MathExt.NextPowerOf2(Body.Length);
-            Skip((uint) (targetLen - Body.Length));
+            int targetLen = MathExt.NextPowerOf2((int) pos);
+            Skip((uint) (targetLen - pos));
         }
 
         public string GetString(uint length)
