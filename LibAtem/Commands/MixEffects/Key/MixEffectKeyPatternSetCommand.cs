@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKPt")]
-    public class MixEffectKeyPatternSetCommand : ICommand
+    [CommandName("CKPt", 16)]
+    public class MixEffectKeyPatternSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -18,45 +19,25 @@ namespace LibAtem.Commands.MixEffects.Key
             Inverse = 1 << 6,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [Serializable(2), UInt8]
         public uint KeyerIndex { get; set; }
+        [Serializable(3), Enum8]
         public Pattern Pattern { get; set; }
+        [Serializable(4), UInt16D(100, 0, 10000)]
         public double Size { get; set; }
+        [Serializable(6), UInt16D(100, 0, 10000)]
         public double Symmetry { get; set; }
+        [Serializable(8), UInt16D(100, 0, 10000)]
         public double Softness { get; set; }
+        [Serializable(10), UInt16D(10000, 0, 10000)]
         public double XPosition { get; set; }
+        [Serializable(12), UInt16D(10000, 0, 10000)]
         public double YPosition { get; set; }
+        [Serializable(14), Bool]
         public bool Inverse { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.AddUInt8((int) MixEffectIndex);
-            cmd.AddUInt8(KeyerIndex);
-            cmd.AddUInt8((int) Pattern);
-            cmd.AddUInt16(100, Size);
-            cmd.AddUInt16(100, Symmetry);
-            cmd.AddUInt16(100, Softness);
-            cmd.AddUInt16(10000, XPosition);
-            cmd.AddUInt16(10000, YPosition);
-            cmd.AddBoolArray(Inverse);
-            cmd.Pad();
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            MixEffectIndex = (MixEffectBlockId) cmd.GetUInt8();
-            KeyerIndex = cmd.GetUInt8();
-            Pattern = (Pattern) cmd.GetUInt8();
-            Size = cmd.GetUInt16(0, 10000) / 100d;
-            Symmetry = cmd.GetUInt16(0, 10000) / 100d;
-            Softness = cmd.GetUInt16(0, 10000) / 100d;
-            XPosition = cmd.GetUInt16(0, 10000) / 10000d;
-            YPosition = cmd.GetUInt16(0, 10000) / 10000d;
-            Inverse = cmd.GetBoolArray()[0];
-            cmd.Skip();
-        }
     }
 }

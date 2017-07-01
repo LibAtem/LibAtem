@@ -1,25 +1,14 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("CPvI")]
-    public class PreviewInputSetCommand : ICommand
+    [CommandName("CPvI", 4)]
+    public class PreviewInputSetCommand : SerializableCommandBase
     {
-        public MixEffectBlockId Index {get; set; }
+        [Serializable(0), Enum8]
+        public MixEffectBlockId Index { get; set; }
+        [Serializable(2), Enum16]
         public VideoSource Source { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.Pad();
-            cmd.AddUInt16((int)Source);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (MixEffectBlockId) cmd.GetUInt8();
-            cmd.Skip();
-            Source = (VideoSource) cmd.GetUInt16();
-        }
     }
 }

@@ -1,33 +1,18 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TrPs")]
-    public class TransitionPositionGetCommand : ICommand
+    [CommandName("TrPs", 8)]
+    public class TransitionPositionGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serializable(1), Bool]
         public bool InTransition { get; set; }
+        [Serializable(2), UInt8Range(0, 250)]
         public uint RemainingFrames { get; set; }
+        [Serializable(4), UInt16]
         public uint HandlePosition { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.AddBoolArray(InTransition);
-            cmd.AddUInt8(RemainingFrames);
-            cmd.Pad();
-            cmd.AddUInt16(HandlePosition);
-            cmd.AddByte(0x13, 0x01); // TODO - unknown
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (MixEffectBlockId)cmd.GetUInt8();
-            InTransition = cmd.GetBoolArray()[0];
-            RemainingFrames = cmd.GetUInt8();
-            cmd.Skip();
-            HandlePosition = cmd.GetUInt16();
-            cmd.Skip(2);
-        }
     }
 }

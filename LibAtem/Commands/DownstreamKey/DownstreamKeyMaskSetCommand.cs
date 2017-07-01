@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsM")]
-    public class DownstreamKeyMaskSetCommand : ICommand
+    [CommandName("CDsM", 12)]
+    public class DownstreamKeyMaskSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -16,40 +17,19 @@ namespace LibAtem.Commands.DownstreamKey
             Right = 1 << 4,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), Enum8]
         public DownstreamKeyId Index { get; set; }
+        [Serializable(2), Bool]
         public bool Enabled { get; set; }
+        [Serializable(4), Int16D(1000, -9000, 9000)]
         public double Top { get; set; }
+        [Serializable(6), Int16D(1000, -9000, 9000)]
         public double Bottom { get; set; }
+        [Serializable(8), Int16D(1000, -16000, 16000)]
         public double Left { get; set; }
+        [Serializable(10), Int16D(1000, -16000, 16000)]
         public double Right { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Mask);
-            cmd.AddUInt8((int)Index);
-
-            cmd.AddBoolArray(Enabled);
-            cmd.Pad();
-
-            cmd.AddInt16(1000, Top);
-            cmd.AddInt16(1000, Bottom);
-            cmd.AddInt16(1000, Left);
-            cmd.AddInt16(1000, Right);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags)cmd.GetUInt8();
-            Index = (DownstreamKeyId)cmd.GetUInt8();
-
-            Enabled = cmd.GetBoolArray()[0];
-            cmd.Skip();
-
-            Top = cmd.GetInt16(-9000, 9000) / 1000d;
-            Bottom = cmd.GetInt16(-9000, 9000) / 1000d;
-            Left = cmd.GetInt16(-16000, 16000) / 1000d;
-            Right = cmd.GetInt16(-16000, 16000) / 1000d;
-        }
     }
 }

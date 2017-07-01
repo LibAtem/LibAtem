@@ -1,30 +1,16 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("DskB")]
-    public class DownstreamKeySourceGetCommand : ICommand
+    [CommandName("DskB", 8)]
+    public class DownstreamKeySourceGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public DownstreamKeyId Index { get; set; }
+        [Serializable(2), Enum16]
         public VideoSource FillSource { get; set; }
+        [Serializable(4), Enum16]
         public VideoSource CutSource { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.Pad();
-            cmd.AddUInt16((uint)FillSource);
-            cmd.AddUInt16((uint)CutSource);
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (DownstreamKeyId)cmd.GetUInt8();
-            cmd.Skip();
-            FillSource = (VideoSource)cmd.GetUInt16();
-            CutSource = (VideoSource)cmd.GetUInt16();
-            cmd.Skip(2);
-        }
     }
 }

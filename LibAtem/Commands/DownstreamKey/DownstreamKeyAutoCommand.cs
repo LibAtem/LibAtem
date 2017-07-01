@@ -1,22 +1,12 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("DDsA")]
-    public class DownstreamKeyAutoCommand : ICommand
+    [CommandName("DDsA", 4)]
+    public class DownstreamKeyAutoCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public DownstreamKeyId Index { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (DownstreamKeyId)cmd.GetUInt8();
-            cmd.Skip(3);
-        }
     }
 }

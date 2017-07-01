@@ -1,25 +1,15 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TrPr")]
-    public class TransitionPreviewGetCommand : ICommand
+    [CommandName("TrPr", 4)]
+    public class TransitionPreviewGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serializable(1), Bool]
         public bool PreviewTransition { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.AddBoolArray(PreviewTransition);
-            cmd.AddByte(0x0a, 0x0a);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (MixEffectBlockId)cmd.GetUInt8();
-            PreviewTransition = cmd.GetBoolArray()[0];
-            cmd.Skip(2);
-        }
+        
     }
 }

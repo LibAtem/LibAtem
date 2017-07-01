@@ -1,33 +1,20 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("RCPS")]
-    public class MediaPlayerStatusCommand : ICommand
+    [CommandName("RCPS", 8)]
+    public class MediaPlayerStatusCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public MediaPlayerId Index { get; set; }
+        [Serializable(1), Bool]
         public bool Playing { get; set; }
+        [Serializable(2), Bool]
         public bool Loop { get; set; }
+        [Serializable(3), Bool]
         public bool AtBeginning { get; set; }
+        [Serializable(4), UInt16]
         public uint ClipFrame { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.AddBoolArray(Playing);
-            cmd.AddBoolArray(Loop);
-            cmd.AddBoolArray(AtBeginning);
-            cmd.AddUInt16(ClipFrame);
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (MediaPlayerId)cmd.GetUInt8();
-            Playing = cmd.GetBoolArray()[0];
-            Loop = cmd.GetBoolArray()[0];
-            AtBeginning = cmd.GetBoolArray()[0];
-            ClipFrame = cmd.GetUInt16();
-        }
     }
 }

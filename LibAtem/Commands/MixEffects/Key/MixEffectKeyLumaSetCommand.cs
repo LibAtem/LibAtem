@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKLm")]
-    public class MixEffectKeyLumaSetCommand : ICommand
+    [CommandName("CKLm", 12)]
+    public class MixEffectKeyLumaSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -15,36 +16,19 @@ namespace LibAtem.Commands.MixEffects.Key
             Invert = 1 << 3,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [Serializable(2), UInt8]
         public uint KeyerIndex { get; set; }
+        [Serializable(3), Bool]
         public bool PreMultiplied { get; set; }
+        [Serializable(4), UInt16D(10, 0, 1000)]
         public double Clip { get; set; }
+        [Serializable(6), UInt16D(10, 0, 1000)]
         public double Gain { get; set; }
+        [Serializable(8), Bool]
         public bool Invert { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.AddUInt8((int)MixEffectIndex);
-            cmd.AddUInt8(KeyerIndex);
-            cmd.AddBoolArray(PreMultiplied);
-            cmd.AddUInt16(1000, Clip);
-            cmd.AddUInt16(1000, Gain);
-            cmd.AddBoolArray(Invert);
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            MixEffectIndex = (MixEffectBlockId)cmd.GetUInt8();
-            KeyerIndex = cmd.GetUInt8();
-            PreMultiplied = cmd.GetBoolArray()[0];
-            Clip = cmd.GetUInt16(0, 1000) / 1000d;
-            Gain = cmd.GetUInt16(0, 1000) / 1000d;
-            Invert = cmd.GetBoolArray()[0];
-            cmd.Skip(3);
-        }
     }
 }

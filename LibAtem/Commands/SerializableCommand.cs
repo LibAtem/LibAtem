@@ -15,7 +15,7 @@ namespace LibAtem.Commands
 
         private string GetName()
         {
-            return CommandNameAttribute.GetName(GetType());
+            return GetType().Name;
         }
 
         private IEnumerable<PropertyInfo> GetProperties()

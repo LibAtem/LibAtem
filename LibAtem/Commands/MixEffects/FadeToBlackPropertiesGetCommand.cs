@@ -1,25 +1,14 @@
 ﻿using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("FtbP")]
-    public class FadeToBlackPropertiesGetCommand : ICommand
+    [CommandName("FtbP", 4)]
+    public class FadeToBlackPropertiesGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serializable(1), UInt8Range(0, 250)]
         public uint Rate { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.AddUInt8((uint)Rate);
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (MixEffectBlockId)cmd.GetUInt8();
-            Rate = cmd.GetUInt8(1, 250);
-            cmd.Skip(2);
-        }
     }
 }

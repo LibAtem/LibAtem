@@ -1,26 +1,16 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TDpP")]
-    public class TransitionDipGetCommand : ICommand
+    [CommandName("TDpP", 4)]
+    public class TransitionDipGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serializable(1), UInt8]
         public uint Rate { get; set; }
+        [Serializable(2), Enum16]
         public VideoSource Input { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Index);
-            cmd.AddUInt8(Rate);
-            cmd.AddUInt16((int) Input);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (MixEffectBlockId) cmd.GetUInt8();
-            Rate = cmd.GetUInt8(0, 250);
-            Input = (VideoSource) cmd.GetUInt16();
-        }
     }
 }

@@ -1,25 +1,14 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsT")]
-    public class DownstreamKeyTieSetCommand : ICommand
+    [CommandName("CDsT", 4)]
+    public class DownstreamKeyTieSetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public DownstreamKeyId Index { get; set; }
+        [Serializable(1), Bool]
         public bool Tie { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.AddBoolArray(Tie);
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (DownstreamKeyId)cmd.GetUInt8();
-            Tie = cmd.GetBoolArray()[0];
-            cmd.Skip(2);
-        }
     }
 }

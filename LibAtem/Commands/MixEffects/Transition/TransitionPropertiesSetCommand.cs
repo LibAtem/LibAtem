@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTTp")]
-    public class TransitionPropertiesSetCommand : ICommand
+    [CommandName("CTTp", 4)]
+    public class TransitionPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -13,25 +14,13 @@ namespace LibAtem.Commands.MixEffects.Transition
             Selection = 1 << 1,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serializable(2), Enum8]
         public TStyle Style { get; set; }
+        [Serializable(3), Enum8]
         public TransitionLayer Selection { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.AddUInt8((int) Index);
-            cmd.AddUInt8((int) Style);
-            cmd.AddUInt8((int) Selection);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            Index = (MixEffectBlockId) cmd.GetUInt8();
-            Style = (TStyle) cmd.GetUInt8();
-            Selection = (TransitionLayer) cmd.GetUInt8();
-        }
     }
 }

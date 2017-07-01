@@ -1,26 +1,16 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKeC")]
-    public class MixEffectKeyCutSourceSetCommand : ICommand
+    [CommandName("CKeC", 4)]
+    public class MixEffectKeyCutSourceSetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [Serializable(1), UInt8]
         public uint KeyerIndex { get; set; }
+        [Serializable(2), Enum16]
         public VideoSource CutSource { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)MixEffectIndex);
-            cmd.AddUInt8(KeyerIndex);
-            cmd.AddUInt16((int)CutSource);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            MixEffectIndex = (MixEffectBlockId)cmd.GetUInt8();
-            KeyerIndex = cmd.GetUInt8();
-            CutSource = (VideoSource)cmd.GetUInt16();
-        }
     }
 }

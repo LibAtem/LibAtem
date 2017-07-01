@@ -1,23 +1,13 @@
+using LibAtem.Serialization;
+
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_AMC")]
-    public class AudioMixerConfigCommand : ICommand
+    [CommandName("_AMC", 4)]
+    public class AudioMixerConfigCommand : SerializableCommandBase
     {
+        [Serializable(0), UInt8]
         public uint Inputs { get; set; }
+        [Serializable(1), Bool]
         public bool HasMonitor { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8(Inputs);
-            cmd.AddBoolArray(HasMonitor); // TODO - verify this is the correct name
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Inputs = cmd.GetUInt8();
-            HasMonitor = cmd.GetBoolArray()[0];
-            cmd.Skip(2);
-        }
     }
 }

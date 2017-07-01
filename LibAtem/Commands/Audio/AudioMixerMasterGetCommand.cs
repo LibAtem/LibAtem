@@ -1,28 +1,23 @@
+using LibAtem.Serialization;
+
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("AMMO")]
-    public class AudioMixerMasterGetCommand : ICommand
+    [CommandName("AMMO", 8)]
+    public class AudioMixerMasterGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Decibels]
         public double Gain { get; set; }
+        [Serializable(2), Int16D(200, -10000, 10000)]
         public double Balance { get; set; }
+        [Serializable(6), Bool]
         public bool ProgramOutFollowFadeToBlack { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public override void Serialize(CommandBuilder cmd)
         {
-            cmd.AddDecibels(Gain);
-            cmd.AddInt16(200, Balance);
-            cmd.AddByte(0x00, 0xe8); // ??
-            cmd.AddBoolArray(ProgramOutFollowFadeToBlack);
-            cmd.AddByte(0xf4); // Pad?
-        }
+            base.Serialize(cmd);
 
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Gain = cmd.GetDecibels();
-            Balance = cmd.GetInt16(-10000, 10000) / 200d;
-            cmd.Skip(2);
-            ProgramOutFollowFadeToBlack = cmd.GetBoolArray()[0];
-            cmd.Skip();
+            cmd.Set(4, 0x00, 0xe8);
+            cmd.Set(7, 0xf4); // Pad?
         }
     }
 }

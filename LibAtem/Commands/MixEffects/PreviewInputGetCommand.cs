@@ -3,12 +3,18 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("PrgI", 4)]
-    public class ProgramInputGetCommand : SerializableCommandBase
+    [CommandName("PrvI", 8)]
+    public class PreviewInputGetCommand : SerializableCommandBase
     {
         [Serializable(0), Enum8]
         public MixEffectBlockId Index { get; set; }
         [Serializable(2), Enum16]
         public VideoSource Source { get; set; }
+
+        public override void Serialize(CommandBuilder cmd)
+        {
+            base.Serialize(cmd);
+            cmd.Set(4, 0x00, 0x0a, 0x13, 0x01); // TODO
+        }
     }
 }

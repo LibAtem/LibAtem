@@ -1,22 +1,12 @@
 ﻿using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("DAut")]
-    public class MixEffectAutoCommand : ICommand
+    [CommandName("DAut", 4)]
+    public class MixEffectAutoCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public MixEffectBlockId Index { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (MixEffectBlockId)cmd.GetUInt8();
-            cmd.Skip(3);
-        }
     }
 }

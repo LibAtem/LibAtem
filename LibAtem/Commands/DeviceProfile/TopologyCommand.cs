@@ -1,59 +1,41 @@
-﻿namespace LibAtem.Commands.DeviceProfile
+﻿using LibAtem.Serialization;
+
+namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_top")]
-    public class TopologyCommand : ICommand
+    [CommandName("_top", 20)]
+    public class TopologyCommand : SerializableCommandBase
     {
+        [Serializable(0), UInt8]
         public uint MixEffectBlocks { get; set; }
+        [Serializable(1), UInt8]
         public uint VideoSources { get; set; }
+        [Serializable(2), UInt8]
         public uint ColorGenerators { get; set; }
+        [Serializable(3), UInt8]
         public uint Auxiliaries { get; set; }
+        [Serializable(5), UInt8]
         public uint MediaPlayers { get; set; }
+        [Serializable(6), UInt8]
         public uint SerialPort { get; set; }
+        [Serializable(7), UInt8]
         public uint HyperDecks { get; set; }
+        [Serializable(8), UInt8]
         public uint DVE { get; set; }
+        [Serializable(9), UInt8]
         public uint Stingers { get; set; }
+        [Serializable(10), UInt8]
         public uint SuperSource { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public override void Serialize(CommandBuilder cmd)
         {
-            cmd.AddUInt8(MixEffectBlocks);
-            cmd.AddUInt8(VideoSources);
-            cmd.AddUInt8(ColorGenerators);
-            cmd.AddUInt8(Auxiliaries);
-            cmd.AddByte(0x00); // Constants
-            cmd.AddUInt8(MediaPlayers);
-            cmd.AddUInt8(SerialPort);
-            cmd.AddUInt8(HyperDecks);
-            cmd.AddUInt8(DVE);
-            cmd.AddUInt8(Stingers);
-            cmd.AddUInt8(SuperSource);
-            cmd.AddByte(0x01, 0x00, 0x01, 0x01); // Constants
-            cmd.AddUInt8(0); // ???
-            cmd.AddUInt8(0); // ???
-            cmd.AddByte(0x01); // Constants
-            cmd.Pad(2);
-        }
+            base.Serialize(cmd);
 
-        public void Deserialize(ParsedCommand cmd)
-        {
-            MixEffectBlocks = cmd.GetUInt8();
-            VideoSources = cmd.GetUInt8();
-            ColorGenerators = cmd.GetUInt8();
-            Auxiliaries = cmd.GetUInt8();
+            cmd.Set(4, 0x00); // Constants
+            cmd.Set(11, 0x01, 0x00, 0x01, 0x01); // Constants
 
-            cmd.Skip();
-
-            MediaPlayers = cmd.GetUInt8();
-            SerialPort = cmd.GetUInt8();
-            HyperDecks = cmd.GetUInt8();
-            DVE = cmd.GetUInt8();
-            Stingers = cmd.GetUInt8();
-            SuperSource = cmd.GetUInt8();
-
-            cmd.Skip(4);
-            cmd.GetUInt8(); // ???
-            cmd.GetUInt8(); // ???
-            cmd.Skip(2);
+            cmd.Set(15, 0x00); // ?
+            cmd.Set(16, 0x00); // ?
+            cmd.Set(17, 0x01); // Constants
         }
     }
 }

@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTWp")]
-    public class TransitionWipeSetCommand : ICommand
+    [CommandName("CTWp", 20)]
+    public class TransitionWipeSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -19,54 +20,31 @@ namespace LibAtem.Commands.MixEffects.Transition
             YPosition = 1 << 7,
             ReverseDirection = 1 << 8,
             FlipFlop = 1 << 9,
-
         }
 
+        [Serializable(0), Enum16]
         public MaskFlags Mask { get; set; }
+        [Serializable(2), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serializable(3), UInt8Range(1, 250)]
         public uint Rate { get; set; }
+        [Serializable(4), Enum8]
         public Pattern Pattern { get; set; }
+        [Serializable(6), UInt16D(100, 0, 10000)]
         public double BorderWidth { get; set; }
+        [Serializable(8), Enum16]
         public VideoSource BorderInput { get; set; }
+        [Serializable(10), UInt16D(100, 0, 10000)]
         public double Symmetry { get; set; }
+        [Serializable(12), UInt16D(100, 0, 10000)]
         public double BorderSoftness { get; set; }
+        [Serializable(14), UInt16D(10000, 0, 10000)]
         public double XPosition { get; set; }
+        [Serializable(16), UInt16D(10000, 0, 10000)]
         public double YPosition { get; set; }
+        [Serializable(18), Bool]
         public bool ReverseDirection { get; set; }
+        [Serializable(19), Bool]
         public bool FlipFlop { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.AddUInt8((int) Index);
-            cmd.AddUInt8(Rate);
-            cmd.AddUInt8((int) Pattern);
-            cmd.AddUInt16(100, BorderWidth);
-            cmd.AddUInt16((int) BorderInput);
-            cmd.AddUInt16(100, Symmetry);
-            cmd.AddUInt16(100, BorderSoftness);
-            cmd.AddUInt16(10000, XPosition);
-            cmd.AddUInt16(10000, YPosition);
-            cmd.AddBoolArray(ReverseDirection);
-            cmd.AddBoolArray(FlipFlop);
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            Index = (MixEffectBlockId) cmd.GetUInt8();
-            Rate = cmd.GetUInt8(1, 250);
-            Pattern = (Pattern) cmd.GetUInt8();
-            BorderWidth = cmd.GetUInt16(0, 10000) / 100d;
-            BorderInput = (VideoSource)cmd.GetUInt16();
-            Symmetry = cmd.GetUInt16(0, 10000) / 100d;
-            BorderSoftness = cmd.GetUInt16(0, 10000) / 100d;
-            XPosition = cmd.GetUInt16(0, 10000) / 10000d;
-            YPosition = cmd.GetUInt16(0, 10000) / 10000d;
-            ReverseDirection = cmd.GetBoolArray()[0];
-            FlipFlop = cmd.GetBoolArray()[0];
-            cmd.Skip(2);
-        }
     }
 }

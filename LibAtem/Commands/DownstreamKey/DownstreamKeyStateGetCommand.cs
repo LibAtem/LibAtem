@@ -1,34 +1,20 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("DskS")]
-    public class DownstreamKeyStateGetCommand : ICommand
+    [CommandName("DskS", 8)]
+    public class DownstreamKeyStateGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public DownstreamKeyId Index { get; set; }
+        [Serializable(1), Bool]
         public bool OnAir { get; set; }
+        [Serializable(2), Bool]
         public bool InTransition { get; set; }
+        [Serializable(3), Bool]
         public bool IsAuto { get; set; }
+        [Serializable(4), UInt8Range(0, 250)]
         public uint RemainingFrames { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.AddBoolArray(OnAir);
-            cmd.AddBoolArray(InTransition); // In transition
-            cmd.AddBoolArray(IsAuto); // Is auto
-            cmd.AddUInt8(RemainingFrames); // Frames remaining
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (DownstreamKeyId) cmd.GetUInt8();
-            OnAir = cmd.GetBoolArray()[0];
-            InTransition = cmd.GetBoolArray()[0];
-            IsAuto = cmd.GetBoolArray()[0];
-            RemainingFrames = cmd.GetUInt8();
-            cmd.Skip(3);
-        }
     }
 }

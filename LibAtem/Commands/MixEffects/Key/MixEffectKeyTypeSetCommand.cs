@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKTp")]
-    public class MixEffectKeyTypeSetCommand : ICommand
+    [CommandName("CKTp", 8)]
+    public class MixEffectKeyTypeSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -13,30 +14,15 @@ namespace LibAtem.Commands.MixEffects.Key
             FlyEnabled = 1 << 1,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [Serializable(2), UInt8]
         public uint KeyerIndex { get; set; }
+        [Serializable(3), Enum8]
         public MixEffectKeyType KeyType { get; set; }
+        [Serializable(4), Bool]
         public bool FlyEnabled { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.AddUInt8((int) MixEffectIndex);
-            cmd.AddUInt8(KeyerIndex);
-            cmd.AddUInt8((int) KeyType);
-            cmd.AddBoolArray(FlyEnabled);
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            MixEffectIndex = (MixEffectBlockId) cmd.GetUInt8();
-            KeyerIndex = cmd.GetUInt8();
-            KeyType = (MixEffectKeyType) cmd.GetUInt8();
-            FlyEnabled = cmd.GetBoolArray()[0];
-            cmd.Skip(3);
-        }
     }
 }

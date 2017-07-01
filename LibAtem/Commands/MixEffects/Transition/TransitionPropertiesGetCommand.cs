@@ -1,34 +1,20 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TrSS")]
-    public class TransitionPropertiesGetCommand : ICommand
+    [CommandName("TrSS", 8)]
+    public class TransitionPropertiesGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serializable(1), Enum8]
         public TStyle Style { get; set; }
+        [Serializable(2), Enum8]
         public TransitionLayer Selection { get; set; }
+        [Serializable(3), Enum8]
         public TStyle NextStyle { get; set; }
+        [Serializable(4), Enum8]
         public TransitionLayer NextSelection { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Index);
-            cmd.AddUInt8((int) Style);
-            cmd.AddUInt8((int) Selection);
-            cmd.AddUInt8((int) NextStyle);
-            cmd.AddUInt8((int) NextSelection);
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (MixEffectBlockId)cmd.GetUInt8();
-            Style = (TStyle) cmd.GetUInt8();
-            Selection = (TransitionLayer) cmd.GetUInt8();
-            NextStyle = (TStyle) cmd.GetUInt8();
-            NextSelection = (TransitionLayer) cmd.GetUInt8();
-            cmd.Skip(3);
-        }
     }
 }

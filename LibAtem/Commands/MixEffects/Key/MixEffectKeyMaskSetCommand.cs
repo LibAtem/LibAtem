@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKMs")]
-    public class MixEffectKeyMaskSetCommand : ICommand
+    [CommandName("CKMs", 12)]
+    public class MixEffectKeyMaskSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -16,37 +17,21 @@ namespace LibAtem.Commands.MixEffects.Key
             MaskRight = 1 << 4,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [Serializable(2), UInt8]
         public uint KeyerIndex { get; set; }
+        [Serializable(3), Bool]
         public bool MaskEnabled { get; set; }
+        [Serializable(4), Int16D(1000, -9000, 9000)]
         public double MaskTop { get; set; }
+        [Serializable(6), Int16D(1000, -9000, 9000)]
         public double MaskBottom { get; set; }
+        [Serializable(8), Int16D(1000, -16000, 16000)]
         public double MaskLeft { get; set; }
+        [Serializable(10), Int16D(1000, -16000, 16000)]
         public double MaskRight { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.AddUInt8((int) MixEffectIndex);
-            cmd.AddUInt8(KeyerIndex);
-            cmd.AddBoolArray(MaskEnabled);
-            cmd.AddInt16(1000, MaskTop);
-            cmd.AddInt16(1000, MaskBottom);
-            cmd.AddInt16(1000, MaskLeft);
-            cmd.AddInt16(1000, MaskRight);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            MixEffectIndex = (MixEffectBlockId)cmd.GetUInt8();
-            KeyerIndex = cmd.GetUInt8();
-            MaskEnabled = cmd.GetBoolArray()[0];
-            MaskTop = cmd.GetInt16(-9000, 9000) / 1000d;
-            MaskBottom = cmd.GetInt16(-9000, 9000) / 1000d;
-            MaskLeft = cmd.GetInt16(-16000, 16000) / 1000d;
-            MaskRight = cmd.GetInt16(-16000, 16000) / 1000d;
-        }
     }
 }

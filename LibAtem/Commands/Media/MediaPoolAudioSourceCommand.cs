@@ -1,28 +1,15 @@
+using LibAtem.Serialization;
+
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPAS")]
-    public class MediaPoolAudioSourceCommand : ICommand
+    [CommandName("MPAS", 84)]
+    public class MediaPoolAudioSourceCommand : SerializableCommandBase
     {
+        [Serializable(0), UInt8]
         public uint Index { get; set; }
+        [Serializable(1), Bool]
         public bool IsUsed { get; set; }
+        [Serializable(18), String(16)]
         public string Name { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8(Index);
-            cmd.AddBoolArray(IsUsed);
-            cmd.Pad(16);
-            cmd.AddString(16, Name);
-            cmd.Pad(50); // TODO - is this more name?
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = cmd.GetUInt8();
-            IsUsed = cmd.GetBoolArray()[0];
-            cmd.Skip(16);
-            Name = cmd.GetString(16);
-            cmd.Skip(50);
-        }
     }
 }

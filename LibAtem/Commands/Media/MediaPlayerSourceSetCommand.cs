@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPSS")]
-    public class MediaPlayerSourceSetCommand : ICommand
+    [CommandName("MPSS", 8)]
+    public class MediaPlayerSourceSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -14,30 +15,15 @@ namespace LibAtem.Commands.Media
             ClipIndex = 1 << 2,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), Enum8]
         public MediaPlayerId Index { get; set; }
+        [Serializable(2), Enum8]
         public MediaPlayerSource SourceType { get; set; }
+        [Serializable(3), UInt8]
         public uint ClipIndex { get; set; }
+        [Serializable(4), UInt8]
         public uint StillIndex { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((uint) Mask);
-            cmd.AddUInt8((uint) Index);
-            cmd.AddUInt8((uint) SourceType);
-            cmd.AddUInt8(StillIndex);
-            cmd.AddUInt8(ClipIndex);
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            Index = (MediaPlayerId)cmd.GetUInt8();
-            SourceType = (MediaPlayerSource)cmd.GetUInt8();
-            StillIndex = cmd.GetUInt8();
-            ClipIndex = cmd.GetUInt8();
-            cmd.Skip(3);
-        }
     }
 }

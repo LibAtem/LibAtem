@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTDp")]
-    public class TransitionDipSetCommand : ICommand
+    [CommandName("CTDp", 8)]
+    public class TransitionDipSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -13,29 +14,13 @@ namespace LibAtem.Commands.MixEffects.Transition
             Input = 1 << 1,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serializable(2), UInt8Range(0, 250)]
         public uint Rate { get; set; }
+        [Serializable(4), Enum16]
         public VideoSource Input { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.AddUInt8((int) Index);
-            cmd.AddUInt8(Rate);
-            cmd.Pad();
-            cmd.AddUInt16((int) Input);
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            Index = (MixEffectBlockId) cmd.GetUInt8();
-            Rate = cmd.GetUInt8(0, 250);
-            cmd.Skip();
-            Input = (VideoSource) cmd.GetUInt16();
-            cmd.Skip(2);
-        }
     }
 }

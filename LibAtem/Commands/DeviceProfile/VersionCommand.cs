@@ -1,7 +1,9 @@
-﻿namespace LibAtem.Commands.DeviceProfile
+﻿using LibAtem.Serialization;
+
+namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_ver")]
-    public class VersionCommand : ICommand
+    [CommandName("_ver", 4)]
+    public class VersionCommand : SerializableCommandBase
     {
         public VersionCommand()
         {
@@ -9,19 +11,9 @@
             ApiMinor = Version.ApiMinor;
         }
 
-        public uint ApiMajor { get; private set; }
-        public uint ApiMinor { get; private set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt16(ApiMajor);
-            cmd.AddUInt16(ApiMinor);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            ApiMajor = cmd.GetUInt16();
-            ApiMinor = cmd.GetUInt16();
-        }
+        [Serializable(0), UInt16]
+        public uint ApiMajor { get; protected set; }
+        [Serializable(2), UInt16]
+        public uint ApiMinor { get; protected set; }
     }
 }

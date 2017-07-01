@@ -1,27 +1,21 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TMxP")]
-    public class TransitionMixGetCommand : ICommand
+    [CommandName("TMxP", 4)]
+    public class TransitionMixGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serializable(1), UInt8]
         public uint Rate { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public override void Serialize(CommandBuilder cmd)
         {
-            cmd.AddUInt8((int)Index);
-            cmd.AddUInt8(Rate);
-            // TODO - what are these values?
-            cmd.AddByte(0x46);
-            cmd.AddByte(0x6f);
-        }
+            base.Serialize(cmd);
 
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (MixEffectBlockId)cmd.GetUInt8();
-            Rate = cmd.GetUInt8();
-            cmd.Skip(2);
+            cmd.Set(2, 0x46, 0x6f); // TODO are these pad or real?
         }
     }
 }

@@ -1,10 +1,11 @@
 using System;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsG")]
-    public class DownstreamKeyGeneralSetCommand : ICommand
+    [CommandName("CDsG", 12)]
+    public class DownstreamKeyGeneralSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -15,41 +16,17 @@ namespace LibAtem.Commands.DownstreamKey
             Invert = 1 << 3,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(1), Enum8]
         public DownstreamKeyId Index { get; set; }
+        [Serializable(2), Bool]
         public bool PreMultiply { get; set; }
+        [Serializable(4), UInt16D(10, 0, 1000)]
         public double Clip { get; set; }
+        [Serializable(6), UInt16D(10, 0, 1000)]
         public double Gain { get; set; }
+        [Serializable(8), Bool]
         public bool Invert { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.AddUInt8((int) Index);
-
-            cmd.AddBoolArray(PreMultiply);
-            cmd.Pad();
-
-            cmd.AddUInt16(10, Clip);
-            cmd.AddUInt16(10, Gain);
-            cmd.AddBoolArray(Invert);
-
-            cmd.Pad(3);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            Index = (DownstreamKeyId)cmd.GetUInt8();
-
-            PreMultiply = cmd.GetBoolArray()[0];
-            cmd.Skip();
-
-            Clip = cmd.GetUInt16(0, 1000) / 10d;
-            Gain = cmd.GetUInt16(0, 1000) / 10d;
-            Invert = cmd.GetBoolArray()[0];
-
-            cmd.Skip(3);
-        }
     }
 }

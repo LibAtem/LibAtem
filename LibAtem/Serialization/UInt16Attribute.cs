@@ -24,7 +24,7 @@ namespace LibAtem.Serialization
 
         public virtual object GetRandom(Random random)
         {
-            return random.Next(65535);
+            return (uint) random.Next(65535);
         }
 
         public virtual bool IsValid(object obj)

@@ -1,25 +1,14 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsR")]
-    public class DownstreamKeyRateSetCommand : ICommand
+    [CommandName("CDsR", 4)]
+    public class DownstreamKeyRateSetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum8]
         public DownstreamKeyId Index { get; set; }
+        [Serializable(1), UInt8Range(0, 250)]
         public uint Rate { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int)Index);
-            cmd.AddUInt8(Rate);
-            cmd.Pad(2);
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Index = (DownstreamKeyId)cmd.GetUInt8();
-            Rate = cmd.GetUInt8(0, 250);
-            cmd.Skip(2);
-        }
     }
 }
