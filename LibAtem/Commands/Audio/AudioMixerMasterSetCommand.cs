@@ -1,9 +1,10 @@
 using System;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("CAMM")]
-    public class AudioMixerMasterSetCommand : ICommand
+    [CommandName("CAMM", 8)]
+    public class AudioMixerMasterSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -13,29 +14,13 @@ namespace LibAtem.Commands.Audio
             ProgramOutFollowFadeToBlack = 1 << 2,
         }
 
+        [Serializable(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [Serializable(2), Decibels]
         public double Gain { get; set; }
+        [Serializable(4), Int16D(200, -10000, 10000)]
         public double Balance { get; set; }
+        [Serializable(6), Bool]
         public bool ProgramOutFollowFadeToBlack { get; set; }
-
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt8((int) Mask);
-            cmd.Pad();
-            cmd.AddDecibels(Gain);
-            cmd.AddInt16(200, Balance);
-            cmd.AddBoolArray(ProgramOutFollowFadeToBlack);
-            cmd.Pad();
-        }
-
-        public void Deserialize(ParsedCommand cmd)
-        {
-            Mask = (MaskFlags) cmd.GetUInt8();
-            cmd.Skip();
-            Balance = cmd.GetInt16(-10000, 10000) / 200d;
-            Gain = cmd.GetDecibels();
-            ProgramOutFollowFadeToBlack = cmd.GetBoolArray()[0];
-            cmd.Skip();
-        }
     }
 }

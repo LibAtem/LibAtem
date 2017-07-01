@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace LibAtem.Serialization
 {
-    public class UInt16Attribute : SerializableAttributeBase
+    public class UInt16Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
         public override void Serialize(byte[] data, uint start, object val)
         {
@@ -21,9 +21,53 @@ namespace LibAtem.Serialization
         {
             return Equals(val1, val2);
         }
+
+        public virtual object GetRandom(Random random)
+        {
+            return random.Next(65535);
+        }
+
+        public virtual bool IsValid(object obj)
+        {
+            return (uint) obj <= 65535;
+        }
     }
 
-    public class UInt16DAttribute : UInt16Attribute, IRandomGeneratorAttribute
+    public class UInt16RangeAttribute : UInt16Attribute
+    {
+        private readonly int _min;
+        private readonly int _max;
+
+        public UInt16RangeAttribute(int min, int max)
+        {
+            _min = min;
+            _max = max;
+        }
+
+        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        {
+            uint val = (uint)base.Deserialize(data, start, prop);
+
+            if (val < _min)
+                return _min;
+            if (val > _max)
+                return _max;
+
+            return val;
+        }
+
+        public override object GetRandom(Random random)
+        {
+            return (uint)random.Next(_min, _max);
+        }
+
+        public override bool IsValid(object obj)
+        {
+            return (uint)obj >= _min && (uint)obj <= _max;
+        }
+    }
+
+    public class UInt16DAttribute : UInt16Attribute
     {
         private readonly double _scale;
         private readonly uint _scaledMin;
@@ -58,13 +102,13 @@ namespace LibAtem.Serialization
             return val;
         }
 
-        public object GetRandom(Random random)
+        public override object GetRandom(Random random)
         {
             uint range = _scaledMax - _scaledMin;
             return (random.NextDouble() * range + _scaledMin) / _scale;
         }
 
-        public bool IsValid(object obj)
+        public override bool IsValid(object obj)
         {
             return (double) obj >= _scaledMin && (double) obj <= _scaledMax;
         }

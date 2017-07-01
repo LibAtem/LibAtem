@@ -3,6 +3,10 @@ using System.Reflection;
 
 namespace LibAtem.Serialization
 {
+    public class NonSerializedAttribute : Attribute
+    {
+    }
+
     public class SerializableAttribute : Attribute
     {
         public uint StartByte { get; }

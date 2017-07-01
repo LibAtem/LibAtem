@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using LibAtem.Serialization;
 
@@ -16,15 +18,22 @@ namespace LibAtem.Commands
             return CommandNameAttribute.GetName(GetType());
         }
 
-        public void Serialize(CommandBuilder cmd)
+        private IEnumerable<PropertyInfo> GetProperties()
+        {
+            return GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .Where(prop => prop.GetCustomAttribute<NonSerializedAttribute>() == null);
+        }
+
+        public virtual void Serialize(CommandBuilder cmd)
         {
             int length = GetLength();
             if (length < 0)
-                throw new Exception("Cannot auto serialize without a defined length");
+                throw new SerializationException(GetName(), "Cannot auto serialize without a defined length");
 
             var res = new byte[length];
-            foreach (PropertyInfo prop in GetType().GetProperties())
+            foreach (PropertyInfo prop in GetProperties())
             {
+
                 SerializableAttribute attr = prop.GetCustomAttribute<SerializableAttribute>();
                 if (attr == null) // This means the property shouldnt be serialized
                     continue;
@@ -45,7 +54,7 @@ namespace LibAtem.Commands
             if (length != cmd.BodyLength)
                 throw new Exception("Auto deserialze length mismatch");
 
-            foreach (PropertyInfo prop in GetType().GetProperties())
+            foreach (PropertyInfo prop in GetProperties())
             {
                 // If the field is readonly, then ignore
                 if (!prop.CanWrite)

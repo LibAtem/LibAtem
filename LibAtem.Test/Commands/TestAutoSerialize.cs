@@ -11,9 +11,6 @@ namespace LibAtem.Test.Commands
 {
     public class TestAutoSerialize
     {
-        private static readonly Type[] SkipTypes =
-        {
-        };
 
 //        [Fact]
 //        public void TestCommandSerialization()

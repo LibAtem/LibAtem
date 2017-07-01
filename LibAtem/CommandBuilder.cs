@@ -25,6 +25,12 @@ namespace LibAtem
             this.b2 = b2;
         }
 
+        public void Set(int pos, params byte[] b)
+        {
+            for (int i = 0; i < b.Length; i++)
+                _data[pos+i] = b[i];
+        }
+
         public void AddUInt8(int val)
         {
             AddByte(BitConverter.GetBytes(val)[0]);

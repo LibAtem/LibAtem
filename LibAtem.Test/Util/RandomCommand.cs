@@ -19,10 +19,13 @@ namespace LibAtem.Test.Util
         public static ICommand Create(Type t)
         {
             ICommand cmd = (ICommand) Activator.CreateInstance(t);
-            foreach (PropertyInfo prop in t.GetProperties())
+            foreach (PropertyInfo prop in t.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 // If prop cannot be deserialized, then ignore
                 if (!prop.CanWrite)
+                    continue;
+
+                if (prop.GetCustomAttribute<NonSerializedAttribute>() != null)
                     continue;
 
                 // Generate random prop value

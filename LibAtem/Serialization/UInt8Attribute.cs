@@ -27,7 +27,7 @@ namespace LibAtem.Serialization
 
         public virtual bool IsValid(object obj)
         {
-            return true;
+            return (uint) obj <= 255;
         }
     }
 
@@ -40,6 +40,18 @@ namespace LibAtem.Serialization
         {
             _min = min;
             _max = max;
+        }
+
+        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        {
+            uint val = (uint)base.Deserialize(data, start, prop);
+
+            if (val < _min)
+                return _min;
+            if (val > _max)
+                return _max;
+
+            return val;
         }
 
         public override object GetRandom(Random random)

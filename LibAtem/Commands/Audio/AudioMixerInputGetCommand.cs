@@ -1,43 +1,36 @@
 ﻿using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("AMIP")]
-    public class AudioMixerInputGetCommand : ICommand
+    [CommandName("AMIP", 20)]
+    public class AudioMixerInputGetCommand : SerializableCommandBase
     {
+        [Serializable(0), Enum16]
         public AudioSource Index { get; set; }
+        [Serializable(2), Enum8]
         public AudioSourceType SourceType { get; set; }
+        [Serializable(7), Enum8]
         public AudioPortType PortType { get; set; }
+        [Serializable(8), Enum8]
         public AudioMixOption MixOption { get; set; }
+        [Serializable(10), Decibels]
         public double Gain { get; set; }
+        [Serializable(12), Int16D(200, -10000, 10000)]
         public double Balance { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddUInt16((int) Index);
-            cmd.AddUInt8((int) SourceType);
-            cmd.Pad();
-            cmd.AddUInt16((int) Index); // Needed to get the names
-            cmd.AddBoolArray(false);
-            cmd.AddUInt8((int) PortType);
-            cmd.AddUInt8((int) MixOption); // On/Off/AFV
-            cmd.AddByte(0x73); // ??
-            cmd.AddDecibels(Gain);
-            cmd.AddInt16(200, Balance);
-            cmd.Pad(6); // ??
-        }
+        [Serializable(4), Enum16]
+        protected AudioSource Index2 => Index;
+        [Serializable(6), Bool]
+        protected bool Unknown => false;
+        [Serializable(9), UInt8]
+        protected uint Unknown2 => 0x73;
 
-        public void Deserialize(ParsedCommand cmd)
+        public override void Serialize(CommandBuilder cmd)
         {
-            Index = (AudioSource) cmd.GetUInt16();
-            SourceType = (AudioSourceType) cmd.GetUInt8();
-            cmd.Skip(3);
-            PortType = (AudioPortType) cmd.GetUInt8();
-            MixOption = (AudioMixOption) cmd.GetUInt8();
-            cmd.Skip();
-            Gain = cmd.GetDecibels();
-            Balance = cmd.GetInt16(-10000, 10000) / 200d;
-            cmd.Skip(6);
+            base.Serialize(cmd);
+
+            // TODO - replace the above protected props with overrides in here
         }
     }
 }
