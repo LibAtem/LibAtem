@@ -6,7 +6,7 @@ build:
   before_script:
     - dotnet restore
   script:
-    - dotnet publish -o "$(pwd)/build" -c Release
+    - dotnet publish -o "$(pwd)/build" -c Release LibAtem
     - cd LibAtem.Test
     - dotnet test
   stage: build
