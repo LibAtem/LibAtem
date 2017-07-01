@@ -15,15 +15,15 @@ namespace LibAtem.Commands.Settings.Multiview
             ProgramPreviewSwapped = 1 << 2,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(1), UInt8]
+        [Serialize(1), UInt8]
         public uint MultiviewIndex { get; set; }
-        [Serializable(2), Enum8]
+        [Serialize(2), Enum8]
         public MultiViewLayout Layout { get; set; }
-        [Serializable(3), Bool]
+        [Serialize(3), Bool]
         public bool SafeAreaEnabled { get; set; }
-        [Serializable(4), Bool]
+        [Serialize(4), Bool]
         public bool ProgramPreviewSwapped { get; set; }
     }
 }

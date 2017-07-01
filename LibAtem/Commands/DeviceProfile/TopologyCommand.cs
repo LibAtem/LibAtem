@@ -5,25 +5,25 @@ namespace LibAtem.Commands.DeviceProfile
     [CommandName("_top", 20)]
     public class TopologyCommand : SerializableCommandBase
     {
-        [Serializable(0), UInt8]
+        [Serialize(0), UInt8]
         public uint MixEffectBlocks { get; set; }
-        [Serializable(1), UInt8]
+        [Serialize(1), UInt8]
         public uint VideoSources { get; set; }
-        [Serializable(2), UInt8]
+        [Serialize(2), UInt8]
         public uint ColorGenerators { get; set; }
-        [Serializable(3), UInt8]
+        [Serialize(3), UInt8]
         public uint Auxiliaries { get; set; }
-        [Serializable(5), UInt8]
+        [Serialize(5), UInt8]
         public uint MediaPlayers { get; set; }
-        [Serializable(6), UInt8]
+        [Serialize(6), UInt8]
         public uint SerialPort { get; set; }
-        [Serializable(7), UInt8]
+        [Serialize(7), UInt8]
         public uint HyperDecks { get; set; }
-        [Serializable(8), UInt8]
+        [Serialize(8), UInt8]
         public uint DVE { get; set; }
-        [Serializable(9), UInt8]
+        [Serialize(9), UInt8]
         public uint Stingers { get; set; }
-        [Serializable(10), UInt8]
+        [Serialize(10), UInt8]
         public uint SuperSource { get; set; }
 
         public override void Serialize(CommandBuilder cmd)

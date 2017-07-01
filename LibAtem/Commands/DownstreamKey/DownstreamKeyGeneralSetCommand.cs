@@ -16,17 +16,17 @@ namespace LibAtem.Commands.DownstreamKey
             Invert = 1 << 3,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(1), Enum8]
+        [Serialize(1), Enum8]
         public DownstreamKeyId Index { get; set; }
-        [Serializable(2), Bool]
+        [Serialize(2), Bool]
         public bool PreMultiply { get; set; }
-        [Serializable(4), UInt16D(10, 0, 1000)]
+        [Serialize(4), UInt16D(10, 0, 1000)]
         public double Clip { get; set; }
-        [Serializable(6), UInt16D(10, 0, 1000)]
+        [Serialize(6), UInt16D(10, 0, 1000)]
         public double Gain { get; set; }
-        [Serializable(8), Bool]
+        [Serialize(8), Bool]
         public bool Invert { get; set; }
     }
 }

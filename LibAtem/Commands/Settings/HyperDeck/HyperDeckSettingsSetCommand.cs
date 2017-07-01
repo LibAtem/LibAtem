@@ -17,25 +17,25 @@ namespace LibAtem.Commands.Settings.HyperDeck
             AutoRollFrameDelay = 1 << 2,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(2), UInt16Range(0, 4)]
+        [Serialize(2), UInt16Range(0, 4)]
         public uint Id { get; set; }
         
-        [NonSerialized]
+        [NoSerialize]
         public string NetworkAddress { get; set; }
-        [Serializable(4), ByteArray(4)]
+        [Serialize(4), ByteArray(4)]
         protected byte[] NetworkAddressBytes
         {
             get => IPUtil.ParseAddress(NetworkAddress);
             set => NetworkAddress = IPUtil.IPToString(value);
         }
 
-        [Serializable(8), Enum16]
+        [Serialize(8), Enum16]
         public VideoSource Input { get; set; }
-        [Serializable(10), Bool]
+        [Serialize(10), Bool]
         public bool AutoRoll { get; set; }
-        [Serializable(12), UInt8Range(0, 60)]
+        [Serialize(12), UInt8Range(0, 60)]
         public uint AutoRollFrameDelay { get; set; }
     }
 }

@@ -11,9 +11,9 @@ namespace LibAtem.Commands.DeviceProfile
             ApiMinor = Version.ApiMinor;
         }
 
-        [Serializable(0), UInt16]
+        [Serialize(0), UInt16]
         public uint ApiMajor { get; protected set; }
-        [Serializable(2), UInt16]
+        [Serialize(2), UInt16]
         public uint ApiMinor { get; protected set; }
     }
 }

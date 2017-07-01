@@ -6,24 +6,24 @@ namespace LibAtem.Commands.Audio
     [CommandName("AMIP", 20)]
     public class AudioMixerInputGetCommand : SerializableCommandBase
     {
-        [Serializable(0), Enum16]
+        [Serialize(0), Enum16]
         public AudioSource Index { get; set; }
-        [Serializable(2), Enum8]
+        [Serialize(2), Enum8]
         public AudioSourceType SourceType { get; set; }
-        [Serializable(7), Enum8]
+        [Serialize(7), Enum8]
         public AudioPortType PortType { get; set; }
-        [Serializable(8), Enum8]
+        [Serialize(8), Enum8]
         public AudioMixOption MixOption { get; set; }
-        [Serializable(10), Decibels]
+        [Serialize(10), Decibels]
         public double Gain { get; set; }
-        [Serializable(12), Int16D(200, -10000, 10000)]
+        [Serialize(12), Int16D(200, -10000, 10000)]
         public double Balance { get; set; }
 
-        [Serializable(4), Enum16]
+        [Serialize(4), Enum16]
         protected AudioSource Index2 => Index;
-        [Serializable(6), Bool]
+        [Serialize(6), Bool]
         protected bool Unknown => false;
-        [Serializable(9), UInt8]
+        [Serialize(9), UInt8]
         protected uint Unknown2 => 0x73;
 
         public override void Serialize(CommandBuilder cmd)

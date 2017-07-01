@@ -15,15 +15,15 @@ namespace LibAtem.Commands.Audio
            Balance = 1 << 2,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(2), Enum16]
+        [Serialize(2), Enum16]
         public AudioSource Index { get; set; }
-        [Serializable(4), Enum8]
+        [Serialize(4), Enum8]
         public AudioMixOption MixOption { get; set; }
-        [Serializable(6), Decibels]
+        [Serialize(6), Decibels]
         public double Gain { get; set; }
-        [Serializable(8), Int16D(200, -10000, 10000)]
+        [Serialize(8), Int16D(200, -10000, 10000)]
         public double Balance { get; set; }
     }
 }

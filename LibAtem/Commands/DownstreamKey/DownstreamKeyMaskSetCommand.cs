@@ -17,19 +17,19 @@ namespace LibAtem.Commands.DownstreamKey
             Right = 1 << 4,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(1), Enum8]
+        [Serialize(1), Enum8]
         public DownstreamKeyId Index { get; set; }
-        [Serializable(2), Bool]
+        [Serialize(2), Bool]
         public bool Enabled { get; set; }
-        [Serializable(4), Int16D(1000, -9000, 9000)]
+        [Serialize(4), Int16D(1000, -9000, 9000)]
         public double Top { get; set; }
-        [Serializable(6), Int16D(1000, -9000, 9000)]
+        [Serialize(6), Int16D(1000, -9000, 9000)]
         public double Bottom { get; set; }
-        [Serializable(8), Int16D(1000, -16000, 16000)]
+        [Serialize(8), Int16D(1000, -16000, 16000)]
         public double Left { get; set; }
-        [Serializable(10), Int16D(1000, -16000, 16000)]
+        [Serialize(10), Int16D(1000, -16000, 16000)]
         public double Right { get; set; }
     }
 }

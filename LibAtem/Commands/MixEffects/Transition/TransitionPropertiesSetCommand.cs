@@ -14,13 +14,13 @@ namespace LibAtem.Commands.MixEffects.Transition
             Selection = 1 << 1,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(1), Enum8]
+        [Serialize(1), Enum8]
         public MixEffectBlockId Index { get; set; }
-        [Serializable(2), Enum8]
+        [Serialize(2), Enum8]
         public TStyle Style { get; set; }
-        [Serializable(3), Enum8]
+        [Serialize(3), Enum8]
         public TransitionLayer Selection { get; set; }
     }
 }

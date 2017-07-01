@@ -14,15 +14,15 @@ namespace LibAtem.Commands.MixEffects.Key
             FlyEnabled = 1 << 1,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(1), Enum8]
+        [Serialize(1), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
-        [Serializable(2), UInt8]
+        [Serialize(2), UInt8]
         public uint KeyerIndex { get; set; }
-        [Serializable(3), Enum8]
+        [Serialize(3), Enum8]
         public MixEffectKeyType KeyType { get; set; }
-        [Serializable(4), Bool]
+        [Serialize(4), Bool]
         public bool FlyEnabled { get; set; }
     }
 }

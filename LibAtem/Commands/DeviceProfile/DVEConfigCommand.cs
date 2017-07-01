@@ -14,6 +14,7 @@ namespace LibAtem.Commands.DeviceProfile
         public void Deserialize(ParsedCommand cmd)
         {
             // TODO
+            cmd.Skip(40);
         }
     }
 }

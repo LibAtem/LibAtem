@@ -7,23 +7,23 @@ namespace LibAtem.Commands.Settings.HyperDeck
     [CommandName("RXMS", 20)]
     public class HyperDeckSettingsGetCommand : SerializableCommandBase
     {
-        [Serializable(0), UInt16Range(0, 4)]
+        [Serialize(0), UInt16Range(0, 4)]
         public uint Id { get; set; }
 
-        [NonSerialized]
+        [NoSerialize]
         public string NetworkAddress { get; set; }
-        [Serializable(2), ByteArray(4)]
+        [Serialize(2), ByteArray(4)]
         protected byte[] NetworkAddressBytes
         {
             get => IPUtil.ParseAddress(NetworkAddress);
             set => NetworkAddress = IPUtil.IPToString(value);
         }
 
-        [Serializable(6), Enum16]
+        [Serialize(6), Enum16]
         public VideoSource Input { get; set; }
-        [Serializable(8), Bool]
+        [Serialize(8), Bool]
         public bool AutoRoll { get; set; }
-        [Serializable(10), UInt8Range(0, 60)]
+        [Serialize(10), UInt8Range(0, 60)]
         public uint AutoRollFrameDelay { get; set; }
     }
 }

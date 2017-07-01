@@ -19,25 +19,25 @@ namespace LibAtem.Commands.MixEffects.Key
             Inverse = 1 << 6,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(1), Enum8]
+        [Serialize(1), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
-        [Serializable(2), UInt8]
+        [Serialize(2), UInt8]
         public uint KeyerIndex { get; set; }
-        [Serializable(3), Enum8]
+        [Serialize(3), Enum8]
         public Pattern Pattern { get; set; }
-        [Serializable(4), UInt16D(100, 0, 10000)]
+        [Serialize(4), UInt16D(100, 0, 10000)]
         public double Size { get; set; }
-        [Serializable(6), UInt16D(100, 0, 10000)]
+        [Serialize(6), UInt16D(100, 0, 10000)]
         public double Symmetry { get; set; }
-        [Serializable(8), UInt16D(100, 0, 10000)]
+        [Serialize(8), UInt16D(100, 0, 10000)]
         public double Softness { get; set; }
-        [Serializable(10), UInt16D(10000, 0, 10000)]
+        [Serialize(10), UInt16D(10000, 0, 10000)]
         public double XPosition { get; set; }
-        [Serializable(12), UInt16D(10000, 0, 10000)]
+        [Serialize(12), UInt16D(10000, 0, 10000)]
         public double YPosition { get; set; }
-        [Serializable(14), Bool]
+        [Serialize(14), Bool]
         public bool Inverse { get; set; }
     }
 }

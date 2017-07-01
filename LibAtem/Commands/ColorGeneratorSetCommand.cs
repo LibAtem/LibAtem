@@ -14,19 +14,19 @@ namespace LibAtem.Commands
             Luma = 1 << 2,
         }
         
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
         
-        [Serializable(1), UInt8Range(0, 1)]
+        [Serialize(1), UInt8Range(0, 1)]
         public uint Index { get; set; }
 
-        [Serializable(2), UInt16D(10, 0, 3599)]
+        [Serialize(2), UInt16D(10, 0, 3599)]
         public double Hue { get; set; }
 
-        [Serializable(4), UInt16D(10, 0, 1000)]
+        [Serialize(4), UInt16D(10, 0, 1000)]
         public double Saturation { get; set; }
 
-        [Serializable(6), UInt16D(10, 0, 1000)]
+        [Serialize(6), UInt16D(10, 0, 1000)]
         public double Luma { get; set; }
     }
 }

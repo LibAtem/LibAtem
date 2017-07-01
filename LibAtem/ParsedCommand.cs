@@ -142,7 +142,9 @@ namespace LibAtem
 
         public string GetString(uint length)
         {
-            return Encoding.ASCII.GetString(Body, (int) pos++, (int) length);
+            string str = Encoding.ASCII.GetString(Body, (int) pos, (int) length);
+            pos += length;
+            return str;
         }
     }
 }

@@ -3,15 +3,15 @@ using System.Reflection;
 
 namespace LibAtem.Serialization
 {
-    public class NonSerializedAttribute : Attribute
+    public class NoSerializeAttribute : Attribute
     {
     }
 
-    public class SerializableAttribute : Attribute
+    public class SerializeAttribute : Attribute
     {
         public uint StartByte { get; }
 
-        public SerializableAttribute(uint startByte)
+        public SerializeAttribute(uint startByte)
         {
             StartByte = startByte;
         }

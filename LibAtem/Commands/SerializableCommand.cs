@@ -21,7 +21,7 @@ namespace LibAtem.Commands
         private IEnumerable<PropertyInfo> GetProperties()
         {
             return GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(prop => prop.GetCustomAttribute<NonSerializedAttribute>() == null);
+                .Where(prop => prop.GetCustomAttribute<NoSerializeAttribute>() == null);
         }
 
         public virtual void Serialize(CommandBuilder cmd)
@@ -34,7 +34,7 @@ namespace LibAtem.Commands
             foreach (PropertyInfo prop in GetProperties())
             {
 
-                SerializableAttribute attr = prop.GetCustomAttribute<SerializableAttribute>();
+                SerializeAttribute attr = prop.GetCustomAttribute<SerializeAttribute>();
                 if (attr == null) // This means the property shouldnt be serialized
                     continue;
 
@@ -60,7 +60,7 @@ namespace LibAtem.Commands
                 if (!prop.CanWrite)
                     continue;
 
-                SerializableAttribute attr = prop.GetCustomAttribute<SerializableAttribute>();
+                SerializeAttribute attr = prop.GetCustomAttribute<SerializeAttribute>();
                 if (attr == null) // This means the property shouldnt be serialized
                     continue;
 

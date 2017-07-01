@@ -14,13 +14,13 @@ namespace LibAtem.Commands.MixEffects.Transition
             Input = 1 << 1,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(1), Enum8]
+        [Serialize(1), Enum8]
         public MixEffectBlockId Index { get; set; }
-        [Serializable(2), UInt8Range(0, 250)]
+        [Serialize(2), UInt8Range(0, 250)]
         public uint Rate { get; set; }
-        [Serializable(4), Enum16]
+        [Serialize(4), Enum16]
         public VideoSource Input { get; set; }
     }
 }

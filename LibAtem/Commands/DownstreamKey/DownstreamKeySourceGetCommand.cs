@@ -6,11 +6,11 @@ namespace LibAtem.Commands.DownstreamKey
     [CommandName("DskB", 8)]
     public class DownstreamKeySourceGetCommand : SerializableCommandBase
     {
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public DownstreamKeyId Index { get; set; }
-        [Serializable(2), Enum16]
+        [Serialize(2), Enum16]
         public VideoSource FillSource { get; set; }
-        [Serializable(4), Enum16]
+        [Serialize(4), Enum16]
         public VideoSource CutSource { get; set; }
     }
 }

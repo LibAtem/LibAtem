@@ -32,48 +32,48 @@ namespace LibAtem.Commands.SuperSource
             LightSourceAltitude = 1 << 19,
         }
 
-        [Serializable(0), Enum32]
+        [Serialize(0), Enum32]
         public MaskFlags Mask { get; set; }
-        [Serializable(4), Enum16]
+        [Serialize(4), Enum16]
         public VideoSource ArtFillInput { get; set; }
-        [Serializable(6), Enum16]
+        [Serialize(6), Enum16]
         public VideoSource ArtKeyInput { get; set; }
-        [Serializable(8), Enum8]
+        [Serialize(8), Enum8]
         public SuperSourceArtOption ArtOption { get; set; }
-        [Serializable(9), Bool]
+        [Serialize(9), Bool]
         public bool ArtPreMultiplied { get; set; }
-        [Serializable(10), UInt16D(1000, 0, 1000)]
+        [Serialize(10), UInt16D(1000, 0, 1000)]
         public double ArtClip { get; set; }
-        [Serializable(12), UInt16D(1000, 0, 1000)]
+        [Serialize(12), UInt16D(1000, 0, 1000)]
         public double ArtGain { get; set; }
-        [Serializable(14), Bool]
+        [Serialize(14), Bool]
         public bool ArtInvertKey { get; set; }
 
-        [Serializable(15), Bool]
+        [Serialize(15), Bool]
         public bool BorderEnabled { get; set; }
-        [Serializable(16), Enum8]
+        [Serialize(16), Enum8]
         public BorderBevel BorderBevel { get; set; }
-        [Serializable(18), UInt16D(100, 0, 1600)]
+        [Serialize(18), UInt16D(100, 0, 1600)]
         public double BorderWidthOut { get; set; }
-        [Serializable(20), UInt16D(100, 0, 1600)]
+        [Serialize(20), UInt16D(100, 0, 1600)]
         public double BorderWidthIn { get; set; }
-        [Serializable(22), UInt8D(100, 0, 100)]
+        [Serialize(22), UInt8D(100, 0, 100)]
         public double BorderSoftnessOut { get; set; }
-        [Serializable(23), UInt8D(100, 0, 100)]
+        [Serialize(23), UInt8D(100, 0, 100)]
         public double BorderSoftnessIn { get; set; }
-        [Serializable(24), UInt8D(100, 0, 100)]
+        [Serialize(24), UInt8D(100, 0, 100)]
         public double BorderBevelSoftness { get; set; }
-        [Serializable(25), UInt8D(100, 0, 100)]
+        [Serialize(25), UInt8D(100, 0, 100)]
         public double BorderBevelPosition { get; set; }
-        [Serializable(26), UInt16D(10, 0, 3599)]
+        [Serialize(26), UInt16D(10, 0, 3599)]
         public double BorderHue { get; set; }
-        [Serializable(28), UInt16D(10, 0, 1000)]
+        [Serialize(28), UInt16D(10, 0, 1000)]
         public double BorderSaturation { get; set; }
-        [Serializable(30), UInt16D(10, 0, 1000)]
+        [Serialize(30), UInt16D(10, 0, 1000)]
         public double BorderLuma { get; set; }
-        [Serializable(32), UInt16D(10, 0, 3590)]
+        [Serialize(32), UInt16D(10, 0, 3590)]
         public double BorderLightSourceDirection { get; set; }
-        [Serializable(34), UInt8D(1, 0, 100)]
+        [Serialize(34), UInt8D(1, 0, 100)]
         public double BorderLightSourceAltitude { get; set; }
     }
 }

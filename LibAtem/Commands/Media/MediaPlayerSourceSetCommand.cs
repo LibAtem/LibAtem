@@ -15,15 +15,15 @@ namespace LibAtem.Commands.Media
             ClipIndex = 1 << 2,
         }
 
-        [Serializable(0), Enum8]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        [Serializable(1), Enum8]
+        [Serialize(1), Enum8]
         public MediaPlayerId Index { get; set; }
-        [Serializable(2), Enum8]
+        [Serialize(2), Enum8]
         public MediaPlayerSource SourceType { get; set; }
-        [Serializable(3), UInt8]
+        [Serialize(3), UInt8]
         public uint ClipIndex { get; set; }
-        [Serializable(4), UInt8]
+        [Serialize(4), UInt8]
         public uint StillIndex { get; set; }
     }
 }

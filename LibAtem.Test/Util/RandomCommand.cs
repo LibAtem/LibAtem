@@ -25,7 +25,7 @@ namespace LibAtem.Test.Util
                 if (!prop.CanWrite)
                     continue;
 
-                if (prop.GetCustomAttribute<NonSerializedAttribute>() != null)
+                if (prop.GetCustomAttribute<NoSerializeAttribute>() != null)
                     continue;
 
                 // Generate random prop value
