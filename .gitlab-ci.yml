@@ -1,0 +1,16 @@
+stages:
+  - build
+
+build:
+  image: microsoft/dotnet:latest
+  before_script:
+    - dotnet restore
+  script:
+    - dotnet publish -o "$(pwd)/build" -c Release
+	- dotnet test
+  stage: build
+  tags:
+    - docker
+  artifacts:
+    paths:
+    - build/*
