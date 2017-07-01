@@ -7,7 +7,7 @@ build:
     - dotnet restore
   script:
     - dotnet publish -o "$(pwd)/build" -c Release
-	- dotnet test
+    - dotnet test
   stage: build
   tags:
     - docker
