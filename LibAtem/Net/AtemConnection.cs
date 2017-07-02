@@ -18,11 +18,11 @@ namespace LibAtem.Net
         private const uint MaxInFlight = 10;
         private const uint InFlightTimeout = 200;
 
-        private readonly EndPoint _endpoint;
-        private readonly int _sessionId;
+        public int SessionId { get; }
+        public EndPoint Endpoint { get; }
 
         private readonly object _lastSentAckLock = new object();
-        private DateTime _lastReceivedAckTime;
+        private DateTime _lastReceivedTime;
 
         private uint _lastPacketId;
         private uint _lastReceivedAck;
@@ -49,29 +49,17 @@ namespace LibAtem.Net
             }
         }
 
-        public AtemConnection(EndPoint endpoint, int sessionId)
+        protected AtemConnection(EndPoint endpoint, int sessionId)
         {
-            _endpoint = endpoint;
-            _sessionId = sessionId;
-            _lastReceivedAckTime = DateTime.Now;
+            Endpoint = endpoint;
+            SessionId = sessionId;
+            _lastReceivedTime = DateTime.Now;
 
             _messageQueue = new Queue<OutboundMessage>();
             _inFlight = new List<InFlightMessage>();
         }
 
-        public int SessionId => _sessionId;
-        public EndPoint Endpoint => _endpoint;
-
-        public bool HasTimedOut
-        {
-            get
-            {
-                TimeSpan diff = (DateTime.Now - _lastReceivedAckTime);
-                int time = diff.Seconds * 1000 + diff.Milliseconds;
-                
-                return time > TimeOutMilliseonds;
-            }
-        }
+        public bool HasTimedOut => GetTimeSince(_lastReceivedTime) > TimeOutMilliseonds;
 
         private uint NextPacketId
         {
@@ -85,9 +73,9 @@ namespace LibAtem.Net
             }
         }
         
-        public void SendPing(ref Socket socket)
+        public void QueuePing()
         {
-            SendMessage(socket, new InFlightMessage(new OutboundMessage(OutboundMessage.OutboundMessageType.Ping, new byte[0]), NextPacketId));
+            QueueMessage(new OutboundMessage(OutboundMessage.OutboundMessageType.Ping, new byte[0]));
         }
 
         public void QueueMessage(OutboundMessage msg)
@@ -102,8 +90,13 @@ namespace LibAtem.Net
         {
             try
             {
+                if (HasTimedOut)
+                    return;
+
                 lock (_lastSentAckLock)
                 {
+                    _lastReceivedTime = DateTime.Now;
+
                     // If we have already acked, then reack
                     if (packet.PacketId > 0 && packet.PacketId < _lastSentAck)
                     {
@@ -113,7 +106,10 @@ namespace LibAtem.Net
 
                     // If we have skipped something, then discard
                     if (packet.PacketId > _lastSentAck + 1)
+                    {
+                        Log.DebugFormat("{0} - Discarding message received out of order Got:{1} Expected:{2}", Endpoint, packet.PacketId, _lastSentAck);
                         return;
+                    }
 
                     // Handle it
                     if (packet.PacketId > 0)
@@ -122,18 +118,17 @@ namespace LibAtem.Net
                         SendAck(socket, packet.PacketId);
                     }
 
-                    Log.DebugFormat("Command {0}, Length {1}, Session {2:X}, Acked {3:X}, Packet {4:X}", packet.CommandCode,
-                        packet.PayloadLength, packet.SessionId, packet.AckedId, packet.PacketId);
+                    Log.DebugFormat("{0} - Command {1}, Length {2}, Session {3:X}, Acked {4}, Packet {5}", Endpoint, 
+                        packet.CommandCode, packet.PayloadLength, packet.SessionId, packet.AckedId, packet.PacketId);
 
                     if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckReply))
                     {
-                        _lastReceivedAckTime = DateTime.Now;
                         if (_lastReceivedAck < packet.AckedId)
                             _lastReceivedAck = packet.AckedId;
                     }
                     if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest))
                     {
-                        Log.DebugFormat("Parsed {0} commands with length {1}", packet.Commands.Count, packet.PayloadLength);
+                        Log.DebugFormat("{0} - Parsed {1} commands with length {2}", Endpoint, packet.Commands.Count, packet.PayloadLength);
 
                         DeserializeCommands(packet, handler);
                     }
@@ -153,30 +148,29 @@ namespace LibAtem.Net
 
             foreach (ParsedCommand rawCmd in pkt.Commands)
             {
-                Log.DebugFormat("Received command {0} with content {1}", rawCmd.Name, BitConverter.ToString(rawCmd.Body));
+                Log.DebugFormat("{0} - Received command {1} with content {2}", Endpoint, rawCmd.Name, BitConverter.ToString(rawCmd.Body));
 
                 Type commandType = CommandManager.FindForName(rawCmd.Name);
                 if (commandType == null)
                 {
-                    Log.WarnFormat("Unknown command {0} with content {1}", rawCmd.Name, BitConverter.ToString(rawCmd.Body));
+                    Log.WarnFormat("{0} - Unknown command {1} with content {2}", Endpoint, rawCmd.Name, BitConverter.ToString(rawCmd.Body));
                     continue;
                 }
 
-                ICommand cmd = (ICommand)Activator.CreateInstance(commandType);
                 try
                 {
+                    ICommand cmd = (ICommand)Activator.CreateInstance(commandType);
                     cmd.Deserialize(rawCmd);
 
                     if (!rawCmd.HasFinished && !(cmd is SerializableCommandBase))
                         throw new Exception("Some stray bytes were left after deserialize");
+
+                    commands.Add(cmd);
                 }
                 catch (Exception e)
                 {
                     LogManager.GetLogger(commandType).Error(e);
-                    continue;
                 }
-
-                commands.Add(cmd);
             }
 
             if (commands.Count == 0)
@@ -194,32 +188,38 @@ namespace LibAtem.Net
             SendMessage(socket, new InFlightMessage(new OutboundMessage(OutboundMessage.OutboundMessageType.Ack, new byte[0]), packetId));
         }
 
-        public async Task<bool> TrySendAsync(Socket socket)
+        public bool TrySendQueued(Socket socket)
         {
             if (HasTimedOut)
                 return false;
 
-            bool resend;
-            var msg = ChooseMsg(out resend);
-            if (msg == null)
+            List<InFlightMessage> msgs = ChooseMsg();
+            if (msgs == null || !msgs.Any())
                 return false;
 
-            await SendMessage(socket, msg);
+            foreach (InFlightMessage msg in msgs)
+                SendMessage(socket, msg).Wait();
             return true;
         }
 
-        private InFlightMessage ChooseMsg(out bool resend)
+        private int GetTimeSince(DateTime since)
+        {
+            TimeSpan diff = DateTime.Now - since;
+            return diff.Seconds * 1000 + diff.Milliseconds;
+        }
+
+        private List<InFlightMessage> ChooseMsg()
         { 
-            resend = false;
             lock (_inFlight)
             {
-                _inFlight.RemoveAll(m => m.PktId >= _lastReceivedAck);
-
-                InFlightMessage toResend = _inFlight.FirstOrDefault(m => (m.LastSent - DateTime.Now).Milliseconds > InFlightTimeout);
+                _inFlight.RemoveAll(m => m.PktId <= _lastReceivedAck);
+                
+                bool shouldResend = _inFlight.Any(m => GetTimeSince(m.LastSent) > InFlightTimeout);
                 // If any were resent, then dont send anything new
-                if (toResend != null)
+                if (shouldResend)
                 {
-                    resend = true;
+                    List<InFlightMessage> toResend = _inFlight.OrderBy(m => m.PktId).ToList();
+                    Log.WarnFormat("{0} - Resending {1} packets from #{2}", Endpoint, toResend.Count, toResend[0].PktId);
                     return toResend;
                 }
 
@@ -233,7 +233,7 @@ namespace LibAtem.Net
                         // create new message, send it and track it
                         var msg = new InFlightMessage(_messageQueue.Dequeue(), NextPacketId);
                         _inFlight.Add(msg);
-                        return msg;
+                        return new List<InFlightMessage> { msg };
                     }
                 }
 
@@ -243,7 +243,7 @@ namespace LibAtem.Net
 
                 var newMsg = new InFlightMessage(obMsg, NextPacketId);
                 _inFlight.Add(newMsg);
-                return newMsg;
+                return new List<InFlightMessage> {newMsg};
             }
         }
 
@@ -251,8 +251,7 @@ namespace LibAtem.Net
         {
             return null;
         }
-
-
+        
         private async Task SendMessage(Socket socket, InFlightMessage msg)
         {
             byte[] body = CompileMessage(msg);
@@ -260,16 +259,15 @@ namespace LibAtem.Net
 
             try
             {
-                await socket.SendToAsync(new ArraySegment<byte>(body, 0, body.Length), SocketFlags.None, _endpoint);
+                await socket.SendToAsync(new ArraySegment<byte>(body, 0, body.Length), SocketFlags.None, Endpoint);
             }
             catch (ObjectDisposedException)
             {
-                Log.Error("Discarding message due to socket being disposed");
+                Log.ErrorFormat("{0} - Discarding message due to socket being disposed", Endpoint);
                 // Mark as timed out. This will cause it to be cleaned up shortly
-                _lastReceivedAckTime = DateTime.MinValue;
+                _lastReceivedTime = DateTime.MinValue;
 
-                if (OnDisconnect != null)
-                    OnDisconnect(this);
+                OnDisconnect?.Invoke(this);
             }
         }
         
@@ -303,7 +301,7 @@ namespace LibAtem.Net
             byte[] buffer =
             {
                 len1, len2, // Opcode & Length
-                (byte)(_sessionId / 256),  (byte)(_sessionId % 256), // session id
+                (byte)(SessionId / 256),  (byte)(SessionId % 256), // session id
                 0x00, 0x00, // ACKed Pkt Id
                 0x00, 0x00, // Unknown
                 0x00, 0x00, // unknown2

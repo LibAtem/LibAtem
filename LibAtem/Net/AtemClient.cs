@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
 using log4net;
 using LibAtem.Commands;
 
@@ -17,6 +18,7 @@ namespace LibAtem.Net
 
         private readonly AtemClientConnection _connection;
         private Timer _pingTimer;
+        private Thread _sendThread;
 
         public delegate void CommandHandler(object sender, IReadOnlyList<ICommand> commands);
         public delegate void ConnectedHandler(object sender);
@@ -37,18 +39,31 @@ namespace LibAtem.Net
             StartReceiving();
             SendHandshake();
             StartPingTimer();
+            StartSendingTimer();
         }
 
-        public void StartPingTimer()
+        private void StartPingTimer()
         {
             _pingTimer = new Timer(o =>
             {
-                Socket socket = _client.Client;
                 if (_connection.HasTimedOut)
                     return;
 
-                _connection.SendPing(ref socket);
+                _connection.QueuePing();
             }, null, 0, AtemConstants.PingInterval);
+        }
+
+        private void StartSendingTimer()
+        {
+            _sendThread = new Thread(o =>
+            {
+                while (!_connection.HasTimedOut)
+                {
+                    _connection.TrySendQueued(_client.Client);
+                    Task.Delay(5).Wait();
+                }
+            });
+            _sendThread.Start();
         }
 
         private void SendHandshake()
@@ -65,6 +80,7 @@ namespace LibAtem.Net
                 0x01, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00
             };
 
+            Log.DebugFormat("Starting handshake");
             _client.SendAsync(handshake, handshake.Length, _remoteEp);
         }
 
@@ -80,15 +96,17 @@ namespace LibAtem.Net
 
                         ReceivedPacket packet = new ReceivedPacket(res.Buffer);
 
-                        if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.Handshake) && OnConnection != null)
-                            OnConnection(this);
+                        if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.Handshake))
+                        {
+                            Log.DebugFormat("Completed handshake");
+                            OnConnection?.Invoke(this);
+                        }
 
                         _connection.Receive(_client.Client, packet, cmds =>
                         {
                             Log.DebugFormat("Recieved {0} commands", cmds.Count);
 
-                            if (OnReceive != null)
-                                OnReceive(this, cmds);
+                            OnReceive?.Invoke(this, cmds);
                         });
                     }
                     catch (SocketException)
@@ -108,6 +126,7 @@ namespace LibAtem.Net
         public void Dispose()
         {
             // TODO
+            
 
             if (_pingTimer != null)
                 _pingTimer.Dispose();
