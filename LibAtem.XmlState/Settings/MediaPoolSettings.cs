@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace AtemEmulator.State.Settings
+namespace LibAtem.XmlState.Settings
 {
     public class MediaPoolSettings
     {

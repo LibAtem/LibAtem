@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 using AtemEmulator.Util;
 
-namespace AtemEmulator.State.Media
+namespace LibAtem.XmlState.Media
 {
     public class MediaPool
     {

@@ -2,7 +2,7 @@ using System;
 using System.Xml.Serialization;
 using LibAtem.Common;
 
-namespace AtemEmulator.State.MixEffects
+namespace LibAtem.XmlState.MixEffects
 {
     public class NextTransition
     {

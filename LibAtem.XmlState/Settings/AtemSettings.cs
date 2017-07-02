@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Xml.Serialization;
 using LibAtem.Common;
 
-namespace AtemEmulator.State.Settings
+namespace LibAtem.XmlState.Settings
 {
     public class AtemSettings
     {

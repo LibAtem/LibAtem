@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using LibAtem.Common;
 
-namespace AtemEmulator.State.Settings
+namespace LibAtem.XmlState.Settings
 {
     public class MultiView
     {

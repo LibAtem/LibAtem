@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using AtemEmulator.State.Media;
-using AtemEmulator.State.MixEffects;
-using AtemEmulator.State.Settings;
+using LibAtem.XmlState.Media;
+using LibAtem.XmlState.MixEffects;
+using LibAtem.XmlState.Settings;
 
-namespace AtemEmulator.State
+namespace LibAtem.XmlState
 {
     [XmlRoot("Profile", IsNullable = false)]
     public class PersistedState
@@ -25,9 +25,9 @@ namespace AtemEmulator.State
             MacroControl = new MacroControl();
         }
 
-        public PersistedState(DeviceProfile profile) : this()
+        public PersistedState(string product) : this()
         {
-            Product = profile.Product;
+            Product = product;
             MajorVersion = 1; //TODO
             MinorVersion = 1; //TODO
         }

@@ -1,6 +1,6 @@
 using System.Xml.Serialization;
 
-namespace AtemEmulator.State.MixEffects.Key
+namespace LibAtem.XmlState.MixEffects.Key
 {
     public class ChromaKeyParameters
     {

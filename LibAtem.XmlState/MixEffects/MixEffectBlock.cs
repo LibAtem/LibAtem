@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using AtemEmulator.State.MixEffects.Key;
+using LibAtem.XmlState.MixEffects.Key;
 using LibAtem.Common;
 
-namespace AtemEmulator.State.MixEffects
+namespace LibAtem.XmlState.MixEffects
 {
     public class MixEffectBlock
     {

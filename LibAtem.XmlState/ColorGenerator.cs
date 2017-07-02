@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace AtemEmulator.State
+namespace LibAtem.XmlState
 {
     public class ColorGenerator
     {

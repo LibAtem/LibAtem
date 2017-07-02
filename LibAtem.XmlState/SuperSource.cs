@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using LibAtem.XmlState;
 using LibAtem.Common;
 
-namespace AtemEmulator.State
+namespace LibAtem.XmlState
 {
     public class SuperSource
     {

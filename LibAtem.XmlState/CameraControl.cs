@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using LibAtem.Common;
 using LibAtem.Util;
 
-namespace AtemEmulator.State
+namespace LibAtem.XmlState
 {
     public class CameraControl
     {

@@ -1,7 +1,7 @@
 using LibAtem.Common;
 using LibAtem.Util;
 
-namespace AtemEmulator.State
+namespace LibAtem.XmlState
 {
     public static class AudioSourceExtensions
     {

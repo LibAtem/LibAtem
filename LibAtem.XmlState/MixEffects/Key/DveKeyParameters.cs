@@ -1,7 +1,7 @@
 using System.Xml.Serialization;
 using LibAtem.Common;
 
-namespace AtemEmulator.State.MixEffects.Key
+namespace LibAtem.XmlState.MixEffects.Key
 {
     public class DveKeyParameters
     {

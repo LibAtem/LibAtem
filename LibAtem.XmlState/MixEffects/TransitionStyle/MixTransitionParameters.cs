@@ -1,6 +1,6 @@
 using System.Xml.Serialization;
 
-namespace AtemEmulator.State.MixEffects.TransitionStyle
+namespace LibAtem.XmlState.MixEffects.TransitionStyle
 {
     public class MixTransitionParameters
     {

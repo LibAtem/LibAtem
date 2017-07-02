@@ -1,7 +1,7 @@
 using System.Xml.Serialization;
 using LibAtem.Common;
 
-namespace AtemEmulator.State.MixEffects.TransitionStyle
+namespace LibAtem.XmlState.MixEffects.TransitionStyle
 {
     public class WipeTransitionParameters
     {

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Xml.Serialization;
 using LibAtem.Common;
 
-namespace AtemEmulator.State
+namespace LibAtem.XmlState
 {
     public class AudioMixer
     {
