@@ -57,7 +57,7 @@ namespace LibAtem.Commands
                 if (attribute == null)
                     continue;
 
-                if (!typeof(ICommand).GetTypeInfo().IsAssignableFrom(type))
+                if (!typeof(ICommand).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
                     continue;
 
                 result.Add(attribute.Name, type);
