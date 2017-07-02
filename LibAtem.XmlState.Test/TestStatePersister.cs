@@ -42,49 +42,49 @@ namespace LibAtem.XmlState.Test
         [Fact]
         public void TestResults2016()
         {
-            RunForFile("TestFiles\\results2016.xml");
+            RunForFile("TestFiles/results2016.xml");
         }
 
         [Fact]
         public void TestResults2016_2()
         {
-            RunForFile("TestFiles\\results2016-2.xml");
+            RunForFile("TestFiles/results2016-2.xml");
         }
 
         [Fact]
         public void TestXplosion2016()
         {
-            RunForFile("TestFiles\\xplosion2016.xml");
+            RunForFile("TestFiles/xplosion2016.xml");
         }
 
         [Fact]
         public void TestResults2017()
         {
-            RunForFile("TestFiles\\results2017.xml");
+            RunForFile("TestFiles/results2017.xml");
         }
 
         [Fact]
         public void TestResults2017_2()
         {
-            RunForFile("TestFiles\\results2017-2.xml");
+            RunForFile("TestFiles/results2017-2.xml");
         }
 
         [Fact]
         public void TestResults2017_3()
         {
-            RunForFile("TestFiles\\results2017-3.xml");
+            RunForFile("TestFiles/results2017-3.xml");
         }
 
         [Fact]
         public void TestAtemProduction4K()
         {
-            RunForFile("TestFiles\\atem-production-4k.xml");
+            RunForFile("TestFiles/atem-production-4k.xml");
         }
 
         [Fact]
         public void TestValefest2017()
         {
-            RunForFile("TestFiles\\valefest2017.xml");
+            RunForFile("TestFiles/valefest2017.xml");
         }
 
         #region Helpers
@@ -92,7 +92,7 @@ namespace LibAtem.XmlState.Test
         private void RunForFile(string filename)
         {
             string tmpFile = Path.GetTempFileName();
-            string fullPath = GetFilePath(filename);
+            string fullPath = Path.Combine(AppContext.BaseDirectory, filename);
 
             XmlState profile = XmlStatePersistor.LoadState(fullPath);
             Assert.NotNull(profile);
@@ -181,13 +181,6 @@ namespace LibAtem.XmlState.Test
         private static int CalculateFileVersion(int major, int minor)
         {
             return major * 100 + minor;
-        }
-        
-        private static string GetFilePath(string filename)
-        {
-            var codeBaseUrl = new Uri(AppContext.BaseDirectory);
-            var codeBasePath = Uri.UnescapeDataString(codeBaseUrl.AbsolutePath);
-            return Path.Combine(codeBasePath, filename);
         }
 
         #endregion Helpers

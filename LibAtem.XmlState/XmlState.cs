@@ -18,7 +18,6 @@ namespace LibAtem.XmlState
             Settings = new AtemSettings();
             AudioMixer = new AudioMixer();
             MediaPlayers = new List<MediaPlayer>();
-            SuperSource = new SuperSource();
             MediaPool = new MediaPool();
             CameraControl = new CameraControl();
             MacroPool = new List<Macro>();
@@ -64,6 +63,10 @@ namespace LibAtem.XmlState
         public SuperSource SuperSource { get; set; }
 
         public MediaPool MediaPool { get; set; }
+        public bool ShouldSerializeMediaPool()
+        {
+            return MediaPool != null && (MediaPool.Clips.Count > 0 || MediaPool.Stills.Count > 0);
+        }
 
         public CameraControl CameraControl { get; set; }
 

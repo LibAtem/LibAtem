@@ -11,12 +11,10 @@ namespace LibAtem.XmlState.Settings
         {
             MultiViewVideoModes = new List<MultiViewVideoMode>();
             AudioMonitors = new List<AudioMonitor>();
-            Talkback = new Talkback();
             Inputs = new List<Input>();
             MediaPool = new MediaPoolSettings();
             MultiViews = new List<MultiView>();
             ButtonMapping = new List<ButtonMap>();
-            UpstreamKeys = new UpstreamKeys();
         }
 
         [XmlAttribute("videoMode")]
@@ -49,6 +47,10 @@ namespace LibAtem.XmlState.Settings
         public List<Input> Inputs { get; set; }
 
         public MediaPoolSettings MediaPool { get; set; }
+        public bool ShouldSerializeMediaPool()
+        {
+            return MediaPool != null && MediaPool.Clips.Count > 0;
+        }
 
         public List<MultiView> MultiViews { get; set; }
 
