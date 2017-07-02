@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using LibAtem.XmlState;
 using LibAtem.Common;
 
 namespace LibAtem.XmlState

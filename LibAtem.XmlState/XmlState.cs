@@ -7,9 +7,9 @@ using LibAtem.XmlState.Settings;
 namespace LibAtem.XmlState
 {
     [XmlRoot("Profile", IsNullable = false)]
-    public class PersistedState
+    public class XmlState
     {
-        public PersistedState()
+        public XmlState()
         {
             MixEffectBlocks = new List<MixEffectBlock>();
             DownstreamKeys = new List<DownstreamKey>();
@@ -25,7 +25,7 @@ namespace LibAtem.XmlState
             MacroControl = new MacroControl();
         }
 
-        public PersistedState(string product) : this()
+        public XmlState(string product) : this()
         {
             Product = product;
             MajorVersion = 1; //TODO
