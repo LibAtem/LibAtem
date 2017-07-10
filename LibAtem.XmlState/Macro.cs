@@ -6,13 +6,18 @@ namespace LibAtem.XmlState
 {
     public class Macro
     {
-        public Macro()
+        public Macro() : this(0)
         {
+        }
+
+        public Macro(uint index)
+        {
+            Index = index;
             Operations = new List<MacroOperation>();    
         }
 
         [XmlAttribute("index")]
-        public int Index { get; set; }
+        public uint Index { get; set; }
 
         [XmlAttribute("name")]
         public string Name { get; set; }
@@ -33,6 +38,8 @@ namespace LibAtem.XmlState
         MediaPlayerGoToBeginning,
 
         MacroSleep,
+        MacroWait, // TODO - verify this name
+
         CutTransition,
         AutoTransition,
         FadeToBlackAuto,
@@ -93,7 +100,7 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("frames")]
-        public int Frames { get; set; }
+        public uint Frames { get; set; }
         public bool ShouldSerializeFrames()
         {
             switch (Id)
