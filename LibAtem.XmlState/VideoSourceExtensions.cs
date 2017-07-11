@@ -69,5 +69,11 @@ namespace LibAtem.XmlState
         {
             return src.GetAttribute<VideoSource, VideoSourceTypeAttribute>().PortType;
         }
+
+        public static MacroInput ToMacroInput(this VideoSource src)
+        {
+            // TODO - block some cases?
+            return (MacroInput) src;
+        }
     }
 }

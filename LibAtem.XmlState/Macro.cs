@@ -28,40 +28,6 @@ namespace LibAtem.XmlState
         public List<MacroOperation> Operations { get; set; }
     }
 
-    public enum MacroOperationType
-    {
-        MediaPlayerSourceStillIndex,
-        MediaPlayerSourceStill,
-        MediaPlayerSourceClipIndex,
-        MediaPlayerSourceClip,
-        MediaPlayerPlay,
-        MediaPlayerGoToBeginning,
-
-        MacroSleep,
-        MacroWait, // TODO - verify this name
-
-        CutTransition,
-        AutoTransition,
-        FadeToBlackAuto,
-        TransitionStyle,
-
-        SuperSourceArtFillInput,
-        SuperSourceBoxEnable,
-
-        AuxiliaryInput,
-        ProgramInput,
-        PreviewInput,
-
-        AudioMixerInputGain,
-
-        HyperDeckSetSourceClipIndex,
-        HyperDeckSetLoop,
-        HyperDeckSetSingleClip,
-        HyperDeckSetSpeed,
-        HyperDeckPlay,
-        HyperDeckStop,
-    }
-
     public class MacroOperation
     {
         [XmlAttribute("id")]
@@ -86,7 +52,7 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("index")]
-        public int Index { get; set; }
+        public uint Index { get; set; }
         public bool ShouldSerializeIndex()
         {
             switch (Id)
@@ -137,6 +103,7 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.SuperSourceArtFillInput:
+                case MacroOperationType.SuperSourceArtCutInput:
                 case MacroOperationType.AuxiliaryInput:
                 case MacroOperationType.ProgramInput:
                 case MacroOperationType.PreviewInput:
@@ -161,7 +128,7 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("boxIndex")]
-        public int BoxIndex { get; set; }
+        public uint BoxIndex { get; set; }
         public bool ShouldSerializeBoxIndex()
         {
             switch (Id)
