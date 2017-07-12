@@ -146,7 +146,8 @@ namespace LibAtem
         {
             string str = Encoding.ASCII.GetString(Body, (int) pos, (int) length);
             pos += length;
-            return str;
+            int len = str.IndexOf((char)0);
+            return len < 0 ? str : str.Substring(0, len);
         }
     }
 }

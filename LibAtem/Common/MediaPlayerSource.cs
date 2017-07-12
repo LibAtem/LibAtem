@@ -11,5 +11,6 @@
         Still = 0,
         Clip = 1,  // ??
         audio = 2, // ??
+        audio2 = 3, // ??
     }
 }

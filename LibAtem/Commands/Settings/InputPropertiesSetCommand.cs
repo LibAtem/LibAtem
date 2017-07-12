@@ -23,7 +23,7 @@ namespace LibAtem.Commands.Settings
         public string LongName { get; set; }
         [Serialize(24), String(4)]
         public string ShortName { get; set; }
-        [Serialize(30), Enum16]
+        [Serialize(28), Enum16]
         public ExternalPortType ExternalPortType { get; set; }
     }
 }

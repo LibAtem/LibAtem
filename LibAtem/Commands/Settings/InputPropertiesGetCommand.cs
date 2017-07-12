@@ -12,6 +12,7 @@ namespace LibAtem.Commands.Settings
         public string ShortName { get; set; }
         public bool IsExternal { get; set; }
         public List<ExternalPortType> ExternalPorts { get; set; }
+        public ExternalPortType ExternalPortType { get; set; }
         public InternalPortType InternalPortType { get; set; }
         public SourceAvailability SourceAvailability { get; set; }
         public MeAvailability MeAvailability { get; set; }
@@ -35,7 +36,7 @@ namespace LibAtem.Commands.Settings
                     ExternalPorts.Contains(ExternalPortType.SVideo));
 
             cmd.AddByte((byte)(IsExternal ? 0x00 : 0x01)); // Xd
-            cmd.AddByte((byte)(IsExternal ? 0x01 : 0x00)); // Xe
+            cmd.AddUInt8((int)ExternalPortType); // Xe
             cmd.AddUInt8((int)InternalPortType);
             cmd.Pad(); //Xg ??
             cmd.AddUInt8((uint)SourceAvailability); // Xh
@@ -66,7 +67,8 @@ namespace LibAtem.Commands.Settings
                 ports.Add(ExternalPortType.SVideo);
             ExternalPorts = ports.Any() ? ports : null;
 
-            cmd.Skip(2); // Xd, Xe
+            cmd.Skip(); // Xd
+            ExternalPortType = (ExternalPortType) cmd.GetUInt8();
             InternalPortType = (InternalPortType) cmd.GetUInt8();
             cmd.Skip();
             SourceAvailability = (SourceAvailability) cmd.GetUInt8();

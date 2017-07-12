@@ -31,7 +31,8 @@ namespace LibAtem.Serialization
         public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
         {
             string str = Encoding.ASCII.GetString(data, (int) start, _length);
-            return str.Substring(0, str.IndexOf((char) 0));
+            int len = str.IndexOf((char) 0);
+            return len < 0 ? str : str.Substring(0, len);
         }
 
         public override bool AreEqual(object val1, object val2)
