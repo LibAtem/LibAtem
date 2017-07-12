@@ -24,10 +24,10 @@ namespace LibAtem.XmlState.Settings
         public DownConvertMode DownConvertMode { get; set; }
 
         [XmlAttribute("abDirect")]
-        public AtemBool AbDirect { get; set; }
+        public AtemBool AbDirect { get; set; } // Client side only
 
         [XmlAttribute("cameraAux")]
-        public int CameraAux { get; set; }
+        public int CameraAux { get; set; } // Client side only
 
         [XmlAttribute]
         public SDI3GOutputLevel SDI3GOutputLevel { get; set; }
