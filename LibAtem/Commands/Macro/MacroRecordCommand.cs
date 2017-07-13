@@ -14,7 +14,7 @@ namespace LibAtem.Commands.Macro
             cmd.AddUInt16(Description.Length);
             cmd.AddString(Name);
             cmd.AddString(Description);
-            cmd.PadToNearestPowerOfTwo();
+            cmd.PadToNearestMultipleOf4();
         }
 
         public void Deserialize(ParsedCommand cmd)
@@ -24,7 +24,7 @@ namespace LibAtem.Commands.Macro
             uint descriptionLength = cmd.GetUInt16();
             Name = cmd.GetString(nameLenth);
             Description = cmd.GetString(descriptionLength);
-            cmd.SkipToNearestPowerOfTwo();
+            cmd.SkipToNearestMultipleOf4();
         }
     }
 }

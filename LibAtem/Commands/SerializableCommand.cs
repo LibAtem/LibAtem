@@ -8,9 +8,14 @@ namespace LibAtem.Commands
 {
     public abstract class SerializableCommandBase : ICommand
     {
-        private int GetLength()
+        private int GetLengthFromAttribute()
         {
             return GetType().GetTypeInfo().GetCustomAttribute<CommandNameAttribute>()?.Length ?? -1;
+        }
+
+        protected virtual int GetLength()
+        {
+            return GetLengthFromAttribute();
         }
 
         private string GetName()
@@ -48,10 +53,10 @@ namespace LibAtem.Commands
             cmd.AddByte(res);
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public virtual void Deserialize(ParsedCommand cmd)
         {
-            int length = GetLength();
-            if (length != cmd.BodyLength)
+            int attrLength = GetLengthFromAttribute();
+            if (attrLength != -1 && attrLength != cmd.BodyLength)
                 throw new Exception("Auto deserialze length mismatch");
 
             foreach (PropertyInfo prop in GetProperties())
@@ -70,6 +75,9 @@ namespace LibAtem.Commands
 
                 prop.SetValue(this, serAttr.Deserialize(cmd.Body, attr.StartByte, prop));
             }
+
+            if (GetLength() != cmd.BodyLength)
+                throw new Exception("Auto deserialze final length mismatch");
         }
     }
 

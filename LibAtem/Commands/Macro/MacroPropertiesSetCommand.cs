@@ -1,15 +1,23 @@
+using System;
 using LibAtem.Serialization;
 using LibAtem.Util;
 
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("MPrp")]
-    public class MacroPropertiesGetCommand : SerializableCommandBase
+    [CommandName("CMPr")]
+    public class MacroPropertiesSetCommand : SerializableCommandBase
     {
-        [Serialize(0), UInt16]
+        [Flags]
+        public enum MaskFlags
+        {
+            Name        = 1 << 0,
+            Description = 1 << 1,
+        }
+        
+        [Serialize(0), Enum8]
+        public MaskFlags Mask { get; set; }
+        [Serialize(2), UInt16]
         public uint Index { get; set; }
-        [Serialize(2), Bool]
-        public bool IsUsed { get; set; }
         [Serialize(4), StringLength]
         public string Name { get; set; }
         [Serialize(6), StringLength]

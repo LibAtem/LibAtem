@@ -127,7 +127,7 @@ namespace LibAtem
                 (b & (1 << 4)) > 0,
                 (b & (1 << 5)) > 0,
                 (b & (1 << 6)) > 0,
-                (b & (1 << 7)) > 0,
+                (b & (1 << 7)) > 0
             };
         }
 
@@ -136,9 +136,9 @@ namespace LibAtem
             pos += i;
         }
 
-        public void SkipToNearestPowerOfTwo()
+        public void SkipToNearestMultipleOf4()
         {
-            int targetLen = MathExt.NextPowerOf2((int) pos);
+            int targetLen = MathExt.NextMultipleOf4((int) pos);
             Skip((uint) (targetLen - pos));
         }
 
@@ -146,6 +146,13 @@ namespace LibAtem
         {
             string str = Encoding.ASCII.GetString(Body, (int) pos, (int) length);
             pos += length;
+            int len = str.IndexOf((char)0);
+            return len < 0 ? str : str.Substring(0, len);
+        }
+
+        public string GetString(int start, int length)
+        {
+            string str = Encoding.ASCII.GetString(Body, start, length);
             int len = str.IndexOf((char)0);
             return len < 0 ? str : str.Substring(0, len);
         }

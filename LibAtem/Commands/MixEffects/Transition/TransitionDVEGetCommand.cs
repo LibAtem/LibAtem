@@ -1,58 +1,63 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TDvP")]
-    public class TransitionDVEGetCommand : ICommand
+    [CommandName("TDvP", 20)]
+    public class TransitionDVEGetCommand : SerializableCommandBase
     {
+        [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
+        [Serialize(1), UInt8Range(1, 250)]
+        public uint Rate { get; set; }
+        [Serialize(2), UInt8Range(1, 250)]
+        public uint LogoRate { get; set; }
+        [Serialize(3), Enum8]
+        public DVEEffect Style { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
-        {
-            cmd.AddByte(0x0c);
-            cmd.AddByte(0x00);
-            cmd.AddByte(0x00);
-            cmd.AddByte(0x00);
-            cmd.AddByte(0x0f);
-            cmd.AddByte(0x54);
-            cmd.AddByte(0x60);
-            cmd.AddByte(0x11);
-            cmd.AddByte(0x54);
-            cmd.AddByte(0x3a);
-            cmd.AddByte(0x60);
-            cmd.AddByte(0x9b);
-            cmd.AddByte(0x00);
-            cmd.AddByte(0x01);
-            cmd.AddByte(0x44);
-            cmd.AddByte(0x65);
-            cmd.AddByte(0x61);
-            cmd.AddByte(0x64);
-            cmd.AddByte(0x00);
-            cmd.AddByte(0x60);
+        [Serialize(4), Enum16]
+        public VideoSource FillSource { get; set; }
+        [Serialize(6), Enum16]
+        public VideoSource KeySource { get; set; }
 
+        [Serialize(8), Bool]
+        public bool EnableKey { get; set; }
+        [Serialize(9), Bool]
+        public bool PreMultiplied { get; set; }
+        [Serialize(10), UInt16D(10, 0, 1000)]
+        public double Clip { get; set; }
+        [Serialize(12), UInt16D(10, 0, 1000)]
+        public double Gain { get; set; }
+        [Serialize(14), Bool]
+        public bool InvertKey { get; set; }
+        [Serialize(15), Bool]
+        public bool Reverse { get; set; }
+        [Serialize(16), Bool]
+        public bool FlipFlop { get; set; }
 
-            //var res = new TransmitResponse("TDvP");
-            //res.AddUInt8((int)me.Index);
-            //res.AddUInt8(param.Rate);
-            //res.Pad(1);
-            //res.AddUInt8((int)param.Effect);
-            //res.AddUInt16((int)param.FillSource);
-            //res.AddUInt16((int)param.KeySource);
-            //res.AddBoolArray(param.EnableKey.Value());
-            //res.AddBoolArray(param.PreMultipliedKey.Value());
-            //res.AddUInt16(10000, param.Clip);
-            //res.AddUInt16(10000, param.Gain);
-            //res.AddBoolArray(param.InvertKey.Value());
-            //res.AddBoolArray(param.ReverseDirection.Value());
-            //res.AddBoolArray(param.FlipFlop.Value());
-            //res.Pad(3);
-            //return res;
-        }
+        //        public void Serialize(CommandBuilder cmd)
+        //        {
+        //            cmd.AddByte(0x0c);
+        //            cmd.AddByte(0x00);
+        //            cmd.AddByte(0x00);
+        //            cmd.AddByte(0x00);
+        //            cmd.AddByte(0x0f);
+        //            cmd.AddByte(0x54);
+        //            cmd.AddByte(0x60);
+        //            cmd.AddByte(0x11);
+        //            cmd.AddByte(0x54);
+        //            cmd.AddByte(0x3a);
+        //            cmd.AddByte(0x60);
+        //            cmd.AddByte(0x9b);
+        //            cmd.AddByte(0x00);
+        //            cmd.AddByte(0x01);
+        //            cmd.AddByte(0x44);
+        //            cmd.AddByte(0x65);
+        //            cmd.AddByte(0x61);
+        //            cmd.AddByte(0x64);
+        //            cmd.AddByte(0x00);
+        //            cmd.AddByte(0x60);
+        //        }
 
-        public void Deserialize(ParsedCommand cmd)
-        {
-            //TODO
-            cmd.Skip(20);
-        }
     }
 }

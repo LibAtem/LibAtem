@@ -15,7 +15,7 @@ namespace LibAtem.Commands
             foreach (Tuple<bool, bool> src in Tally)
                 cmd.AddBoolArray(src.Item1, src.Item2);
 
-            cmd.PadToNearestPowerOfTwo();
+            cmd.PadToNearestMultipleOf4();
         }
 
         public void Deserialize(ParsedCommand cmd)
@@ -29,7 +29,7 @@ namespace LibAtem.Commands
                 Tally.Add(Tuple.Create(arr[0], arr[1]));
             }
 
-            cmd.SkipToNearestPowerOfTwo();
+            cmd.SkipToNearestMultipleOf4();
         }
     }
 }

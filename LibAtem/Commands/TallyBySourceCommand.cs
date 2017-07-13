@@ -19,7 +19,7 @@ namespace LibAtem.Commands
                 cmd.AddBoolArray(src.Value.Item1, src.Value.Item2);
             }
 
-            cmd.PadToNearestPowerOfTwo();
+            cmd.PadToNearestMultipleOf4();
         }
 
         public void Deserialize(ParsedCommand cmd)
@@ -34,7 +34,7 @@ namespace LibAtem.Commands
                 Tally.Add(src, Tuple.Create(arr[0], arr[1]));
             }
 
-            cmd.SkipToNearestPowerOfTwo();
+            cmd.SkipToNearestMultipleOf4();
         }
     }
 }

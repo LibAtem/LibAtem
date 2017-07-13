@@ -49,9 +49,9 @@ namespace LibAtem.Serialization
             uint val = (uint)base.Deserialize(data, start, prop);
 
             if (val < _min)
-                return _min;
+                return (uint)_min;
             if (val > _max)
-                return _max;
+                return (uint)_max;
 
             return val;
         }

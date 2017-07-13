@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -54,6 +55,49 @@ namespace LibAtem.Serialization
         public bool IsValid(object obj)
         {
             return true;
+        }
+    }
+
+    public class StringLengthAttribute : SerializableAttributeBase, IRandomGeneratorAttribute
+    {
+        private readonly uint _maxlength;
+
+        public StringLengthAttribute(uint maxlength=128)
+        {
+            _maxlength = maxlength;
+        }
+
+        public override void Serialize(byte[] data, uint start, object val)
+        {
+            string str = (string) val;
+            byte[] bytes = BitConverter.GetBytes(str.Length);
+            data[start] = bytes[1];
+            data[start + 1] = bytes[0];
+        }
+
+        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        {
+            int len = (data[start] << 8) + data[start + 1];
+            return new string(' ', len);
+        }
+
+        public override bool AreEqual(object val1, object val2)
+        {
+            return Equals(val1, val2);
+        }
+
+        public object GetRandom(Random random)
+        {
+            int len = random.Next((int) _maxlength);
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, len)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        public bool IsValid(object obj)
+        {
+            string str = (string) obj;
+            return str.Length <= _maxlength;
         }
     }
 }

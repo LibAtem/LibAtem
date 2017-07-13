@@ -85,9 +85,9 @@ namespace LibAtem
                 _data.Add(0x00);
         }
 
-        public void PadToNearestPowerOfTwo()
+        public void PadToNearestMultipleOf4()
         {
-            int targetLen = MathExt.NextPowerOf2(_data.Count);
+            int targetLen = MathExt.NextMultipleOf4(_data.Count);
             Pad(targetLen - _data.Count);
         }
 
@@ -124,6 +124,25 @@ namespace LibAtem
             }
 
             _data.AddRange(res);
+        }
+        
+        public void SetString(int pos, string str)
+        {
+            SetString(pos, str.Length, str);
+        }
+
+        public void SetString(int pos, int length, string str)
+        {
+            byte[] res = new byte[length];
+            int i;
+            for (i = 0; i < length && i < str.Length; i++)
+            {
+                _data[pos + i] = (byte) str[i];
+            }
+            for (; i < length; i++)
+            {
+                _data[pos + i] = 0;
+            }
         }
 
         public void AddUInt16(int scale, double val)
