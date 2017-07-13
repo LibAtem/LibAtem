@@ -33,6 +33,11 @@ namespace LibAtem.XmlState
         [XmlAttribute("id")]
         public MacroOperationType Id { get; set; }
 
+        public bool IsWait()
+        {
+            return Id == MacroOperationType.MacroUserWait || Id == MacroOperationType.MacroSleep;
+        }
+
         [XmlAttribute("mediaPlayer")]
         public MediaPlayerId MediaPlayer { get; set; }
         public bool ShouldSerializeMediaPlayer()
