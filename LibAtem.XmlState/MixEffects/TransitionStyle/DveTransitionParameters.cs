@@ -5,19 +5,11 @@ namespace LibAtem.XmlState.MixEffects.TransitionStyle
 {
     public class DveTransitionParameters
     {
-        public enum DVEEffect
-        {
-            // TODO 
-            PushRight,
-            SwooshTopRight,
-            SwooshLeft,
-        }
-
         [XmlAttribute("rate")]
         public uint Rate { get; set; }
 
         [XmlAttribute("logoRate")]
-        public int LogoRate { get; set; }
+        public uint LogoRate { get; set; }
         
         [XmlAttribute("reverseDirection")]
         public AtemBool ReverseDirection { get; set; }
@@ -41,10 +33,10 @@ namespace LibAtem.XmlState.MixEffects.TransitionStyle
         public AtemBool PreMultipliedKey { get; set; }
 
         [XmlAttribute("clip")]
-        public int Clip { get; set; }
+        public double Clip { get; set; }
 
         [XmlAttribute("gain")]
-        public int Gain { get; set; }
+        public double Gain { get; set; }
 
         [XmlAttribute("invertKey")]
         public AtemBool InvertKey { get; set; }
