@@ -5,7 +5,6 @@ using LibAtem.Util;
 
 namespace LibAtem.XmlState
 {
-
     public static class VideoSourceLists
     {
         public static VideoSource[] All => Enum.GetValues(typeof(VideoSource)).OfType<VideoSource>().ToArray();
@@ -74,6 +73,12 @@ namespace LibAtem.XmlState
         {
             // TODO - block some cases?
             return (MacroInput) src;
+        }
+
+        public static VideoSource ToVideoSource(this MacroInput src)
+        {
+            // TODO - block some cases?
+            return (VideoSource)src;
         }
     }
 }

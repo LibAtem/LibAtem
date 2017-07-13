@@ -5,11 +5,11 @@ namespace LibAtem.XmlState
     {
         LoopMacro,
 
-        ProgramInput,//
-        PreviewInput,//
+        ProgramInput,// -
+        PreviewInput,// -
 
-        CutTransition,//
-        AutoTransition,//
+        CutTransition,// -
+        AutoTransition,// -
 
         MacroUserWait,//
         MacroSleep,//
@@ -97,8 +97,6 @@ namespace LibAtem.XmlState
 
         DVEAndFlyKeyXSize,
         DVEAndFlyKeyYSize,
-
-        MediaPlayerSourceClip,//
 
         DVEAndFlyKeyXPosition,
         DVEAndFlyKeyYPosition,
@@ -197,10 +195,10 @@ namespace LibAtem.XmlState
 
         FadeToBlackRate,
         FadeToBlackCut,
-        FadeToBlackAuto,//
+        FadeToBlackAuto, // -
 
-        SuperSourceArtCutInput, //
-        SuperSourceArtFillInput, //
+        SuperSourceArtCutInput, // -
+        SuperSourceArtFillInput, // -
         SuperSourceArtAbove,
         SuperSourceArtPreMultiply,
         SuperSourceArtClip,
@@ -259,7 +257,8 @@ namespace LibAtem.XmlState
         MediaPlayerPlay, //
         MediaPlayerPause,
         MediaPlayerLoop,
-        MediaPlayerSourceStill, //
+        MediaPlayerSourceStill, // --
+        MediaPlayerSourceClip, // --
 
         PatternKeySizeOffset,
         PatternKeyXPositionOffset,
