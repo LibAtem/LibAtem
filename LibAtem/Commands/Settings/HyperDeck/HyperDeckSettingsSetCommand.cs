@@ -19,6 +19,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
 
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [CommandId]
         [Serialize(2), UInt16Range(0, 4)]
         public uint Id { get; set; }
         

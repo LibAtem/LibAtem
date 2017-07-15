@@ -6,6 +6,7 @@ namespace LibAtem.Commands.SuperSource
     [CommandName("SSBP", 20)]
     public class SuperSourceBoxGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), UInt8Range(0, 3)]
         public uint Index { get; set; }
         

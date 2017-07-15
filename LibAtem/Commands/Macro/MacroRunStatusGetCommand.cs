@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("MRPr", 4)]
+    [CommandName("MRPr", 4), NoCommandId]
     public class MacroRunStatusGetCommand : SerializableCommandBase
     {
         [Serialize(0), Bool(0)]

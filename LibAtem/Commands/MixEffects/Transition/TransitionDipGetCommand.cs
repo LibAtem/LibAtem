@@ -6,6 +6,7 @@ namespace LibAtem.Commands.MixEffects.Transition
     [CommandName("TDpP", 4)]
     public class TransitionDipGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
         [Serialize(1), UInt8]

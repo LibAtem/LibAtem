@@ -6,6 +6,7 @@ namespace LibAtem.Commands.MixEffects.Transition
     [CommandName("TrPs", 8)]
     public class TransitionPositionGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
         [Serialize(1), Bool]

@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("MRcS", 4)]
+    [CommandName("MRcS", 4), NoCommandId]
     public class MacroRecordingStatusGetCommand : SerializableCommandBase
     {
         [Serialize(0), Bool]

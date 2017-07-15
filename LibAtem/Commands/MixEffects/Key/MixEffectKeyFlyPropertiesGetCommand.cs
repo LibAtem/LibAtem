@@ -5,7 +5,9 @@ namespace LibAtem.Commands.MixEffects.Key
     [CommandName("KeFS")]
     public class MixEffectKeyFlyPropertiesGetCommand : ICommand
     {
+        [CommandId]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [CommandId]
         public uint KeyerIndex { get; set; }
 
         public void Serialize(CommandBuilder cmd)

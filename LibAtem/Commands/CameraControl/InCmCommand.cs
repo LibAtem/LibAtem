@@ -1,6 +1,6 @@
 ﻿namespace LibAtem.Commands.CameraControl
 {
-    [CommandName("InCm")]
+    [CommandName("InCm"), NoCommandId]
     public class InCmCommand : ICommand
     {
         public void Serialize(CommandBuilder cmd)

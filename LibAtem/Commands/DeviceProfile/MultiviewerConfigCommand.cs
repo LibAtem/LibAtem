@@ -1,6 +1,6 @@
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_MvC")]
+    [CommandName("_MvC"), NoCommandId]
     public class MultiviewerConfigCommand : ICommand
     {
         public uint Count { get; set; }

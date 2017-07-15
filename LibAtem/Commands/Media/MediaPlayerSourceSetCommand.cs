@@ -17,6 +17,7 @@ namespace LibAtem.Commands.Media
 
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [CommandId]
         [Serialize(1), Enum8]
         public MediaPlayerId Index { get; set; }
         [Serialize(2), Enum8]

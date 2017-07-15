@@ -3,7 +3,7 @@ using LibAtem.Common;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("AMTl")]
+    [CommandName("AMTl"), NoCommandId]
     public class AudioMixerTallyCommand : ICommand
     {
         public Dictionary<AudioSource, bool> Inputs { get; set; }

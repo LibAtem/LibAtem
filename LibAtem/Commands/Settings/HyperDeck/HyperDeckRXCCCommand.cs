@@ -3,6 +3,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
     [CommandName("RXCC")]
     public class HyperDeckRXCCCommand : ICommand
     {
+        [CommandId]
         public uint Id { get; set; }
 
         public void Serialize(CommandBuilder cmd)

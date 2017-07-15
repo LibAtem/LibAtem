@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("CAMM", 8)]
+    [CommandName("CAMM", 8), NoCommandId]
     public class AudioMixerMasterSetCommand : SerializableCommandBase
     {
         [Flags]

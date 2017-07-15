@@ -6,6 +6,7 @@ namespace LibAtem.Commands.Audio
     [CommandName("AMIP", 20)]
     public class AudioMixerInputGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum16]
         public AudioSource Index { get; set; }
         [Serialize(2), Enum8]

@@ -6,8 +6,10 @@ namespace LibAtem.Commands.MixEffects.Key
     [CommandName("KeDV", 60)]
     public class MixEffectKeyDVEGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [CommandId]
         [Serialize(1), UInt8]
         public uint KeyerIndex { get; set; }
 

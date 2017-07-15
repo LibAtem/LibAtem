@@ -1,6 +1,6 @@
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_VMC")]
+    [CommandName("_VMC"), NoCommandId]
     public class VideoMixerConfigCommand : ICommand
     {
         public void Serialize(CommandBuilder cmd)

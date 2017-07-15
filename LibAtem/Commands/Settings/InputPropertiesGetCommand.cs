@@ -7,6 +7,7 @@ namespace LibAtem.Commands.Settings
     [CommandName("InPr")]
     public class InputPropertiesGetCommand : ICommand
     {
+        [CommandId]
         public VideoSource Id { get; set; }
         public string LongName { get; set; }
         public string ShortName { get; set; }

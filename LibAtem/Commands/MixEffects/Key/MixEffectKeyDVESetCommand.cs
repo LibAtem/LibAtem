@@ -40,9 +40,11 @@ namespace LibAtem.Commands.MixEffects.Key
 
         [Serialize(0), Enum32]
         public MaskFlags Mask { get; set; }
-        
+
+        [CommandId]
         [Serialize(4), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [CommandId]
         [Serialize(5), UInt8]
         public uint KeyerIndex { get; set; }
 

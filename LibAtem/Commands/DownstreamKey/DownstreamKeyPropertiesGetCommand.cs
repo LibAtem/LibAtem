@@ -6,6 +6,7 @@ namespace LibAtem.Commands.DownstreamKey
     [CommandName("DskP", 20)]
     public class DownstreamKeyPropertiesGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public DownstreamKeyId Index { get; set; }
         [Serialize(1), Bool]

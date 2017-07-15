@@ -5,6 +5,7 @@ namespace LibAtem.Commands.Media
     [CommandName("MPCS", 68)]
     public class MediaPoolClipSourceCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), UInt8]
         public uint Index { get; set; }
         [Serialize(1), Bool]

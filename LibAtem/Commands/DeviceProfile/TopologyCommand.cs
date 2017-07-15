@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_top", 20)]
+    [CommandName("_top", 20), NoCommandId]
     public class TopologyCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8]

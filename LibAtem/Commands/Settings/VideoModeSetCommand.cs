@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("CVdM", 4)]
+    [CommandName("CVdM", 4), NoCommandId]
     public class VideoModeSetCommand : SerializableCommandBase
     {
         [Serialize(0), Enum8]

@@ -7,6 +7,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
     [CommandName("RXMS", 20)]
     public class HyperDeckSettingsGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), UInt16Range(0, 4)]
         public uint Id { get; set; }
 

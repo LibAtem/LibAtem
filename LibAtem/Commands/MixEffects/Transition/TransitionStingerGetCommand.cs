@@ -6,6 +6,7 @@ namespace LibAtem.Commands.MixEffects.Transition
     [CommandName("TStP", 20)]
     public class TransitionStingerGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
         [Serialize(1), Enum8]

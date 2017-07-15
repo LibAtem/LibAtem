@@ -6,6 +6,7 @@ namespace LibAtem.Commands.MixEffects
     [CommandName("DAut", 4)]
     public class MixEffectAutoCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
     }

@@ -5,7 +5,9 @@ namespace LibAtem.Commands.Media
     [CommandName("MPfe")]
     public class MediaPoolFileCommand : ICommand
     {
+        [CommandId]
         public MediaPoolFileType Type { get; set; }
+        [CommandId]
         public uint Index { get; set; }
 
         public void Serialize(CommandBuilder cmd)

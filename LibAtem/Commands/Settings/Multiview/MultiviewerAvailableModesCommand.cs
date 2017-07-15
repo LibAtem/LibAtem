@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("MvVM", 4)]
+    [CommandName("MvVM", 4), NoCommandId]
     public class MultiviewerAvailableModesCommand : SerializableCommandBase
     {
         [Serialize(0), Enum8]

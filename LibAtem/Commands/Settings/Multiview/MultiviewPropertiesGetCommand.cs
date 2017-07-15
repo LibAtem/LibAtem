@@ -6,6 +6,7 @@ namespace LibAtem.Commands.Settings.Multiview
     [CommandName("MvPr", 4)]
     public class MultiviewPropertiesGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), UInt8Range(0, 9)]
         public uint MultiviewIndex { get; set; }
         [Serialize(1), Enum8]

@@ -4,7 +4,7 @@ using LibAtem.Common;
 
 namespace LibAtem.Commands
 {
-    [CommandName("TlSr")]
+    [CommandName("TlSr"), NoCommandId]
     public class TallyBySourceCommand : ICommand
     {
         public Dictionary<VideoSource, Tuple<bool, bool>> Tally { get; set; }

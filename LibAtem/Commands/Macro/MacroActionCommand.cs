@@ -13,6 +13,7 @@ namespace LibAtem.Commands.Macro
             Delete = 5,
         }
 
+        [CommandId]
         public uint Index { get; set; }
         public MacroAction Action { get; set; }
 

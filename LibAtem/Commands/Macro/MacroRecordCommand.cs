@@ -1,6 +1,6 @@
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("MSRc")]
+    [CommandName("MSRc"), NoCommandId]
     public class MacroRecordCommand : ICommand
     {
         public uint Index { get; set; }

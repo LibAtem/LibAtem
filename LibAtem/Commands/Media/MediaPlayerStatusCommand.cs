@@ -6,6 +6,7 @@ namespace LibAtem.Commands.Media
     [CommandName("RCPS", 8)]
     public class MediaPlayerStatusCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public MediaPlayerId Index { get; set; }
         [Serialize(1), Bool]

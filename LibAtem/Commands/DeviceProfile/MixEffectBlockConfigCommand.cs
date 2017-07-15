@@ -6,6 +6,7 @@ namespace LibAtem.Commands.DeviceProfile
     [CommandName("_MeC", 4)]
     public class MixEffectBlockConfigCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
         [Serialize(1), UInt8]

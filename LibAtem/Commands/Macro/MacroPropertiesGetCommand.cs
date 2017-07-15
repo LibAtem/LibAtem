@@ -6,6 +6,7 @@ namespace LibAtem.Commands.Macro
     [CommandName("MPrp")]
     public class MacroPropertiesGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), UInt16]
         public uint Index { get; set; }
         [Serialize(2), Bool]

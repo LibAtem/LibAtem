@@ -6,6 +6,7 @@ namespace LibAtem.Commands.MixEffects
     [CommandName("FtbS", 4)]
     public class FadeToBlackStateCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
         [Serialize(1), Bool]

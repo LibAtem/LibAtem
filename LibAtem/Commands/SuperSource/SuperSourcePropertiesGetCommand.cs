@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("SSrc", 32)]
+    [CommandName("SSrc", 32), NoCommandId]
     public class SuperSourcePropertiesGetCommand : SerializableCommandBase
     {
         [Serialize(0), Enum16]

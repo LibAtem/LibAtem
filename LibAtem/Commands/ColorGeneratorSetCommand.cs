@@ -16,7 +16,8 @@ namespace LibAtem.Commands
         
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
-        
+
+        [CommandId]
         [Serialize(1), UInt8Range(0, 1)]
         public uint Index { get; set; }
 

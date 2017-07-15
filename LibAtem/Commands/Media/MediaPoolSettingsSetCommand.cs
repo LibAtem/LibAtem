@@ -1,8 +1,6 @@
-using LibAtem.Serialization;
-
 namespace LibAtem.Commands.Media
 {
-    [CommandName("CMPS")]
+    [CommandName("CMPS"), NoCommandId]
     public class MediaPoolSettingsSetCommand : ICommand
     {
         public uint Clip1MaxFrames { get; set; }

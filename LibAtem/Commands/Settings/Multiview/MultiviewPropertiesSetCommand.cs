@@ -17,6 +17,7 @@ namespace LibAtem.Commands.Settings.Multiview
 
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [CommandId]
         [Serialize(1), UInt8]
         public uint MultiviewIndex { get; set; }
         [Serialize(2), Enum8]

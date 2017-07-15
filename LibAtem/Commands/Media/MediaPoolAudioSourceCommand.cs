@@ -5,6 +5,7 @@ namespace LibAtem.Commands.Media
     [CommandName("MPAS", 84)]
     public class MediaPoolAudioSourceCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), UInt8]
         public uint Index { get; set; }
         [Serialize(1), Bool]

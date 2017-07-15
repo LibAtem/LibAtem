@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_MAC", 4)]
+    [CommandName("_MAC", 4), NoCommandId]
     public class MacroPoolConfigCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8]

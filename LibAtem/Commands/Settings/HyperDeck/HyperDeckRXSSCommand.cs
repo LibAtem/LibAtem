@@ -3,6 +3,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
     [CommandName("RXSS")]
     public class HyperDeckRXSSCommand : ICommand
     {
+        [CommandId]
         public uint Id { get; set; }
 
         public void Serialize(CommandBuilder cmd)

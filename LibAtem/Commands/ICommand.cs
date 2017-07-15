@@ -33,6 +33,14 @@ namespace LibAtem.Commands
         }
     }
 
+    public class CommandIdAttribute : Attribute
+    {
+    }
+
+    public class NoCommandIdAttribute : Attribute
+    {
+    }
+
     public static class CommandExtensions
     {
         public static byte[] ToByteArray(this ICommand cmd)

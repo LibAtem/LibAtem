@@ -18,6 +18,7 @@ namespace LibAtem.Commands.DownstreamKey
 
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [CommandId]
         [Serialize(1), Enum8]
         public DownstreamKeyId Index { get; set; }
         [Serialize(2), Bool]

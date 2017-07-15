@@ -6,8 +6,10 @@ namespace LibAtem.Commands.MixEffects.Key
     [CommandName("KeOn", 4)]
     public class MixEffectKeyOnAirGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [CommandId]
         [Serialize(1), UInt8]
         public uint KeyerIndex { get; set; }
         [Serialize(2), Bool]

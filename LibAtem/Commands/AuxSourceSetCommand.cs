@@ -9,6 +9,7 @@ namespace LibAtem.Commands
         [Serialize(0), UInt8]
         public uint Mask => 1;
 
+        [CommandId]
         [Serialize(1), UInt8Range(0, 5)]
         public uint Id { get; set; }
         

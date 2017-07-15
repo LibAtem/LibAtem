@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("AMMO", 8)]
+    [CommandName("AMMO", 8), NoCommandId]
     public class AudioMixerMasterGetCommand : SerializableCommandBase
     {
         [Serialize(0), Decibels]

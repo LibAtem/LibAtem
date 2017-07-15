@@ -1,6 +1,6 @@
 ﻿namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_pin")]
+    [CommandName("_pin"), NoCommandId]
     public class ProductIdentifierCommand : ICommand
     {
         public string Name { get; set; }

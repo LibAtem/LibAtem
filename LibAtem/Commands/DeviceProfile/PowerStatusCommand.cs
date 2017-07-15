@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("Powr", 4)]
+    [CommandName("Powr", 4), NoCommandId]
     public class PowerStatusCommand : SerializableCommandBase
     {
         [Serialize(0), Bool(0)]

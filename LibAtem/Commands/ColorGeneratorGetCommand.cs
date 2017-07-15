@@ -5,6 +5,7 @@ namespace LibAtem.Commands
     [CommandName("ColV", 8)]
     public class ColorGeneratorGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), UInt8Range(0, 1)]
         public uint Index { get; set; }
         

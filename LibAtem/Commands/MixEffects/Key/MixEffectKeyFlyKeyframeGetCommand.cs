@@ -5,8 +5,11 @@ namespace LibAtem.Commands.MixEffects.Key
     [CommandName("KKFP")]
     public class MixEffectKeyFlyKeyframeGetCommand : ICommand
     {
+        [CommandId]
         public MixEffectBlockId MixEffectIndex { get; set; }
+        [CommandId]
         public uint KeyerIndex { get; set; }
+        [CommandId]
         public uint KeyFrame { get; set; }
 
         public void Serialize(CommandBuilder cmd)

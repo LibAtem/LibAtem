@@ -1,6 +1,6 @@
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_DVE")]
+    [CommandName("_DVE"), NoCommandId]
     public class DVEConfigCommand : ICommand
     {
         public void Serialize(CommandBuilder cmd)

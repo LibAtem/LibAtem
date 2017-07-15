@@ -17,6 +17,7 @@ namespace LibAtem.Commands.Settings
 
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [CommandId]
         [Serialize(2), Enum16]
         public VideoSource Id { get; set; }
         [Serialize(4), String(20)]

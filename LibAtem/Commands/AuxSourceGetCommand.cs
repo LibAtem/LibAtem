@@ -6,6 +6,7 @@ namespace LibAtem.Commands
     [CommandName("AuxS", 4)]
     public class AuxSourceGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), UInt8Range(0, 5)]
         public uint Id { get; set; }
 

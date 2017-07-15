@@ -17,6 +17,7 @@ namespace LibAtem.Commands.Audio
 
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [CommandId]
         [Serialize(2), Enum16]
         public AudioSource Index { get; set; }
         [Serialize(4), Enum8]

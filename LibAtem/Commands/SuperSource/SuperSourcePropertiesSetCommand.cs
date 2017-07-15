@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("CSSc", 36)]
+    [CommandName("CSSc", 36), NoCommandId]
     public class SuperSourcePropertiesSetCommand : SerializableCommandBase
     {
         [Flags]

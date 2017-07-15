@@ -5,6 +5,7 @@ namespace LibAtem.Commands.Media
     [CommandName("MPCE")]
     public class MediaPlayerSourceGetCommand : ICommand
     {
+        [CommandId]
         public MediaPlayerId Index { get; set; }
         public MediaPlayerSource SourceType { get; set; }
         public uint SourceIndex { get; set; }

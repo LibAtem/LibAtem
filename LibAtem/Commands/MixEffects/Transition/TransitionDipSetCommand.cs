@@ -16,6 +16,7 @@ namespace LibAtem.Commands.MixEffects.Transition
 
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
+        [CommandId]
         [Serialize(1), Enum8]
         public MixEffectBlockId Index { get; set; }
         [Serialize(2), UInt8Range(0, 250)]

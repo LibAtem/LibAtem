@@ -6,6 +6,7 @@ namespace LibAtem.Commands.DownstreamKey
     [CommandName("CDsC", 4)]
     public class DownstreamKeyCutSourceSetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public DownstreamKeyId Index { get; set; }
         [Serialize(2), Enum16]

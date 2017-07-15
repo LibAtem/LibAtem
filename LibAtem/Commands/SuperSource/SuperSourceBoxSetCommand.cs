@@ -24,7 +24,8 @@ namespace LibAtem.Commands.SuperSource
         
         [Serialize(0), Enum16]
         public MaskFlags Mask { get; set; }
-        
+
+        [CommandId]
         [Serialize(2), UInt8Range(0, 3)]
         public uint Index { get; set; }
         

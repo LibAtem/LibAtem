@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_ver", 4)]
+    [CommandName("_ver", 4), NoCommandId]
     public class VersionCommand : SerializableCommandBase
     {
         public VersionCommand()
