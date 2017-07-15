@@ -47,5 +47,18 @@ namespace LibAtem.Common
 
             return false;
         }
+
+        public static TransitionLayer ToTransitionLayerKey(this uint index)
+        {
+            IEnumerable<TransitionLayer> values = Enum.GetValues(typeof(TransitionLayer)).OfType<TransitionLayer>();
+            foreach (TransitionLayer val in values)
+            {
+                KeyIndexAttribute attr = val.GetPossibleAttribute<TransitionLayer, KeyIndexAttribute>();
+                if (attr != null && attr.Index == index)
+                    return val;
+            }
+
+            return TransitionLayer.None;
+        }
     }
 }
