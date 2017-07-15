@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace LibAtem.Util
 {
     public class UniqueQueue<TKey, TVal>
     {
-        private readonly Queue<TKey> idQueue;
+        private readonly BlockingCollection<TKey> idQueue;
         private readonly Dictionary<TKey, TVal> entries;
 
         public UniqueQueue()
         {
-            idQueue = new Queue<TKey>();
+            idQueue = new BlockingCollection<TKey>();
             entries = new Dictionary<TKey, TVal>();
         }
 
@@ -20,34 +21,36 @@ namespace LibAtem.Util
         // TODO return false if item was replaced
         public void Enqueue(TKey key, TVal item)
         {
-            lock (idQueue)
+            lock (entries)
             {
                 if (!entries.ContainsKey(key))
-                    idQueue.Enqueue(key);
-
-                entries[key] = item;
+                {
+                    entries[key] = item;
+                    idQueue.Add(key);
+                }
+                else
+                {
+                    entries[key] = item;
+                }
             }
         }
 
         public TVal Dequeue()
         {
-            lock (idQueue)
+            TKey key = idQueue.Take();
+            lock (entries)
             {
-                if (idQueue.Count == 0)
-                    return default(TVal);
-
-                TKey key = idQueue.Dequeue();
                 TVal val;
                 if (entries.TryGetValue(key, out val))
                 {
                     entries.Remove(key);
                     return val;
                 }
-
-                // recurse until we find one that isnt corrupt
-                Debug.Fail("Failed to find entry for key");
-                return Dequeue();
             }
+
+            // recurse until we find one that isnt corrupt
+            Debug.Fail("Failed to find entry for key");
+            return default(TVal);
         }
     }
 }

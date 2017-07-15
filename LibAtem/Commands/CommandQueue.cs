@@ -12,6 +12,12 @@ namespace LibAtem.Commands
         {
             Enqueue(new CommandQueueKey(item), item);
         }
+
+        public void Enqueue(IReadOnlyList<ICommand> commands)
+        {
+            foreach (ICommand item in commands)
+                Enqueue(new CommandQueueKey(item), item);
+        }
     }
 
     public struct CommandQueueKey : IEquatable<CommandQueueKey>
