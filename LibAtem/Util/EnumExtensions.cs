@@ -13,7 +13,7 @@ namespace LibAtem.Util
                 return Enum.IsDefined(typeof(T), src);
 
             // Is a flags, handle seperately
-            return Convert.ToInt32(src) <= Enum.GetValues(typeof(T)).Cast<int>().Max();
+            return Convert.ToInt32(src) < Enum.GetValues(typeof(T)).Cast<int>().Max() * 2;
 
         }
 
