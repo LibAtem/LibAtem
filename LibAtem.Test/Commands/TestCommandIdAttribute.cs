@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using LibAtem.Commands;
@@ -24,7 +25,7 @@ namespace LibAtem.Test.Commands
             var hasBoth = new List<string>();
 
             TypeInfo baseTypeInfo = typeof(ICommand).GetTypeInfo();
-            IEnumerable<Type> types = baseTypeInfo.Assembly.GetTypes().Where(t => baseTypeInfo.IsAssignableFrom((Type) t));
+            IEnumerable<Type> types = baseTypeInfo.Assembly.GetTypes().Where(t => baseTypeInfo.IsAssignableFrom(t));
             foreach (Type type in types)
             {
                 TypeInfo typeInfo = type.GetTypeInfo();
@@ -33,8 +34,7 @@ namespace LibAtem.Test.Commands
 
                 bool hasNoCmdAttribute = typeInfo.GetCustomAttributes<NoCommandIdAttribute>().Any();
 
-                bool hasCmdAttributes = typeInfo.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                    .Any(prop => prop.GetCustomAttributes<CommandIdAttribute>().Any());
+                bool hasCmdAttributes = CommandIdAttribute.GetProperties(type).Any();
 
                 if (hasNoCmdAttribute && hasCmdAttributes)
                     hasBoth.Add(type.Name);
@@ -53,6 +53,39 @@ namespace LibAtem.Test.Commands
                 output.WriteLine("\nHas both attributes: ");
                 output.WriteLine(string.Join("\n", hasBoth));
                 Assert.Equal(0, hasBoth.Count);
+            }
+        }
+
+        [Fact]
+        public void TestAllCommandIdAttributeTypes()
+        {
+            var badTypes = new List<string>();
+
+            TypeInfo baseTypeInfo = typeof(ICommand).GetTypeInfo();
+            IEnumerable<Type> types = baseTypeInfo.Assembly.GetTypes().Where(t => baseTypeInfo.IsAssignableFrom(t));
+            foreach (Type type in types)
+            {
+                TypeInfo typeInfo = type.GetTypeInfo();
+                if (typeInfo.IsInterface || typeInfo.IsAbstract)
+                    continue;
+
+                IEnumerable<PropertyInfo> props = CommandIdAttribute.GetProperties(type);
+                foreach (PropertyInfo prop in props)
+                {
+                    Type propType = prop.PropertyType;
+                   
+                    
+                    bool isValid = typeof(uint) == propType || propType.GetTypeInfo().IsEnum;
+                    if (!isValid)
+                        badTypes.Add(string.Format("{0}: {1} has invalid type {2}", type.Name, prop.Name, propType.Name));
+                }
+            }
+
+            if (badTypes.Any())
+            {
+                output.WriteLine("Bad types: ");
+                output.WriteLine(string.Join("\n", badTypes));
+                Assert.Equal(0, badTypes.Count);
             }
         }
     }

@@ -35,6 +35,11 @@ namespace LibAtem.Commands
 
     public class CommandIdAttribute : Attribute
     {
+        public static IEnumerable<PropertyInfo> GetProperties(Type type)
+        {
+            return type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .Where(prop => prop.GetCustomAttributes<CommandIdAttribute>().Any());
+        }
     }
 
     public class NoCommandIdAttribute : Attribute
