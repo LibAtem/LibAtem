@@ -2,7 +2,7 @@ stages:
   - build
 
 build:
-  image: microsoft/dotnet:latest
+  image: microsoft/dotnet:2.0-sdk
   before_script:
     - dotnet restore
   script:
