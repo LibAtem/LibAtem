@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -30,9 +29,8 @@ namespace LibAtem.Util
         {
             Type type = src.GetType();
             MemberInfo[] memInfo = type.GetMember(src.ToString());
-            IEnumerable<Attribute> attributes = memInfo[0].GetCustomAttributes(typeof(T), false);
 
-            return attributes.FirstOrDefault() as T;
+            return memInfo[0].GetCustomAttributes(typeof(T), false).OfType<T>().FirstOrDefault();
         }
     }
 }
