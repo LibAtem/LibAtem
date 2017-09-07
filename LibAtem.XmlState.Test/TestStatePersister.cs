@@ -87,6 +87,12 @@ namespace LibAtem.XmlState.Test
             RunForFile("TestFiles/valefest2017.xml");
         }
 
+        [Fact]
+        public void TestInsomnia61()
+        {
+            RunForFile("TestFiles/i61.xml");
+        }
+
         #region Helpers
 
         private void RunForFile(string filename)
