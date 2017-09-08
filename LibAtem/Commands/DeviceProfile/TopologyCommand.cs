@@ -26,7 +26,7 @@ namespace LibAtem.Commands.DeviceProfile
         [Serialize(10), UInt8]
         public uint SuperSource { get; set; }
 
-        public override void Serialize(CommandBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
 

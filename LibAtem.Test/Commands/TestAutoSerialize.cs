@@ -87,12 +87,12 @@ namespace LibAtem.Test.Commands
         {
             for (int i = 0; i < rounds; i++)
             {
-                ICommand raw = RandomCommandGenerator.Create(t);
+                ICommand raw =(ICommand) RandomPropertyGenerator.Create(t);
                 ICommand cmd = DeserializeSingle(raw.ToByteArray());
                 if (!t.GetTypeInfo().IsAssignableFrom(cmd.GetType()))
                     throw new Exception("Deserialized command of wrong type");
 
-                RandomCommandGenerator.AssertAreTheSame(raw, cmd);
+                RandomPropertyGenerator.AssertAreTheSame(raw, cmd);
             }
         }
         

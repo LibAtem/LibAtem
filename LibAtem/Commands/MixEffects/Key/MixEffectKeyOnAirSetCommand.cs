@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.MixEffects.Key;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
@@ -14,5 +17,15 @@ namespace LibAtem.Commands.MixEffects.Key
         public uint KeyerIndex { get; set; }
         [Serialize(2), Bool]
         public bool OnAir { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            yield return new KeyOnAirMacroOp()
+            {
+                Index = MixEffectIndex,
+                KeyIndex = KeyerIndex,
+                OnAir = OnAir,
+            };
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(18), Int16D(1000, -16000, 16000)]
         public double MaskRight { get; set; }
 
-        public override void Serialize(CommandBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
 

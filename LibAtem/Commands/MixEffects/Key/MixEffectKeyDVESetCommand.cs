@@ -106,7 +106,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(60), UInt8Range(1, 250)]
         public uint Rate { get; set; }
 
-//        public void Serialize(CommandBuilder cmd)
+//        public void Serialize(ByteArrayBuilder cmd)
 //        {
 //            cmd.Pad(4); // Mask
 //            cmd.AddUInt8((int)MixEffectIndex);
@@ -114,7 +114,7 @@ namespace LibAtem.Commands.MixEffects.Key
 //            cmd.Pad(58);
 //        }
 //
-//        public void Deserialize(ParsedCommand cmd)
+//        public void Deserialize(ParsedByteArray cmd)
 //        {
 //            cmd.Skip(4);
 //            MixEffectIndex = (MixEffectBlockId)cmd.GetUInt8();

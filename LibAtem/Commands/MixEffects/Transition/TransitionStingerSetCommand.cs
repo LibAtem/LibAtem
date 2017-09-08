@@ -1,6 +1,9 @@
 using System;
 using LibAtem.Common;
+using LibAtem.MacroOperations.MixEffects.Transition;
 using LibAtem.Serialization;
+using LibAtem.MacroOperations;
+using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
@@ -46,5 +49,12 @@ namespace LibAtem.Commands.MixEffects.Transition
         public uint TriggerPoint { get; set; }
         [Serialize(18), UInt16]
         public uint MixRate { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.MixRate))
+                yield return new TransitionStingerMixRateMacroOp() { Index = Index, Rate = MixRate };
+
+        }
     }
 }

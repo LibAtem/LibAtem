@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.SuperSource;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
@@ -75,5 +78,69 @@ namespace LibAtem.Commands.SuperSource
         public double BorderLightSourceDirection { get; set; }
         [Serialize(34), UInt8D(1, 0, 100)]
         public double BorderLightSourceAltitude { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.FillSource))
+                yield return new SuperSourceArtFillInputMacroOp() {Source = ArtFillInput};
+
+            if (Mask.HasFlag(MaskFlags.CutSource))
+                yield return new SuperSourceArtCutInputMacroOp() {Source = ArtKeyInput};
+
+            if (Mask.HasFlag(MaskFlags.ArtForeground))
+                yield return new SuperSourceArtAboveMacroOp() {ArtAbove = ArtOption == SuperSourceArtOption.Foreground};
+
+            if (Mask.HasFlag(MaskFlags.PreMultiplied))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.Clip))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.Gain))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.InvertKey))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderEnabled))
+                yield return new SuperSourceBorderEnableMacroOp() {Enable = BorderEnabled};
+
+            if (Mask.HasFlag(MaskFlags.BorderBevel))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderOuterWidth))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderInnerWidth))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderOuterSoftness))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderInnerSoftness))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderBevelSoftness))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderBevelPosition))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderHue))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderSaturation))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.BorderLuma))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.LightSourceDirection))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.LightSourceAltitude))
+                yield return null;
+
+        }
     }
 }

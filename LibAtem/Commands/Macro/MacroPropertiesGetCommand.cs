@@ -16,7 +16,7 @@ namespace LibAtem.Commands.Macro
         [Serialize(6), StringLength]
         public string Description { get; set; }
 
-        public override void Serialize(CommandBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
 
@@ -24,7 +24,7 @@ namespace LibAtem.Commands.Macro
             cmd.SetString(8 + Name.Length, Description);
         }
 
-        public override void Deserialize(ParsedCommand cmd)
+        public override void Deserialize(ParsedByteArray cmd)
         {
             base.Deserialize(cmd);
 

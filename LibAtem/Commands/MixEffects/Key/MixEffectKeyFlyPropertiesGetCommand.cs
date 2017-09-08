@@ -10,7 +10,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [CommandId]
         public uint KeyerIndex { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt8((int)MixEffectIndex);
             cmd.AddUInt8(KeyerIndex);
@@ -22,7 +22,7 @@ namespace LibAtem.Commands.MixEffects.Key
             cmd.Pad();
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             MixEffectIndex = (MixEffectBlockId) cmd.GetUInt8();
             KeyerIndex = cmd.GetUInt8();

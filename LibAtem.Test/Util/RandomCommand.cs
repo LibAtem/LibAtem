@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using LibAtem.Commands;
 using LibAtem.Serialization;
 using Xunit;
 
 namespace LibAtem.Test.Util
 {
-    internal class RandomCommandGenerator
+    internal class RandomPropertyGenerator
     {
         public static readonly Random random = new Random();
-
-        public static T Create<T>() where T : ICommand
+        
+        public static object Create(Type t)
         {
-            return (T) Create(typeof(T));
-        }
-
-        public static ICommand Create(Type t)
-        {
-            ICommand cmd = (ICommand) Activator.CreateInstance(t);
+            object cmd = (object) Activator.CreateInstance(t);
             foreach (PropertyInfo prop in t.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 // If prop cannot be deserialized, then ignore
@@ -49,7 +43,7 @@ namespace LibAtem.Test.Util
             return cmd;
         }
 
-        public static void AssertAreTheSame(ICommand orig, ICommand decoded)
+        public static void AssertAreTheSame(object orig, object decoded)
         {
             PropertyInfo[] props = orig.GetType().GetProperties();
             foreach (PropertyInfo prop in props)

@@ -4,21 +4,15 @@ using LibAtem.Util;
 
 namespace LibAtem
 {
-    public class ParsedCommand
+    public class ParsedByteArray
     {
         public byte[] Body { get; }
-        public byte B1 { get; }
-        public byte B2 { get; }
-        public string Name { get; }
 
         private uint pos;
 
-        public ParsedCommand(byte b1, byte b2, string name, byte[] body)
+        public ParsedByteArray(byte[] body)
         {
             Body = body;
-            B1 = b1;
-            B2 = b2;
-            Name = name;
 
             pos = 0;
         }
@@ -29,7 +23,7 @@ namespace LibAtem
 
         public uint GetUInt16()
         {
-            return (uint) ((Body[pos++] << 8) + Body[pos++]);
+            return (uint)((Body[pos++] << 8) + Body[pos++]);
         }
 
         public uint GetUInt16(uint min, uint max)
@@ -56,7 +50,7 @@ namespace LibAtem
         {
             uint index = pos;
             pos += 2;
-            return BitConverter.ToInt16(new[] {Body[index + 1], Body[index]}, 0);
+            return BitConverter.ToInt16(new[] { Body[index + 1], Body[index] }, 0);
         }
 
         public int GetInt16(int min, int max)
@@ -76,7 +70,7 @@ namespace LibAtem
         {
             uint index = pos;
             pos += 4;
-            return BitConverter.ToInt16(new[] {Body[index + 3], Body[index + 2], Body[index + 1], Body[index]}, 0);
+            return BitConverter.ToInt16(new[] { Body[index + 3], Body[index + 2], Body[index + 1], Body[index] }, 0);
         }
 
         public int GetInt32(int min, int max)
@@ -138,13 +132,13 @@ namespace LibAtem
 
         public void SkipToNearestMultipleOf4()
         {
-            int targetLen = MathExt.NextMultipleOf4((int) pos);
-            Skip((uint) (targetLen - pos));
+            int targetLen = MathExt.NextMultipleOf4((int)pos);
+            Skip((uint)(targetLen - pos));
         }
 
         public string GetString(uint length)
         {
-            string str = Encoding.ASCII.GetString(Body, (int) pos, (int) length);
+            string str = Encoding.ASCII.GetString(Body, (int)pos, (int)length);
             pos += length;
             int len = str.IndexOf((char)0);
             return len < 0 ? str : str.Substring(0, len);
@@ -155,6 +149,21 @@ namespace LibAtem
             string str = Encoding.ASCII.GetString(Body, start, length);
             int len = str.IndexOf((char)0);
             return len < 0 ? str : str.Substring(0, len);
+        }
+    }
+
+    public class ParsedCommand : ParsedByteArray
+    {
+        public byte B1 { get; }
+        public byte B2 { get; }
+        public string Name { get; }
+
+        public ParsedCommand(byte b1, byte b2, string name, byte[] body)
+            : base(body)
+        {
+            B1 = b1;
+            B2 = b2;
+            Name = name;
         }
     }
 }

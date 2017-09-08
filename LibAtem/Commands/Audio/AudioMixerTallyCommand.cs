@@ -8,7 +8,7 @@ namespace LibAtem.Commands.Audio
     {
         public Dictionary<AudioSource, bool> Inputs { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt16(Inputs.Count);
 
@@ -19,7 +19,7 @@ namespace LibAtem.Commands.Audio
             }
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             Inputs = new Dictionary<AudioSource, bool>();
 

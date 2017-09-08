@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.DownStreamKey;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
@@ -32,5 +35,23 @@ namespace LibAtem.Commands.DownstreamKey
         public double Left { get; set; }
         [Serialize(10), Int16D(1000, -16000, 16000)]
         public double Right { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Enabled))
+                yield return new DownstreamKeyMaskEnableMacroOp() {KeyIndex = Index, Enable = Enabled};
+
+            if (Mask.HasFlag(MaskFlags.Top))
+                yield return new DownstreamKeyMaskTopMacroOp() { KeyIndex = Index, Top = Top };
+
+            if (Mask.HasFlag(MaskFlags.Bottom))
+                yield return new DownstreamKeyMaskBottomMacroOp() { KeyIndex = Index, Bottom = Bottom };
+
+            if (Mask.HasFlag(MaskFlags.Left))
+                yield return new DownstreamKeyMaskLeftMacroOp() { KeyIndex = Index, Left = Left };
+
+            if (Mask.HasFlag(MaskFlags.Right))
+                yield return new DownstreamKeyMaskRightMacroOp() { KeyIndex = Index, Right = Right };
+        }
     }
 }

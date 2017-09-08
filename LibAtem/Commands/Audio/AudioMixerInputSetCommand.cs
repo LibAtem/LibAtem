@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.Audio;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
@@ -26,5 +29,21 @@ namespace LibAtem.Commands.Audio
         public double Gain { get; set; }
         [Serialize(8), Int16D(200, -10000, 10000)]
         public double Balance { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.MixOption))
+                yield return null;
+
+            if (Mask.HasFlag(MaskFlags.Gain))
+                yield return new AudioMixerInputGainMacroOp()
+                {
+                    Index = Index,
+                    Gain = Gain,
+                };
+
+            if (Mask.HasFlag(MaskFlags.Balance))
+                yield return null;
+        }
     }
 }

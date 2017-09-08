@@ -3,7 +3,7 @@ namespace LibAtem.Commands.DeviceProfile
     [CommandName("_VMC"), NoCommandId]
     public class VideoMixerConfigCommand : ICommand
     {
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             // TODO
             cmd.AddByte(0x00, 0x12, 0xA3, 0x60, 0x00, 0xC8, 0x10, 0x60, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x01,
@@ -27,7 +27,7 @@ namespace LibAtem.Commands.DeviceProfile
             //            res.Pad(216);
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             //TODO
             cmd.Skip(220);

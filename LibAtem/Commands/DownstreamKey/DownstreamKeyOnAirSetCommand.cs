@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.DownStreamKey;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
@@ -11,5 +14,14 @@ namespace LibAtem.Commands.DownstreamKey
         public DownstreamKeyId Index { get; set; }
         [Serialize(1), Bool]
         public bool OnAir { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            yield return new DownstreamKeyOnAirMacroOp()
+            {
+                KeyIndex = Index,
+                OnAir = OnAir,
+            };
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [CommandId]
         public uint KeyFrame { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt8((int)MixEffectIndex);
             cmd.AddUInt8(KeyerIndex);
@@ -23,7 +23,7 @@ namespace LibAtem.Commands.MixEffects.Key
                 0x6e, 0x49, 0x72, 0x50, 0xcd, 0x0b, 0x4d, 0x65, 0x69, 0x64, 0x20, 0x61, 0x6c, 0x50, 0x79, 0x61);
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             MixEffectIndex = (MixEffectBlockId)cmd.GetUInt8();
             KeyerIndex = cmd.GetUInt8();

@@ -1,6 +1,9 @@
 using System;
 using LibAtem.Common;
+using LibAtem.MacroOperations.MixEffects.Transition;
 using LibAtem.Serialization;
+using LibAtem.MacroOperations;
+using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
@@ -47,5 +50,12 @@ namespace LibAtem.Commands.MixEffects.Transition
         public bool ReverseDirection { get; set; }
         [Serialize(19), Bool]
         public bool FlipFlop { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Rate))
+                yield return new TransitionWipeRateMacroOp() { Index = Index, Rate = Rate };
+
+        }
     }
 }

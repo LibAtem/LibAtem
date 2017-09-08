@@ -12,7 +12,7 @@ namespace LibAtem.Commands.Audio
         [Serialize(6), Bool]
         public bool ProgramOutFollowFadeToBlack { get; set; }
 
-        public override void Serialize(CommandBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
 

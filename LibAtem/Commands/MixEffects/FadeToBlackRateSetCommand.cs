@@ -12,7 +12,7 @@ namespace LibAtem.Commands.MixEffects
         [Serialize(2), UInt8Range(0, 250)]
         public uint Rate { get; set; }
 
-        public override void Serialize(CommandBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
             cmd.Set(0, 0x01); // Mask Flag

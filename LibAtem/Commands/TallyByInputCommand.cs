@@ -8,7 +8,7 @@ namespace LibAtem.Commands
     {
         public List<Tuple<bool, bool>> Tally { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt16(Tally.Count);
 
@@ -18,7 +18,7 @@ namespace LibAtem.Commands
             cmd.PadToNearestMultipleOf4();
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             uint count = cmd.GetUInt16();
             Tally = new List<Tuple<bool, bool>>();

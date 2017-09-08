@@ -1,5 +1,7 @@
 ﻿using LibAtem.Common;
+using LibAtem.MacroOperations;
 using LibAtem.Serialization;
+using System.Collections.Generic;
 
 namespace LibAtem.Commands
 {
@@ -15,5 +17,14 @@ namespace LibAtem.Commands
         
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            yield return new AuxiliaryInputMacroOp()
+            {
+                Index = Id,
+                Source = Source,
+            };
+        }
     }
 }

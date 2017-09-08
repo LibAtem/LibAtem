@@ -18,7 +18,7 @@ namespace LibAtem.Commands.Settings
         public SourceAvailability SourceAvailability { get; set; }
         public MeAvailability MeAvailability { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt16((int)Id);
             cmd.AddString(20, LongName);
@@ -44,7 +44,7 @@ namespace LibAtem.Commands.Settings
             cmd.AddUInt8((uint)MeAvailability); // Xi
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             Id = (VideoSource) cmd.GetUInt16();
             LongName = cmd.GetString(20);

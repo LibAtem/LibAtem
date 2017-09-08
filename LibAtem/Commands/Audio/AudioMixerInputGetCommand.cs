@@ -27,7 +27,7 @@ namespace LibAtem.Commands.Audio
         [Serialize(9), UInt8]
         protected uint Unknown2 => 0x73;
 
-        public override void Serialize(CommandBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
 

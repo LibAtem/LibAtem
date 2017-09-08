@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.MixEffects.Transition;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
@@ -11,5 +14,14 @@ namespace LibAtem.Commands.MixEffects.Transition
         public MixEffectBlockId Index { get; set; }
         [Serialize(1), UInt8Range(0, 250)]
         public uint Rate { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            yield return new TransitionMixRateMacroOp()
+            {
+                Index = Index,
+                Rate = Rate,
+            };
+        }
     }
 }

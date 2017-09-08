@@ -12,7 +12,7 @@ namespace LibAtem.Commands.MixEffects
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
 
-        public override void Serialize(CommandBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
             cmd.Set(4, 0x00, 0x0a, 0x13, 0x01); // TODO

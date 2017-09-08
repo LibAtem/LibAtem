@@ -1,5 +1,8 @@
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.MixEffects;
 using LibAtem.Serialization;
+using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects
 {
@@ -11,5 +14,14 @@ namespace LibAtem.Commands.MixEffects
         public MixEffectBlockId Index { get; set; }
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            yield return new ProgramInputMacroOp()
+            {
+                Index = Index,
+                Source = Source,
+            };
+        }
     }
 }

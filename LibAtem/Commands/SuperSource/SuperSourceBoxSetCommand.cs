@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.SuperSource;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
@@ -58,5 +61,38 @@ namespace LibAtem.Commands.SuperSource
         
         [Serialize(20), UInt16D(1000, 0, 32000)]
         public double CropRight { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Enabled))
+                yield return new SuperSourceBoxEnableMacroOp() {BoxIndex = Index, Enable = Enabled};
+
+            if (Mask.HasFlag(MaskFlags.Source))
+                yield return new SuperSourceBoxInputMacroOp() {BoxIndex = Index, Source = InputSource};
+
+            if (Mask.HasFlag(MaskFlags.PositionX))
+                yield return new SuperSourceBoxXPositionMacroOp() {BoxIndex = Index, PositionX = PositionX};
+
+            if (Mask.HasFlag(MaskFlags.PositionY))
+                yield return new SuperSourceBoxYPositionMacroOp() {BoxIndex = Index, PositionY = PositionY};
+
+            if (Mask.HasFlag(MaskFlags.Size))
+                yield return new SuperSourceBoxSizeMacroOp() {BoxIndex = Index, Size = Size};
+
+            if (Mask.HasFlag(MaskFlags.Cropped))
+                yield return new SuperSourceBoxMaskEnableMacroOp() {BoxIndex = Index, Enable = Cropped};
+
+            if (Mask.HasFlag(MaskFlags.CropTop))
+                yield return new SuperSourceBoxMaskTopMacroOp() {BoxIndex = Index, Top = CropTop};
+
+            if (Mask.HasFlag(MaskFlags.CropBottom))
+                yield return new SuperSourceBoxMaskBottomMacroOp() {BoxIndex = Index, Bottom = CropBottom};
+
+            if (Mask.HasFlag(MaskFlags.CropLeft))
+                yield return new SuperSourceBoxMaskLeftMacroOp() {BoxIndex = Index, Left = CropLeft};
+
+            if (Mask.HasFlag(MaskFlags.CropRight))
+                yield return new SuperSourceBoxMaskRightMacroOp() {BoxIndex = Index, Right = CropRight};
+        }
     }
 }

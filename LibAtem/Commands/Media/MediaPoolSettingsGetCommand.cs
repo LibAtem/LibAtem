@@ -7,13 +7,13 @@ namespace LibAtem.Commands.Media
     {
         public List<uint> MaxFrames { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             foreach (uint fr in MaxFrames)
                 cmd.AddUInt16(fr);
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             MaxFrames = new List<uint>();
 

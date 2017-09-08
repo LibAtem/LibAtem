@@ -7,7 +7,7 @@ namespace LibAtem.Serialization
     {
         public override void Serialize(byte[] data, uint start, object val)
         {
-            byte[] bytes = BitConverter.GetBytes((short)val);
+            byte[] bytes = BitConverter.GetBytes((int)val);
             data[start] = bytes[1];
             data[start + 1] = bytes[0];
         }
@@ -42,7 +42,7 @@ namespace LibAtem.Serialization
         public override void Serialize(byte[] data, uint start, object val)
         {
             double value = Math.Round((double)val * _scale);
-            base.Serialize(data, start, (short)value);
+            base.Serialize(data, start, (int)value);
         }
 
         public override object Deserialize(byte[] data, uint start, PropertyInfo prop)

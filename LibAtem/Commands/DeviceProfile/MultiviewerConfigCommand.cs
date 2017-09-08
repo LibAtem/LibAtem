@@ -5,7 +5,7 @@ namespace LibAtem.Commands.DeviceProfile
     {
         public uint Count { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt8(Count);
             cmd.AddByte(0x0a);
@@ -17,7 +17,7 @@ namespace LibAtem.Commands.DeviceProfile
             cmd.AddByte(0x01);
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             Count = cmd.GetUInt8();
             cmd.Skip(7);

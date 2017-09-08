@@ -7,7 +7,7 @@ namespace LibAtem.Commands.Macro
         public string Name { get; set; }
         public string Description { get; set; }
         
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt16(Index);
             cmd.AddUInt16(Name.Length);
@@ -17,7 +17,7 @@ namespace LibAtem.Commands.Macro
             cmd.PadToNearestMultipleOf4();
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             Index = cmd.GetUInt16();
             uint nameLenth = cmd.GetUInt16();

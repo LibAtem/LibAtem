@@ -30,7 +30,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(16), UInt16]
         public uint MixRate { get; set; }
 
-//        public void Serialize(CommandBuilder cmd)
+//        public void Serialize(ByteArrayBuilder cmd)
 //        {
 //            cmd.AddUInt8((int)Index);
 //            cmd.AddUInt8(1); // TODO
@@ -68,7 +68,7 @@ namespace LibAtem.Commands.MixEffects.Transition
 //
 //        }
 //
-//        public void Deserialize(ParsedCommand cmd)
+//        public void Deserialize(ParsedByteArray cmd)
 //        {
 //            //TODO
 //            cmd.Skip(20);

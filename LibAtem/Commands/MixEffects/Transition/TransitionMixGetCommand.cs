@@ -12,7 +12,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(1), UInt8]
         public uint Rate { get; set; }
 
-        public override void Serialize(CommandBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
 

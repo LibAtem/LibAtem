@@ -3,7 +3,7 @@ namespace LibAtem.Commands.DeviceProfile
     [CommandName("_DVE"), NoCommandId]
     public class DVEConfigCommand : ICommand
     {
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             // TODO properly
             cmd.AddByte(0x01, 0x01, 0x00, 0x23, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C,
@@ -11,7 +11,7 @@ namespace LibAtem.Commands.DeviceProfile
                 0x0E, 0x0F, 0x20, 0x21, 0x00);
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             // TODO
             cmd.Skip(40);

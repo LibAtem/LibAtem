@@ -6,29 +6,19 @@ using LibAtem.Util;
 
 namespace LibAtem
 {
-    public class CommandBuilder
+    public class ByteArrayBuilder
     {
-        private readonly string _name;
         private readonly List<byte> _data;
 
-        private readonly byte b1;
-        private readonly byte b2;
-
-        public CommandBuilder(string name, byte b1=0x00, byte b2=0x00)
+        public ByteArrayBuilder()
         {
-            if (name.Length != 4)
-                throw new ArgumentException("Invalid name length");
-
-            _name = name;
             _data = new List<byte>();
-            this.b1 = b1;
-            this.b2 = b2;
         }
 
         public void Set(int pos, params byte[] b)
         {
             for (int i = 0; i < b.Length; i++)
-                _data[pos+i] = b[i];
+                _data[pos + i] = b[i];
         }
 
         public void AddUInt8(int val)
@@ -79,7 +69,7 @@ namespace LibAtem
             _data.Add(val);
         }
 
-        public void Pad(int count=1)
+        public void Pad(int count = 1)
         {
             for (var i = 0; i < count; i++)
                 _data.Add(0x00);
@@ -91,23 +81,14 @@ namespace LibAtem
             Pad(targetLen - _data.Count);
         }
 
-        public byte[] ToByteArray()
+        public virtual byte[] ToByteArray()
         {
-            int length = 8 + _data.Count;
-            byte l1 = (byte)(length / 256);
-            byte l2 = (byte)(length % 256);
-
-            byte[] prefix = {
-                l1, l2, // Length
-                b1, b2, // Unknown
-            };
-
-            return prefix.Concat(Encoding.ASCII.GetBytes(_name)).Concat(_data).ToArray();
+            return _data.ToArray();
         }
 
         public void AddString(string str)
         {
-           AddString(str.Length, str);
+            AddString(str.Length, str);
         }
 
         public void AddString(int length, string str)
@@ -125,7 +106,7 @@ namespace LibAtem
 
             _data.AddRange(res);
         }
-        
+
         public void SetString(int pos, string str)
         {
             SetString(pos, str.Length, str);
@@ -137,7 +118,7 @@ namespace LibAtem
             int i;
             for (i = 0; i < length && i < str.Length; i++)
             {
-                _data[pos + i] = (byte) str[i];
+                _data[pos + i] = (byte)str[i];
             }
             for (; i < length; i++)
             {
@@ -162,8 +143,42 @@ namespace LibAtem
 
         public void AddInt16(int scale, double val)
         {
-            byte[] res = BitConverter.GetBytes((short) (val * scale));
+            byte[] res = BitConverter.GetBytes((short)(val * scale));
             AddByte(res[1], res[0]);
+        }
+    }
+
+    public class CommandBuilder : ByteArrayBuilder
+    {
+        private readonly string _name;
+
+        private readonly byte b1;
+        private readonly byte b2;
+
+        public CommandBuilder(string name, byte b1 = 0x00, byte b2 = 0x00)
+        {
+            if (name.Length != 4)
+                throw new ArgumentException("Invalid name length");
+
+            _name = name;
+            this.b1 = b1;
+            this.b2 = b2;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = base.ToByteArray();
+
+            int length = 8 + data.Length;
+            byte l1 = (byte)(length / 256);
+            byte l2 = (byte)(length % 256);
+
+            byte[] prefix = {
+                l1, l2, // Length
+                b1, b2, // Unknown
+            };
+
+            return prefix.Concat(Encoding.ASCII.GetBytes(_name)).Concat(data).ToArray();
         }
     }
 }

@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.MixEffects.Transition;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
@@ -23,5 +26,14 @@ namespace LibAtem.Commands.MixEffects.Transition
         public uint Rate { get; set; }
         [Serialize(4), Enum16]
         public VideoSource Input { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Rate))
+                yield return new TransitionDipRateMacroOp() {Index = Index, Rate = Rate};
+
+            if (Mask.HasFlag(MaskFlags.Input))
+                yield return null;
+        }
     }
 }

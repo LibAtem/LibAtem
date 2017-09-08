@@ -17,7 +17,7 @@ namespace LibAtem.Commands.Macro
         public uint Index { get; set; }
         public MacroAction Action { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             switch (Action)
             {
@@ -34,7 +34,7 @@ namespace LibAtem.Commands.Macro
             cmd.Pad();
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             Index = cmd.GetUInt16();
             Action = (MacroAction) cmd.GetUInt8();

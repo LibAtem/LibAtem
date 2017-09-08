@@ -1,6 +1,9 @@
 using System;
 using LibAtem.Common;
+using LibAtem.MacroOperations.DownStreamKey;
 using LibAtem.Serialization;
+using LibAtem.MacroOperations;
+using System.Collections.Generic;
 
 namespace LibAtem.Commands.DownstreamKey
 {
@@ -29,5 +32,15 @@ namespace LibAtem.Commands.DownstreamKey
         public double Gain { get; set; }
         [Serialize(8), Bool]
         public bool Invert { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.PreMultiply))
+                yield return new DownstreamKeyPreMultiplyMacroOp()
+                {
+                    KeyIndex = Index,
+                    PreMultiply = PreMultiply,
+                };
+        }
     }
 }

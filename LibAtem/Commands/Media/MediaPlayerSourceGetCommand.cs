@@ -10,7 +10,7 @@ namespace LibAtem.Commands.Media
         public MediaPlayerSource SourceType { get; set; }
         public uint SourceIndex { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt8((int)Index);
             cmd.AddUInt8((int)SourceType);
@@ -26,7 +26,7 @@ namespace LibAtem.Commands.Media
             }
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             Index = (MediaPlayerId) cmd.GetUInt8();
             SourceType = (MediaPlayerSource) cmd.GetUInt8();

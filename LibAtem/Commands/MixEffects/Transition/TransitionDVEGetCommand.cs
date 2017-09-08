@@ -36,7 +36,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(16), Bool]
         public bool FlipFlop { get; set; }
 
-        //        public void Serialize(CommandBuilder cmd)
+        //        public void Serialize(ByteArrayBuilder cmd)
         //        {
         //            cmd.AddByte(0x0c);
         //            cmd.AddByte(0x00);

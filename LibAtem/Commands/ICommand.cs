@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibAtem.MacroOperations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,9 +8,11 @@ namespace LibAtem.Commands
 {
     public interface ICommand
     {
-        void Serialize(CommandBuilder cmd);
+        void Serialize(ByteArrayBuilder cmd);
 
-        void Deserialize(ParsedCommand cmd);
+        void Deserialize(ParsedByteArray cmd);
+
+        // IEnumerable<MacroOpBase> ToMacroOps(); // TODO - enable this once it is safe to do so
     }
 
     public class CommandNameAttribute : Attribute

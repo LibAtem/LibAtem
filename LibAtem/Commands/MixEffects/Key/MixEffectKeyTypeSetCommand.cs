@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.MixEffects.Key;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
@@ -26,5 +29,19 @@ namespace LibAtem.Commands.MixEffects.Key
         public MixEffectKeyType KeyType { get; set; }
         [Serialize(4), Bool]
         public bool FlyEnabled { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Type))
+                yield return new KeyTypeMacroOp()
+                {
+                    Index = MixEffectIndex,
+                    KeyIndex = KeyerIndex,
+                    KeyType = KeyType,
+                };
+
+            if (Mask.HasFlag(MaskFlags.FlyEnabled))
+                yield return null;
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace LibAtem.Commands.Media
         [CommandId]
         public uint Index { get; set; }
 
-        public void Serialize(CommandBuilder cmd)
+        public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt8((int) Type);
             cmd.AddByte(0x45);
@@ -20,7 +20,7 @@ namespace LibAtem.Commands.Media
             cmd.AddByte(0x1b, 0x00, 0x00);
         }
 
-        public void Deserialize(ParsedCommand cmd)
+        public void Deserialize(ParsedByteArray cmd)
         {
             Type = (MediaPoolFileType) cmd.GetUInt8();
             cmd.Skip(2);
