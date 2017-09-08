@@ -23,4 +23,23 @@ namespace LibAtem.MacroOperations.MixEffects.Key
             };
         }
     }
+
+    [MacroOperation(MacroOperationType.LumaKeyPreMultiply, 12)]
+    public class LumaKeyPreMultiplyMacroOp : MixEffectKeyMacroOpBase
+    {
+        [Serialize(8), Bool]
+        [MacroField("PreMultiply")]
+        public bool PreMultiply { get; set; }
+
+        public override ICommand ToCommand()
+        {
+            return new MixEffectKeyLumaSetCommand()
+            {
+                Mask = MixEffectKeyLumaSetCommand.MaskFlags.PreMultiplied,
+                MixEffectIndex = Index,
+                KeyerIndex = KeyIndex,
+                PreMultiplied = PreMultiply,
+            };
+        }
+    }
 }

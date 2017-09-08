@@ -1,0 +1,26 @@
+using LibAtem.Commands;
+using LibAtem.Commands.MixEffects.Key;
+using LibAtem.Common;
+using LibAtem.Serialization;
+
+namespace LibAtem.MacroOperations.MixEffects.Key
+{
+    [MacroOperation(MacroOperationType.DVEAndFlyKeyRotation, 12)]
+    public class DVEAndFlyKeyRotationMacroOp : MixEffectKeyMacroOpBase
+    {
+        [Serialize(8), Int32D(1000, -1000, 1000)] // TODO - check range
+        [MacroField("Rotation")]
+        public double Rotation { get; set; }
+
+        public override ICommand ToCommand()
+        {
+            return new MixEffectKeyDVESetCommand()
+            {
+                Mask = MixEffectKeyDVESetCommand.MaskFlags.Rotation,
+                MixEffectIndex = Index,
+                KeyerIndex = KeyIndex,
+                Rotation = Rotation,
+            };
+        }
+    }
+}

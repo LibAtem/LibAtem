@@ -27,7 +27,7 @@ namespace LibAtem.Test.MacroOp
             var failures = new List<string>();
             
             Assembly assembly = typeof(IMacroOperation).GetTypeInfo().Assembly;
-            IEnumerable<Type> types = assembly.GetTypes().Where(t => ((Type) typeof(MacroOpBase).GetTypeInfo()).IsAssignableFrom(t));
+            IEnumerable<Type> types = assembly.GetTypes().Where(t => (typeof(MacroOpBase).GetTypeInfo() as Type).IsAssignableFrom(t));
             foreach (Type type in types)
             {
                 if (type == typeof(MacroOpBase) || type.IsAbstract)
@@ -36,7 +36,7 @@ namespace LibAtem.Test.MacroOp
                 try
                 {
                     output.WriteLine("Testing: {0}", type.Name);
-                    TestSingle(type, 10);
+                    TestStartingWithMacroOperationSingle(type, 10);
                 }
                 catch (Exception e)
                 {
@@ -48,7 +48,7 @@ namespace LibAtem.Test.MacroOp
             Assert.Equal(0, failures.Count);
         }
 
-        private void TestSingle(Type t, int rounds)
+        private void TestStartingWithMacroOperationSingle(Type t, int rounds)
         {
             for (int i = 0; i < rounds; i++)
             {

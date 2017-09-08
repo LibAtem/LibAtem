@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.MixEffects.Key;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
@@ -32,5 +35,17 @@ namespace LibAtem.Commands.MixEffects.Key
         public double Gain { get; set; }
         [Serialize(8), Bool]
         public bool Invert { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.PreMultiplied))
+                yield return new LumaKeyPreMultiplyMacroOp()
+                {
+                    Index = MixEffectIndex,
+                    KeyIndex = KeyerIndex,
+                    PreMultiply = PreMultiplied,
+                };
+
+        }
     }
 }
