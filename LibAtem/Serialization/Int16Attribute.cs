@@ -25,15 +25,15 @@ namespace LibAtem.Serialization
 
     public class Int16DAttribute : Int16Attribute, IRandomGeneratorAttribute
     {
-        private readonly double _scale;
-        private readonly int _scaledMin;
-        private readonly int _scaledMax;
+        public double Scale { get; }
+        public int ScaledMin { get; }
+        public int ScaledMax { get; }
 
         public Int16DAttribute(double scale, int scaledMin, int scaledMax)
         {
-            _scale = scale;
-            _scaledMin = scaledMin;
-            _scaledMax = scaledMax;
+            Scale = scale;
+            ScaledMin = scaledMin;
+            ScaledMax = scaledMax;
 
             if (scaledMin >= scaledMax)
                 throw new ArgumentException("Min must be less than Max");
@@ -41,37 +41,37 @@ namespace LibAtem.Serialization
 
         public override void Serialize(byte[] data, uint start, object val)
         {
-            double value = Math.Round((double)val * _scale);
+            double value = Math.Round((double)val * Scale);
             base.Serialize(data, start, (int)value);
         }
 
         public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
         {
             int rawVal = (int)base.Deserialize(data, start, prop);
-            double val = rawVal / _scale;
+            double val = rawVal / Scale;
 
-            if (val < _scaledMin)
-                return _scaledMin;
-            if (val > _scaledMax)
-                return _scaledMax;
+            if (val < ScaledMin)
+                return ScaledMin;
+            if (val > ScaledMax)
+                return ScaledMax;
 
             return val;
         }
 
         public object GetRandom(Random random)
         {
-            int range = _scaledMax - _scaledMin;
-            return (random.NextDouble() * range + _scaledMin) / _scale;
+            int range = ScaledMax - ScaledMin;
+            return (random.NextDouble() * range + ScaledMin) / Scale;
         }
 
         public bool IsValid(object obj)
         {
-            return (double)obj >= _scaledMin && (double)obj <= _scaledMax;
+            return (double)obj >= ScaledMin && (double)obj <= ScaledMax;
         }
 
         public override bool AreEqual(object val1, object val2)
         {
-            double tolerance = 1 / (2 * _scale);
+            double tolerance = 1 / (2 * Scale);
             return Math.Abs((double)val1 - (double)val2) <= tolerance;
         }
     }

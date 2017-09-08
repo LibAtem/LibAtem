@@ -33,35 +33,35 @@ namespace LibAtem.Serialization
 
     public class UInt8RangeAttribute : UInt8Attribute
     {
-        private readonly int _min;
-        private readonly int _max;
+        public int Min { get; }
+        public int Max { get; }
 
         public UInt8RangeAttribute(int min, int max)
         {
-            _min = min;
-            _max = max;
+            Min = min;
+            Max = max;
         }
 
         public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
         {
             uint val = (uint)base.Deserialize(data, start, prop);
 
-            if (val < _min)
-                return (uint)_min;
-            if (val > _max)
-                return (uint)_max;
+            if (val < Min)
+                return (uint)Min;
+            if (val > Max)
+                return (uint)Max;
 
             return val;
         }
 
         public override object GetRandom(Random random)
         {
-            return (uint)random.Next(_min, _max);
+            return (uint)random.Next(Min, Max);
         }
 
         public override bool IsValid(object obj)
         {
-            return (uint)obj >= _min && (uint)obj <= _max;
+            return (uint)obj >= Min && (uint)obj <= Max;
         }
     }
 
