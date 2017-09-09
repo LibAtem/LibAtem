@@ -61,6 +61,8 @@ namespace LibAtem.XmlState
         Camera19 = 19,
         Camera20 = 20,
 
+        ColorBars = 1000,
+
         Color1 = 2001,
         Color2 = 2002,
 
