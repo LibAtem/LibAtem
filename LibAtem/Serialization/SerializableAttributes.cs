@@ -10,12 +10,10 @@ namespace LibAtem.Serialization
     public class SerializeAttribute : Attribute
     {
         public uint StartByte { get; }
-        //public uint? SecondaryStartByte { get; }
 
-        public SerializeAttribute(uint startByte)//, uint? secondaryStartByte)
+        public SerializeAttribute(uint startByte)
         {
             StartByte = startByte;
-            //SecondaryStartByte = secondaryStartByte;
         }
     }
 
