@@ -7,8 +7,8 @@ namespace LibAtem.MacroOperations.MixEffects
     public abstract class MixEffectMacroOpBase : MacroOpBase
     {
         [CommandId]
-        [Serialize(4), Enum16]
-        [MacroField("MixEffectBlockIndex")] // TODO Should this be defined elsewhere?
+        [Serialize(4), Enum8]
+        [MacroField("MixEffectBlockIndex")]
         public MixEffectBlockId Index { get; set; }
     }
 }

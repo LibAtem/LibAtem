@@ -13,14 +13,14 @@ namespace LibAtem.Serialization
             _length = length;
         }
 
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             byte[] arr = (byte[])val;
             int len = _length > 0 ? _length : arr.Length;
             arr.Take(len).ToArray().CopyTo(data, (int) start);
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
             if (_length <= 0)
                 return null; // Note: not supported

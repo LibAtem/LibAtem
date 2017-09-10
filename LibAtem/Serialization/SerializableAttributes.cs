@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace LibAtem.Serialization
@@ -19,9 +21,14 @@ namespace LibAtem.Serialization
 
     public abstract class SerializableAttributeBase : Attribute
     {
-        public abstract void Serialize(byte[] data, uint start, object val);
-        public abstract object Deserialize(byte[] data, uint start, PropertyInfo prop);
+        public abstract void Serialize(bool reverseBytes, byte[] data, uint start, object val);
+        public abstract object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop);
         public abstract bool AreEqual(object val1, object val2);
+
+        protected byte[] ReverseBytes(bool reverse, IEnumerable<byte> data)
+        {
+            return reverse ? data.Reverse().ToArray() : data.ToArray();
+        }
     }
 
     public interface IRandomGeneratorAttribute

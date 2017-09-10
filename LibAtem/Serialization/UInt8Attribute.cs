@@ -5,12 +5,12 @@ namespace LibAtem.Serialization
 {
     public class UInt8Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             data[start] = BitConverter.GetBytes((uint) val)[0];
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
             return (uint) data[start];
         }
@@ -42,9 +42,9 @@ namespace LibAtem.Serialization
             Max = max;
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            uint val = (uint)base.Deserialize(data, start, prop);
+            uint val = (uint)base.Deserialize(reverseBytes, data, start, prop);
 
             if (val < Min)
                 return (uint)Min;
@@ -81,15 +81,15 @@ namespace LibAtem.Serialization
                 throw new ArgumentException("Min must be less than Max");
         }
 
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             double value = Math.Round((double)val * _scale);
-            base.Serialize(data, start, (uint)value);
+            base.Serialize(reverseBytes, data, start, (uint)value);
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            uint rawVal = (uint)base.Deserialize(data, start, prop);
+            uint rawVal = (uint)base.Deserialize(reverseBytes, data, start, prop);
             double val = rawVal / _scale;
 
             if (val < _scaledMin / _scale)

@@ -14,7 +14,7 @@ namespace LibAtem.Serialization
             _length = length;
         }
 
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             string str = (string)val;
             byte[] res = new byte[_length];
@@ -29,7 +29,7 @@ namespace LibAtem.Serialization
             res.CopyTo(data, (int) start);
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool cmdReverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
             string str = Encoding.ASCII.GetString(data, (int) start, _length);
             int len = str.IndexOf((char) 0);
@@ -67,17 +67,17 @@ namespace LibAtem.Serialization
             _maxlength = maxlength;
         }
 
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             string str = (string) val;
             byte[] bytes = BitConverter.GetBytes(str.Length);
-            data[start] = bytes[1];
-            data[start + 1] = bytes[0];
+            data[start] = bytes[reverseBytes ? 1 : 0];
+            data[start + 1] = bytes[reverseBytes ? 0 : 1];
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            int len = (data[start] << 8) + data[start + 1];
+            int len = BitConverter.ToUInt16(ReverseBytes(reverseBytes, data.Skip((int) start).Take(2)), 0);
             return new string(' ', len);
         }
 

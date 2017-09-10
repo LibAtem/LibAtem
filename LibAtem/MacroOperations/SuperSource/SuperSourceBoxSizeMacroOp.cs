@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.SuperSource
     [MacroOperation(MacroOperationType.SuperSourceBoxSize, 12)]
     public class SuperSourceBoxSizeMacroOp : SuperSourceBoxMacroOpBase
     {
-        [Serialize(6), UInt16D(1000, 70, 1000)]
+        [Serialize(8), Int32D(65536, (int)(0.07 * 65536), 65536)]
         [MacroField("Size")]
         public double Size { get; set; }
 

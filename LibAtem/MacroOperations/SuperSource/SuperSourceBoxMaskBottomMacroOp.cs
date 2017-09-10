@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.SuperSource
     [MacroOperation(MacroOperationType.SuperSourceBoxMaskBottom, 12)]
     public class SuperSourceBoxMaskBottomMacroOp : SuperSourceBoxMacroOpBase
     {
-        [Serialize(6), UInt16D(1000, 0, 18000)]
+        [Serialize(8), Int32D(65536, 0, 18 * 65536)]
         [MacroField("Bottom")]
         public double Bottom { get; set; }
 

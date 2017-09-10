@@ -1,7 +1,5 @@
-﻿using LibAtem.Common;
-using LibAtem.MacroOperations;
+﻿using LibAtem.MacroOperations;
 using LibAtem.Test.Util;
-using LibAtem.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +51,7 @@ namespace LibAtem.Test.MacroOp
             {
                 MacroOpBase raw = (MacroOpBase) RandomPropertyGenerator.Create(t);
                 MacroOpBase cmd = DeserializeSingle(raw.ToByteArray());
-                if (!t.GetTypeInfo().IsAssignableFrom(cmd.GetType()))
+                if (!t.GetTypeInfo().IsInstanceOfType(cmd))
                     throw new Exception("Deserialized operation of wrong type");
 
                 RandomPropertyGenerator.AssertAreTheSame(raw, cmd);
@@ -64,27 +62,10 @@ namespace LibAtem.Test.MacroOp
         {
             Assert.True(arr.Length > 4);
 
-            int cmdLength = (arr[0] << 8) | arr[1];
+            int cmdLength = arr[0];
             Assert.False(arr.Length != cmdLength || cmdLength == 0);
 
-            byte[] cmdBody = new byte[cmdLength - 8];
-
-            int opId = (arr[2] << 8) | arr[3];
-            MacroOperationType macroOp = (MacroOperationType) opId;
-            Assert.True(macroOp.IsValid());
-
-            var parsed = new ParsedByteArray(arr);
-
-            Type type = MacroOpManager.FindForType(macroOp);
-            if (type == null)
-                throw new Exception("Failed to find macroop during deserialize");
-
-            MacroOpBase cmd = (MacroOpBase)Activator.CreateInstance(type);
-            if (cmd == null)
-                throw new Exception("Failed to construct macroop");
-
-            cmd.Deserialize(parsed);
-            return cmd;
+            return MacroOpManager.CreateFromData(arr);
         }
     }
 }

@@ -1,22 +1,24 @@
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace LibAtem.Serialization
 {
     public class Int32Attribute : SerializableAttributeBase
     {
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             byte[] bytes = BitConverter.GetBytes((int)val);
-            data[start] = bytes[3];
-            data[start + 1] = bytes[2];
-            data[start + 2] = bytes[1];
-            data[start + 3] = bytes[0];
+            data[start] = bytes[reverseBytes ? 3 : 0];
+            data[start + 1] = bytes[reverseBytes ? 2 : 1];
+            data[start + 2] = bytes[reverseBytes ? 1 : 2];
+            data[start + 3] = bytes[reverseBytes ? 0 : 3];
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            return (int)BitConverter.ToInt16(new[] { data[start + 3], data[start + 2], data[start + 1], data[start] }, 0);
+
+            return (int)BitConverter.ToInt32(ReverseBytes(reverseBytes, data.Skip((int)start).Take(4)), 0);
         }
 
         public override bool AreEqual(object val1, object val2)
@@ -41,23 +43,22 @@ namespace LibAtem.Serialization
                 throw new ArgumentException("Min must be less than Max");
         }
 
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
-            double value = Math.Round((double)val * Scale);
-            base.Serialize(data, start, (int)value);
+            int value = (int)Math.Round((double)val * Scale);
+            base.Serialize(reverseBytes, data, start, value);
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            int rawVal = (int)base.Deserialize(data, start, prop);
-            double val = rawVal / Scale;
+            int val = (int)base.Deserialize(reverseBytes, data, start, prop);
 
             if (val < ScaledMin)
                 return ScaledMin;
             if (val > ScaledMax)
                 return ScaledMax;
 
-            return val;
+            return val / Scale;
         }
 
         public object GetRandom(Random random)

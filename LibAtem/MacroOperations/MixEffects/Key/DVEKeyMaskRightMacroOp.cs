@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.DVEKeyMaskRight, 12)]
     public class DVEKeyMaskRightMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(8), Int16D(1000, -16000, 16000)]
+        [Serialize(8), Int32D(65536, -16 * 65536, 16 * 65536)]
         [MacroField("Right")]
         public double Right { get; set; }
 

@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
     [MacroOperation(MacroOperationType.DownstreamKeyOnAir, 8)]
     public class DownstreamKeyOnAirMacroOp : DownstreamKeyMacroOpBase
     {
-        [Serialize(6), Bool]
+        [Serialize(5), Bool]
         [MacroField("OnAir")]
         public bool OnAir { get; set; }
 
@@ -16,7 +16,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
         {
             return new DownstreamKeyOnAirSetCommand()
             {
-                Index = (DownstreamKeyId) KeyIndex,
+                Index = KeyIndex,
                 OnAir = OnAir,
             };
         }

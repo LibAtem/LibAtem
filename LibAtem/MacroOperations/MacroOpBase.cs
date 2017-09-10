@@ -5,6 +5,7 @@ using LibAtem.Serialization;
 using LibAtem.Commands;
 using System.Collections.Generic;
 using System.Linq;
+using LibAtem.Util;
 
 namespace LibAtem.MacroOperations
 {
@@ -17,7 +18,7 @@ namespace LibAtem.MacroOperations
     {
         public static byte[] ToByteArray(this MacroOpBase cmd)
         {
-            var builder = new ByteArrayBuilder();
+            var builder = new ByteArrayBuilder(false);
             cmd.Serialize(builder);
             return builder.ToByteArray();
         }
@@ -25,8 +26,8 @@ namespace LibAtem.MacroOperations
 
     public abstract class MacroOpBase : AutoSerializeBase, IMacroOperation
     {
-        [Serialize(0), Int16]
-        public int Length => GetLengthFromAttribute();
+        [Serialize(0), UInt8]
+        public uint Length => (uint) GetLengthFromAttribute();
 
         [Serialize(2), Enum16]
         public MacroOperationType Id => GetAttribute().Operation;
@@ -100,6 +101,24 @@ namespace LibAtem.MacroOperations
                 macroOpTypes = FindAllTypes();
 
             return macroOpTypes;
+        }
+
+        public static MacroOpBase CreateFromData(byte[] arr)
+        {
+            int opId = (arr[3] << 8) | arr[2];
+            MacroOperationType macroOp = (MacroOperationType)opId;
+            if (!macroOp.IsValid())
+                throw new SerializationException("FTDa", "Invalid MacroOperationType: {0}", opId);
+
+            var parsed = new ParsedByteArray(arr, false);
+
+            Type type = FindForType(macroOp);
+            if (type == null)
+                throw new SerializationException("FTDa", "Failed to find MacroOperationType: {0}", macroOp);
+
+            MacroOpBase cmd = (MacroOpBase)Activator.CreateInstance(type);
+            cmd.Deserialize(parsed);
+            return cmd;
         }
     }
 }

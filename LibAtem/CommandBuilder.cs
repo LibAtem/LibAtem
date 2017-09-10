@@ -10,9 +10,17 @@ namespace LibAtem
     {
         private readonly List<byte> _data;
 
-        public ByteArrayBuilder()
+        public bool ReverseBytes { get; }
+
+        public ByteArrayBuilder(bool reverseBytes)
         {
+            ReverseBytes = reverseBytes;
             _data = new List<byte>();
+        }
+
+        private IEnumerable<byte> ReverseBytesIfNeeded(IEnumerable<byte> data)
+        {
+            return ReverseBytes ? data.Reverse() : data;
         }
 
         public void Set(int pos, params byte[] b)
@@ -33,19 +41,22 @@ namespace LibAtem
 
         public void AddUInt16(int val)
         {
-            byte[] bytes = BitConverter.GetBytes(val);
-            AddByte(bytes[1], bytes[0]);
+            AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes(val).Take(2)));
         }
 
         public void AddUInt16(uint val)
         {
-            byte[] bytes = BitConverter.GetBytes(val);
-            AddByte(bytes[1], bytes[0]);
+            AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes(val).Take(2)));
         }
 
         public void AddDecibels(double db)
         {
             AddUInt16(1, Math.Pow(10, db / 20d) * 32768);
+        }
+
+        public void AddByte(IEnumerable<byte> val)
+        {
+            _data.AddRange(val);
         }
 
         public void AddByte(params byte[] val)
@@ -114,7 +125,6 @@ namespace LibAtem
 
         public void SetString(int pos, int length, string str)
         {
-            byte[] res = new byte[length];
             int i;
             for (i = 0; i < length && i < str.Length; i++)
             {
@@ -137,14 +147,12 @@ namespace LibAtem
 
         public void AddInt32(int val)
         {
-            byte[] res = BitConverter.GetBytes(val);
-            AddByte(res[3], res[2], res[1], res[0]);
+            AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes(val).Take(4)));
         }
 
         public void AddInt16(int scale, double val)
         {
-            byte[] res = BitConverter.GetBytes((short)(val * scale));
-            AddByte(res[1], res[0]);
+            AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes((short)(val * scale)).Take(2)));
         }
     }
 
@@ -156,6 +164,7 @@ namespace LibAtem
         private readonly byte b2;
 
         public CommandBuilder(string name, byte b1 = 0x00, byte b2 = 0x00)
+            : base(true)
         {
             if (name.Length != 4)
                 throw new ArgumentException("Invalid name length");

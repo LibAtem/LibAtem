@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using LibAtem.Util;
 
@@ -7,11 +9,13 @@ namespace LibAtem
     public class ParsedByteArray
     {
         public byte[] Body { get; }
+        public bool ReverseBytes { get; }
 
         private uint pos;
 
-        public ParsedByteArray(byte[] body)
+        public ParsedByteArray(byte[] body, bool reverseBytes)
         {
+            ReverseBytes = reverseBytes;
             Body = body;
 
             pos = 0;
@@ -20,10 +24,23 @@ namespace LibAtem
         public bool HasFinished => pos >= BodyLength;
 
         public int BodyLength => Body.Length;
+        
+        private byte[] ReverseBytesIfNeeded(IEnumerable<byte> data)
+        {
+            return ReverseBytes ? data.Reverse().ToArray() : data.ToArray();
+        }
+
+        private IEnumerable<byte> TakeBytes(int count)
+        {
+            int i = (int) pos;
+            pos += (uint) count;
+
+            return Body.Skip(i).Take(count);
+        }
 
         public uint GetUInt16()
         {
-            return (uint)((Body[pos++] << 8) + Body[pos++]);
+            return BitConverter.ToUInt16(ReverseBytesIfNeeded(TakeBytes(2)), 0);
         }
 
         public uint GetUInt16(uint min, uint max)
@@ -48,9 +65,7 @@ namespace LibAtem
 
         public int GetInt16()
         {
-            uint index = pos;
-            pos += 2;
-            return BitConverter.ToInt16(new[] { Body[index + 1], Body[index] }, 0);
+            return BitConverter.ToInt16(ReverseBytesIfNeeded(TakeBytes(2)), 0);
         }
 
         public int GetInt16(int min, int max)
@@ -68,9 +83,7 @@ namespace LibAtem
 
         public int GetInt32()
         {
-            uint index = pos;
-            pos += 4;
-            return BitConverter.ToInt16(new[] { Body[index + 3], Body[index + 2], Body[index + 1], Body[index] }, 0);
+            return BitConverter.ToInt32(ReverseBytesIfNeeded(TakeBytes(4)), 0);
         }
 
         public int GetInt32(int min, int max)
@@ -159,7 +172,7 @@ namespace LibAtem
         public string Name { get; }
 
         public ParsedCommand(byte b1, byte b2, string name, byte[] body)
-            : base(body)
+            : base(body, true)
         {
             B1 = b1;
             B2 = b2;

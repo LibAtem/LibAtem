@@ -42,7 +42,7 @@ namespace LibAtem.Serialization
                 if (serAttr == null)
                     throw new SerializationException(GetName(), "Missing serialization definition on property {0}", prop.Name);
 
-                serAttr.Serialize(res, attr.StartByte, prop.GetValue(this));
+                serAttr.Serialize(cmd.ReverseBytes, res, attr.StartByte, prop.GetValue(this));
             }
 
             cmd.AddByte(res);
@@ -68,7 +68,7 @@ namespace LibAtem.Serialization
                 if (serAttr == null)
                     throw new SerializationException(GetName(), "Missing serialization definition on property {0}", prop.Name);
 
-                prop.SetValue(this, serAttr.Deserialize(cmd.Body, attr.StartByte, prop));
+                prop.SetValue(this, serAttr.Deserialize(cmd.ReverseBytes, cmd.Body, attr.StartByte, prop));
             }
 
             if (GetLength() != cmd.BodyLength)

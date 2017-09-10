@@ -5,14 +5,14 @@ namespace LibAtem.Serialization
 {
     public class DecibelsAttribute : UInt16Attribute
     {
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
-            base.Serialize(data, start, (uint) (Math.Pow(10, (double) val / 20d) * 32768));
+            base.Serialize(reverseBytes, data, start, (uint) (Math.Pow(10, (double) val / 20d) * 32768));
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            return UIntToDecibel((uint) base.Deserialize(data, start, prop));
+            return UIntToDecibel((uint) base.Deserialize(reverseBytes, data, start, prop));
         }
 
         private static double UIntToDecibel(uint val)

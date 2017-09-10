@@ -1,20 +1,21 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 namespace LibAtem.Serialization
 {
     public class UInt16Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             byte[] bytes = BitConverter.GetBytes((uint) val);
-            data[start] = bytes[1];
-            data[start+1] = bytes[0];
+            data[start] = bytes[reverseBytes ? 1 : 0];
+            data[start+1] = bytes[reverseBytes ? 0 : 1];
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            return (uint) ((data[start] << 8) + data[start+1]);
+            return (uint) BitConverter.ToUInt16(ReverseBytes(reverseBytes, data.Skip((int)start).Take(2)), 0);
         }
 
         public override bool AreEqual(object val1, object val2)
@@ -44,9 +45,9 @@ namespace LibAtem.Serialization
             Max = max;
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            uint val = (uint)base.Deserialize(data, start, prop);
+            uint val = (uint)base.Deserialize(reverseBytes, data, start, prop);
 
             if (val < Min)
                 return (uint)Min;
@@ -83,15 +84,15 @@ namespace LibAtem.Serialization
                 throw new ArgumentException("Min must be less than Max");
         }
 
-        public override void Serialize(byte[] data, uint start, object val)
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             double value = Math.Round((double) val * _scale);
-            base.Serialize(data, start, (uint) value);
+            base.Serialize(reverseBytes, data, start, (uint) value);
         }
 
-        public override object Deserialize(byte[] data, uint start, PropertyInfo prop)
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            uint rawVal = (uint) base.Deserialize(data, start, prop);
+            uint rawVal = (uint) base.Deserialize(reverseBytes, data, start, prop);
             double val = rawVal / _scale;
 
             if (val < _scaledMin / _scale)

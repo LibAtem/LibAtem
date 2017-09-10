@@ -7,7 +7,7 @@ namespace LibAtem.MacroOperations
     [MacroOperation(MacroOperationType.MacroSleep, 8)]
     public class MacroSleepMacroOp : MacroOpBase
     {
-        [Serialize(4), UInt8]
+        [Serialize(4), UInt16]
         [MacroField("Frames")]
         public uint Frames { get; set; }
 

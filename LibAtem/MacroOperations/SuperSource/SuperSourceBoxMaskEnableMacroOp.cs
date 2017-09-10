@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.SuperSource
     [MacroOperation(MacroOperationType.SuperSourceBoxMaskEnable, 8)]
     public class SuperSourceBoxMaskEnableMacroOp : SuperSourceBoxMacroOpBase
     {
-        [Serialize(6), Bool]
+        [Serialize(5), Bool]
         [MacroField("Enable")]
         public bool Enable { get; set; }
 

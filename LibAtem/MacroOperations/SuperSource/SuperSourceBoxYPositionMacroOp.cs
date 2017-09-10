@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.SuperSource
     [MacroOperation(MacroOperationType.SuperSourceBoxYPosition, 12)]
     public class SuperSourceBoxYPositionMacroOp : SuperSourceBoxMacroOpBase
     {
-        [Serialize(6), Int16D(100, -4800, 4800)]
+        [Serialize(8), Int32D(65536, -48 * 65536, 48 * 65536)]
         [MacroField("PositionY", "yPosition")]
         public double PositionY { get; set; }
 
