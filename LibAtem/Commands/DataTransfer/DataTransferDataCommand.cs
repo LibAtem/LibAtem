@@ -1,12 +1,12 @@
-using LibAtem.MacroOperations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LibAtem.MacroOperations;
 
-namespace LibAtem.Commands.Macro
+namespace LibAtem.Commands.DataTransfer
 {
     [CommandName("FTDa")]
-    public class MacroTransferDataCommand : ICommand
+    public class DataTransferDataCommand : ICommand
     {
         [CommandId]
         public uint TransferId { get; set; }
@@ -37,7 +37,7 @@ namespace LibAtem.Commands.Macro
         {
             cmd.AddUInt16(TransferId);
 
-            byte[] data = Operations.SelectMany(o => o.ToByteArray()).ToArray();
+            byte[] data = Operations.SelectMany(o => MacroOpExtensions.ToByteArray(o)).ToArray();
 
             cmd.AddUInt16(data.Length);
             cmd.AddByte(data);

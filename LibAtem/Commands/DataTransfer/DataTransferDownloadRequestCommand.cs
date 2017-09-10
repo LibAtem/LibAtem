@@ -1,9 +1,9 @@
 using LibAtem.Serialization;
 
-namespace LibAtem.Commands.Macro
+namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTSU", 12)]
-    public class MacroTransferRequestCommand : SerializableCommandBase
+    [CommandName("FTSU", 12)] // Server to Client
+    public class DataTransferDownloadRequestCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), UInt16]

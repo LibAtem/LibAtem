@@ -1,9 +1,9 @@
 using LibAtem.Serialization;
 
-namespace LibAtem.Commands.Macro
+namespace LibAtem.Commands.DataTransfer
 {
     [CommandName("FTUA", 4)]
-    public class MacroTransferAckCommand : SerializableCommandBase
+    public class DataTransferAckCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), UInt16]

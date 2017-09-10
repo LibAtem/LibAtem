@@ -1,7 +1,7 @@
 ﻿namespace LibAtem.Commands.CameraControl
 {
     [CommandName("InCm"), NoCommandId]
-    public class InCmCommand : ICommand
+    public class InitializationCompleteCommand : ICommand
     {
         public void Serialize(ByteArrayBuilder cmd)
         {
