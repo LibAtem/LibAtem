@@ -5,10 +5,10 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.MixEffects.Key
 {
-    [MacroOperation(MacroOperationType.KeyMaskEnable, 12)]
+    [MacroOperation(MacroOperationType.KeyMaskEnable, 8)]
     public class KeyMaskEnableMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(8), Bool]
+        [Serialize(6), Bool]
         [MacroField("Enable")]
         public bool Enable { get; set; }
 

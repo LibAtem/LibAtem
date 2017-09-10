@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.DVEAndFlyKeyXSize, 12)]
     public class DVEAndFlyKeyXSizeMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(8), Int32D(1000, -100, 100)] // TODO - check range
+        [Serialize(8), Int32D(65536, 0 * 65536, 2 * 65536)] // TODO - check range
         [MacroField("SizeX", "xSize")]
         public double SizeX { get; set; }
 

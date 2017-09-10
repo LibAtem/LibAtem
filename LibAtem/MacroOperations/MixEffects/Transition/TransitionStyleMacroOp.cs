@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition
     [MacroOperation(MacroOperationType.TransitionStyle, 8)]
     public class TransitionStyleMacroOp : MixEffectMacroOpBase
     {
-        [Serialize(6), Enum16]
+        [Serialize(5), Enum8]
         [MacroField("TransitionStyle", "style")]
         public TStyle Style { get; set; }
 

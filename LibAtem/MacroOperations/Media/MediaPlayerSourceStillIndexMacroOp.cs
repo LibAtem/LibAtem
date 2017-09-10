@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.Media
     [MacroOperation(MacroOperationType.MediaPlayerSourceStillIndex, 8)]
     public class MediaPlayerSourceStillIndexMacroOp : MediaPlayerMacroOpBase
     {
-        [Serialize(6), UInt8]
+        [Serialize(6), UInt16]
         [MacroField("Index")]
         public uint MediaIndex { get; set; }
 

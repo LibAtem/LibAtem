@@ -5,10 +5,10 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.MixEffects.Key
 {
-    [MacroOperation(MacroOperationType.KeyFillInput, 12)]
+    [MacroOperation(MacroOperationType.KeyFillInput, 8)]
     public class KeyFillInputMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(8), Enum16]
+        [Serialize(6), Enum16]
         [MacroField("Input")]
         public VideoSource Source { get; set; }
 

@@ -6,7 +6,7 @@ namespace LibAtem.Common
         LoopMacro,
 
         ProgramInput = 0x0002,
-        PreviewInput,// -
+        PreviewInput = 0x0003,
 
         CutTransition = 0x0004,
         AutoTransition = 0x0005,
@@ -43,7 +43,7 @@ namespace LibAtem.Common
         ColorGeneratorSaturation,
         ColorGeneratorLuminescence,
 
-        AuxiliaryInput,
+        AuxiliaryInput = 0x001f,
 
         MultiViewWindowInput,
         MultiViewLayout,
@@ -53,10 +53,10 @@ namespace LibAtem.Common
         MacroLabel,
         MacroNote,
 
-        KeyCutInput,
-        KeyFillInput,
-        KeyOnAir,
-        KeyType,
+        KeyCutInput = 0x0025,
+        KeyFillInput = 0x0026,
+        KeyOnAir = 0x0027,
+        KeyType = 0x0028,
 
         LumaKeyClip,
         LumaKeyGain,
@@ -64,22 +64,22 @@ namespace LibAtem.Common
         KeyFlyEnable,
 
         LumaKeyInvert,
-        LumaKeyPreMultiply,
+        LumaKeyPreMultiply = 0x002d,
 
         PatternKeyInvert,
 
-        KeyMaskEnable,
+        KeyMaskEnable = 0x002f,
         KeyMaskTop,
         KeyMaskBottom,
         KeyMaskLeft,
         KeyMaskRight,
           
         TransitionDVEPattern,
-        DVEKeyMaskEnable,
-        DVEKeyMaskTop,
-        DVEKeyMaskBottom,
-        DVEKeyMaskLeft,
-        DVEKeyMaskRight,
+        DVEKeyMaskEnable = 0x0035,
+        DVEKeyMaskTop = 0x0036,
+        DVEKeyMaskBottom = 0x0037,
+        DVEKeyMaskLeft = 0x0038,
+        DVEKeyMaskRight = 0x0039,
         TransitionDVERate,
 
         ChromaKeyClip,
@@ -95,15 +95,15 @@ namespace LibAtem.Common
         PatternKeyYPosition,
         PatternKeySymmetry,
 
-        DVEAndFlyKeyXSize,
-        DVEAndFlyKeyYSize,
+        DVEAndFlyKeyXSize = 0x0047,
+        DVEAndFlyKeyYSize = 0x0048,
 
-        DVEAndFlyKeyXPosition,
-        DVEAndFlyKeyYPosition,
+        DVEAndFlyKeyXPosition = 0x004a,
+        DVEAndFlyKeyYPosition = 0x004b,
 
-        DVEKeyShadowEnable,
-        DVEKeyBorderEnable,
-        DVEAndFlyKeyRotation,
+        DVEKeyShadowEnable = 0x004d,
+        DVEKeyBorderEnable = 0x004e,
+        DVEAndFlyKeyRotation = 0x004f,
 
         FlyKeySetKeyFrame,
         FlyKeyResetKeyFrame,
@@ -158,6 +158,7 @@ namespace LibAtem.Common
         TransitionWipeAndDVEReverse,
         TransitionWipeAndDVEFlipFlop,
 
+        TransitionStyle = 0x0083,
         TransitionSource = 0x0084,
         TransitionPosition,
         TransitionPreview,
@@ -344,9 +345,5 @@ namespace LibAtem.Common
         AudioMixerInputTalkbackMuteSDI,
 
         MixMinusSetAudioMode,
-
-
-
-        TransitionStyle,
     }
 }

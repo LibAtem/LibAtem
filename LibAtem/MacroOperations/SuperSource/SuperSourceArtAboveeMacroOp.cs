@@ -5,7 +5,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.SuperSource
 {
-    [MacroOperation(MacroOperationType.SuperSourceArtAbove, 12)]
+    [MacroOperation(MacroOperationType.SuperSourceArtAbove, 8)]
     public class SuperSourceArtAboveMacroOp : MacroOpBase
     {
         [Serialize(4), Bool]

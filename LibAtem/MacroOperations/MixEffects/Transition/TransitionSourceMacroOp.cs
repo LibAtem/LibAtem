@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition
     [MacroOperation(MacroOperationType.TransitionSource, 8)]
     public class TransitionSourceMacroOp : MixEffectMacroOpBase
     {
-        [Serialize(6), Enum16]
+        [Serialize(6), Enum8]
         [MacroField("TransitionSource", "source")]
         public TransitionLayer Source { get; set; }
 
