@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.KeyOnAir, 8)]
     public class KeyOnAirMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(5), Bool]
+        [Serialize(6), Bool]
         [MacroField("OnAir")]
         public bool OnAir { get; set; }
 
