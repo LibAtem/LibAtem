@@ -1,4 +1,4 @@
-﻿namespace LibAtem.Commands.CameraControl
+﻿namespace LibAtem.Commands
 {
     [CommandName("InCm"), NoCommandId]
     public class InitializationCompleteCommand : ICommand

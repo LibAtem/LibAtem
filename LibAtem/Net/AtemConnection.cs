@@ -14,7 +14,7 @@ namespace LibAtem.Net
         private static readonly ILog Log = LogManager.GetLogger(typeof(AtemConnection));
 
         private const int TimeOutMilliseonds = 1000;
-        private const uint MaxPacketId = 1 << 16;
+        private const uint MaxPacketId = 1 << 15; // Atem expects 15 not 16 bits before wrapping
         private const uint MaxInFlight = 10;
         private const uint InFlightTimeout = 200;
 
@@ -27,6 +27,8 @@ namespace LibAtem.Net
         private uint _lastPacketId;
         private uint _lastReceivedAck;
         private uint _lastSentAck;
+
+        private bool _isOpen;
 
         private readonly Queue<OutboundMessage> _messageQueue;
         private readonly List<InFlightMessage> _inFlight;
@@ -59,7 +61,31 @@ namespace LibAtem.Net
             _inFlight = new List<InFlightMessage>();
         }
 
+        public bool IsOpened => _isOpen;
+
+        public void ResetConnStatsInfo()
+        {
+            _lastPacketId = 0;
+            _lastReceivedAck = 0;
+            _lastSentAck = 0;
+
+            lock (_inFlight)
+                _inFlight.Clear();
+
+            lock(_messageQueue)
+                _messageQueue.Clear();
+        }
+
         public bool HasTimedOut => GetTimeSince(_lastReceivedTime) > TimeOutMilliseonds;
+
+        public uint NextAckId
+        {
+            get
+            {
+                uint ackId = _lastSentAck + 1;
+                return ackId > MaxPacketId ? 0 : ackId;
+            }
+        }
 
         private uint NextPacketId
         {
@@ -67,16 +93,18 @@ namespace LibAtem.Net
             {
                 uint pktId = ++_lastPacketId;
                 if (pktId >= MaxPacketId)
-                    return _lastPacketId = 1;
+                    return _lastPacketId = 0;
 
                 return pktId;
             }
         }
-        
+
         public void QueuePing()
         {
             QueueMessage(new OutboundMessage(OutboundMessage.OutboundMessageType.Ping, new byte[0]));
         }
+
+        public abstract void QueueCommand(ICommand command);
 
         public void QueueMessage(OutboundMessage msg)
         {
@@ -97,22 +125,22 @@ namespace LibAtem.Net
                 {
                     _lastReceivedTime = DateTime.Now;
 
-                    // If we have already acked, then reack
-                    if (packet.PacketId > 0 && packet.PacketId < _lastSentAck)
+                    // If we have already acked, then reack 
+                    if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest) && IdIsLessThanEqualOther(packet.PacketId, _lastSentAck))
                     {
                         SendAck(socket, _lastSentAck);
                         return;
                     }
 
                     // If we have skipped something, then discard
-                    if (packet.PacketId > _lastSentAck + 1)
+                    if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest) && packet.PacketId != NextAckId)
                     {
                         Log.DebugFormat("{0} - Discarding message received out of order Got:{1} Expected:{2}", Endpoint, packet.PacketId, _lastSentAck);
                         return;
                     }
 
                     // Handle it
-                    if (packet.PacketId > 0)
+                    if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest))
                     {
                         _lastSentAck = packet.PacketId;
                         SendAck(socket, packet.PacketId);
@@ -123,7 +151,9 @@ namespace LibAtem.Net
 
                     if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckReply))
                     {
-                        if (_lastReceivedAck < packet.AckedId)
+                        _isOpen = true;
+
+                        if (packet.AckedId > _lastReceivedAck || IdIsLessThanEqualOther(packet.AckedId, _lastReceivedAck)) // tODO This condition is causing the wrapped '0' packet to not be acked properly
                             _lastReceivedAck = packet.AckedId;
                     }
                     if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest))
@@ -207,18 +237,24 @@ namespace LibAtem.Net
             TimeSpan diff = DateTime.Now - since;
             return diff.Seconds * 1000 + diff.Milliseconds;
         }
+        
+        private static bool IdIsLessThanEqualOther(uint id, uint other)
+        {
+            const int tol = 1 << 8;
+            return id <= other && id > ((int) other - tol) || id <= other + MaxPacketId && id > other + MaxPacketId - tol || id <= (int) other - MaxPacketId+ tol && id > (int) other - MaxPacketId;
+        }
 
         private List<InFlightMessage> ChooseMsg()
         { 
             lock (_inFlight)
             {
-                _inFlight.RemoveAll(m => m.PktId <= _lastReceivedAck);
+                _inFlight.RemoveAll(m => IdIsLessThanEqualOther(m.PktId, _lastReceivedAck));
                 
                 bool shouldResend = _inFlight.Any(m => GetTimeSince(m.LastSent) > InFlightTimeout);
                 // If any were resent, then dont send anything new
                 if (shouldResend)
                 {
-                    List<InFlightMessage> toResend = _inFlight.OrderBy(m => m.PktId).ToList();
+                    List<InFlightMessage> toResend = _inFlight.ToList();
                     Log.WarnFormat("{0} - Resending {1} packets from #{2}", Endpoint, toResend.Count, toResend[0].PktId);
                     return toResend;
                 }

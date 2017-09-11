@@ -16,7 +16,7 @@ namespace LibAtem.Util
             }
             catch (Exception)
             {
-                throw new Exception(string.Format("Failed to parse hyperdeck IP: {0}", str));
+                throw new Exception(string.Format("Failed to parse IP: {0}", str));
             }
 
             // Return all 0
@@ -26,7 +26,7 @@ namespace LibAtem.Util
         public static string IPToString(params byte[] arr)
         {
             if (arr.Length != 4)
-                throw new Exception(string.Format("Failed to convert hyperdeck IP to string: {0}", arr));
+                throw new Exception(string.Format("Failed to convert IP to string: {0}", arr));
 
             return string.Format("{0}.{1}.{2}.{3}", arr[0], arr[1], arr[2], arr[3]);
         }
