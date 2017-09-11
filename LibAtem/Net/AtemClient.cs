@@ -100,6 +100,8 @@ namespace LibAtem.Net
                         {
                             Log.DebugFormat("Completed handshake");
                             OnConnection?.Invoke(this);
+                            _connection.SendAck(_client.Client, packet.PacketId, true);
+                            continue;
                         }
 
                         _connection.Receive(_client.Client, packet, cmds =>
@@ -133,3 +135,4 @@ namespace LibAtem.Net
         }
     }
 }
+

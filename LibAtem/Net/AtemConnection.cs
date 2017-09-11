@@ -209,10 +209,10 @@ namespace LibAtem.Net
             handler(commands);
         }
 
-        private void SendAck(Socket socket, uint packetId)
+        protected internal void SendAck(Socket socket, uint packetId, bool forcePacketZero=false)
         {
             // Dont send ack for 0 id, as it is meaningless
-            if (packetId == 0)
+            if (packetId == 0 && !forcePacketZero)
                 return;
 
             SendMessage(socket, new InFlightMessage(new OutboundMessage(OutboundMessage.OutboundMessageType.Ack, new byte[0]), packetId));
