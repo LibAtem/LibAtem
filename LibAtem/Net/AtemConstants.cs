@@ -4,5 +4,7 @@
     {
         public const int MaxPacketLength = 1400;
         public const int PingInterval = 100; // ms
+
+        public const int DataTransferCheckInterval = 10; // ms
     }
 }

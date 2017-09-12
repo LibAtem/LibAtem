@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
 using LibAtem.Commands;
+using LibAtem.Net.DataTransfer;
 
 namespace LibAtem.Net
 {
-    public class AtemClient
+    public class AtemClient : IDisposable
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(AtemClient));
 
@@ -36,11 +38,15 @@ namespace LibAtem.Net
             _connection = new AtemClientConnection(_remoteEp, new Random().Next(65535));
             _connection.OnDisconnect += sender => OnDisconnect?.Invoke(this);
 
+            DataTransfer = new DataTransferManager(_connection);
+
             StartReceiving();
             SendHandshake();
             StartPingTimer();
             StartSendingTimer();
         }
+
+        public DataTransferManager DataTransfer { get; }
 
         private void StartPingTimer()
         {
@@ -108,6 +114,8 @@ namespace LibAtem.Net
                         {
                             Log.DebugFormat("Recieved {0} commands", cmds.Count);
 
+                            cmds = TryHandleDataTransfer(cmds);
+
                             OnReceive?.Invoke(this, cmds);
                         });
                     }
@@ -120,6 +128,11 @@ namespace LibAtem.Net
             thread.Start();
         }
 
+        private IReadOnlyList<ICommand> TryHandleDataTransfer(IReadOnlyList<ICommand> cmds)
+        {
+            return cmds.Where(c => !DataTransfer.HandleCommand(c)).ToList();
+        }
+
         public void SendCommand(ICommand cmd)
         {
             _connection.QueueCommand(cmd);
@@ -128,10 +141,10 @@ namespace LibAtem.Net
         public void Dispose()
         {
             // TODO
-            
 
-            if (_pingTimer != null)
-                _pingTimer.Dispose();
+            DataTransfer?.Dispose();
+            
+            _pingTimer?.Dispose();
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using LibAtem.Commands;
-using LibAtem.Commands.DataTransfer;
 
 namespace LibAtem.Net
 {
@@ -50,77 +49,6 @@ namespace LibAtem.Net
 
             commands.RemoveRange(0, removeCount);
             return builder.Create();
-        }
-    }
-
-    public class DataTransferManager
-    {
-        private readonly AtemConnection _connection;
-        private readonly List<DataTransferJob> _queue;
-
-        private uint _nextTransferId = 1;
-
-        private DataTransferJob _currentJob;
-        private uint _currentId;
-        private List<byte[]> _data;
-        
-
-
-        public DataTransferManager(AtemConnection connection)
-        {
-            _connection = connection;
-            _queue = new List<DataTransferJob>();
-        }
-
-        public bool IsActive => _currentJob != null; // TODO - is this right?
-
-        public void StartReceive(DataTransferJob job)
-        {
-            // TODO - locking and ensure not already in progress
-
-            _currentJob = job;
-            _currentId = _nextTransferId++;
-            _data.Clear();
-            
-            _connection.QueueCommand(new DataTransferDownloadRequestCommand()
-            {
-                TransferId = _currentId,
-                TransferIndex = job.Index,
-                TransferStoreId = job.StoreId,
-            });
-        }
-
-        public bool HandleCommand(ICommand cmd)
-        {
-//            if (cmd is )
-
-            return false;
-        }
-
-        public void StartSend()
-        {
-            // TODO need a wireshark capture before this can be done.
-        }
-
-    }
-
-    public enum DataTransferMode
-    {
-        Send,
-        Receive,
-    }
-
-    public class DataTransferJob
-    {
-        public uint StoreId { get; }
-        public uint Index { get; }
-        public Func<byte[]> OnComplete { get; }
-
-        public DataTransferJob(uint storeId, uint index, Func<byte[]> onComplete)
-        {
-            StoreId = storeId;
-            Index = index;
-            OnComplete = onComplete;
         }
     }
 
