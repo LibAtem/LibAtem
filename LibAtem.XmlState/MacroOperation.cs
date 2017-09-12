@@ -742,225 +742,225 @@ namespace LibAtem.XmlState
         {
             switch (op.GetType().FullName)
             {
-                case nameof(LibAtem.MacroOperations.AuxiliaryInputMacroOp):
+                case "LibAtem.MacroOperations.AuxiliaryInputMacroOp":
                     var opAuxiliaryInputMacroOp = (LibAtem.MacroOperations.AuxiliaryInputMacroOp)op;
-                    return new MacroOperation{AuxiliaryIndex = opAuxiliaryInputMacroOp.Index, Input = opAuxiliaryInputMacroOp.Source.ToMacroInput()};
-                case nameof(LibAtem.MacroOperations.MacroSleepMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.AuxiliaryInput, AuxiliaryIndex = opAuxiliaryInputMacroOp.Index, Input = opAuxiliaryInputMacroOp.Source.ToMacroInput()};
+                case "LibAtem.MacroOperations.MacroSleepMacroOp":
                     var opMacroSleepMacroOp = (LibAtem.MacroOperations.MacroSleepMacroOp)op;
-                    return new MacroOperation{Frames = opMacroSleepMacroOp.Frames};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceArtAboveMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.MacroSleep, Frames = opMacroSleepMacroOp.Frames};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceArtAboveMacroOp":
                     var opSuperSourceArtAboveMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceArtAboveMacroOp)op;
-                    return new MacroOperation{SuperSourceArtAbove = opSuperSourceArtAboveMacroOp.ArtAbove.ToAtemBool()};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceArtCutInputMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceArtAbove, SuperSourceArtAbove = opSuperSourceArtAboveMacroOp.ArtAbove.ToAtemBool()};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceArtCutInputMacroOp":
                     var opSuperSourceArtCutInputMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceArtCutInputMacroOp)op;
-                    return new MacroOperation{Input = opSuperSourceArtCutInputMacroOp.Source.ToMacroInput()};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceArtFillInputMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceArtCutInput, Input = opSuperSourceArtCutInputMacroOp.Source.ToMacroInput()};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceArtFillInputMacroOp":
                     var opSuperSourceArtFillInputMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceArtFillInputMacroOp)op;
-                    return new MacroOperation{Input = opSuperSourceArtFillInputMacroOp.Source.ToMacroInput()};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBorderEnableMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceArtFillInput, Input = opSuperSourceArtFillInputMacroOp.Source.ToMacroInput()};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBorderEnableMacroOp":
                     var opSuperSourceBorderEnableMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBorderEnableMacroOp)op;
-                    return new MacroOperation{Enable = opSuperSourceBorderEnableMacroOp.Enable.ToAtemBool()};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxEnableMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBorderEnable, Enable = opSuperSourceBorderEnableMacroOp.Enable.ToAtemBool()};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxEnableMacroOp":
                     var opSuperSourceBoxEnableMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxEnableMacroOp)op;
-                    return new MacroOperation{Enable = opSuperSourceBoxEnableMacroOp.Enable.ToAtemBool(), SuperSourceBoxIndex = opSuperSourceBoxEnableMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxInputMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxEnable, Enable = opSuperSourceBoxEnableMacroOp.Enable.ToAtemBool(), SuperSourceBoxIndex = opSuperSourceBoxEnableMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxInputMacroOp":
                     var opSuperSourceBoxInputMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxInputMacroOp)op;
-                    return new MacroOperation{Input = opSuperSourceBoxInputMacroOp.Source.ToMacroInput(), SuperSourceBoxIndex = opSuperSourceBoxInputMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskBottomMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxInput, Input = opSuperSourceBoxInputMacroOp.Source.ToMacroInput(), SuperSourceBoxIndex = opSuperSourceBoxInputMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskBottomMacroOp":
                     var opSuperSourceBoxMaskBottomMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskBottomMacroOp)op;
-                    return new MacroOperation{Bottom = opSuperSourceBoxMaskBottomMacroOp.Bottom, SuperSourceBoxIndex = opSuperSourceBoxMaskBottomMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskEnableMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxMaskBottom, Bottom = opSuperSourceBoxMaskBottomMacroOp.Bottom, SuperSourceBoxIndex = opSuperSourceBoxMaskBottomMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskEnableMacroOp":
                     var opSuperSourceBoxMaskEnableMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskEnableMacroOp)op;
-                    return new MacroOperation{Enable = opSuperSourceBoxMaskEnableMacroOp.Enable.ToAtemBool(), SuperSourceBoxIndex = opSuperSourceBoxMaskEnableMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskLeftMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxMaskEnable, Enable = opSuperSourceBoxMaskEnableMacroOp.Enable.ToAtemBool(), SuperSourceBoxIndex = opSuperSourceBoxMaskEnableMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskLeftMacroOp":
                     var opSuperSourceBoxMaskLeftMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskLeftMacroOp)op;
-                    return new MacroOperation{Left = opSuperSourceBoxMaskLeftMacroOp.Left, SuperSourceBoxIndex = opSuperSourceBoxMaskLeftMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskRightMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxMaskLeft, Left = opSuperSourceBoxMaskLeftMacroOp.Left, SuperSourceBoxIndex = opSuperSourceBoxMaskLeftMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskRightMacroOp":
                     var opSuperSourceBoxMaskRightMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskRightMacroOp)op;
-                    return new MacroOperation{Right = opSuperSourceBoxMaskRightMacroOp.Right, SuperSourceBoxIndex = opSuperSourceBoxMaskRightMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskTopMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxMaskRight, Right = opSuperSourceBoxMaskRightMacroOp.Right, SuperSourceBoxIndex = opSuperSourceBoxMaskRightMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskTopMacroOp":
                     var opSuperSourceBoxMaskTopMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxMaskTopMacroOp)op;
-                    return new MacroOperation{Top = opSuperSourceBoxMaskTopMacroOp.Top, SuperSourceBoxIndex = opSuperSourceBoxMaskTopMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxSizeMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxMaskTop, Top = opSuperSourceBoxMaskTopMacroOp.Top, SuperSourceBoxIndex = opSuperSourceBoxMaskTopMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxSizeMacroOp":
                     var opSuperSourceBoxSizeMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxSizeMacroOp)op;
-                    return new MacroOperation{Size = opSuperSourceBoxSizeMacroOp.Size, SuperSourceBoxIndex = opSuperSourceBoxSizeMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxXPositionMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxSize, Size = opSuperSourceBoxSizeMacroOp.Size, SuperSourceBoxIndex = opSuperSourceBoxSizeMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxXPositionMacroOp":
                     var opSuperSourceBoxXPositionMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxXPositionMacroOp)op;
-                    return new MacroOperation{PositionX = opSuperSourceBoxXPositionMacroOp.PositionX, SuperSourceBoxIndex = opSuperSourceBoxXPositionMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.SuperSource.SuperSourceBoxYPositionMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxXPosition, PositionX = opSuperSourceBoxXPositionMacroOp.PositionX, SuperSourceBoxIndex = opSuperSourceBoxXPositionMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxYPositionMacroOp":
                     var opSuperSourceBoxYPositionMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxYPositionMacroOp)op;
-                    return new MacroOperation{PositionY = opSuperSourceBoxYPositionMacroOp.PositionY, SuperSourceBoxIndex = opSuperSourceBoxYPositionMacroOp.BoxIndex};
-                case nameof(LibAtem.MacroOperations.MixEffects.AutoTransitionMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceBoxYPosition, PositionY = opSuperSourceBoxYPositionMacroOp.PositionY, SuperSourceBoxIndex = opSuperSourceBoxYPositionMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.MixEffects.AutoTransitionMacroOp":
                     var opAutoTransitionMacroOp = (LibAtem.MacroOperations.MixEffects.AutoTransitionMacroOp)op;
-                    return new MacroOperation{MixEffectBlockIndex = opAutoTransitionMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.CutTransitionMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.AutoTransition, MixEffectBlockIndex = opAutoTransitionMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.CutTransitionMacroOp":
                     var opCutTransitionMacroOp = (LibAtem.MacroOperations.MixEffects.CutTransitionMacroOp)op;
-                    return new MacroOperation{MixEffectBlockIndex = opCutTransitionMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.FadeToBlackAutoMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.CutTransition, MixEffectBlockIndex = opCutTransitionMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.FadeToBlackAutoMacroOp":
                     var opFadeToBlackAutoMacroOp = (LibAtem.MacroOperations.MixEffects.FadeToBlackAutoMacroOp)op;
-                    return new MacroOperation{MixEffectBlockIndex = opFadeToBlackAutoMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.PreviewInputMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.FadeToBlackAuto, MixEffectBlockIndex = opFadeToBlackAutoMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.PreviewInputMacroOp":
                     var opPreviewInputMacroOp = (LibAtem.MacroOperations.MixEffects.PreviewInputMacroOp)op;
-                    return new MacroOperation{Input = opPreviewInputMacroOp.Source.ToMacroInput(), MixEffectBlockIndex = opPreviewInputMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.ProgramInputMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.PreviewInput, Input = opPreviewInputMacroOp.Source.ToMacroInput(), MixEffectBlockIndex = opPreviewInputMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.ProgramInputMacroOp":
                     var opProgramInputMacroOp = (LibAtem.MacroOperations.MixEffects.ProgramInputMacroOp)op;
-                    return new MacroOperation{Input = opProgramInputMacroOp.Source.ToMacroInput(), MixEffectBlockIndex = opProgramInputMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Transition.TransitionDipRateMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.ProgramInput, Input = opProgramInputMacroOp.Source.ToMacroInput(), MixEffectBlockIndex = opProgramInputMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionDipRateMacroOp":
                     var opTransitionDipRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionDipRateMacroOp)op;
-                    return new MacroOperation{Rate = opTransitionDipRateMacroOp.Rate, MixEffectBlockIndex = opTransitionDipRateMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Transition.TransitionDVERateMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.TransitionDipRate, Rate = opTransitionDipRateMacroOp.Rate, MixEffectBlockIndex = opTransitionDipRateMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionDVERateMacroOp":
                     var opTransitionDVERateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionDVERateMacroOp)op;
-                    return new MacroOperation{Rate = opTransitionDVERateMacroOp.Rate, MixEffectBlockIndex = opTransitionDVERateMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Transition.TransitionMixRateMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.TransitionDVERate, Rate = opTransitionDVERateMacroOp.Rate, MixEffectBlockIndex = opTransitionDVERateMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionMixRateMacroOp":
                     var opTransitionMixRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionMixRateMacroOp)op;
-                    return new MacroOperation{Rate = opTransitionMixRateMacroOp.Rate, MixEffectBlockIndex = opTransitionMixRateMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Transition.TransitionSourceMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.TransitionMixRate, Rate = opTransitionMixRateMacroOp.Rate, MixEffectBlockIndex = opTransitionMixRateMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionSourceMacroOp":
                     var opTransitionSourceMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionSourceMacroOp)op;
-                    return new MacroOperation{TransitionSource = opTransitionSourceMacroOp.Source, MixEffectBlockIndex = opTransitionSourceMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Transition.TransitionStingerMixRateMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.TransitionSource, TransitionSource = opTransitionSourceMacroOp.Source, MixEffectBlockIndex = opTransitionSourceMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionStingerMixRateMacroOp":
                     var opTransitionStingerMixRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionStingerMixRateMacroOp)op;
-                    return new MacroOperation{Rate = opTransitionStingerMixRateMacroOp.Rate, MixEffectBlockIndex = opTransitionStingerMixRateMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Transition.TransitionStingerRateMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.TransitionStingerMixRate, Rate = opTransitionStingerMixRateMacroOp.Rate, MixEffectBlockIndex = opTransitionStingerMixRateMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionStingerRateMacroOp":
                     var opTransitionStingerRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionStingerRateMacroOp)op;
-                    return new MacroOperation{Rate = opTransitionStingerRateMacroOp.Rate, MixEffectBlockIndex = opTransitionStingerRateMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Transition.TransitionStyleMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.TransitionStingerRate, Rate = opTransitionStingerRateMacroOp.Rate, MixEffectBlockIndex = opTransitionStingerRateMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionStyleMacroOp":
                     var opTransitionStyleMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionStyleMacroOp)op;
-                    return new MacroOperation{TransitionStyle = opTransitionStyleMacroOp.Style, MixEffectBlockIndex = opTransitionStyleMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeRateMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.TransitionStyle, TransitionStyle = opTransitionStyleMacroOp.Style, MixEffectBlockIndex = opTransitionStyleMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeRateMacroOp":
                     var opTransitionWipeRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeRateMacroOp)op;
-                    return new MacroOperation{Rate = opTransitionWipeRateMacroOp.Rate, MixEffectBlockIndex = opTransitionWipeRateMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyRotationMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipeRate, Rate = opTransitionWipeRateMacroOp.Rate, MixEffectBlockIndex = opTransitionWipeRateMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyRotationMacroOp":
                     var opDVEAndFlyKeyRotationMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyRotationMacroOp)op;
-                    return new MacroOperation{Rotation = opDVEAndFlyKeyRotationMacroOp.Rotation, KeyIndex = opDVEAndFlyKeyRotationMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyRotationMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXPositionMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyRotation, Rotation = opDVEAndFlyKeyRotationMacroOp.Rotation, KeyIndex = opDVEAndFlyKeyRotationMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyRotationMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXPositionMacroOp":
                     var opDVEAndFlyKeyXPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXPositionMacroOp)op;
-                    return new MacroOperation{PositionX = opDVEAndFlyKeyXPositionMacroOp.PositionX, KeyIndex = opDVEAndFlyKeyXPositionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyXPositionMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXSizeMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyXPosition, PositionX = opDVEAndFlyKeyXPositionMacroOp.PositionX, KeyIndex = opDVEAndFlyKeyXPositionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyXPositionMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXSizeMacroOp":
                     var opDVEAndFlyKeyXSizeMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXSizeMacroOp)op;
-                    return new MacroOperation{SizeX = opDVEAndFlyKeyXSizeMacroOp.SizeX, KeyIndex = opDVEAndFlyKeyXSizeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyXSizeMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYPositionMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyXSize, SizeX = opDVEAndFlyKeyXSizeMacroOp.SizeX, KeyIndex = opDVEAndFlyKeyXSizeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyXSizeMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYPositionMacroOp":
                     var opDVEAndFlyKeyYPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYPositionMacroOp)op;
-                    return new MacroOperation{PositionY = opDVEAndFlyKeyYPositionMacroOp.PositionY, KeyIndex = opDVEAndFlyKeyYPositionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyYPositionMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYSizeMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyYPosition, PositionY = opDVEAndFlyKeyYPositionMacroOp.PositionY, KeyIndex = opDVEAndFlyKeyYPositionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyYPositionMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYSizeMacroOp":
                     var opDVEAndFlyKeyYSizeMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYSizeMacroOp)op;
-                    return new MacroOperation{SizeY = opDVEAndFlyKeyYSizeMacroOp.SizeY, KeyIndex = opDVEAndFlyKeyYSizeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyYSizeMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEKeyBorderEnableMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyYSize, SizeY = opDVEAndFlyKeyYSizeMacroOp.SizeY, KeyIndex = opDVEAndFlyKeyYSizeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyYSizeMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyBorderEnableMacroOp":
                     var opDVEKeyBorderEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyBorderEnableMacroOp)op;
-                    return new MacroOperation{Enable = opDVEKeyBorderEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opDVEKeyBorderEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyBorderEnableMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskBottomMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyBorderEnable, Enable = opDVEKeyBorderEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opDVEKeyBorderEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyBorderEnableMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskBottomMacroOp":
                     var opDVEKeyMaskBottomMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskBottomMacroOp)op;
-                    return new MacroOperation{Bottom = opDVEKeyMaskBottomMacroOp.Bottom, KeyIndex = opDVEKeyMaskBottomMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskBottomMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskEnableMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskBottom, Bottom = opDVEKeyMaskBottomMacroOp.Bottom, KeyIndex = opDVEKeyMaskBottomMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskBottomMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskEnableMacroOp":
                     var opDVEKeyMaskEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskEnableMacroOp)op;
-                    return new MacroOperation{Enable = opDVEKeyMaskEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opDVEKeyMaskEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskEnableMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskLeftMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskEnable, Enable = opDVEKeyMaskEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opDVEKeyMaskEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskEnableMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskLeftMacroOp":
                     var opDVEKeyMaskLeftMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskLeftMacroOp)op;
-                    return new MacroOperation{Left = opDVEKeyMaskLeftMacroOp.Left, KeyIndex = opDVEKeyMaskLeftMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskLeftMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskRightMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskLeft, Left = opDVEKeyMaskLeftMacroOp.Left, KeyIndex = opDVEKeyMaskLeftMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskLeftMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskRightMacroOp":
                     var opDVEKeyMaskRightMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskRightMacroOp)op;
-                    return new MacroOperation{Right = opDVEKeyMaskRightMacroOp.Right, KeyIndex = opDVEKeyMaskRightMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskRightMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskTopMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskRight, Right = opDVEKeyMaskRightMacroOp.Right, KeyIndex = opDVEKeyMaskRightMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskRightMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskTopMacroOp":
                     var opDVEKeyMaskTopMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskTopMacroOp)op;
-                    return new MacroOperation{Top = opDVEKeyMaskTopMacroOp.Top, KeyIndex = opDVEKeyMaskTopMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskTopMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskTop, Top = opDVEKeyMaskTopMacroOp.Top, KeyIndex = opDVEKeyMaskTopMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskTopMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp":
                     var opDVEKeyShadowEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp)op;
-                    return new MacroOperation{Enable = opDVEKeyShadowEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opDVEKeyShadowEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyShadowEnableMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyShadowEnable, Enable = opDVEKeyShadowEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opDVEKeyShadowEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyShadowEnableMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp":
                     var opKeyCutInputMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp)op;
-                    return new MacroOperation{Input = opKeyCutInputMacroOp.Source.ToMacroInput(), KeyIndex = opKeyCutInputMacroOp.KeyIndex, MixEffectBlockIndex = opKeyCutInputMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyFillInputMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyCutInput, Input = opKeyCutInputMacroOp.Source.ToMacroInput(), KeyIndex = opKeyCutInputMacroOp.KeyIndex, MixEffectBlockIndex = opKeyCutInputMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyFillInputMacroOp":
                     var opKeyFillInputMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyFillInputMacroOp)op;
-                    return new MacroOperation{Input = opKeyFillInputMacroOp.Source.ToMacroInput(), KeyIndex = opKeyFillInputMacroOp.KeyIndex, MixEffectBlockIndex = opKeyFillInputMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyFlyEnableMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyFillInput, Input = opKeyFillInputMacroOp.Source.ToMacroInput(), KeyIndex = opKeyFillInputMacroOp.KeyIndex, MixEffectBlockIndex = opKeyFillInputMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyFlyEnableMacroOp":
                     var opKeyFlyEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyFlyEnableMacroOp)op;
-                    return new MacroOperation{Enable = opKeyFlyEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opKeyFlyEnableMacroOp.KeyIndex, MixEffectBlockIndex = opKeyFlyEnableMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyMaskBottomMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyFlyEnable, Enable = opKeyFlyEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opKeyFlyEnableMacroOp.KeyIndex, MixEffectBlockIndex = opKeyFlyEnableMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskBottomMacroOp":
                     var opKeyMaskBottomMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskBottomMacroOp)op;
-                    return new MacroOperation{Bottom = opKeyMaskBottomMacroOp.Bottom, KeyIndex = opKeyMaskBottomMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskBottomMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyMaskEnableMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskBottom, Bottom = opKeyMaskBottomMacroOp.Bottom, KeyIndex = opKeyMaskBottomMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskBottomMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskEnableMacroOp":
                     var opKeyMaskEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskEnableMacroOp)op;
-                    return new MacroOperation{Enable = opKeyMaskEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opKeyMaskEnableMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskEnableMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyMaskLeftMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskEnable, Enable = opKeyMaskEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opKeyMaskEnableMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskEnableMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskLeftMacroOp":
                     var opKeyMaskLeftMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskLeftMacroOp)op;
-                    return new MacroOperation{Left = opKeyMaskLeftMacroOp.Left, KeyIndex = opKeyMaskLeftMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskLeftMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyMaskRightMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskLeft, Left = opKeyMaskLeftMacroOp.Left, KeyIndex = opKeyMaskLeftMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskLeftMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskRightMacroOp":
                     var opKeyMaskRightMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskRightMacroOp)op;
-                    return new MacroOperation{Right = opKeyMaskRightMacroOp.Right, KeyIndex = opKeyMaskRightMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskRightMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyMaskTopMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskRight, Right = opKeyMaskRightMacroOp.Right, KeyIndex = opKeyMaskRightMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskRightMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskTopMacroOp":
                     var opKeyMaskTopMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskTopMacroOp)op;
-                    return new MacroOperation{Top = opKeyMaskTopMacroOp.Top, KeyIndex = opKeyMaskTopMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskTopMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyOnAirMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskTop, Top = opKeyMaskTopMacroOp.Top, KeyIndex = opKeyMaskTopMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskTopMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyOnAirMacroOp":
                     var opKeyOnAirMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyOnAirMacroOp)op;
-                    return new MacroOperation{OnAir = opKeyOnAirMacroOp.OnAir.ToAtemBool(), KeyIndex = opKeyOnAirMacroOp.KeyIndex, MixEffectBlockIndex = opKeyOnAirMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.KeyTypeMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyOnAir, OnAir = opKeyOnAirMacroOp.OnAir.ToAtemBool(), KeyIndex = opKeyOnAirMacroOp.KeyIndex, MixEffectBlockIndex = opKeyOnAirMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.KeyTypeMacroOp":
                     var opKeyTypeMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyTypeMacroOp)op;
-                    return new MacroOperation{KeyType = opKeyTypeMacroOp.KeyType, KeyIndex = opKeyTypeMacroOp.KeyIndex, MixEffectBlockIndex = opKeyTypeMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.MixEffects.Key.LumaKeyPreMultiplyMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.KeyType, KeyType = opKeyTypeMacroOp.KeyType, KeyIndex = opKeyTypeMacroOp.KeyIndex, MixEffectBlockIndex = opKeyTypeMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.LumaKeyPreMultiplyMacroOp":
                     var opLumaKeyPreMultiplyMacroOp = (LibAtem.MacroOperations.MixEffects.Key.LumaKeyPreMultiplyMacroOp)op;
-                    return new MacroOperation{PreMultiply = opLumaKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), KeyIndex = opLumaKeyPreMultiplyMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyPreMultiplyMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.Media.MediaPlayerGoToBeginningMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.LumaKeyPreMultiply, PreMultiply = opLumaKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), KeyIndex = opLumaKeyPreMultiplyMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyPreMultiplyMacroOp.Index};
+                case "LibAtem.MacroOperations.Media.MediaPlayerGoToBeginningMacroOp":
                     var opMediaPlayerGoToBeginningMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerGoToBeginningMacroOp)op;
-                    return new MacroOperation{MediaPlayerIndex = opMediaPlayerGoToBeginningMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.Media.MediaPlayerLoopMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.MediaPlayerGoToBeginning, MediaPlayerIndex = opMediaPlayerGoToBeginningMacroOp.Index};
+                case "LibAtem.MacroOperations.Media.MediaPlayerLoopMacroOp":
                     var opMediaPlayerLoopMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerLoopMacroOp)op;
-                    return new MacroOperation{Loop = opMediaPlayerLoopMacroOp.Loop.ToAtemBool(), MediaPlayerIndex = opMediaPlayerLoopMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.Media.MediaPlayerPlayMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.MediaPlayerLoop, Loop = opMediaPlayerLoopMacroOp.Loop.ToAtemBool(), MediaPlayerIndex = opMediaPlayerLoopMacroOp.Index};
+                case "LibAtem.MacroOperations.Media.MediaPlayerPlayMacroOp":
                     var opMediaPlayerPlayMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerPlayMacroOp)op;
-                    return new MacroOperation{MediaPlayerIndex = opMediaPlayerPlayMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.Media.MediaPlayerSourceClipIndexMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.MediaPlayerPlay, MediaPlayerIndex = opMediaPlayerPlayMacroOp.Index};
+                case "LibAtem.MacroOperations.Media.MediaPlayerSourceClipIndexMacroOp":
                     var opMediaPlayerSourceClipIndexMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerSourceClipIndexMacroOp)op;
-                    return new MacroOperation{Index = opMediaPlayerSourceClipIndexMacroOp.MediaIndex, MediaPlayerIndex = opMediaPlayerSourceClipIndexMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.Media.MediaPlayerSourceClipMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.MediaPlayerSourceClipIndex, Index = opMediaPlayerSourceClipIndexMacroOp.MediaIndex, MediaPlayerIndex = opMediaPlayerSourceClipIndexMacroOp.Index};
+                case "LibAtem.MacroOperations.Media.MediaPlayerSourceClipMacroOp":
                     var opMediaPlayerSourceClipMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerSourceClipMacroOp)op;
-                    return new MacroOperation{MediaPlayerIndex = opMediaPlayerSourceClipMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.Media.MediaPlayerSourceStillIndexMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.MediaPlayerSourceClip, MediaPlayerIndex = opMediaPlayerSourceClipMacroOp.Index};
+                case "LibAtem.MacroOperations.Media.MediaPlayerSourceStillIndexMacroOp":
                     var opMediaPlayerSourceStillIndexMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerSourceStillIndexMacroOp)op;
-                    return new MacroOperation{Index = opMediaPlayerSourceStillIndexMacroOp.MediaIndex, MediaPlayerIndex = opMediaPlayerSourceStillIndexMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.Media.MediaPlayerSourceStillMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.MediaPlayerSourceStillIndex, Index = opMediaPlayerSourceStillIndexMacroOp.MediaIndex, MediaPlayerIndex = opMediaPlayerSourceStillIndexMacroOp.Index};
+                case "LibAtem.MacroOperations.Media.MediaPlayerSourceStillMacroOp":
                     var opMediaPlayerSourceStillMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerSourceStillMacroOp)op;
-                    return new MacroOperation{MediaPlayerIndex = opMediaPlayerSourceStillMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.HyperDeck.HyperDeckPlayMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.MediaPlayerSourceStill, MediaPlayerIndex = opMediaPlayerSourceStillMacroOp.Index};
+                case "LibAtem.MacroOperations.HyperDeck.HyperDeckPlayMacroOp":
                     var opHyperDeckPlayMacroOp = (LibAtem.MacroOperations.HyperDeck.HyperDeckPlayMacroOp)op;
-                    return new MacroOperation{HyperDeckIndex = opHyperDeckPlayMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.HyperDeck.HyperDeckSetLoopMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.HyperDeckPlay, HyperDeckIndex = opHyperDeckPlayMacroOp.Index};
+                case "LibAtem.MacroOperations.HyperDeck.HyperDeckSetLoopMacroOp":
                     var opHyperDeckSetLoopMacroOp = (LibAtem.MacroOperations.HyperDeck.HyperDeckSetLoopMacroOp)op;
-                    return new MacroOperation{HyperDeckLoopEnabled = opHyperDeckSetLoopMacroOp.Loop.ToAtemBool(), HyperDeckIndex = opHyperDeckSetLoopMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.HyperDeck.HyperDeckSetSingleClipMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.HyperDeckSetLoop, HyperDeckLoopEnabled = opHyperDeckSetLoopMacroOp.Loop.ToAtemBool(), HyperDeckIndex = opHyperDeckSetLoopMacroOp.Index};
+                case "LibAtem.MacroOperations.HyperDeck.HyperDeckSetSingleClipMacroOp":
                     var opHyperDeckSetSingleClipMacroOp = (LibAtem.MacroOperations.HyperDeck.HyperDeckSetSingleClipMacroOp)op;
-                    return new MacroOperation{HyperDeckSingleClipEnabled = opHyperDeckSetSingleClipMacroOp.SingleClipEnabled.ToAtemBool(), HyperDeckIndex = opHyperDeckSetSingleClipMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.HyperDeck.HyperDeckSetSourceClipIndexMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.HyperDeckSetSingleClip, HyperDeckSingleClipEnabled = opHyperDeckSetSingleClipMacroOp.SingleClipEnabled.ToAtemBool(), HyperDeckIndex = opHyperDeckSetSingleClipMacroOp.Index};
+                case "LibAtem.MacroOperations.HyperDeck.HyperDeckSetSourceClipIndexMacroOp":
                     var opHyperDeckSetSourceClipIndexMacroOp = (LibAtem.MacroOperations.HyperDeck.HyperDeckSetSourceClipIndexMacroOp)op;
-                    return new MacroOperation{HyperDeckClipIndex = opHyperDeckSetSourceClipIndexMacroOp.ClipIndex, HyperDeckIndex = opHyperDeckSetSourceClipIndexMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.HyperDeck.HyperDeckSetSpeedMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.HyperDeckSetSourceClipIndex, HyperDeckClipIndex = opHyperDeckSetSourceClipIndexMacroOp.ClipIndex, HyperDeckIndex = opHyperDeckSetSourceClipIndexMacroOp.Index};
+                case "LibAtem.MacroOperations.HyperDeck.HyperDeckSetSpeedMacroOp":
                     var opHyperDeckSetSpeedMacroOp = (LibAtem.MacroOperations.HyperDeck.HyperDeckSetSpeedMacroOp)op;
-                    return new MacroOperation{HyperDeckSpeedPercent = opHyperDeckSetSpeedMacroOp.SpeedPercent, HyperDeckIndex = opHyperDeckSetSpeedMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.HyperDeck.HyperDeckStopMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.HyperDeckSetSpeed, HyperDeckSpeedPercent = opHyperDeckSetSpeedMacroOp.SpeedPercent, HyperDeckIndex = opHyperDeckSetSpeedMacroOp.Index};
+                case "LibAtem.MacroOperations.HyperDeck.HyperDeckStopMacroOp":
                     var opHyperDeckStopMacroOp = (LibAtem.MacroOperations.HyperDeck.HyperDeckStopMacroOp)op;
-                    return new MacroOperation{HyperDeckIndex = opHyperDeckStopMacroOp.Index};
-                case nameof(LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.HyperDeckStop, HyperDeckIndex = opHyperDeckStopMacroOp.Index};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp":
                     var opDownstreamKeyMaskBottomMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp)op;
-                    return new MacroOperation{Bottom = opDownstreamKeyMaskBottomMacroOp.Bottom, KeyIndex = (System.UInt32)opDownstreamKeyMaskBottomMacroOp.KeyIndex};
-                case nameof(LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskEnableMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskBottom, Bottom = opDownstreamKeyMaskBottomMacroOp.Bottom, KeyIndex = (System.UInt32)opDownstreamKeyMaskBottomMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskEnableMacroOp":
                     var opDownstreamKeyMaskEnableMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskEnableMacroOp)op;
-                    return new MacroOperation{Enable = opDownstreamKeyMaskEnableMacroOp.Enable.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyMaskEnableMacroOp.KeyIndex};
-                case nameof(LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskLeftMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskEnable, Enable = opDownstreamKeyMaskEnableMacroOp.Enable.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyMaskEnableMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskLeftMacroOp":
                     var opDownstreamKeyMaskLeftMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskLeftMacroOp)op;
-                    return new MacroOperation{Left = opDownstreamKeyMaskLeftMacroOp.Left, KeyIndex = (System.UInt32)opDownstreamKeyMaskLeftMacroOp.KeyIndex};
-                case nameof(LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskRightMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskLeft, Left = opDownstreamKeyMaskLeftMacroOp.Left, KeyIndex = (System.UInt32)opDownstreamKeyMaskLeftMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskRightMacroOp":
                     var opDownstreamKeyMaskRightMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskRightMacroOp)op;
-                    return new MacroOperation{Right = opDownstreamKeyMaskRightMacroOp.Right, KeyIndex = (System.UInt32)opDownstreamKeyMaskRightMacroOp.KeyIndex};
-                case nameof(LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskTopMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskRight, Right = opDownstreamKeyMaskRightMacroOp.Right, KeyIndex = (System.UInt32)opDownstreamKeyMaskRightMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskTopMacroOp":
                     var opDownstreamKeyMaskTopMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskTopMacroOp)op;
-                    return new MacroOperation{Top = opDownstreamKeyMaskTopMacroOp.Top, KeyIndex = (System.UInt32)opDownstreamKeyMaskTopMacroOp.KeyIndex};
-                case nameof(LibAtem.MacroOperations.DownStreamKey.DownstreamKeyOnAirMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskTop, Top = opDownstreamKeyMaskTopMacroOp.Top, KeyIndex = (System.UInt32)opDownstreamKeyMaskTopMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyOnAirMacroOp":
                     var opDownstreamKeyOnAirMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyOnAirMacroOp)op;
-                    return new MacroOperation{OnAir = opDownstreamKeyOnAirMacroOp.OnAir.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyOnAirMacroOp.KeyIndex};
-                case nameof(LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyOnAir, OnAir = opDownstreamKeyOnAirMacroOp.OnAir.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyOnAirMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp":
                     var opDownstreamKeyPreMultiplyMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp)op;
-                    return new MacroOperation{PreMultiply = opDownstreamKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyPreMultiplyMacroOp.KeyIndex};
-                case nameof(LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp):
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyPreMultiply, PreMultiply = opDownstreamKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyPreMultiplyMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp":
                     var opAudioMixerInputGainMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp)op;
-                    return new MacroOperation{Input = opAudioMixerInputGainMacroOp.Index.ToMacroInput(), Gain = opAudioMixerInputGainMacroOp.Gain};
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerInputGain, Input = opAudioMixerInputGainMacroOp.Index.ToMacroInput(), Gain = opAudioMixerInputGainMacroOp.Gain};
                 default:
                     return null;
             }
