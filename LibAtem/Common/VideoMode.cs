@@ -81,6 +81,15 @@ namespace LibAtem.Common
         [VideoModeMaxClipLength(180)]
         [XmlEnum("4KHDp2997")]
         N4KHDp2997 = 17,
+        
+        [VideoModeRate(50)]
+        [VideoModeMaxClipLength(180)]
+        [XmlEnum("4KHDp50")]
+        P4KHDp5000 = 18,
+        [VideoModeRate(59.94)]
+        [VideoModeMaxClipLength(180)]
+        [XmlEnum("4KHDp5994")]
+        N4KHDp5994 = 19,
     }
 
     public class VideoModeRateAttribute : Attribute

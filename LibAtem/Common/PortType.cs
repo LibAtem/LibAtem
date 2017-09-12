@@ -1,5 +1,6 @@
 ﻿namespace LibAtem.Common
 {
+    // TODO - this should be converted to flags.
     public enum ExternalPortType
     {
         Internal = 0,
@@ -25,6 +26,7 @@
         Mask = 130,
     }
 
+    // TODO - can this be combined with external port tpye?
     public enum AudioPortType
     {
         Internal = 0,
