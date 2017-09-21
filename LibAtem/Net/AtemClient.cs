@@ -30,7 +30,9 @@ namespace LibAtem.Net
         public event ConnectedHandler OnConnection;
         public event DisconnectedHandler OnDisconnect;
 
-        public AtemClient(string address)
+        public DataTransferManager DataTransfer { get; }
+
+        public AtemClient(string address, bool autoConnect=true)
         {
             _remoteEp = new IPEndPoint(IPAddress.Parse(address), 9910);
             _client = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
@@ -40,13 +42,22 @@ namespace LibAtem.Net
 
             DataTransfer = new DataTransferManager(_connection);
 
+            if (autoConnect)
+                Connect();
+        }
+
+        public bool Connect()
+        {
+            // Check if connect has already been called
+            if (_pingTimer != null)
+                return false;
+
             StartReceiving();
             SendHandshake();
             StartPingTimer();
             StartSendingTimer();
+            return true;
         }
-
-        public DataTransferManager DataTransfer { get; }
 
         private void StartPingTimer()
         {
@@ -115,6 +126,7 @@ namespace LibAtem.Net
                             Log.DebugFormat("Recieved {0} commands", cmds.Count);
 
                             cmds = TryHandleDataTransfer(cmds);
+                            Log.DebugFormat("{0} commands to be handle by user code", cmds.Count);
 
                             OnReceive?.Invoke(this, cmds);
                         });

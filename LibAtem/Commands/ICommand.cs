@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using log4net;
 
 namespace LibAtem.Commands
 {
@@ -61,25 +62,38 @@ namespace LibAtem.Commands
 
     public static class CommandManager
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(CommandManager));
+
         private static IReadOnlyDictionary<string, Type> commandTypes;
 
         private static Dictionary<string, Type> FindAllTypes()
         {
-            var result = new Dictionary<string, Type>();
-            var assembly = typeof(CommandNameAttribute).GetTypeInfo().Assembly;
-            foreach (Type type in assembly.GetTypes())
+            try
             {
-                CommandNameAttribute attribute = type.GetTypeInfo().GetCustomAttributes(typeof(CommandNameAttribute), true).OfType<CommandNameAttribute>().FirstOrDefault();
-                if (attribute == null)
-                    continue;
+                var result = new Dictionary<string, Type>();
+                var assembly = typeof(CommandNameAttribute).GetTypeInfo().Assembly;
+                foreach (Type type in assembly.GetTypes())
+                {
+                    CommandNameAttribute attribute = type.GetTypeInfo().GetCustomAttributes(typeof(CommandNameAttribute), true).OfType<CommandNameAttribute>().FirstOrDefault();
+                    if (attribute == null)
+                        continue;
 
-                if (!typeof(ICommand).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
-                    continue;
+                    if (!typeof(ICommand).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
+                        continue;
 
-                result.Add(attribute.Name, type);
+                    if (result.ContainsKey(attribute.Name))
+                        Log.FatalFormat("Duplicate definition for {0}", attribute.Name);
+
+                    result[attribute.Name] = type;
+                }
+
+                return result;
             }
-
-            return result;
+            catch (Exception e)
+            {
+                Log.FatalFormat("Failed to find all valid command types: {0}", e.Message);
+                throw;
+            }
         }
 
         public static Type FindForName(string name)
