@@ -29,6 +29,8 @@ namespace LibAtem.Net.DataTransfer
             {
                 typeof(DataTransferDataCommand),
                 typeof(DataTransferCompleteCommand),
+                typeof(DataTransferErrorCommand),
+                typeof(DataTransferUploadContinueCommand),
             };
         }
 

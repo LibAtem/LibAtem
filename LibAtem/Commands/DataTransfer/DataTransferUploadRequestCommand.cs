@@ -18,7 +18,7 @@ namespace LibAtem.Commands.DataTransfer
         [Serialize(0), UInt16]
         public uint TransferId { get; set; }
 
-        [Serialize(2), UInt8]
+        [Serialize(2), UInt16]
         public uint TransferStoreId { get; set; }
 
         [Serialize(7), UInt8]
@@ -27,7 +27,7 @@ namespace LibAtem.Commands.DataTransfer
         [Serialize(8), Int32]
         public int Size { get; set; }
 
-        [Serialize(13), Enum8]
+        [Serialize(12), Enum8]
         public TransferMode Mode { get; set; }
     }
 }

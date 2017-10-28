@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace LibAtem.Serialization
 {
-    public class Int32Attribute : SerializableAttributeBase
+    public class Int32Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
@@ -24,6 +24,16 @@ namespace LibAtem.Serialization
         public override bool AreEqual(object val1, object val2)
         {
             return Equals(val1, val2);
+        }
+
+        public virtual object GetRandom(Random random)
+        {
+            return random.Next();
+        }
+
+        public virtual bool IsValid(object obj)
+        {
+            return true;
         }
     }
 
@@ -61,13 +71,13 @@ namespace LibAtem.Serialization
             return val / Scale;
         }
 
-        public object GetRandom(Random random)
+        public override object GetRandom(Random random)
         {
             int range = ScaledMax - ScaledMin;
             return (random.NextDouble() * range + ScaledMin) / Scale;
         }
 
-        public bool IsValid(object obj)
+        public override bool IsValid(object obj)
         {
             return (double)obj >= ScaledMin && (double)obj <= ScaledMax;
         }

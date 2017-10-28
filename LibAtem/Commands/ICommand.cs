@@ -1,9 +1,9 @@
-﻿using LibAtem.MacroOperations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using log4net;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
@@ -16,16 +16,14 @@ namespace LibAtem.Commands
         // IEnumerable<MacroOpBase> ToMacroOps(); // TODO - enable this once it is safe to do so
     }
 
-    public class CommandNameAttribute : Attribute
+    public class CommandNameAttribute : LengthAttribute
     {
-        public CommandNameAttribute(string name, int length=-1)
+        public CommandNameAttribute(string name, int length = -1) : base(length)
         {
             Name = name;
-            Length = length;
         }
 
         public string Name { get; }
-        public int Length { get; }
 
         public static string GetName(Type type)
         {
@@ -66,8 +64,11 @@ namespace LibAtem.Commands
 
         private static IReadOnlyDictionary<string, Type> commandTypes;
 
-        private static Dictionary<string, Type> FindAllTypes()
+        public static IReadOnlyDictionary<string, Type> GetAllTypes()
         {
+            if (commandTypes != null)
+                return commandTypes;
+
             try
             {
                 var result = new Dictionary<string, Type>();
@@ -87,7 +88,7 @@ namespace LibAtem.Commands
                     result[attribute.Name] = type;
                 }
 
-                return result;
+                return commandTypes = result;
             }
             catch (Exception e)
             {
@@ -98,11 +99,8 @@ namespace LibAtem.Commands
 
         public static Type FindForName(string name)
         {
-            if (commandTypes == null)
-                commandTypes = FindAllTypes();
-
             Type res;
-            return commandTypes.TryGetValue(name, out res) ? res : null;
+            return GetAllTypes().TryGetValue(name, out res) ? res : null;
         }
     }
 }

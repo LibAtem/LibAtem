@@ -21,6 +21,7 @@ namespace LibAtem.Net
         private readonly AtemClientConnection _connection;
         private Timer _pingTimer;
         private Thread _sendThread;
+        private Thread _handleThread;
 
         public delegate void CommandHandler(object sender, IReadOnlyList<ICommand> commands);
         public delegate void ConnectedHandler(object sender);
@@ -30,14 +31,18 @@ namespace LibAtem.Net
         public event ConnectedHandler OnConnection;
         public event DisconnectedHandler OnDisconnect;
 
+//        private int _lastSentAck;
+//        private int _nextSentAck;
+
         public DataTransferManager DataTransfer { get; }
 
         public AtemClient(string address, bool autoConnect=true)
         {
             _remoteEp = new IPEndPoint(IPAddress.Parse(address), 9910);
             _client = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
+//            _lastSentAck = _nextSentAck = -1;
 
-            _connection = new AtemClientConnection(_remoteEp, new Random().Next(65535));
+            _connection = new AtemClientConnection(_remoteEp, new Random().Next(32767));
             _connection.OnDisconnect += sender => OnDisconnect?.Invoke(this);
 
             DataTransfer = new DataTransferManager(_connection);
@@ -54,8 +59,9 @@ namespace LibAtem.Net
 
             StartReceiving();
             SendHandshake();
-            StartPingTimer();
+//            StartPingTimer();
             StartSendingTimer();
+            StartHandleThread();
             return true;
         }
 
@@ -76,11 +82,31 @@ namespace LibAtem.Net
             {
                 while (!_connection.HasTimedOut)
                 {
-                    _connection.TrySendQueued(_client.Client);
-                    Task.Delay(5).Wait();
+                    if (!_connection.TrySendQueued(_client.Client))
+                        Task.Delay(3).Wait();
                 }
             });
             _sendThread.Start();
+        }
+
+        private void StartHandleThread()
+        {
+            _handleThread = new Thread(o =>
+            {
+                while (!_connection.HasTimedOut || _connection.HasCommandsToProcess)
+                {
+                    List<ICommand> cmds = _connection.GetNextCommands();
+                    
+                    Log.DebugFormat("Recieved {0} commands", cmds.Count);
+
+                    cmds = cmds.Where(c => !DataTransfer.HandleCommand(c)).ToList();
+                    Log.DebugFormat("{0} commands to be handle by user code", cmds.Count);
+
+                    if (cmds.Any())
+                        OnReceive?.Invoke(this, cmds);
+                }
+            });
+            _handleThread.Start();
         }
 
         private void SendHandshake()
@@ -89,7 +115,7 @@ namespace LibAtem.Net
             byte[] handshake =
             {
                 0x10, 0x14, // flags + length
-                (byte) (_connection.SessionId << 8), (byte) _connection.SessionId, // session id
+                (byte) (_connection.SessionId >> 8), (byte) _connection.SessionId, // session id
                 0x00, 0x00, // acked pkt id
                 0x00, 0x00, // unknown
                 0x00, 0x68, // unknown2
@@ -103,15 +129,16 @@ namespace LibAtem.Net
 
         private void StartReceiving()
         {
-            var thread = new Thread(async () =>
+            var thread = new Thread(() =>
             {
-                while (true)
+                while (!_connection.HasTimedOut)
                 {
                     try
                     {
-                        UdpReceiveResult res = await _client.ReceiveAsync();
+                        IPEndPoint ep = _remoteEp;
+                        byte[] data = _client.Receive(ref ep);
 
-                        ReceivedPacket packet = new ReceivedPacket(res.Buffer);
+                        ReceivedPacket packet = new ReceivedPacket(data);
 
                         if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.Handshake))
                         {
@@ -121,15 +148,14 @@ namespace LibAtem.Net
                             continue;
                         }
 
-                        _connection.Receive(_client.Client, packet, cmds =>
+                        // TODO - should this only be allowed once?
+                        if (_connection.SessionId != packet.SessionId)
                         {
-                            Log.DebugFormat("Recieved {0} commands", cmds.Count);
+                            _connection.SessionId = (int) packet.SessionId;
+                            Log.InfoFormat("Got new session id: {0}", packet.SessionId);
+                        }
 
-                            cmds = TryHandleDataTransfer(cmds);
-                            Log.DebugFormat("{0} commands to be handle by user code", cmds.Count);
-
-                            OnReceive?.Invoke(this, cmds);
-                        });
+                        _connection.Receive(_client.Client, packet);
                     }
                     catch (SocketException)
                     {
@@ -138,11 +164,6 @@ namespace LibAtem.Net
                 }
             });
             thread.Start();
-        }
-
-        private IReadOnlyList<ICommand> TryHandleDataTransfer(IReadOnlyList<ICommand> cmds)
-        {
-            return cmds.Where(c => !DataTransfer.HandleCommand(c)).ToList();
         }
 
         public void SendCommand(ICommand cmd)

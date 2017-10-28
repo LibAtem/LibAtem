@@ -27,27 +27,24 @@ namespace LibAtem.MacroOperations
     public abstract class MacroOpBase : AutoSerializeBase, IMacroOperation
     {
         [Serialize(0), UInt8]
-        public uint Length => (uint) GetLengthFromAttribute();
+        public uint Length => (uint) GetAttribute().Length;
 
         [Serialize(2), Enum16]
         public MacroOperationType Id => GetAttribute().Operation;
 
-        protected override int GetLengthFromAttribute() => GetAttribute().Length;
-
+        // TODO cache this!
         private MacroOperationAttribute GetAttribute() => GetType().GetTypeInfo().GetCustomAttribute<MacroOperationAttribute>();
 
         public abstract ICommand ToCommand();
     }
 
-    public class MacroOperationAttribute : Attribute
+    public class MacroOperationAttribute : LengthAttribute
     {
         public MacroOperationType Operation { get; }
-        public int Length { get; }
 
-        public MacroOperationAttribute(MacroOperationType op, int length)
+        public MacroOperationAttribute(MacroOperationType op, int length) : base(length)
         {
             Operation = op;
-            Length = length;
         }
     }
 

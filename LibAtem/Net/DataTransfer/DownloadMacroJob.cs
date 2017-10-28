@@ -76,6 +76,7 @@ namespace LibAtem.Net.DataTransfer
                 return DataTransferStatus.Success;
             }
 
+            _onComplete(null);
             return DataTransferStatus.Error;
         }
     }

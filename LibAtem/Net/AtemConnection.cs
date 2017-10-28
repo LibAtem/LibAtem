@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading.Tasks;
 using log4net;
 using LibAtem.Commands;
+using LibAtem.MacroOperations;
+using LibAtem.Serialization;
 
 namespace LibAtem.Net
 {
@@ -18,7 +20,7 @@ namespace LibAtem.Net
         private const uint MaxInFlight = 10;
         private const uint InFlightTimeout = 200;
 
-        public int SessionId { get; }
+        public int SessionId { get; internal set; }
         public EndPoint Endpoint { get; }
 
         private readonly object _lastSentAckLock = new object();
@@ -32,6 +34,7 @@ namespace LibAtem.Net
 
         private readonly Queue<OutboundMessage> _messageQueue;
         private readonly List<InFlightMessage> _inFlight;
+        private readonly BlockingCollection<ReceivedPacket> _processQueue;
 
         public delegate void DisconnectHandler(object sender);
 
@@ -51,6 +54,12 @@ namespace LibAtem.Net
             }
         }
 
+        static AtemConnection()
+        {
+            AutoSerializeBase.CompilePropertySpecForTypes(CommandManager.GetAllTypes().Values);
+            AutoSerializeBase.CompilePropertySpecForTypes(MacroOpManager.FindAll().Values);
+        }
+
         protected AtemConnection(EndPoint endpoint, int sessionId)
         {
             Endpoint = endpoint;
@@ -59,6 +68,7 @@ namespace LibAtem.Net
 
             _messageQueue = new Queue<OutboundMessage>();
             _inFlight = new List<InFlightMessage>();
+            _processQueue = new BlockingCollection<ReceivedPacket>(new ConcurrentQueue<ReceivedPacket>());
         }
 
         public bool IsOpened => _isOpen;
@@ -114,7 +124,7 @@ namespace LibAtem.Net
             }
         }
         
-        public void Receive(Socket socket, ReceivedPacket packet, Action<IReadOnlyList<ICommand>> handler)
+        public void Receive(Socket socket, ReceivedPacket packet)
         {
             try
             {
@@ -159,54 +169,60 @@ namespace LibAtem.Net
                     if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest))
                     {
                         Log.DebugFormat("{0} - Parsed {1} commands with length {2}", Endpoint, packet.Commands.Count, packet.PayloadLength);
-
-                        DeserializeCommands(packet, handler);
+                        
+                        _processQueue.Add(packet);
                     }
                     // Note: Handshake is handled elsewhere
                     // Note: Unknown, Retransmit both need no action
                 }
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 //discard as was malformed
             }
         }
 
-        private void DeserializeCommands(ReceivedPacket pkt, Action<IReadOnlyList<ICommand>> handler)
+        public bool HasCommandsToProcess => _processQueue.Count > 0;
+
+        public List<ICommand> GetNextCommands()
         {
-            List<ICommand> commands = new List<ICommand>();
-
-            foreach (ParsedCommand rawCmd in pkt.Commands)
+            try
             {
-                Log.DebugFormat("{0} - Received command {1} with content {2}", Endpoint, rawCmd.Name, BitConverter.ToString(rawCmd.Body));
-
-                Type commandType = CommandManager.FindForName(rawCmd.Name);
-                if (commandType == null)
+                var result = new List<ICommand>();
+                foreach (ParsedCommand rawCmd in _processQueue.Take().Commands)
                 {
-                    Log.WarnFormat("{0} - Unknown command {1} with content {2}", Endpoint, rawCmd.Name, BitConverter.ToString(rawCmd.Body));
-                    continue;
+                    Log.DebugFormat("{0} - Received command {1} with content {2}", Endpoint, rawCmd.Name, BitConverter.ToString(rawCmd.Body));
+
+                    Type commandType = CommandManager.FindForName(rawCmd.Name);
+                    if (commandType == null)
+                    {
+                        Log.WarnFormat("{0} - Unknown command {1} with content {2}", Endpoint, rawCmd.Name, BitConverter.ToString(rawCmd.Body));
+                        continue;
+                    }
+
+                    try
+                    {
+                        ICommand cmd = (ICommand)Activator.CreateInstance(commandType);
+                        cmd.Deserialize(rawCmd);
+
+                        if (!rawCmd.HasFinished && !(cmd is SerializableCommandBase))
+                            throw new Exception("Some stray bytes were left after deserialize");
+
+                        result.Add(cmd);
+                    }
+                    catch (Exception e)
+                    {
+                        LogManager.GetLogger(commandType).Error(e);
+                    }
                 }
 
-                try
-                {
-                    ICommand cmd = (ICommand)Activator.CreateInstance(commandType);
-                    cmd.Deserialize(rawCmd);
-
-                    if (!rawCmd.HasFinished && !(cmd is SerializableCommandBase))
-                        throw new Exception("Some stray bytes were left after deserialize");
-
-                    commands.Add(cmd);
-                }
-                catch (Exception e)
-                {
-                    LogManager.GetLogger(commandType).Error(e);
-                }
+                return result;
             }
-
-            if (commands.Count == 0)
-                return;
-
-            handler(commands);
+            catch (ArgumentException)
+            {
+                //discard as was malformed
+                return new List<ICommand>();
+            }
         }
 
         protected internal void SendAck(Socket socket, uint packetId, bool forcePacketZero=false)
@@ -228,7 +244,7 @@ namespace LibAtem.Net
                 return false;
 
             foreach (InFlightMessage msg in msgs)
-                SendMessage(socket, msg).Wait();
+                SendMessage(socket, msg);
             return true;
         }
 
@@ -288,14 +304,14 @@ namespace LibAtem.Net
             return null;
         }
         
-        private async Task SendMessage(Socket socket, InFlightMessage msg)
+        private void SendMessage(Socket socket, InFlightMessage msg)
         {
             byte[] body = CompileMessage(msg);
             msg.LastSent = DateTime.Now;
 
             try
             {
-                await socket.SendToAsync(new ArraySegment<byte>(body, 0, body.Length), SocketFlags.None, Endpoint);
+                socket.SendTo(body, SocketFlags.None, Endpoint);
             }
             catch (ObjectDisposedException)
             {
@@ -337,7 +353,7 @@ namespace LibAtem.Net
             byte[] buffer =
             {
                 len1, len2, // Opcode & Length
-                (byte)(SessionId / 256),  (byte)(SessionId % 256), // session id
+                (byte) (SessionId >> 8), (byte) SessionId, // session id
                 0x00, 0x00, // ACKed Pkt Id
                 0x00, 0x00, // Unknown
                 0x00, 0x00, // unknown2

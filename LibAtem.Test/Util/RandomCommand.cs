@@ -12,11 +12,11 @@ namespace LibAtem.Test.Util
         
         public static object Create(Type t)
         {
-            object cmd = (object) Activator.CreateInstance(t);
+            object cmd = Activator.CreateInstance(t);
             foreach (PropertyInfo prop in t.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 // If prop cannot be deserialized, then ignore
-                if (!prop.CanWrite)
+                if (!prop.CanWrite || prop.GetSetMethod() == null)
                     continue;
 
                 if (prop.GetCustomAttribute<NoSerializeAttribute>() != null)
