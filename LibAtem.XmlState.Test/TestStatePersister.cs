@@ -93,6 +93,30 @@ namespace LibAtem.XmlState.Test
             RunForFile("TestFiles/i61.xml");
         }
 
+        [Fact]
+        public void TestRunefestPrimary()
+        {
+            RunForFile("TestFiles/rune-primary.xml");
+        }
+
+        [Fact]
+        public void TestRunefestSecondary()
+        {
+            RunForFile("TestFiles/rune-secondary.xml");
+        }
+
+        [Fact]
+        public void TestRunefestSecondary2()
+        {
+            RunForFile("TestFiles/rune-secondary2.xml");
+        }
+
+        [Fact]
+        public void TestPreRunefestGreen()
+        {
+            RunForFile("TestFiles/pre-rune-green.xml");
+        }
+
         #region Helpers
 
         private void RunForFile(string filename)
