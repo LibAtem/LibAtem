@@ -287,6 +287,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DownstreamKeyMaskTop:
                 case MacroOperationType.DownstreamKeyOnAir:
                 case MacroOperationType.DownstreamKeyPreMultiply:
+                case MacroOperationType.DownstreamKeyTie:
                     return true;
                 default:
                     return false;
@@ -616,6 +617,24 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.TransitionStyle:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("tie")]
+        public LibAtem.XmlState.AtemBool Tie
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeTie()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.DownstreamKeyTie:
                     return true;
                 default:
                     return false;
@@ -958,6 +977,9 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp":
                     var opDownstreamKeyPreMultiplyMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.DownstreamKeyPreMultiply, PreMultiply = opDownstreamKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyPreMultiplyMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp":
+                    var opDownstreamKeyTieMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyTie, Tie = opDownstreamKeyTieMacroOp.Tie.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyTieMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp":
                     var opAudioMixerInputGainMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerInputGain, Input = opAudioMixerInputGainMacroOp.Index.ToMacroInput(), Gain = opAudioMixerInputGainMacroOp.Gain};
@@ -1117,6 +1139,8 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyOnAirMacroOp{OnAir = mac.OnAir.Value(), KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
                 case MacroOperationType.DownstreamKeyPreMultiply:
                     return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp{PreMultiply = mac.PreMultiply.Value(), KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
+                case MacroOperationType.DownstreamKeyTie:
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp{Tie = mac.Tie.Value(), KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
                 case MacroOperationType.AudioMixerInputGain:
                     return new LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp{Index = mac.Input.ToAudioSource(), Gain = mac.Gain};
                 default:
