@@ -183,7 +183,7 @@ namespace LibAtem.Common
         DownstreamKeyRate,
         DownstreamKeyAuto,
         DownstreamKeyOnAir,
-        DownstreamKeyTie,
+        DownstreamKeyTie = 0x009b,
         DownstreamKeyClip,
         DownstreamKeyGain,
         DownstreamKeyMaskEnable,
