@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.MixEffects.Key;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
@@ -35,5 +38,19 @@ namespace LibAtem.Commands.MixEffects.Key
         public double Lift { get; set; }
         [Serialize(12), Bool]
         public bool Narrow { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Hue))
+                yield return new ChromaKeyHueMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Hue = Hue};
+            if (Mask.HasFlag(MaskFlags.Gain))
+                yield return new ChromaKeyGainMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Gain = Gain };
+            if (Mask.HasFlag(MaskFlags.YSuppress))
+                yield return new ChromaKeyYSuppressMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, YSuppress = YSuppress };
+            if (Mask.HasFlag(MaskFlags.Lift))
+                yield return new ChromaKeyLiftMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Lift = Lift };
+            if (Mask.HasFlag(MaskFlags.Narrow))
+                yield return new ChromaKeyNarrowMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Narrow = Narrow };
+        }
     }
 }

@@ -64,7 +64,10 @@ namespace LibAtem.Commands.MixEffects.Transition
         {
             if (Mask.HasFlag(MaskFlags.Rate))
                 yield return new TransitionDVERateMacroOp() { Index = Index, Rate = Rate };
-            
+
+            if (Mask.HasFlag(MaskFlags.Style))
+                yield return new TransitionDVEPatternMacroOp() { Index = Index, Pattern = Style };
+
         }
     }
 

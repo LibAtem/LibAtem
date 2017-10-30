@@ -58,8 +58,8 @@ namespace LibAtem.Common
         KeyOnAir = 0x0027,
         KeyType = 0x0028,
 
-        LumaKeyClip,
-        LumaKeyGain,
+        LumaKeyClip, //
+        LumaKeyGain, //
         
         KeyFlyEnable,
 
@@ -69,18 +69,18 @@ namespace LibAtem.Common
         PatternKeyInvert,
 
         KeyMaskEnable = 0x002f,
-        KeyMaskTop,
-        KeyMaskBottom,
-        KeyMaskLeft,
-        KeyMaskRight,
+        KeyMaskTop, //
+        KeyMaskBottom, //
+        KeyMaskLeft, //
+        KeyMaskRight, //
           
-        TransitionDVEPattern,
+        TransitionDVEPattern, //
         DVEKeyMaskEnable = 0x0035,
         DVEKeyMaskTop = 0x0036,
         DVEKeyMaskBottom = 0x0037,
         DVEKeyMaskLeft = 0x0038,
         DVEKeyMaskRight = 0x0039,
-        TransitionDVERate,
+        TransitionDVERate, //
 
         ChromaKeyClip,
         ChromaKeyGain,

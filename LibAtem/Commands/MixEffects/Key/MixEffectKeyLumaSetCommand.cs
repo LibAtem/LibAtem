@@ -45,6 +45,27 @@ namespace LibAtem.Commands.MixEffects.Key
                     KeyIndex = KeyerIndex,
                     PreMultiply = PreMultiplied,
                 };
+            if (Mask.HasFlag(MaskFlags.Clip))
+                yield return new LumaKeyClipMacroOp()
+                {
+                    Index = MixEffectIndex,
+                    KeyIndex = KeyerIndex,
+                    Clip = Clip,
+                };
+            if (Mask.HasFlag(MaskFlags.Gain))
+                yield return new LumaKeyGainMacroOp()
+                {
+                    Index = MixEffectIndex,
+                    KeyIndex = KeyerIndex,
+                    Gain = Gain,
+                };
+            if (Mask.HasFlag(MaskFlags.Invert))
+                yield return new LumaKeyInvertMacroOp()
+                {
+                    Index = MixEffectIndex,
+                    KeyIndex = KeyerIndex,
+                    Invert = Invert,
+                };
 
         }
     }
