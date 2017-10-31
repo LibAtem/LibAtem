@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.MixEffects.Key;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
@@ -41,5 +44,25 @@ namespace LibAtem.Commands.MixEffects.Key
         public double YPosition { get; set; }
         [Serialize(14), Bool]
         public bool Inverse { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Pattern))
+                yield return new PatternKeyPatternMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Pattern = Pattern};
+            if (Mask.HasFlag(MaskFlags.Size))
+                yield return new PatternKeySizeMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Size = Size };
+            if (Mask.HasFlag(MaskFlags.Symmetry))
+                yield return new PatternKeySymmetryMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Symmetry = Symmetry };
+            if (Mask.HasFlag(MaskFlags.Softness))
+                yield return new PatternKeySoftnessMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Softness = Softness };
+
+            if (Mask.HasFlag(MaskFlags.XPosition))
+                yield return new PatternKeyXPositionMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, XPosition = XPosition };
+            if (Mask.HasFlag(MaskFlags.YPosition))
+                yield return new PatternKeyYPositionMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, YPosition = YPosition};
+
+            // Inverse
+
+        }
     }
 }

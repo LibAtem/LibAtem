@@ -17,7 +17,6 @@ namespace LibAtem.Serialization
 
         public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-
             return (int)BitConverter.ToInt32(ReverseBytes(reverseBytes, data.Skip((int)start).Take(4)), 0);
         }
 
@@ -64,9 +63,9 @@ namespace LibAtem.Serialization
             int val = (int)base.Deserialize(reverseBytes, data, start, prop);
 
             if (val < ScaledMin)
-                return ScaledMin;
+                return ScaledMin / Scale;
             if (val > ScaledMax)
-                return ScaledMax;
+                return ScaledMax / Scale;
 
             return val / Scale;
         }
@@ -86,6 +85,99 @@ namespace LibAtem.Serialization
         {
             double tolerance = 1 / (2 * Scale);
             return Math.Abs((double)val1 - (double)val2) <= tolerance;
+        }
+    }
+
+    public class UInt32Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
+    {
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
+        {
+            byte[] bytes = BitConverter.GetBytes((uint)val);
+            data[start] = bytes[reverseBytes ? 3 : 0];
+            data[start + 1] = bytes[reverseBytes ? 2 : 1];
+            data[start + 2] = bytes[reverseBytes ? 1 : 2];
+            data[start + 3] = bytes[reverseBytes ? 0 : 3];
+        }
+
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
+        {
+
+            return (uint)BitConverter.ToUInt32(ReverseBytes(reverseBytes, data.Skip((int)start).Take(4)), 0);
+        }
+
+        public override bool AreEqual(object val1, object val2)
+        {
+            return Equals(val1, val2);
+        }
+
+        public virtual object GetRandom(Random random)
+        {
+            return random.Next();
+        }
+
+        public virtual bool IsValid(object obj)
+        {
+            return true;
+        }
+    }
+
+
+    public class UInt32DAttribute : UInt32Attribute, IRandomGeneratorAttribute
+    {
+        public double Scale { get; }
+        public uint ScaledMin { get; }
+        public uint ScaledMax { get; }
+
+        public UInt32DAttribute(double scale, uint scaledMin, uint scaledMax)
+        {
+            Scale = scale;
+            ScaledMin = scaledMin;
+            ScaledMax = scaledMax;
+
+            if (scaledMin >= scaledMax)
+                throw new ArgumentException("Min must be less than Max");
+        }
+
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
+        {
+            uint value = (uint)Math.Round((double)val * Scale);
+            base.Serialize(reverseBytes, data, start, value);
+        }
+
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
+        {
+            uint val = (uint)base.Deserialize(reverseBytes, data, start, prop);
+
+            if (val < ScaledMin)
+                return ScaledMin;
+            if (val > ScaledMax)
+                return ScaledMax;
+
+            return val / Scale;
+        }
+
+        public override object GetRandom(Random random)
+        {
+            uint range = ScaledMax - ScaledMin;
+            return (random.NextDouble() * range + ScaledMin) / Scale;
+        }
+
+        public override bool IsValid(object obj)
+        {
+            return (double)obj >= ScaledMin && (double)obj <= ScaledMax;
+        }
+
+        public override bool AreEqual(object val1, object val2)
+        {
+            double tolerance = 1 / (2 * Scale);
+            return Math.Abs((double)val1 - (double)val2) <= tolerance;
+        }
+    }
+
+    public class UInt32DScaleAttribute : UInt32DAttribute
+    {
+        public UInt32DScaleAttribute() : base(uint.MaxValue, 0, uint.MaxValue)
+        {
         }
     }
 }

@@ -5,21 +5,21 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.MixEffects.Key
 {
-    [MacroOperation(MacroOperationType.ChromaKeyClip, 12)]
-    public class ChromaKeyYSuppressMacroOp : MixEffectKeyMacroOpBase
+    [MacroOperation(MacroOperationType.PatternKeySoftness, 12)]
+    public class PatternKeySoftnessMacroOp : MixEffectKeyMacroOpBase
     {
         [Serialize(6), UInt32DScale]
-        [MacroField("Clip")]
-        public double YSuppress { get; set; }
+        [MacroField("Softness")]
+        public double Softness { get; set; }
 
         public override ICommand ToCommand()
         {
-            return new MixEffectKeyChromaSetCommand()
+            return new MixEffectKeyPatternSetCommand()
             {
-                Mask = MixEffectKeyChromaSetCommand.MaskFlags.YSuppress,
+                Mask = MixEffectKeyPatternSetCommand.MaskFlags.Softness,
                 MixEffectIndex = Index,
                 KeyerIndex = KeyIndex,
-                YSuppress = YSuppress,
+                Softness = Softness,
             };
         }
     }

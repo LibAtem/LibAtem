@@ -5,10 +5,10 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.MixEffects.Key
 {
-    [MacroOperation(MacroOperationType.ChromaKeyGain, 8)]
+    [MacroOperation(MacroOperationType.ChromaKeyGain, 12)]
     public class ChromaKeyGainMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), Int16D(1000, 0, 1000)] // TODO - check
+        [Serialize(6), UInt32DScale]
         [MacroField("Gain")]
         public double Gain { get; set; }
 

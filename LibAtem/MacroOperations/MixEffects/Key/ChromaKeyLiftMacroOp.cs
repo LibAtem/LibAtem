@@ -5,10 +5,10 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.MixEffects.Key
 {
-    [MacroOperation(MacroOperationType.ChromaKeyLift, 8)]
+    [MacroOperation(MacroOperationType.ChromaKeyLift, 12)]
     public class ChromaKeyLiftMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), Int16D(1000, 0, 1000)] // TODO - check
+        [Serialize(6), UInt32DScale]
         [MacroField("Lift")]
         public double Lift { get; set; }
 
@@ -20,25 +20,6 @@ namespace LibAtem.MacroOperations.MixEffects.Key
                 MixEffectIndex = Index,
                 KeyerIndex = KeyIndex,
                 Lift = Lift,
-            };
-        }
-    }
-
-    [MacroOperation(MacroOperationType.ChromaKeyNarrow, 8)]
-    public class ChromaKeyNarrowMacroOp : MixEffectKeyMacroOpBase
-    {
-        [Serialize(6), Bool]
-        [MacroField("Narrow")]
-        public bool Narrow { get; set; }
-
-        public override ICommand ToCommand()
-        {
-            return new MixEffectKeyChromaSetCommand()
-            {
-                Mask = MixEffectKeyChromaSetCommand.MaskFlags.Narrow,
-                MixEffectIndex = Index,
-                KeyerIndex = KeyIndex,
-                Narrow = Narrow,
             };
         }
     }

@@ -69,10 +69,10 @@ namespace LibAtem.Common
         PatternKeyInvert,
 
         KeyMaskEnable = 0x002f,
-        KeyMaskTop, //
-        KeyMaskBottom, //
-        KeyMaskLeft, //
-        KeyMaskRight, //
+        KeyMaskTop = 0x0030,
+        KeyMaskBottom = 0x0031,
+        KeyMaskLeft = 0x0032,
+        KeyMaskRight = 0x0033,
           
         TransitionDVEPattern, //
         DVEKeyMaskEnable = 0x0035,
@@ -82,18 +82,18 @@ namespace LibAtem.Common
         DVEKeyMaskRight = 0x0039,
         TransitionDVERate, //
 
-        ChromaKeyClip,
-        ChromaKeyGain,
-        ChromaKeyHue,
-        ChromaKeyLift,
-        ChromaKeyNarrow,
+        ChromaKeyClip = 0x003b, //
+        ChromaKeyGain = 0x003c, //
+        ChromaKeyHue = 0x003d, //
+        ChromaKeyLift = 0x003e, //
+        ChromaKeyNarrow = 0x003f, //
 
-        PatternKeyPattern,
-        PatternKeySize,
-        PatternKeySoftness,
-        PatternKeyXPosition,
-        PatternKeyYPosition,
-        PatternKeySymmetry,
+        PatternKeyPattern, //
+        PatternKeySize, //
+        PatternKeySoftness, //
+        PatternKeyXPosition, // 
+        PatternKeyYPosition, // 
+        PatternKeySymmetry, //
 
         DVEAndFlyKeyXSize = 0x0047,
         DVEAndFlyKeyYSize = 0x0048,

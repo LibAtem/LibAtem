@@ -182,10 +182,10 @@ namespace LibAtem.Commands.MixEffects.Key
                 yield return null;
 
             if (Mask.HasFlag(MaskFlags.LightSourceDirection))
-                yield return null;
+                yield return new DVEKeyShadowDirectionMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Direction = LightSourceDirection };
 
             if (Mask.HasFlag(MaskFlags.LightSourceAltitude))
-                yield return null;
+                yield return new DVEKeyShadowAltitudeMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Altitude = LightSourceAltitude};
 
             if (Mask.HasFlag(MaskFlags.MaskEnabled))
                 yield return new DVEKeyMaskEnableMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = MaskEnabled};

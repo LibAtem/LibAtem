@@ -5,10 +5,10 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.MixEffects.Key
 {
-    [MacroOperation(MacroOperationType.LumaKeyClip, 8)]
+    [MacroOperation(MacroOperationType.LumaKeyClip, 12)]
     public class LumaKeyClipMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), Int16D(1000, 0, 1000)] // TODO - check
+        [Serialize(6), UInt32DScale]
         [MacroField("Clip")]
         public double Clip { get; set; }
 
@@ -20,25 +20,6 @@ namespace LibAtem.MacroOperations.MixEffects.Key
                 MixEffectIndex = Index,
                 KeyerIndex = KeyIndex,
                 Clip = Clip,
-            };
-        }
-    }
-
-    [MacroOperation(MacroOperationType.ChromaKeyHue, 8)]
-    public class ChromaKeyHueMacroOp : MixEffectKeyMacroOpBase
-    {
-        [Serialize(6), Int16D(1000, 0, 1000)] // TODO - check
-        [MacroField("Hue")]
-        public double Hue { get; set; }
-
-        public override ICommand ToCommand()
-        {
-            return new MixEffectKeyChromaSetCommand()
-            {
-                Mask = MixEffectKeyChromaSetCommand.MaskFlags.Hue,
-                MixEffectIndex = Index,
-                KeyerIndex = KeyIndex,
-                Hue = Hue,
             };
         }
     }

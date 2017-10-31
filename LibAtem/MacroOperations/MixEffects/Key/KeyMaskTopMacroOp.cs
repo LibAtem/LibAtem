@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.KeyMaskTop, 12)]
     public class KeyMaskTopMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(8), Int16D(1000, -9000, 9000)]
+        [Serialize(8), Int32D(65535, -9 * 65535, 9 * 65535)]
         [MacroField("Top")]
         public double Top { get; set; }
 
