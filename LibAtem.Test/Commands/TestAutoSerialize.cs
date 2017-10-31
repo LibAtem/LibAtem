@@ -80,7 +80,7 @@ namespace LibAtem.Test.Commands
             }
 
             output.WriteLine(string.Join("\n", failures));
-            Assert.Equal(0, failures.Count);
+            Assert.Empty(failures);
         }
 
         private static void TestSingle(Type t, int rounds)

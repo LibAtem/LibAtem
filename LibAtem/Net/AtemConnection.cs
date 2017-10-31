@@ -124,7 +124,7 @@ namespace LibAtem.Net
             }
         }
         
-        public void Receive(Socket socket, ReceivedPacket packet)
+        internal void Receive(Socket socket, ReceivedPacket packet)
         {
             try
             {

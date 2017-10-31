@@ -46,13 +46,13 @@ namespace LibAtem.Test.Commands
             {
                 output.WriteLine("\nMissing attributes: ");
                 output.WriteLine(string.Join("\n", missingAttribute));
-                Assert.Equal(0, missingAttribute.Count);
+                Assert.Empty(missingAttribute);
             }
             if (hasBoth.Any())
             {
                 output.WriteLine("\nHas both attributes: ");
                 output.WriteLine(string.Join("\n", hasBoth));
-                Assert.Equal(0, hasBoth.Count);
+                Assert.Empty(hasBoth);
             }
         }
 
@@ -85,7 +85,7 @@ namespace LibAtem.Test.Commands
             {
                 output.WriteLine("Bad types: ");
                 output.WriteLine(string.Join("\n", badTypes));
-                Assert.Equal(0, badTypes.Count);
+                Assert.Empty(badTypes);
             }
         }
     }

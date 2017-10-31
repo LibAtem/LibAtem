@@ -19,7 +19,7 @@ namespace LibAtem.Test.MacroOp
             this.output = output;
         }
 
-        private IReadOnlyList<Type> expectedNullCommand = new List<Type>() {typeof(MacroSleepMacroOp)};
+        private readonly IReadOnlyList<Type> expectedNullCommand = new List<Type>() {typeof(MacroSleepMacroOp)};
 
         [Fact]
         public void TestStartingWithMacroOperation()
@@ -45,7 +45,7 @@ namespace LibAtem.Test.MacroOp
             }
 
             output.WriteLine(string.Join("\n", failures));
-            Assert.Equal(0, failures.Count);
+            Assert.Empty(failures);
         }
 
         private void TestStartingWithMacroOperationSingle(Type t, int rounds)
@@ -64,10 +64,7 @@ namespace LibAtem.Test.MacroOp
                 var serCmd = cmd as SerializableCommandBase; // TODO - this shouldnt be needed once all Commands have appropriate macro stuff set
                 Assert.NotNull(serCmd);
 
-                IEnumerable<MacroOpBase> res = serCmd.ToMacroOps();
-                Assert.Equal(1, res.Count());
-
-                MacroOpBase entry = res.FirstOrDefault();
+                MacroOpBase entry = serCmd.ToMacroOps().Single();
                 if (!t.GetTypeInfo().IsAssignableFrom(entry.GetType()))
                     throw new Exception("Deserialized operation of wrong type");
 
