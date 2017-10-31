@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.PatternKeyXPosition, 12)]
     public class PatternKeyXPositionMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), Int32D(65535, 0, 65535)] // TODO check
+        [Serialize(6), UInt32DScale]
         [MacroField("PositionX", "xPosition")]
         public double XPosition { get; set; }
 

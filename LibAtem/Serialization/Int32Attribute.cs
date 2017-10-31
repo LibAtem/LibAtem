@@ -149,9 +149,9 @@ namespace LibAtem.Serialization
             uint val = (uint)base.Deserialize(reverseBytes, data, start, prop);
 
             if (val < ScaledMin)
-                return ScaledMin;
+                return ScaledMin / Scale;
             if (val > ScaledMax)
-                return ScaledMax;
+                return ScaledMax / Scale;
 
             return val / Scale;
         }
@@ -176,7 +176,7 @@ namespace LibAtem.Serialization
 
     public class UInt32DScaleAttribute : UInt32DAttribute
     {
-        public UInt32DScaleAttribute() : base(uint.MaxValue, 0, uint.MaxValue)
+        public UInt32DScaleAttribute(double max = 1) : base(uint.MaxValue / max, 0, (uint) (uint.MaxValue / max))
         {
         }
     }

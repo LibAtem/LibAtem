@@ -7,13 +7,26 @@ using LibAtem.MacroOperations;
 
 namespace LibAtem.Net.DataTransfer
 {
-    public class DownloadMacroJob : DataTransferJob
+    public class DownloadMacroJob : DownloadMacroBytesJob
     {
-        private readonly Action<IReadOnlyList<MacroOpBase>> _onComplete;
+        public DownloadMacroJob(uint index, Action<IReadOnlyList<MacroOpBase>> onComplete, TimeSpan? timeout=null) 
+            : base(index, d => onComplete(Deserialize(d)), timeout)
+        {
+        }
+
+        private static IReadOnlyList<MacroOpBase> Deserialize(IReadOnlyList<byte[]> data)
+        {
+            return data.Select(MacroOpManager.CreateFromData).ToList();
+        }
+    }
+
+    public class DownloadMacroBytesJob : DataTransferJob
+    {
+        private readonly Action<IReadOnlyList<byte[]>> _onComplete;
         private readonly List<byte[]> _receivedData;
         private uint _id;
 
-        public DownloadMacroJob(uint index, Action<IReadOnlyList<MacroOpBase>> onComplete, TimeSpan? timeout=null) 
+        public DownloadMacroBytesJob(uint index, Action<IReadOnlyList<byte[]>> onComplete, TimeSpan? timeout = null)
             : base(0xffff, index, timeout)
         {
             _onComplete = onComplete;
@@ -56,7 +69,7 @@ namespace LibAtem.Net.DataTransfer
             var completeCommand = command as DataTransferCompleteCommand;
             if (completeCommand != null && completeCommand.TransferId == _id)
             {
-                var ops = new List<MacroOpBase>();
+                var ops = new List<byte[]>();
                 var fullData = _receivedData.SelectMany(d => d).ToArray();
 
                 int length = fullData.Length;
@@ -64,12 +77,12 @@ namespace LibAtem.Net.DataTransfer
                 while (pos < length)
                 {
                     uint opLength = BitConverter.ToUInt16(fullData, pos);
-                
+
                     byte[] opData = new byte[opLength];
                     Array.Copy(fullData, pos, opData, 0, opLength);
                     pos += (int)opLength;
-                
-                    ops.Add(MacroOpManager.CreateFromData(opData));
+
+                    ops.Add(opData);
                 }
 
                 _onComplete(ops);

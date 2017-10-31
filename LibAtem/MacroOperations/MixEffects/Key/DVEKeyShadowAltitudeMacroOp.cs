@@ -5,10 +5,10 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.MixEffects.Key
 {
-    [MacroOperation(MacroOperationType.DVEKeyShadowAltitude, 12)]
+    [MacroOperation(MacroOperationType.DVEKeyShadowAltitude, 8)]
     public class DVEKeyShadowAltitudeMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), UInt32D(65535, 0, 360 * 65535)]
+        [Serialize(6), UInt16D(1, 0, 100)]
         [MacroField("Altitude")]
         public double Altitude { get; set; }
 

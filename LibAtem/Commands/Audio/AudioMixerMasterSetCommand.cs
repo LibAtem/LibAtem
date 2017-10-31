@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.Audio;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
@@ -22,5 +25,15 @@ namespace LibAtem.Commands.Audio
         public double Balance { get; set; }
         [Serialize(6), Bool]
         public bool ProgramOutFollowFadeToBlack { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Gain))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.Balance))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.ProgramOutFollowFadeToBlack))
+                yield return new AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp {Follow = ProgramOutFollowFadeToBlack};
+        }
     }
 }

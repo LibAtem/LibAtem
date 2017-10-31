@@ -1,4 +1,7 @@
-﻿using LibAtem.Common;
+﻿using System.Collections.Generic;
+using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.MixEffects;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects
@@ -16,6 +19,15 @@ namespace LibAtem.Commands.MixEffects
         {
             base.Serialize(cmd);
             cmd.Set(0, 0x01); // Mask Flag
+        }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            yield return new FadeToBlackRateMacroOp
+            {
+                Index = Index,
+                Rate = Rate,
+            };
         }
     }
 }

@@ -21,6 +21,13 @@ namespace LibAtem.Serialization
                 BuildPropertySpecForType(t);
         }
 
+        public static CommandPropertySpec GetPropertySpecForType(Type t)
+        {
+            if (!_propertySpecCache.TryGetValue(t, out var info))
+                info = BuildPropertySpecForType(t);
+            return info;
+        }
+
         private static CommandPropertySpec BuildPropertySpecForType(Type t)
         {
             int length = GetLengthFromAttribute(t);
@@ -46,7 +53,7 @@ namespace LibAtem.Serialization
             return _propertySpecCache[t] = new CommandPropertySpec(length, props);
         }
 
-        private class CommandPropertySpec
+        public class CommandPropertySpec
         {
             public int Length { get; }
             public List<PropertySpec> Properties { get; }
@@ -58,7 +65,7 @@ namespace LibAtem.Serialization
             }
         }
 
-        private class PropertySpec
+        public class PropertySpec
         {
             public Delegate Setter { get; }
             public Delegate Getter { get; }
@@ -91,8 +98,7 @@ namespace LibAtem.Serialization
 
         public virtual void Serialize(ByteArrayBuilder cmd)
         {
-            if (!_propertySpecCache.TryGetValue(GetType(), out CommandPropertySpec info))
-                info = BuildPropertySpecForType(GetType());
+            CommandPropertySpec info = GetPropertySpecForType(GetType());
 
             int length = GetLength();
             if (length < 0)
@@ -108,10 +114,10 @@ namespace LibAtem.Serialization
             cmd.AddByte(res);
         }
 
+
         public virtual void Deserialize(ParsedByteArray cmd)
         {
-            if (!_propertySpecCache.TryGetValue(GetType(), out CommandPropertySpec info))
-                info = BuildPropertySpecForType(GetType());
+            CommandPropertySpec info = GetPropertySpecForType(GetType());
 
             int attrLength = info.Length;
             if (attrLength != -1 && attrLength != cmd.BodyLength)

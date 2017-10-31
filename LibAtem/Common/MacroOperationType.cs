@@ -39,9 +39,9 @@ namespace LibAtem.Common
 
         DownConvertMode,
         InputVideoPort,
-        ColorGeneratorHue,
-        ColorGeneratorSaturation,
-        ColorGeneratorLuminescence,
+        ColorGeneratorHue = 0x001c,
+        ColorGeneratorSaturation = 0x001d,
+        ColorGeneratorLuminescence = 0x001e,
 
         AuxiliaryInput = 0x001f,
 
@@ -113,8 +113,8 @@ namespace LibAtem.Common
         FlyKeyRunToKeyFrameWithRate,
         FlyKeyRunToInfinity,
 
-        DVEKeyShadowDirection,
-        DVEKeyShadowAltitude,
+        DVEKeyShadowDirection = 0x0058,
+        DVEKeyShadowAltitude = 0x0059,
 
         DVEKeyBorderHue,
         DVEKeyBorderSaturation,

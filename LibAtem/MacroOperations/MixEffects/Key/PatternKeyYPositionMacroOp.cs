@@ -1,4 +1,5 @@
-﻿using LibAtem.Commands;
+﻿using System;
+using LibAtem.Commands;
 using LibAtem.Commands.MixEffects.Key;
 using LibAtem.Common;
 using LibAtem.Serialization;
@@ -8,7 +9,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.PatternKeyYPosition, 12)]
     public class PatternKeyYPositionMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), Int32D(65535, 0, 65535)] // TODO check
+        [Serialize(6), UInt32DScale]
         [MacroField("PositionY", "yPosition")]
         public double YPosition { get; set; }
 

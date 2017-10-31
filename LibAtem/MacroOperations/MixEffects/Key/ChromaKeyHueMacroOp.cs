@@ -1,3 +1,4 @@
+using System;
 using LibAtem.Commands;
 using LibAtem.Commands.MixEffects.Key;
 using LibAtem.Common;
@@ -8,7 +9,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.ChromaKeyHue, 12)]
     public class ChromaKeyHueMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), UInt32DScale]
+        [Serialize(6), UInt32D(30948313, 0, UInt32.MaxValue)]
         [MacroField("Hue")]
         public double Hue { get; set; }
 

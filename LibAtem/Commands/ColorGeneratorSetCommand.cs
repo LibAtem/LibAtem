@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using LibAtem.MacroOperations;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands
@@ -29,5 +31,15 @@ namespace LibAtem.Commands
 
         [Serialize(6), UInt16D(10, 0, 1000)]
         public double Luma { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Hue))
+                yield return new ColorGeneratorHueMacroOp { ColorGeneratorIndex = Index, Hue = Hue };
+            if (Mask.HasFlag(MaskFlags.Saturation))
+                yield return new ColorGeneratorSaturationMacroOp { ColorGeneratorIndex = Index, Saturation = Saturation };
+            if (Mask.HasFlag(MaskFlags.Luma))
+                yield return new ColorGeneratorLuminescenceMacroOp { ColorGeneratorIndex = Index, Luma = Luma };
+        }
     }
 }
