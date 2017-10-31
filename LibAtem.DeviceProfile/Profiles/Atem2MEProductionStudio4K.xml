@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DeviceProfile>
+  <Product>ATEM 2 M/E Production Studio 4K</Product>
+  <MixEffectBlocks>2</MixEffectBlocks>
+  <Sources>
+    <DevicePort id="1">
+      <Port>HDMI</Port>
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="2">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="3">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="4">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="5">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="6">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="7">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="8">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="9">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="10">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="11">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="12">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="13">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="14">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="15">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="16">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="17">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="18">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="19">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="20">
+      <Port>SDI</Port>
+    </DevicePort>
+  </Sources>
+  <ColorGenerators>2</ColorGenerators>
+  <Auxiliaries>6</Auxiliaries>
+  <DownstreamKeys>2</DownstreamKeys>
+  <UpstreamKeys>2</UpstreamKeys>
+  <Stingers>1</Stingers>
+  <HyperDecks>4</HyperDecks>
+  <DVE>1</DVE>
+  <SuperSource>1</SuperSource>
+  <MediaPlayers>2</MediaPlayers>
+  <MediaPoolStills>20</MediaPoolStills>
+  <MediaPoolClips>2</MediaPoolClips>
+  <MacroCount>100</MacroCount>
+  <MultiViews>2</MultiViews>
+  <SerialPort>1</SerialPort>
+</DeviceProfile>

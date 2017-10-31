@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DeviceProfile>
+  <Product>ATEM 1 M/E Production Switcher</Product>
+  <MixEffectBlocks>2</MixEffectBlocks>
+  <Sources>
+    <DevicePort id="1">
+      <Port>Composite</Port>
+      <Port>SVideo</Port>
+      <Port>Component</Port>
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="2">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="3">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="4">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="5">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="6">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="7">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="8">
+      <Port>SDI</Port>
+    </DevicePort>
+  </Sources>
+  <ColorGenerators>2</ColorGenerators>
+  <Auxiliaries>3</Auxiliaries>
+  <DownstreamKeys>2</DownstreamKeys>
+  <UpstreamKeys>4</UpstreamKeys>
+  <Stingers>1</Stingers>
+  <HyperDecks>4</HyperDecks>
+  <DVE>1</DVE>
+  <SuperSource>0</SuperSource>
+  <MediaPlayers>2</MediaPlayers>
+  <MediaPoolStills>20</MediaPoolStills>
+  <MediaPoolClips>2</MediaPoolClips>
+  <MacroCount>100</MacroCount>
+  <MultiViews>1</MultiViews>
+  <SerialPort>0</SerialPort>
+</DeviceProfile>

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using LibAtem.Common;
 
-namespace AtemEmulator.State
+namespace LibAtem.DeviceProfile
 {
     [XmlRoot("DeviceProfile", IsNullable = false)]
     public class DeviceProfile
