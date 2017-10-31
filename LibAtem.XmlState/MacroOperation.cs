@@ -51,7 +51,7 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("auxiliaryIndex")]
-        public System.UInt32 AuxiliaryIndex
+        public LibAtem.Common.AuxiliaryId AuxiliaryIndex
         {
             get;
             set;
@@ -90,7 +90,7 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("boxIndex")]
-        public System.UInt32 SuperSourceBoxIndex
+        public LibAtem.Common.SuperSourceBoxId SuperSourceBoxIndex
         {
             get;
             set;
@@ -154,7 +154,7 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("colorGeneratorIndex")]
-        public System.UInt32 ColorGeneratorIndex
+        public LibAtem.Common.ColorGeneratorId ColorGeneratorIndex
         {
             get;
             set;
@@ -379,13 +379,13 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("keyIndex")]
-        public System.UInt32 KeyIndex
+        public int KeyIndexInt
         {
             get;
             set;
         }
 
-        public bool ShouldSerializeKeyIndex()
+        public bool ShouldSerializeKeyIndexInt()
         {
             switch (Id)
             {
@@ -441,6 +441,16 @@ namespace LibAtem.XmlState
                     return false;
             }
         }
+
+        [XmlIgnore]
+        public LibAtem.Common.UpstreamKeyId UpstreamKeyIndex
+        {
+            get => (LibAtem.Common.UpstreamKeyId)KeyIndexInt ; set => KeyIndexInt = (int)value ; }
+
+        [XmlIgnore]
+        public LibAtem.Common.DownstreamKeyId DownstreamKeyIndex
+        {
+            get => (LibAtem.Common.DownstreamKeyId)KeyIndexInt ; set => KeyIndexInt = (int)value ; }
 
         [XmlAttribute("left")]
         public System.Double Left
@@ -1172,121 +1182,121 @@ namespace LibAtem.XmlState
                     return new MacroOperation{Id = MacroOperationType.TransitionWipeRate, Rate = opTransitionWipeRateMacroOp.Rate, MixEffectBlockIndex = opTransitionWipeRateMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.ChromaKeyGainMacroOp":
                     var opChromaKeyGainMacroOp = (LibAtem.MacroOperations.MixEffects.Key.ChromaKeyGainMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.ChromaKeyGain, Gain = opChromaKeyGainMacroOp.Gain, KeyIndex = opChromaKeyGainMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyGainMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.ChromaKeyGain, Gain = opChromaKeyGainMacroOp.Gain, UpstreamKeyIndex = opChromaKeyGainMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyGainMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.ChromaKeyHueMacroOp":
                     var opChromaKeyHueMacroOp = (LibAtem.MacroOperations.MixEffects.Key.ChromaKeyHueMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.ChromaKeyHue, Hue = opChromaKeyHueMacroOp.Hue, KeyIndex = opChromaKeyHueMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyHueMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.ChromaKeyHue, Hue = opChromaKeyHueMacroOp.Hue, UpstreamKeyIndex = opChromaKeyHueMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyHueMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.ChromaKeyLiftMacroOp":
                     var opChromaKeyLiftMacroOp = (LibAtem.MacroOperations.MixEffects.Key.ChromaKeyLiftMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.ChromaKeyLift, Lift = opChromaKeyLiftMacroOp.Lift, KeyIndex = opChromaKeyLiftMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyLiftMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.ChromaKeyLift, Lift = opChromaKeyLiftMacroOp.Lift, UpstreamKeyIndex = opChromaKeyLiftMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyLiftMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.ChromaKeyNarrowMacroOp":
                     var opChromaKeyNarrowMacroOp = (LibAtem.MacroOperations.MixEffects.Key.ChromaKeyNarrowMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.ChromaKeyNarrow, Narrow = opChromaKeyNarrowMacroOp.Narrow.ToAtemBool(), KeyIndex = opChromaKeyNarrowMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyNarrowMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.ChromaKeyNarrow, Narrow = opChromaKeyNarrowMacroOp.Narrow.ToAtemBool(), UpstreamKeyIndex = opChromaKeyNarrowMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyNarrowMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.ChromaKeyYSuppressMacroOp":
                     var opChromaKeyYSuppressMacroOp = (LibAtem.MacroOperations.MixEffects.Key.ChromaKeyYSuppressMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.ChromaKeyClip, Clip = opChromaKeyYSuppressMacroOp.YSuppress, KeyIndex = opChromaKeyYSuppressMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyYSuppressMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.ChromaKeyClip, Clip = opChromaKeyYSuppressMacroOp.YSuppress, UpstreamKeyIndex = opChromaKeyYSuppressMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyYSuppressMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyRotationMacroOp":
                     var opDVEAndFlyKeyRotationMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyRotationMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyRotation, Rotation = opDVEAndFlyKeyRotationMacroOp.Rotation, KeyIndex = opDVEAndFlyKeyRotationMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyRotationMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyRotation, Rotation = opDVEAndFlyKeyRotationMacroOp.Rotation, UpstreamKeyIndex = opDVEAndFlyKeyRotationMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyRotationMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXPositionMacroOp":
                     var opDVEAndFlyKeyXPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXPositionMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyXPosition, PositionX = opDVEAndFlyKeyXPositionMacroOp.PositionX, KeyIndex = opDVEAndFlyKeyXPositionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyXPositionMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyXPosition, PositionX = opDVEAndFlyKeyXPositionMacroOp.PositionX, UpstreamKeyIndex = opDVEAndFlyKeyXPositionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyXPositionMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXSizeMacroOp":
                     var opDVEAndFlyKeyXSizeMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXSizeMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyXSize, SizeX = opDVEAndFlyKeyXSizeMacroOp.SizeX, KeyIndex = opDVEAndFlyKeyXSizeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyXSizeMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyXSize, SizeX = opDVEAndFlyKeyXSizeMacroOp.SizeX, UpstreamKeyIndex = opDVEAndFlyKeyXSizeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyXSizeMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYPositionMacroOp":
                     var opDVEAndFlyKeyYPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYPositionMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyYPosition, PositionY = opDVEAndFlyKeyYPositionMacroOp.PositionY, KeyIndex = opDVEAndFlyKeyYPositionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyYPositionMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyYPosition, PositionY = opDVEAndFlyKeyYPositionMacroOp.PositionY, UpstreamKeyIndex = opDVEAndFlyKeyYPositionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyYPositionMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYSizeMacroOp":
                     var opDVEAndFlyKeyYSizeMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYSizeMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyYSize, SizeY = opDVEAndFlyKeyYSizeMacroOp.SizeY, KeyIndex = opDVEAndFlyKeyYSizeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyYSizeMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEAndFlyKeyYSize, SizeY = opDVEAndFlyKeyYSizeMacroOp.SizeY, UpstreamKeyIndex = opDVEAndFlyKeyYSizeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEAndFlyKeyYSizeMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyBorderEnableMacroOp":
                     var opDVEKeyBorderEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyBorderEnableMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyBorderEnable, Enable = opDVEKeyBorderEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opDVEKeyBorderEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyBorderEnableMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyBorderEnable, Enable = opDVEKeyBorderEnableMacroOp.Enable.ToAtemBool(), UpstreamKeyIndex = opDVEKeyBorderEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyBorderEnableMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskBottomMacroOp":
                     var opDVEKeyMaskBottomMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskBottomMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskBottom, Bottom = opDVEKeyMaskBottomMacroOp.Bottom, KeyIndex = opDVEKeyMaskBottomMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskBottomMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskBottom, Bottom = opDVEKeyMaskBottomMacroOp.Bottom, UpstreamKeyIndex = opDVEKeyMaskBottomMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskBottomMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskEnableMacroOp":
                     var opDVEKeyMaskEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskEnableMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskEnable, Enable = opDVEKeyMaskEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opDVEKeyMaskEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskEnableMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskEnable, Enable = opDVEKeyMaskEnableMacroOp.Enable.ToAtemBool(), UpstreamKeyIndex = opDVEKeyMaskEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskEnableMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskLeftMacroOp":
                     var opDVEKeyMaskLeftMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskLeftMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskLeft, Left = opDVEKeyMaskLeftMacroOp.Left, KeyIndex = opDVEKeyMaskLeftMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskLeftMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskLeft, Left = opDVEKeyMaskLeftMacroOp.Left, UpstreamKeyIndex = opDVEKeyMaskLeftMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskLeftMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskRightMacroOp":
                     var opDVEKeyMaskRightMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskRightMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskRight, Right = opDVEKeyMaskRightMacroOp.Right, KeyIndex = opDVEKeyMaskRightMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskRightMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskRight, Right = opDVEKeyMaskRightMacroOp.Right, UpstreamKeyIndex = opDVEKeyMaskRightMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskRightMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskTopMacroOp":
                     var opDVEKeyMaskTopMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskTopMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskTop, Top = opDVEKeyMaskTopMacroOp.Top, KeyIndex = opDVEKeyMaskTopMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskTopMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyMaskTop, Top = opDVEKeyMaskTopMacroOp.Top, UpstreamKeyIndex = opDVEKeyMaskTopMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyMaskTopMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowAltitudeMacroOp":
                     var opDVEKeyShadowAltitudeMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowAltitudeMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyShadowAltitude, Altitude = opDVEKeyShadowAltitudeMacroOp.Altitude, KeyIndex = opDVEKeyShadowAltitudeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyShadowAltitudeMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyShadowAltitude, Altitude = opDVEKeyShadowAltitudeMacroOp.Altitude, UpstreamKeyIndex = opDVEKeyShadowAltitudeMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyShadowAltitudeMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowDirectionMacroOp":
                     var opDVEKeyShadowDirectionMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowDirectionMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyShadowDirection, Direction = opDVEKeyShadowDirectionMacroOp.Direction, KeyIndex = opDVEKeyShadowDirectionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyShadowDirectionMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyShadowDirection, Direction = opDVEKeyShadowDirectionMacroOp.Direction, UpstreamKeyIndex = opDVEKeyShadowDirectionMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyShadowDirectionMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp":
                     var opDVEKeyShadowEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyShadowEnable, Enable = opDVEKeyShadowEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opDVEKeyShadowEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyShadowEnableMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyShadowEnable, Enable = opDVEKeyShadowEnableMacroOp.Enable.ToAtemBool(), UpstreamKeyIndex = opDVEKeyShadowEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyShadowEnableMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp":
                     var opKeyCutInputMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyCutInput, Input = opKeyCutInputMacroOp.Source.ToMacroInput(), KeyIndex = opKeyCutInputMacroOp.KeyIndex, MixEffectBlockIndex = opKeyCutInputMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyCutInput, Input = opKeyCutInputMacroOp.Source.ToMacroInput(), UpstreamKeyIndex = opKeyCutInputMacroOp.KeyIndex, MixEffectBlockIndex = opKeyCutInputMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyFillInputMacroOp":
                     var opKeyFillInputMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyFillInputMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyFillInput, Input = opKeyFillInputMacroOp.Source.ToMacroInput(), KeyIndex = opKeyFillInputMacroOp.KeyIndex, MixEffectBlockIndex = opKeyFillInputMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyFillInput, Input = opKeyFillInputMacroOp.Source.ToMacroInput(), UpstreamKeyIndex = opKeyFillInputMacroOp.KeyIndex, MixEffectBlockIndex = opKeyFillInputMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyFlyEnableMacroOp":
                     var opKeyFlyEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyFlyEnableMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyFlyEnable, Enable = opKeyFlyEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opKeyFlyEnableMacroOp.KeyIndex, MixEffectBlockIndex = opKeyFlyEnableMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyFlyEnable, Enable = opKeyFlyEnableMacroOp.Enable.ToAtemBool(), UpstreamKeyIndex = opKeyFlyEnableMacroOp.KeyIndex, MixEffectBlockIndex = opKeyFlyEnableMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskBottomMacroOp":
                     var opKeyMaskBottomMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskBottomMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyMaskBottom, Bottom = opKeyMaskBottomMacroOp.Bottom, KeyIndex = opKeyMaskBottomMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskBottomMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskBottom, Bottom = opKeyMaskBottomMacroOp.Bottom, UpstreamKeyIndex = opKeyMaskBottomMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskBottomMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskEnableMacroOp":
                     var opKeyMaskEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskEnableMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyMaskEnable, Enable = opKeyMaskEnableMacroOp.Enable.ToAtemBool(), KeyIndex = opKeyMaskEnableMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskEnableMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskEnable, Enable = opKeyMaskEnableMacroOp.Enable.ToAtemBool(), UpstreamKeyIndex = opKeyMaskEnableMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskEnableMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskLeftMacroOp":
                     var opKeyMaskLeftMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskLeftMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyMaskLeft, Left = opKeyMaskLeftMacroOp.Left, KeyIndex = opKeyMaskLeftMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskLeftMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskLeft, Left = opKeyMaskLeftMacroOp.Left, UpstreamKeyIndex = opKeyMaskLeftMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskLeftMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskRightMacroOp":
                     var opKeyMaskRightMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskRightMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyMaskRight, Right = opKeyMaskRightMacroOp.Right, KeyIndex = opKeyMaskRightMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskRightMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskRight, Right = opKeyMaskRightMacroOp.Right, UpstreamKeyIndex = opKeyMaskRightMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskRightMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyMaskTopMacroOp":
                     var opKeyMaskTopMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyMaskTopMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyMaskTop, Top = opKeyMaskTopMacroOp.Top, KeyIndex = opKeyMaskTopMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskTopMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyMaskTop, Top = opKeyMaskTopMacroOp.Top, UpstreamKeyIndex = opKeyMaskTopMacroOp.KeyIndex, MixEffectBlockIndex = opKeyMaskTopMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyOnAirMacroOp":
                     var opKeyOnAirMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyOnAirMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyOnAir, OnAir = opKeyOnAirMacroOp.OnAir.ToAtemBool(), KeyIndex = opKeyOnAirMacroOp.KeyIndex, MixEffectBlockIndex = opKeyOnAirMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyOnAir, OnAir = opKeyOnAirMacroOp.OnAir.ToAtemBool(), UpstreamKeyIndex = opKeyOnAirMacroOp.KeyIndex, MixEffectBlockIndex = opKeyOnAirMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyTypeMacroOp":
                     var opKeyTypeMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyTypeMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.KeyType, KeyType = opKeyTypeMacroOp.KeyType, KeyIndex = opKeyTypeMacroOp.KeyIndex, MixEffectBlockIndex = opKeyTypeMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.KeyType, KeyType = opKeyTypeMacroOp.KeyType, UpstreamKeyIndex = opKeyTypeMacroOp.KeyIndex, MixEffectBlockIndex = opKeyTypeMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.LumaKeyClipMacroOp":
                     var opLumaKeyClipMacroOp = (LibAtem.MacroOperations.MixEffects.Key.LumaKeyClipMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.LumaKeyClip, Clip = opLumaKeyClipMacroOp.Clip, KeyIndex = opLumaKeyClipMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyClipMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.LumaKeyClip, Clip = opLumaKeyClipMacroOp.Clip, UpstreamKeyIndex = opLumaKeyClipMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyClipMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.LumaKeyGainMacroOp":
                     var opLumaKeyGainMacroOp = (LibAtem.MacroOperations.MixEffects.Key.LumaKeyGainMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.LumaKeyGain, Gain = opLumaKeyGainMacroOp.Gain, KeyIndex = opLumaKeyGainMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyGainMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.LumaKeyGain, Gain = opLumaKeyGainMacroOp.Gain, UpstreamKeyIndex = opLumaKeyGainMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyGainMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.LumaKeyInvertMacroOp":
                     var opLumaKeyInvertMacroOp = (LibAtem.MacroOperations.MixEffects.Key.LumaKeyInvertMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.LumaKeyInvert, Invert = opLumaKeyInvertMacroOp.Invert.ToAtemBool(), KeyIndex = opLumaKeyInvertMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyInvertMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.LumaKeyInvert, Invert = opLumaKeyInvertMacroOp.Invert.ToAtemBool(), UpstreamKeyIndex = opLumaKeyInvertMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyInvertMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.LumaKeyPreMultiplyMacroOp":
                     var opLumaKeyPreMultiplyMacroOp = (LibAtem.MacroOperations.MixEffects.Key.LumaKeyPreMultiplyMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.LumaKeyPreMultiply, PreMultiply = opLumaKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), KeyIndex = opLumaKeyPreMultiplyMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyPreMultiplyMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.LumaKeyPreMultiply, PreMultiply = opLumaKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), UpstreamKeyIndex = opLumaKeyPreMultiplyMacroOp.KeyIndex, MixEffectBlockIndex = opLumaKeyPreMultiplyMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.PatternKeyPatternMacroOp":
                     var opPatternKeyPatternMacroOp = (LibAtem.MacroOperations.MixEffects.Key.PatternKeyPatternMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.PatternKeyPattern, PatternKeyPattern = opPatternKeyPatternMacroOp.Pattern, KeyIndex = opPatternKeyPatternMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeyPatternMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.PatternKeyPattern, PatternKeyPattern = opPatternKeyPatternMacroOp.Pattern, UpstreamKeyIndex = opPatternKeyPatternMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeyPatternMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.PatternKeySizeMacroOp":
                     var opPatternKeySizeMacroOp = (LibAtem.MacroOperations.MixEffects.Key.PatternKeySizeMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.PatternKeySize, Size = opPatternKeySizeMacroOp.Size, KeyIndex = opPatternKeySizeMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeySizeMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.PatternKeySize, Size = opPatternKeySizeMacroOp.Size, UpstreamKeyIndex = opPatternKeySizeMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeySizeMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.PatternKeySoftnessMacroOp":
                     var opPatternKeySoftnessMacroOp = (LibAtem.MacroOperations.MixEffects.Key.PatternKeySoftnessMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.PatternKeySoftness, Softness = opPatternKeySoftnessMacroOp.Softness, KeyIndex = opPatternKeySoftnessMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeySoftnessMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.PatternKeySoftness, Softness = opPatternKeySoftnessMacroOp.Softness, UpstreamKeyIndex = opPatternKeySoftnessMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeySoftnessMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.PatternKeySymmetryMacroOp":
                     var opPatternKeySymmetryMacroOp = (LibAtem.MacroOperations.MixEffects.Key.PatternKeySymmetryMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.PatternKeySymmetry, Symmetry = opPatternKeySymmetryMacroOp.Symmetry, KeyIndex = opPatternKeySymmetryMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeySymmetryMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.PatternKeySymmetry, Symmetry = opPatternKeySymmetryMacroOp.Symmetry, UpstreamKeyIndex = opPatternKeySymmetryMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeySymmetryMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.PatternKeyXPositionMacroOp":
                     var opPatternKeyXPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Key.PatternKeyXPositionMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.PatternKeyXPosition, PositionX = opPatternKeyXPositionMacroOp.XPosition, KeyIndex = opPatternKeyXPositionMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeyXPositionMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.PatternKeyXPosition, PositionX = opPatternKeyXPositionMacroOp.XPosition, UpstreamKeyIndex = opPatternKeyXPositionMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeyXPositionMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.PatternKeyYPositionMacroOp":
                     var opPatternKeyYPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Key.PatternKeyYPositionMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.PatternKeyYPosition, PositionY = opPatternKeyYPositionMacroOp.YPosition, KeyIndex = opPatternKeyYPositionMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeyYPositionMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.PatternKeyYPosition, PositionY = opPatternKeyYPositionMacroOp.YPosition, UpstreamKeyIndex = opPatternKeyYPositionMacroOp.KeyIndex, MixEffectBlockIndex = opPatternKeyYPositionMacroOp.Index};
                 case "LibAtem.MacroOperations.Media.MediaPlayerGoToBeginningMacroOp":
                     var opMediaPlayerGoToBeginningMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerGoToBeginningMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.MediaPlayerGoToBeginning, MediaPlayerIndex = opMediaPlayerGoToBeginningMacroOp.Index};
@@ -1328,28 +1338,28 @@ namespace LibAtem.XmlState
                     return new MacroOperation{Id = MacroOperationType.HyperDeckStop, HyperDeckIndex = opHyperDeckStopMacroOp.Index};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp":
                     var opDownstreamKeyMaskBottomMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskBottom, Bottom = opDownstreamKeyMaskBottomMacroOp.Bottom, KeyIndex = (System.UInt32)opDownstreamKeyMaskBottomMacroOp.KeyIndex};
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskBottom, Bottom = opDownstreamKeyMaskBottomMacroOp.Bottom, DownstreamKeyIndex = opDownstreamKeyMaskBottomMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskEnableMacroOp":
                     var opDownstreamKeyMaskEnableMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskEnableMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskEnable, Enable = opDownstreamKeyMaskEnableMacroOp.Enable.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyMaskEnableMacroOp.KeyIndex};
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskEnable, Enable = opDownstreamKeyMaskEnableMacroOp.Enable.ToAtemBool(), DownstreamKeyIndex = opDownstreamKeyMaskEnableMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskLeftMacroOp":
                     var opDownstreamKeyMaskLeftMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskLeftMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskLeft, Left = opDownstreamKeyMaskLeftMacroOp.Left, KeyIndex = (System.UInt32)opDownstreamKeyMaskLeftMacroOp.KeyIndex};
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskLeft, Left = opDownstreamKeyMaskLeftMacroOp.Left, DownstreamKeyIndex = opDownstreamKeyMaskLeftMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskRightMacroOp":
                     var opDownstreamKeyMaskRightMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskRightMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskRight, Right = opDownstreamKeyMaskRightMacroOp.Right, KeyIndex = (System.UInt32)opDownstreamKeyMaskRightMacroOp.KeyIndex};
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskRight, Right = opDownstreamKeyMaskRightMacroOp.Right, DownstreamKeyIndex = opDownstreamKeyMaskRightMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskTopMacroOp":
                     var opDownstreamKeyMaskTopMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskTopMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskTop, Top = opDownstreamKeyMaskTopMacroOp.Top, KeyIndex = (System.UInt32)opDownstreamKeyMaskTopMacroOp.KeyIndex};
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskTop, Top = opDownstreamKeyMaskTopMacroOp.Top, DownstreamKeyIndex = opDownstreamKeyMaskTopMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyOnAirMacroOp":
                     var opDownstreamKeyOnAirMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyOnAirMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyOnAir, OnAir = opDownstreamKeyOnAirMacroOp.OnAir.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyOnAirMacroOp.KeyIndex};
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyOnAir, OnAir = opDownstreamKeyOnAirMacroOp.OnAir.ToAtemBool(), DownstreamKeyIndex = opDownstreamKeyOnAirMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp":
                     var opDownstreamKeyPreMultiplyMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyPreMultiply, PreMultiply = opDownstreamKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyPreMultiplyMacroOp.KeyIndex};
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyPreMultiply, PreMultiply = opDownstreamKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), DownstreamKeyIndex = opDownstreamKeyPreMultiplyMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp":
                     var opDownstreamKeyTieMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyTie, Tie = opDownstreamKeyTieMacroOp.Tie.ToAtemBool(), KeyIndex = (System.UInt32)opDownstreamKeyTieMacroOp.KeyIndex};
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyTie, Tie = opDownstreamKeyTieMacroOp.Tie.ToAtemBool(), DownstreamKeyIndex = opDownstreamKeyTieMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp":
                     var opAudioMixerInputGainMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerInputGain, Input = opAudioMixerInputGainMacroOp.Index.ToMacroInput(), Gain = opAudioMixerInputGainMacroOp.Gain};
@@ -1437,83 +1447,83 @@ namespace LibAtem.XmlState
                 case MacroOperationType.TransitionWipeRate:
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeRateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.ChromaKeyGain:
-                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyGainMacroOp{Gain = mac.Gain, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyGainMacroOp{Gain = mac.Gain, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.ChromaKeyHue:
-                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyHueMacroOp{Hue = mac.Hue, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyHueMacroOp{Hue = mac.Hue, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.ChromaKeyLift:
-                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyLiftMacroOp{Lift = mac.Lift, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyLiftMacroOp{Lift = mac.Lift, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.ChromaKeyNarrow:
-                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyNarrowMacroOp{Narrow = mac.Narrow.Value(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyNarrowMacroOp{Narrow = mac.Narrow.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.ChromaKeyClip:
-                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyYSuppressMacroOp{YSuppress = mac.Clip, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyYSuppressMacroOp{YSuppress = mac.Clip, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEAndFlyKeyRotation:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyRotationMacroOp{Rotation = mac.Rotation, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyRotationMacroOp{Rotation = mac.Rotation, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEAndFlyKeyXPosition:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXPositionMacroOp{PositionX = mac.PositionX, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXPositionMacroOp{PositionX = mac.PositionX, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEAndFlyKeyXSize:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXSizeMacroOp{SizeX = mac.SizeX, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyXSizeMacroOp{SizeX = mac.SizeX, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEAndFlyKeyYPosition:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYPositionMacroOp{PositionY = mac.PositionY, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYPositionMacroOp{PositionY = mac.PositionY, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEAndFlyKeyYSize:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYSizeMacroOp{SizeY = mac.SizeY, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEAndFlyKeyYSizeMacroOp{SizeY = mac.SizeY, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyBorderEnable:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyBorderEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyBorderEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyMaskBottom:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskBottomMacroOp{Bottom = mac.Bottom, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskBottomMacroOp{Bottom = mac.Bottom, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyMaskEnable:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyMaskLeft:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskLeftMacroOp{Left = mac.Left, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskLeftMacroOp{Left = mac.Left, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyMaskRight:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskRightMacroOp{Right = mac.Right, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskRightMacroOp{Right = mac.Right, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyMaskTop:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskTopMacroOp{Top = mac.Top, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyMaskTopMacroOp{Top = mac.Top, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyShadowAltitude:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowAltitudeMacroOp{Altitude = mac.Altitude, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowAltitudeMacroOp{Altitude = mac.Altitude, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyShadowDirection:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowDirectionMacroOp{Direction = mac.Direction, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowDirectionMacroOp{Direction = mac.Direction, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyShadowEnable:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyCutInput:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp{Source = mac.Input.ToVideoSource(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp{Source = mac.Input.ToVideoSource(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyFillInput:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyFillInputMacroOp{Source = mac.Input.ToVideoSource(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyFillInputMacroOp{Source = mac.Input.ToVideoSource(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyFlyEnable:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyFlyEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyFlyEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyMaskBottom:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskBottomMacroOp{Bottom = mac.Bottom, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskBottomMacroOp{Bottom = mac.Bottom, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyMaskEnable:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyMaskLeft:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskLeftMacroOp{Left = mac.Left, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskLeftMacroOp{Left = mac.Left, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyMaskRight:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskRightMacroOp{Right = mac.Right, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskRightMacroOp{Right = mac.Right, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyMaskTop:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskTopMacroOp{Top = mac.Top, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyMaskTopMacroOp{Top = mac.Top, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyOnAir:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyOnAirMacroOp{OnAir = mac.OnAir.Value(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyOnAirMacroOp{OnAir = mac.OnAir.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyType:
-                    return new LibAtem.MacroOperations.MixEffects.Key.KeyTypeMacroOp{KeyType = mac.KeyType, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.KeyTypeMacroOp{KeyType = mac.KeyType, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.LumaKeyClip:
-                    return new LibAtem.MacroOperations.MixEffects.Key.LumaKeyClipMacroOp{Clip = mac.Clip, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.LumaKeyClipMacroOp{Clip = mac.Clip, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.LumaKeyGain:
-                    return new LibAtem.MacroOperations.MixEffects.Key.LumaKeyGainMacroOp{Gain = mac.Gain, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.LumaKeyGainMacroOp{Gain = mac.Gain, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.LumaKeyInvert:
-                    return new LibAtem.MacroOperations.MixEffects.Key.LumaKeyInvertMacroOp{Invert = mac.Invert.Value(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.LumaKeyInvertMacroOp{Invert = mac.Invert.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.LumaKeyPreMultiply:
-                    return new LibAtem.MacroOperations.MixEffects.Key.LumaKeyPreMultiplyMacroOp{PreMultiply = mac.PreMultiply.Value(), KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.LumaKeyPreMultiplyMacroOp{PreMultiply = mac.PreMultiply.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.PatternKeyPattern:
-                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeyPatternMacroOp{Pattern = mac.PatternKeyPattern, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeyPatternMacroOp{Pattern = mac.PatternKeyPattern, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.PatternKeySize:
-                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeySizeMacroOp{Size = mac.Size, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeySizeMacroOp{Size = mac.Size, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.PatternKeySoftness:
-                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeySoftnessMacroOp{Softness = mac.Softness, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeySoftnessMacroOp{Softness = mac.Softness, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.PatternKeySymmetry:
-                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeySymmetryMacroOp{Symmetry = mac.Symmetry, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeySymmetryMacroOp{Symmetry = mac.Symmetry, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.PatternKeyXPosition:
-                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeyXPositionMacroOp{XPosition = mac.PositionX, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeyXPositionMacroOp{XPosition = mac.PositionX, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.PatternKeyYPosition:
-                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeyYPositionMacroOp{YPosition = mac.PositionY, KeyIndex = mac.KeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.PatternKeyYPositionMacroOp{YPosition = mac.PositionY, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.MediaPlayerGoToBeginning:
                     return new LibAtem.MacroOperations.Media.MediaPlayerGoToBeginningMacroOp{Index = mac.MediaPlayerIndex};
                 case MacroOperationType.MediaPlayerLoop:
@@ -1541,21 +1551,21 @@ namespace LibAtem.XmlState
                 case MacroOperationType.HyperDeckStop:
                     return new LibAtem.MacroOperations.HyperDeck.HyperDeckStopMacroOp{Index = mac.HyperDeckIndex};
                 case MacroOperationType.DownstreamKeyMaskBottom:
-                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp{Bottom = mac.Bottom, KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp{Bottom = mac.Bottom, KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyMaskEnable:
-                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyMaskLeft:
-                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskLeftMacroOp{Left = mac.Left, KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskLeftMacroOp{Left = mac.Left, KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyMaskRight:
-                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskRightMacroOp{Right = mac.Right, KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskRightMacroOp{Right = mac.Right, KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyMaskTop:
-                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskTopMacroOp{Top = mac.Top, KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskTopMacroOp{Top = mac.Top, KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyOnAir:
-                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyOnAirMacroOp{OnAir = mac.OnAir.Value(), KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyOnAirMacroOp{OnAir = mac.OnAir.Value(), KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyPreMultiply:
-                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp{PreMultiply = mac.PreMultiply.Value(), KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp{PreMultiply = mac.PreMultiply.Value(), KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyTie:
-                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp{Tie = mac.Tie.Value(), KeyIndex = (LibAtem.Common.DownstreamKeyId)mac.KeyIndex};
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp{Tie = mac.Tie.Value(), KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.AudioMixerInputGain:
                     return new LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp{Index = mac.Input.ToAudioSource(), Gain = mac.Gain};
                 case MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1:
