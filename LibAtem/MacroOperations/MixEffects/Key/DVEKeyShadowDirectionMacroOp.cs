@@ -9,7 +9,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.DVEKeyShadowDirection, 12)]
     public class DVEKeyShadowDirectionMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), UInt32D(15979513, 0, UInt32.MaxValue)]
+        [Serialize(8), UInt32D(65536, 0, 65536 * 360)]
         [MacroField("Direction")]
         public double Direction { get; set; }
 

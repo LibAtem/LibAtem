@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
     [MacroOperation(MacroOperationType.DownstreamKeyMaskEnable, 8)]
     public class DownstreamKeyMaskEnableMacroOp : DownstreamKeyMacroOpBase
     {
-        [Serialize(6), Bool]
+        [Serialize(5), Bool]
         [MacroField("Enable")]
         public bool Enable { get; set; }
 

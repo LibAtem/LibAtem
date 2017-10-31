@@ -82,18 +82,18 @@ namespace LibAtem.Common
         DVEKeyMaskRight = 0x0039,
         TransitionDVERate, //
 
-        ChromaKeyClip = 0x003b, //
-        ChromaKeyGain = 0x003c, //
-        ChromaKeyHue = 0x003d, //
-        ChromaKeyLift = 0x003e, //
-        ChromaKeyNarrow = 0x003f, //
+        ChromaKeyClip = 0x003b,
+        ChromaKeyGain = 0x003c,
+        ChromaKeyHue = 0x003d,
+        ChromaKeyLift = 0x003e,
+        ChromaKeyNarrow = 0x003f,
 
-        PatternKeyPattern, //
-        PatternKeySize, //
-        PatternKeySoftness, //
-        PatternKeyXPosition, // 
-        PatternKeyYPosition, // 
-        PatternKeySymmetry, //
+        PatternKeyPattern = 0x0040,
+        PatternKeySize = 0x0041,
+        PatternKeySoftness = 0x0042,
+        PatternKeyXPosition = 0x0043,
+        PatternKeyYPosition = 0x0044,
+        PatternKeySymmetry = 0x0045,
 
         DVEAndFlyKeyXSize = 0x0047,
         DVEAndFlyKeyYSize = 0x0048,
@@ -178,25 +178,25 @@ namespace LibAtem.Common
         TransitionStingerDVEInvert,
         TransitionStingerDVEPreMultiply,
 
-        DownstreamKeyFillInput,
-        DownstreamKeyCutInput,
-        DownstreamKeyRate,
-        DownstreamKeyAuto,
-        DownstreamKeyOnAir,
+        DownstreamKeyFillInput = 0x0096,
+        DownstreamKeyCutInput = 0x0097,
+        DownstreamKeyRate = 0x0098,
+        DownstreamKeyAuto = 0x0099,
+        DownstreamKeyOnAir = 0x009a,
         DownstreamKeyTie = 0x009b,
-        DownstreamKeyClip,
-        DownstreamKeyGain,
-        DownstreamKeyMaskEnable,
-        DownstreamKeyMaskTop,
-        DownstreamKeyMaskBottom,
-        DownstreamKeyMaskLeft,
-        DownstreamKeyMaskRight,
-        DownstreamKeyInvert,
-        DownstreamKeyPreMultiply,
+        DownstreamKeyClip = 0x009c,
+        DownstreamKeyGain = 0x009d,
+        DownstreamKeyMaskEnable = 0x009e,
+        DownstreamKeyMaskTop = 0x009f,
+        DownstreamKeyMaskBottom = 0x00a0,
+        DownstreamKeyMaskLeft = 0x00a1,
+        DownstreamKeyMaskRight = 0x00a2,
+        DownstreamKeyInvert = 0x00a3,
+        DownstreamKeyPreMultiply = 0x00a4,
 
-        FadeToBlackRate,
+        FadeToBlackRate = 0x00a5,
         FadeToBlackCut, // Not used
-        FadeToBlackAuto, // -
+        FadeToBlackAuto = 0x00a7, // -
 
         SuperSourceArtCutInput, // -
         SuperSourceArtFillInput = 0x00a9,

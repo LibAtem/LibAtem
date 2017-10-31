@@ -92,8 +92,8 @@ namespace LibAtem.Commands.MixEffects.Key
 
         [Serialize(48), UInt16D(10, 0, 3590)]
         public double LightSourceDirection { get; set; }
-        [Serialize(50), UInt8D(1, 10, 100)]
-        public double LightSourceAltitude { get; set; }
+        [Serialize(50), UInt8Range(10, 100)]
+        public uint LightSourceAltitude { get; set; }
 
         [Serialize(51), Bool]
         public bool MaskEnabled { get; set; }

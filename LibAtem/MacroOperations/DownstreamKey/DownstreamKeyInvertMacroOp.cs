@@ -5,20 +5,20 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.DownStreamKey
 {
-    [MacroOperation(MacroOperationType.DownstreamKeyPreMultiply, 8)]
-    public class DownstreamKeyPreMultiplyMacroOp : DownstreamKeyMacroOpBase
+    [MacroOperation(MacroOperationType.DownstreamKeyInvert, 8)]
+    public class DownstreamKeyInvertMacroOp : DownstreamKeyMacroOpBase
     {
         [Serialize(5), Bool]
-        [MacroField("PreMultiply")]
-        public bool PreMultiply { get; set; }
+        [MacroField("Invert")]
+        public bool Invert { get; set; }
 
         public override ICommand ToCommand()
         {
             return new DownstreamKeyGeneralSetCommand()
             {
-                Mask = DownstreamKeyGeneralSetCommand.MaskFlags.PreMultiply,
+                Mask = DownstreamKeyGeneralSetCommand.MaskFlags.Invert,
                 Index = KeyIndex,
-                PreMultiply = PreMultiply,
+                Invert = Invert,
             };
         }
     }

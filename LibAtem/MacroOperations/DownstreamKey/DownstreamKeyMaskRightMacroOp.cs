@@ -5,10 +5,10 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.DownStreamKey
 {
-    [MacroOperation(MacroOperationType.DownstreamKeyMaskRight, 8)]
+    [MacroOperation(MacroOperationType.DownstreamKeyMaskRight, 12)]
     public class DownstreamKeyMaskRightMacroOp : DownstreamKeyMacroOpBase
     {
-        [Serialize(6), Int16D(1000, -16000, 16000)]
+        [Serialize(8), Int32D(65535, -16 * 65535, 16 * 65535)]
         [MacroField("Right")]
         public double Right { get; set; }
 
@@ -17,7 +17,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
             return new DownstreamKeyMaskSetCommand()
             {
                 Mask = DownstreamKeyMaskSetCommand.MaskFlags.Right,
-                Index = (DownstreamKeyId)KeyIndex,
+                Index = KeyIndex,
                 Right = Right,
             };
         }

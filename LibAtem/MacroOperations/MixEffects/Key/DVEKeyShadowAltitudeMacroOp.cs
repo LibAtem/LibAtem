@@ -8,9 +8,9 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.DVEKeyShadowAltitude, 8)]
     public class DVEKeyShadowAltitudeMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), UInt16D(1, 0, 100)]
+        [Serialize(6), UInt8Range(10, 100)]
         [MacroField("Altitude")]
-        public double Altitude { get; set; }
+        public uint Altitude { get; set; }
 
         public override ICommand ToCommand()
         {

@@ -9,7 +9,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
     [MacroOperation(MacroOperationType.ChromaKeyHue, 12)]
     public class ChromaKeyHueMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(6), UInt32D(30948313, 0, UInt32.MaxValue)]
+        [Serialize(8), UInt32D(65536, 0, 65536 * 360)]
         [MacroField("Hue")]
         public double Hue { get; set; }
 

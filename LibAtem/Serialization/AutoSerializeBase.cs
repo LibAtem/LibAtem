@@ -121,7 +121,7 @@ namespace LibAtem.Serialization
 
             int attrLength = info.Length;
             if (attrLength != -1 && attrLength != cmd.BodyLength)
-                throw new Exception("Auto deserialize length mismatch");
+                throw new SerializationException(GetType().Name, "Auto deserialize length mismatch");
 
             foreach (PropertySpec prop in info.Properties)
             {

@@ -13,7 +13,7 @@ namespace LibAtem.MacroOperations
         [MacroField("ColorGeneratorIndex")]
         public ColorGeneratorId ColorGeneratorIndex { get; set; }
 
-        [Serialize(6), UInt32D(1, 0, UInt32.MaxValue)]
+        [Serialize(8), UInt32D(65536, 0, 360 *65536)]
         [MacroField("Hue")]
         public double Hue { get; set; }
 
