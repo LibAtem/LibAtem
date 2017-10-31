@@ -117,6 +117,12 @@ namespace LibAtem.XmlState.Test
             RunForFile("TestFiles/pre-rune-green.xml");
         }
 
+        [Fact]
+        public void TestMacroDev()
+        {
+            RunForFile("TestFiles/macro-dev.xml");
+        }
+
         #region Helpers
 
         private void RunForFile(string filename)

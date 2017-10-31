@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FatAntelope\FatAntelope\FatAntelope.csproj" />
+    <ProjectReference Include="..\FatAntelope\FatAntelope\FatAntelope.csproj" />
     <ProjectReference Include="..\LibAtem.XmlState\LibAtem.XmlState.csproj" />
   </ItemGroup>
 
@@ -20,6 +20,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\atem-production-4k.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\macro-dev.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\pre-rune-green.xml">
@@ -58,6 +61,16 @@
     <None Update="TestFiles\i61.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestMacroFiles\macros1.macros">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestMacroFiles\macros1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestMacroFiles\" />
   </ItemGroup>
 
 </Project>

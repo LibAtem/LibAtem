@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile majorVersion="1" minorVersion="4" product="ATEM Production Studio 4K">
+    <MacroPool>
+        <Macro index="0" name="fuzion" description="">
+            <Op id="ProgramInput" mixEffectBlockIndex="0" input="Camera5"/>
+            <Op id="MediaPlayerSourceStillIndex" mediaPlayer="0" index="0"/>
+            <Op id="MediaPlayerSourceStill" mediaPlayer="0"/>
+            <Op id="KeyFillInput" mixEffectBlockIndex="0" keyIndex="0" input="MediaPlayer1"/>
+            <Op id="KeyCutInput" mixEffectBlockIndex="0" keyIndex="0" input="MediaPlayer1Key"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="0" onAir="True"/>
+        </Macro>
+        <Macro index="1" name="Spetic" description="">
+            <Op id="ProgramInput" mixEffectBlockIndex="0" input="Camera6"/>
+            <Op id="MediaPlayerSourceStillIndex" mediaPlayer="0" index="1"/>
+            <Op id="MediaPlayerSourceStill" mediaPlayer="0"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="0" onAir="True"/>
+        </Macro>
+        <Macro index="2" name="botimus" description="">
+            <Op id="ProgramInput" mixEffectBlockIndex="0" input="Camera7"/>
+            <Op id="MediaPlayerSourceStillIndex" mediaPlayer="0" index="6"/>
+            <Op id="MediaPlayerSourceStill" mediaPlayer="0"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="0" onAir="True"/>
+        </Macro>
+        <Macro index="3" name="Sinder" description="">
+            <Op id="ProgramInput" mixEffectBlockIndex="0" input="Camera8"/>
+            <Op id="MediaPlayerSourceStillIndex" mediaPlayer="0" index="7"/>
+            <Op id="MediaPlayerSourceStill" mediaPlayer="0"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="0" onAir="True"/>
+        </Macro>
+        <Macro index="6" name="dev1" description="">
+            <Op id="LumaKeyClip" mixEffectBlockIndex="0" keyIndex="0" clip="0.391998"/>
+            <Op id="LumaKeyGain" mixEffectBlockIndex="0" keyIndex="0" gain="0.854004"/>
+            <Op id="LumaKeyInvert" mixEffectBlockIndex="0" keyIndex="0" invert="True"/>
+            <Op id="KeyMaskEnable" mixEffectBlockIndex="0" keyIndex="0" enable="True"/>
+            <Op id="KeyMaskLeft" mixEffectBlockIndex="0" keyIndex="0" left="-10"/>
+            <Op id="KeyMaskTop" mixEffectBlockIndex="0" keyIndex="0" top="5"/>
+            <Op id="KeyMaskRight" mixEffectBlockIndex="0" keyIndex="0" right="10"/>
+            <Op id="KeyMaskBottom" mixEffectBlockIndex="0" keyIndex="0" bottom="-5.00002"/>
+            <Op id="TransitionDVEPattern" mixEffectBlockIndex="0" pattern="SqueezeTop"/>
+            <Op id="TransitionDVERate" mixEffectBlockIndex="0" rate="35"/>
+        </Macro>
+        <Macro index="7" name="dev2" description="">
+            <Op id="TransitionDVERate" mixEffectBlockIndex="0" rate="35"/>
+            <Op id="KeyMaskLeft" mixEffectBlockIndex="0" keyIndex="0" left="-10"/>
+            <Op id="KeyMaskTop" mixEffectBlockIndex="0" keyIndex="0" top="5"/>
+            <Op id="KeyMaskRight" mixEffectBlockIndex="0" keyIndex="0" right="10"/>
+            <Op id="KeyMaskBottom" mixEffectBlockIndex="0" keyIndex="0" bottom="-5.00002"/>
+            <Op id="ChromaKeyHue" mixEffectBlockIndex="0" keyIndex="0" hue="124.9"/>
+            <Op id="ChromaKeyGain" mixEffectBlockIndex="0" keyIndex="0" gain="0.759003"/>
+            <Op id="ChromaKeyClip" mixEffectBlockIndex="0" keyIndex="0" clip="0.613998"/>
+            <Op id="ChromaKeyLift" mixEffectBlockIndex="0" keyIndex="0" lift="0.367004"/>
+            <Op id="ChromaKeyNarrow" mixEffectBlockIndex="0" keyIndex="0" narrow="True"/>
+            <Op id="PatternKeyPattern" mixEffectBlockIndex="0" keyIndex="0" pattern="CircleIris"/>
+            <Op id="PatternKeySize" mixEffectBlockIndex="0" keyIndex="0" size="0.348007"/>
+            <Op id="PatternKeySymmetry" mixEffectBlockIndex="0" keyIndex="0" symmetry="0.595001"/>
+            <Op id="PatternKeySoftness" mixEffectBlockIndex="0" keyIndex="0" softness="0.227997"/>
+            <Op id="PatternKeyXPosition" mixEffectBlockIndex="0" keyIndex="0" xPosition="0.899994"/>
+            <Op id="PatternKeyYPosition" mixEffectBlockIndex="0" keyIndex="0" yPosition="0.800003"/>
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="0" type="DVE"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="0" direction="241.9"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="0" altitude="43"/>
+            <Op id="DVEKeyShadowEnable" mixEffectBlockIndex="0" keyIndex="0" enable="True"/>
+        </Macro>
+        <Macro index="8" name="chroma +dve2" description="">
+            <Op id="PatternKeyXPosition" mixEffectBlockIndex="0" keyIndex="0" xPosition="0"/>
+            <Op id="PatternKeyYPosition" mixEffectBlockIndex="0" keyIndex="0" yPosition="0.800003"/>
+            <Op id="ChromaKeyHue" mixEffectBlockIndex="0" keyIndex="0" hue="351.4"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="0" direction="225"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="0" altitude="25"/>
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="0" type="Chroma"/>
+            <Op id="ChromaKeyGain" mixEffectBlockIndex="0" keyIndex="1" gain="0.505997"/>
+            <Op id="ChromaKeyClip" mixEffectBlockIndex="0" keyIndex="1" clip="0.266006"/>
+            <Op id="ChromaKeyHue" mixEffectBlockIndex="0" keyIndex="1" hue="112.3"/>
+            <Op id="ChromaKeyLift" mixEffectBlockIndex="0" keyIndex="1" lift="0.860992"/>
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="1" type="DVE"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="1" direction="288.4"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="1" altitude="37"/>
+        </Macro>
+        <Macro index="9" name="color" description="">
+            <Op id="ColorGeneratorHue" colorGeneratorIndex="0" hue="253.3"/>
+            <Op id="ColorGeneratorSaturation" colorGeneratorIndex="0" saturation="0.337006"/>
+            <Op id="ColorGeneratorLuminescence" colorGeneratorIndex="0" luminescence="0.785004"/>
+            <Op id="ColorGeneratorHue" colorGeneratorIndex="1" hue="85.8"/>
+            <Op id="ColorGeneratorSaturation" colorGeneratorIndex="1" saturation="0.285004"/>
+            <Op id="ColorGeneratorLuminescence" colorGeneratorIndex="1" luminescence="0.244003"/>
+        </Macro>
+        <Macro index="10" name="ftb" description="">
+            <Op id="AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1" follow="True"/>
+            <Op id="FadeToBlackRate" mixEffectBlockIndex="0" rate="42"/>
+        </Macro>
+        <Macro index="18" name="xplosion-test" description="">
+            <Op id="DownstreamKeyTie" keyIndex="0" tie="True"/>
+            <Op id="MediaPlayerPlay" mediaPlayer="1"/>
+            <Op id="MacroSleep" frames="14"/>
+            <Op id="CutTransition" mixEffectBlockIndex="0"/>
+            <Op id="MacroSleep" frames="6"/>
+        </Macro>
+        <Macro index="19" name="test2" description="">
+            <Op id="DownstreamKeyTie" keyIndex="0" tie="True"/>
+            <Op id="MediaPlayerPlay" mediaPlayer="1"/>
+            <Op id="MacroSleep" frames="14"/>
+            <Op id="CutTransition" mixEffectBlockIndex="0"/>
+            <Op id="MacroSleep" frames="6"/>
+            <Op id="DownstreamKeyTie" keyIndex="0" tie="False"/>
+        </Macro>
+        <Macro index="20" name="another macro" description=""/>
+        <Macro index="24" name="fake an implosion" description=""/>
+        <Macro index="27" name="end of the line" description=""/>
+    </MacroPool>
+    <MacroControl loop="False"/>
+</Profile>
