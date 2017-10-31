@@ -47,15 +47,24 @@ namespace LibAtem.XmlState.Test
                 Assert.NotNull(macroXml);
 
                 List<byte[]> data = Enumerable.Range(0, count).Select(x => StringToByteArray(byteFile.ReadLine())).ToList();
-                List<MacroOpBase> macroOps = macroXml.Operations.Select(o => o.ToMacroOp()).OfType<MacroOpBase>().ToList();
-                Assert.Equal(macroOps.Count, data.Count);
 
-                List<MacroOpBase> convertedData = data.Select(MacroOpManager.CreateFromData).ToList();
+                Assert.Equal(macroXml.Operations.Count, data.Count);
+
                 for (var i = 0; i < count; i++)
                 {
-                    if (!Equals(convertedData[i], macroOps[i]))
+                    try
                     {
-                        output.WriteLine("Got:\n {0}Expected:\n {1}", ToString(convertedData[i]), ToString(macroOps[i]));
+                        var converted = MacroOpManager.CreateFromData(data[i]);
+                        var op = (MacroOpBase) macroXml.Operations[i].ToMacroOp();
+                        if (!Equals(converted, op))
+                        {
+                            output.WriteLine("Got:\n {0}Expected:\n {1}", ToString(converted), ToString(op));
+                            failed = true;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        output.WriteLine(e.Message + "\n");
                         failed = true;
                     }
                 }

@@ -318,6 +318,75 @@
             <Op id="AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1" follow="True"/>
             <Op id="FadeToBlackRate" mixEffectBlockIndex="0" rate="42"/>
         </Macro>
+        <Macro index="11" name="dsk props" description="">
+            <Op id="DownstreamKeyFillInput" keyIndex="0" input="Camera8"/>
+            <Op id="DownstreamKeyCutInput" keyIndex="0" input="Camera4"/>
+            <Op id="DownstreamKeyRate" keyIndex="0" rate="25"/>
+            <Op id="DownstreamKeyOnAir" keyIndex="0" onAir="True"/>
+            <Op id="DownstreamKeyOnAir" keyIndex="0" onAir="False"/>
+            <Op id="DownstreamKeyOnAir" keyIndex="0" onAir="True"/>
+            <Op id="DownstreamKeyOnAir" keyIndex="1" onAir="False"/>
+            <Op id="DownstreamKeyTie" keyIndex="0" tie="True"/>
+            <Op id="DownstreamKeyTie" keyIndex="1" tie="False"/>
+            <Op id="DownstreamKeyAuto" keyIndex="0"/>
+            <Op id="DownstreamKeyRate" keyIndex="0" rate="25"/>
+            <Op id="DownstreamKeyMaskEnable" keyIndex="0" enable="True"/>
+            <Op id="DownstreamKeyMaskLeft" keyIndex="0" left="-7.00002"/>
+            <Op id="DownstreamKeyMaskTop" keyIndex="0" top="-9.00002"/>
+            <Op id="DownstreamKeyMaskRight" keyIndex="0" right="-6.00002"/>
+            <Op id="DownstreamKeyMaskBottom" keyIndex="0" bottom="-8.00002"/>
+            <Op id="DownstreamKeyPreMultiply" keyIndex="0" preMultiply="False"/>
+            <Op id="DownstreamKeyClip" keyIndex="0" clip="0.113998"/>
+            <Op id="DownstreamKeyGain" keyIndex="0" gain="0.285004"/>
+            <Op id="DownstreamKeyInvert" keyIndex="0" invert="True"/>
+            <Op id="DownstreamKeyRate" keyIndex="1" rate="99"/>
+            <Op id="DownstreamKeyFillInput" keyIndex="1" input="MediaPlayer1"/>
+            <Op id="DownstreamKeyCutInput" keyIndex="1" input="ColorBars"/>
+            <Op id="DownstreamKeyMaskEnable" keyIndex="1" enable="True"/>
+            <Op id="DownstreamKeyMaskLeft" keyIndex="1" left="5.5"/>
+            <Op id="DownstreamKeyMaskTop" keyIndex="1" top="7.5"/>
+            <Op id="DownstreamKeyMaskRight" keyIndex="1" right="4.39999"/>
+            <Op id="DownstreamKeyMaskBottom" keyIndex="1" bottom="6.5"/>
+            <Op id="DownstreamKeyClip" keyIndex="1" clip="0.867004"/>
+            <Op id="DownstreamKeyGain" keyIndex="1" gain="0.910995"/>
+            <Op id="DownstreamKeyInvert" keyIndex="1" invert="False"/>
+            <Op id="DownstreamKeyPreMultiply" keyIndex="1" preMultiply="True"/>
+        </Macro>
+        <Macro index="12" name="chroma1" description="">
+            <Op id="ChromaKeyHue" mixEffectBlockIndex="0" keyIndex="0" hue="27.4"/>
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="1" type="Chroma"/>
+            <Op id="ChromaKeyHue" mixEffectBlockIndex="0" keyIndex="1" hue="124.8"/>
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="2" type="Chroma"/>
+            <Op id="ChromaKeyHue" mixEffectBlockIndex="0" keyIndex="2" hue="125"/>
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="3" type="Chroma"/>
+            <Op id="ChromaKeyHue" mixEffectBlockIndex="0" keyIndex="3" hue="226.4"/>
+        </Macro>
+        <Macro index="13" name="dve-altitude" description="">
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="0" type="DVE"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="0" direction="183.3"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="0" altitude="10"/>
+            <Op id="ChromaKeyHue" mixEffectBlockIndex="0" keyIndex="1" hue="124.8"/>
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="1" type="DVE"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="1" direction="263.7"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="1" altitude="40"/>
+            <Op id="ChromaKeyHue" mixEffectBlockIndex="0" keyIndex="2" hue="125"/>
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="2" type="DVE"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="2" direction="0"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="2" altitude="40"/>
+            <Op id="KeyType" mixEffectBlockIndex="0" keyIndex="3" type="DVE"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="3" direction="39"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="3" altitude="31"/>
+        </Macro>
+        <Macro index="14" name="dve-alt2" description="">
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="3" direction="38"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="3" altitude="31"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="2" direction="0"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="2" altitude="37"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="1" direction="264"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="1" altitude="100"/>
+            <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="0" direction="183"/>
+            <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="0" altitude="99"/>
+        </Macro>
         <Macro index="18" name="xplosion-test" description="">
             <Op id="DownstreamKeyTie" keyIndex="0" tie="True"/>
             <Op id="MediaPlayerPlay" mediaPlayer="1"/>

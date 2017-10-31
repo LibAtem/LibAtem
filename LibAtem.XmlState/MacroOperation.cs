@@ -15,7 +15,7 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("altitude")]
-        public System.Double Altitude
+        public System.UInt32 Altitude
         {
             get;
             set;
@@ -129,6 +129,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.ChromaKeyClip:
                 case MacroOperationType.LumaKeyClip:
+                case MacroOperationType.DownstreamKeyClip:
                     return true;
                 default:
                     return false;
@@ -266,6 +267,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.ChromaKeyGain:
                 case MacroOperationType.LumaKeyGain:
+                case MacroOperationType.DownstreamKeyGain:
                 case MacroOperationType.AudioMixerInputGain:
                     return true;
                 default:
@@ -353,6 +355,8 @@ namespace LibAtem.XmlState
                 case MacroOperationType.ProgramInput:
                 case MacroOperationType.KeyCutInput:
                 case MacroOperationType.KeyFillInput:
+                case MacroOperationType.DownstreamKeyCutInput:
+                case MacroOperationType.DownstreamKeyFillInput:
                 case MacroOperationType.AudioMixerInputGain:
                     return true;
                 default:
@@ -372,6 +376,7 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.LumaKeyInvert:
+                case MacroOperationType.DownstreamKeyInvert:
                     return true;
                 default:
                     return false;
@@ -428,6 +433,12 @@ namespace LibAtem.XmlState
                 case MacroOperationType.PatternKeySymmetry:
                 case MacroOperationType.PatternKeyXPosition:
                 case MacroOperationType.PatternKeyYPosition:
+                case MacroOperationType.DownstreamKeyAuto:
+                case MacroOperationType.DownstreamKeyClip:
+                case MacroOperationType.DownstreamKeyCutInput:
+                case MacroOperationType.DownstreamKeyFillInput:
+                case MacroOperationType.DownstreamKeyGain:
+                case MacroOperationType.DownstreamKeyInvert:
                 case MacroOperationType.DownstreamKeyMaskBottom:
                 case MacroOperationType.DownstreamKeyMaskEnable:
                 case MacroOperationType.DownstreamKeyMaskLeft:
@@ -435,6 +446,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DownstreamKeyMaskTop:
                 case MacroOperationType.DownstreamKeyOnAir:
                 case MacroOperationType.DownstreamKeyPreMultiply:
+                case MacroOperationType.DownstreamKeyRate:
                 case MacroOperationType.DownstreamKeyTie:
                     return true;
                 default:
@@ -743,6 +755,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.TransitionStingerMixRate:
                 case MacroOperationType.TransitionStingerRate:
                 case MacroOperationType.TransitionWipeRate:
+                case MacroOperationType.DownstreamKeyRate:
                     return true;
                 default:
                     return false;
@@ -1336,6 +1349,24 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.HyperDeck.HyperDeckStopMacroOp":
                     var opHyperDeckStopMacroOp = (LibAtem.MacroOperations.HyperDeck.HyperDeckStopMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.HyperDeckStop, HyperDeckIndex = opHyperDeckStopMacroOp.Index};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyAutoMacroOp":
+                    var opDownstreamKeyAutoMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyAutoMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyAuto, DownstreamKeyIndex = opDownstreamKeyAutoMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyClipMacroOp":
+                    var opDownstreamKeyClipMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyClipMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyClip, Clip = opDownstreamKeyClipMacroOp.Clip, DownstreamKeyIndex = opDownstreamKeyClipMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyCutInputMacroOp":
+                    var opDownstreamKeyCutInputMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyCutInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyCutInput, Input = opDownstreamKeyCutInputMacroOp.Input.ToMacroInput(), DownstreamKeyIndex = opDownstreamKeyCutInputMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyFillInputMacroOp":
+                    var opDownstreamKeyFillInputMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyFillInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyFillInput, Input = opDownstreamKeyFillInputMacroOp.Input.ToMacroInput(), DownstreamKeyIndex = opDownstreamKeyFillInputMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyGainMacroOp":
+                    var opDownstreamKeyGainMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyGainMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyGain, Gain = opDownstreamKeyGainMacroOp.Gain, DownstreamKeyIndex = opDownstreamKeyGainMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyInvertMacroOp":
+                    var opDownstreamKeyInvertMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyInvertMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyInvert, Invert = opDownstreamKeyInvertMacroOp.Invert.ToAtemBool(), DownstreamKeyIndex = opDownstreamKeyInvertMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp":
                     var opDownstreamKeyMaskBottomMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.DownstreamKeyMaskBottom, Bottom = opDownstreamKeyMaskBottomMacroOp.Bottom, DownstreamKeyIndex = opDownstreamKeyMaskBottomMacroOp.KeyIndex};
@@ -1357,6 +1388,9 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp":
                     var opDownstreamKeyPreMultiplyMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.DownstreamKeyPreMultiply, PreMultiply = opDownstreamKeyPreMultiplyMacroOp.PreMultiply.ToAtemBool(), DownstreamKeyIndex = opDownstreamKeyPreMultiplyMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyRateMacroOp":
+                    var opDownstreamKeyRateMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyRateMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.DownstreamKeyRate, Rate = opDownstreamKeyRateMacroOp.Rate, DownstreamKeyIndex = opDownstreamKeyRateMacroOp.KeyIndex};
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp":
                     var opDownstreamKeyTieMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.DownstreamKeyTie, Tie = opDownstreamKeyTieMacroOp.Tie.ToAtemBool(), DownstreamKeyIndex = opDownstreamKeyTieMacroOp.KeyIndex};
@@ -1367,7 +1401,7 @@ namespace LibAtem.XmlState
                     var opAudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1, Follow = opAudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp.Follow.ToAtemBool()};
                 default:
-                    return null;
+                    throw new Exception(string.Format("Unknown type: {0}", op.Id));
             }
         }
     }
@@ -1550,6 +1584,18 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.HyperDeck.HyperDeckSetSpeedMacroOp{SpeedPercent = mac.HyperDeckSpeedPercent, Index = mac.HyperDeckIndex};
                 case MacroOperationType.HyperDeckStop:
                     return new LibAtem.MacroOperations.HyperDeck.HyperDeckStopMacroOp{Index = mac.HyperDeckIndex};
+                case MacroOperationType.DownstreamKeyAuto:
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyAutoMacroOp{KeyIndex = mac.DownstreamKeyIndex};
+                case MacroOperationType.DownstreamKeyClip:
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyClipMacroOp{Clip = mac.Clip, KeyIndex = mac.DownstreamKeyIndex};
+                case MacroOperationType.DownstreamKeyCutInput:
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyCutInputMacroOp{Input = mac.Input.ToVideoSource(), KeyIndex = mac.DownstreamKeyIndex};
+                case MacroOperationType.DownstreamKeyFillInput:
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyFillInputMacroOp{Input = mac.Input.ToVideoSource(), KeyIndex = mac.DownstreamKeyIndex};
+                case MacroOperationType.DownstreamKeyGain:
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyGainMacroOp{Gain = mac.Gain, KeyIndex = mac.DownstreamKeyIndex};
+                case MacroOperationType.DownstreamKeyInvert:
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyInvertMacroOp{Invert = mac.Invert.Value(), KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyMaskBottom:
                     return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyMaskBottomMacroOp{Bottom = mac.Bottom, KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyMaskEnable:
@@ -1564,6 +1610,8 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyOnAirMacroOp{OnAir = mac.OnAir.Value(), KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyPreMultiply:
                     return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyPreMultiplyMacroOp{PreMultiply = mac.PreMultiply.Value(), KeyIndex = mac.DownstreamKeyIndex};
+                case MacroOperationType.DownstreamKeyRate:
+                    return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyRateMacroOp{Rate = mac.Rate, KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyTie:
                     return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp{Tie = mac.Tie.Value(), KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.AudioMixerInputGain:
@@ -1571,7 +1619,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp{Follow = mac.Follow.Value()};
                 default:
-                    return null;
+                    throw new Exception(string.Format("Unknown type: {0}", mac.Id));
             }
         }
     }
