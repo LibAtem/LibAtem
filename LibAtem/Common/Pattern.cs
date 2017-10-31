@@ -1,7 +1,8 @@
 ﻿
 namespace LibAtem.Common
 {
-   public enum Pattern
+    [XmlAsString]
+    public enum Pattern
     {
         LeftToRightBar = 0,
         TopToBottomBar = 1,
@@ -22,7 +23,8 @@ namespace LibAtem.Common
         TopLeftDiagonal = 16,
         TopRightDiagonal = 17,
     }
-    
+
+    [XmlAsString]
     public enum BorderBevel
     {
         None = 0,

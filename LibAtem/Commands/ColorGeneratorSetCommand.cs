@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using LibAtem.Common;
 using LibAtem.MacroOperations;
 using LibAtem.Serialization;
 
@@ -20,8 +21,8 @@ namespace LibAtem.Commands
         public MaskFlags Mask { get; set; }
 
         [CommandId]
-        [Serialize(1), UInt8Range(0, 1)]
-        public uint Index { get; set; }
+        [Serialize(1), Enum8]
+        public ColorGeneratorId Index { get; set; }
 
         [Serialize(2), UInt16D(10, 0, 3599)]
         public double Hue { get; set; }

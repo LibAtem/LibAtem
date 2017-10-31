@@ -1,5 +1,6 @@
 ﻿namespace LibAtem.Common
 {
+    [XmlAsString]
     public enum DVEEffect
     {
         SwooshTopLeft     = 0,

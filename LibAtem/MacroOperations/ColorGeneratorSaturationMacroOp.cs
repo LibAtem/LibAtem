@@ -8,9 +8,9 @@ namespace LibAtem.MacroOperations
     public class ColorGeneratorSaturationMacroOp : MacroOpBase
     {
         [CommandId]
-        [Serialize(4), UInt16]
+        [Serialize(4), Enum16]
         [MacroField("ColorGeneratorIndex")]
-        public uint ColorGeneratorIndex { get; set; }
+        public ColorGeneratorId ColorGeneratorIndex { get; set; }
 
         [Serialize(6), UInt32DScale]
         [MacroField("Saturation")]

@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
     {
         [CommandId]
         [Serialize(4), Enum8]
-        [MacroField("KeyIndex")]
+        [MacroField("DownstreamKeyIndex", "keyIndex")]
         public DownstreamKeyId KeyIndex { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using LibAtem.Commands;
+using LibAtem.Common;
 using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.SuperSource
@@ -6,8 +7,8 @@ namespace LibAtem.MacroOperations.SuperSource
     public abstract class SuperSourceBoxMacroOpBase : MacroOpBase
     {
         [CommandId]
-        [Serialize(4), UInt8]
+        [Serialize(4), Enum8]
         [MacroField("SuperSourceBoxIndex", "boxIndex")]
-        public uint BoxIndex { get; set; }
+        public SuperSourceBoxId BoxIndex { get; set; }
     }
 }

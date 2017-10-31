@@ -12,9 +12,9 @@ namespace LibAtem.Commands.MixEffects.Key
         [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
-        [Serialize(1), UInt8]
+        [Serialize(1), Enum8]
         [CommandId]
-        public uint KeyerIndex { get; set; }
+        public UpstreamKeyId KeyerIndex { get; set; }
         [Serialize(2), Enum16]
         public VideoSource FillSource { get; set; }
 

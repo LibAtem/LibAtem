@@ -48,8 +48,8 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(4), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
         [CommandId]
-        [Serialize(5), UInt8]
-        public uint KeyerIndex { get; set; }
+        [Serialize(5), Enum8]
+        public UpstreamKeyId KeyerIndex { get; set; }
 
         [Serialize(8), Int32D(1000, -100, 100)] // TODO - check range
         public double SizeX { get; set; }

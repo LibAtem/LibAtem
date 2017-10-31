@@ -195,7 +195,7 @@ namespace LibAtem.Common
         DownstreamKeyPreMultiply,
 
         FadeToBlackRate,
-        FadeToBlackCut,
+        FadeToBlackCut, // Not used
         FadeToBlackAuto, // -
 
         SuperSourceArtCutInput, // -

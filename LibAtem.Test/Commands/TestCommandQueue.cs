@@ -1,4 +1,5 @@
 using LibAtem.Commands;
+using LibAtem.Common;
 using Xunit;
 
 namespace LibAtem.Test.Commands
@@ -11,7 +12,7 @@ namespace LibAtem.Test.Commands
             var cmd = new ColorGeneratorSetCommand()
             {
                 Mask = ColorGeneratorSetCommand.MaskFlags.Hue,
-                Index = 2,
+                Index = ColorGeneratorId.Two,
                 Hue = 5,
             };
 
@@ -24,7 +25,7 @@ namespace LibAtem.Test.Commands
         {
             var cmd = new ColorGeneratorGetCommand()
             {
-                Index = 2,
+                Index = ColorGeneratorId.Two,
                 Hue = 5,
             };
 

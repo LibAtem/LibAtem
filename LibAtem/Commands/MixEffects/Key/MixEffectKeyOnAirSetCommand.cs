@@ -13,8 +13,8 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(0), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
         [CommandId]
-        [Serialize(1), UInt8]
-        public uint KeyerIndex { get; set; }
+        [Serialize(1), Enum8]
+        public UpstreamKeyId KeyerIndex { get; set; }
         [Serialize(2), Bool]
         public bool OnAir { get; set; }
 

@@ -8,12 +8,12 @@ namespace LibAtem.Commands.MixEffects.Key
         [CommandId]
         public MixEffectBlockId MixEffectIndex { get; set; }
         [CommandId]
-        public uint KeyerIndex { get; set; }
+        public UpstreamKeyId KeyerIndex { get; set; }
 
         public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddUInt8((int)MixEffectIndex);
-            cmd.AddUInt8(KeyerIndex);
+            cmd.AddUInt8((int)KeyerIndex);
             cmd.AddBoolArray(false);
             cmd.AddBoolArray(false);
             cmd.Pad();
@@ -25,7 +25,7 @@ namespace LibAtem.Commands.MixEffects.Key
         public void Deserialize(ParsedByteArray cmd)
         {
             MixEffectIndex = (MixEffectBlockId) cmd.GetUInt8();
-            KeyerIndex = cmd.GetUInt8();
+            KeyerIndex = (UpstreamKeyId)cmd.GetUInt8();
             cmd.Skip(6);
         }
     }
