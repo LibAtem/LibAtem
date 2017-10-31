@@ -7,6 +7,21 @@ namespace LibAtem.DeviceProfile
 {
     public static class AvailabilityChecker
     {
+        public static object GetMaxForProperty(DeviceProfile profile, string propName)
+        {
+            switch (propName)
+            {
+                case "MediaPlayerSourceClipIndex.Index":
+                    return profile.MediaPoolClips - 1;
+                case "MediaPlayerSourceStillIndex.Index":
+                    return profile.MediaPoolStills - 1;
+                case "MacroSleep.Frames":
+                    return (uint) 500; // TODO
+                default:
+                    return null;
+            }
+        }
+
         public static bool IsAvailable(DeviceProfile profile, object val)
         {
             if (val is VideoSource)
@@ -17,6 +32,10 @@ namespace LibAtem.DeviceProfile
                 return IsAvailable((MediaPlayerId)val, profile);
             if (val is MixEffectBlockId)
                 return IsAvailable((MixEffectBlockId)val, profile);
+            if (val is UpstreamKeyId)
+                return IsAvailable((UpstreamKeyId)val, profile);
+            if (val is DownstreamKeyId)
+                return IsAvailable((DownstreamKeyId)val, profile);
 
             // Assume it is available as many types do not need implementing
             return true;
@@ -74,6 +93,16 @@ namespace LibAtem.DeviceProfile
         public static bool IsAvailable(this MixEffectBlockId id, DeviceProfile profile)
         {
             return id.IsValid() && (int)id < profile.MixEffectBlocks;
+        }
+
+        public static bool IsAvailable(this UpstreamKeyId id, DeviceProfile profile)
+        {
+            return id.IsValid() && (int)id < profile.UpstreamKeys;
+        }
+
+        public static bool IsAvailable(this DownstreamKeyId id, DeviceProfile profile)
+        {
+            return id.IsValid() && (int)id < profile.DownstreamKeys;
         }
     }
 }
