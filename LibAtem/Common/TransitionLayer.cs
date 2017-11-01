@@ -11,28 +11,28 @@ namespace LibAtem.Common
         None = 0,
         Background = 1 << 0,
 
-        [KeyIndex(0)]
+        [KeyIndex(UpstreamKeyId.One)]
         Key1 = 1 << 1,
-        [KeyIndex(1)]
+        [KeyIndex(UpstreamKeyId.Two)]
         Key2 = 1 << 2,
-        [KeyIndex(2)]
+        [KeyIndex(UpstreamKeyId.Three)]
         Key3 = 1 << 3,
-        [KeyIndex(3)]
+        [KeyIndex(UpstreamKeyId.Four)]
         Key4 = 1 << 4,
     }
 
     public class KeyIndexAttribute : Attribute
     {
-        public uint Index { get; }
+        public UpstreamKeyId Index { get; }
 
-        public KeyIndexAttribute(uint index)
+        public KeyIndexAttribute(UpstreamKeyId index)
         {
             Index = index;
         }
     }
 
     public static class TransitionLayerExtensions{
-        public static bool HasKeyEnabled(this TransitionLayer trans, uint index)
+        public static bool HasKeyEnabled(this TransitionLayer trans, UpstreamKeyId index)
         {
             IEnumerable<TransitionLayer> values = Enum.GetValues(typeof(TransitionLayer)).OfType<TransitionLayer>();
             foreach (TransitionLayer val in values)
@@ -48,7 +48,7 @@ namespace LibAtem.Common
             return false;
         }
 
-        public static TransitionLayer ToTransitionLayerKey(this uint index)
+        public static TransitionLayer ToTransitionLayerKey(this UpstreamKeyId index)
         {
             IEnumerable<TransitionLayer> values = Enum.GetValues(typeof(TransitionLayer)).OfType<TransitionLayer>();
             foreach (TransitionLayer val in values)
