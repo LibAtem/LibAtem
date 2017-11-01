@@ -30,9 +30,9 @@ namespace LibAtem.Common
 
         StopMacro,
 
-        TransitionWipeSymmetry,
-        TransitionWipeXPosition,
-        TransitionWipeYPosition,
+        TransitionWipeSymmetry = 0x0014,
+        TransitionWipeXPosition = 0x0015,
+        TransitionWipeYPosition = 0x0016,
         TransitionWipeSymmetryOffset,
         TransitionWipeXPositionOffset,
         TransitionWipeYPositionOffset,
@@ -63,7 +63,7 @@ namespace LibAtem.Common
         
         KeyFlyEnable,
 
-        LumaKeyInvert,
+        LumaKeyInvert = 0x002c,
         LumaKeyPreMultiply = 0x002d,
 
         PatternKeyInvert,
@@ -150,21 +150,21 @@ namespace LibAtem.Common
         FlyKeyFrameMaskLeft,
         FlyKeyFrameMaskRight,
 
-        TransitionWipeRate,
-        TransitionWipePattern,
-        TransitionWipeBorderWidth,
-        TransitionWipeBorderSoftness,
-        TransitionWipeBorderFillInput,
+        TransitionWipeRate = 0x007c,
+        TransitionWipePattern = 0x007d,
+        TransitionWipeBorderWidth = 0x007e,
+        TransitionWipeBorderSoftness = 0x007f,
+        TransitionWipeBorderFillInput = 0x0080,
         TransitionWipeAndDVEReverse,
         TransitionWipeAndDVEFlipFlop,
 
         TransitionStyle = 0x0083,
         TransitionSource = 0x0084,
-        TransitionPosition,
-        TransitionPreview,
+        TransitionPosition = 0x0085,
+        TransitionPreview = 0x0086,
         TransitionMixRate = 0x0087,
-        TransitionDipRate,
-        TransitionDipInput,
+        TransitionDipRate = 0x0088,
+        TransitionDipInput = 0x0089,
         TransitionStingerRate,
         TransitionStingerSourceNone,
         TransitionStingerSourceMediaPlayer,

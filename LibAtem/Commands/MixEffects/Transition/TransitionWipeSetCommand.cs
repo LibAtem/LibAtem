@@ -54,7 +54,25 @@ namespace LibAtem.Commands.MixEffects.Transition
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.Rate))
-                yield return new TransitionWipeRateMacroOp() { Index = Index, Rate = Rate };
+                yield return new TransitionWipeRateMacroOp {Index = Index, Rate = Rate};
+            if (Mask.HasFlag(MaskFlags.Pattern))
+                yield return new TransitionWipePatternMacroOp {Index = Index, Pattern = Pattern};
+            if (Mask.HasFlag(MaskFlags.BorderWidth))
+                yield return new TransitionWipeBorderWidthMacroOp {Index = Index, BorderWidth = BorderWidth};
+            if (Mask.HasFlag(MaskFlags.BorderInput))
+                yield return new TransitionWipeBorderFillInputMacroOp {Index = Index, Input = BorderInput};
+            if (Mask.HasFlag(MaskFlags.Symmetry))
+                yield return new TransitionWipeSymmetryMacroOp {Index = Index, Symmetry = Symmetry};
+            if (Mask.HasFlag(MaskFlags.BorderSoftness))
+                yield return new TransitionWipeBorderSoftnessMacroOp {Index = Index, BorderSoftness = BorderSoftness};
+            if (Mask.HasFlag(MaskFlags.XPosition))
+                yield return new TransitionWipeXPositionMacroOp {Index = Index, XPosition = XPosition};
+            if (Mask.HasFlag(MaskFlags.YPosition))
+                yield return new TransitionWipeYPositionMacroOp {Index = Index, YPosition = YPosition};
+            if (Mask.HasFlag(MaskFlags.ReverseDirection))
+                yield return new TransitionWipeAndDVEReverseMacroOp {Index = Index, ReverseDirection = ReverseDirection};
+            if (Mask.HasFlag(MaskFlags.FlipFlop))
+                yield return new TransitionWipeAndDVEFlipFlopMacroOp {Index = Index, FlipFlop = FlipFlop};
 
         }
     }

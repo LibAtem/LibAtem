@@ -33,7 +33,7 @@ namespace LibAtem.Commands.MixEffects.Transition
                 yield return new TransitionDipRateMacroOp() {Index = Index, Rate = Rate};
 
             if (Mask.HasFlag(MaskFlags.Input))
-                yield return null;
+                yield return new TransitionDipInputMacroOp{Index = Index,Input = Input};
         }
     }
 }
