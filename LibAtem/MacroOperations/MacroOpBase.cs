@@ -9,11 +9,6 @@ using LibAtem.Util;
 
 namespace LibAtem.MacroOperations
 {
-    public interface IMacroOperation
-    {
-        ICommand ToCommand();
-    }
-
     public static class MacroOpExtensions
     {
         public static byte[] ToByteArray(this MacroOpBase cmd)
@@ -24,7 +19,7 @@ namespace LibAtem.MacroOperations
         }
     }
 
-    public abstract class MacroOpBase : AutoSerializeBase, IMacroOperation
+    public abstract class MacroOpBase : AutoSerializeBase
     {
         [Serialize(0), UInt8]
         public uint Length => (uint) GetAttribute().Length;

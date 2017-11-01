@@ -124,10 +124,7 @@ namespace LibAtem.Serialization
                 throw new SerializationException(GetType().Name, "Auto deserialize length mismatch");
 
             foreach (PropertySpec prop in info.Properties)
-            {
-                if (prop.Setter != null)
-                    prop.Setter.DynamicInvoke(this, prop.SerAttr.Deserialize(cmd.ReverseBytes, cmd.Body, prop.Attr.StartByte, prop.PropInfo));
-            }
+                prop.Setter?.DynamicInvoke(this, prop.SerAttr.Deserialize(cmd.ReverseBytes, cmd.Body, prop.Attr.StartByte, prop.PropInfo));
 
             if (GetLength() != cmd.BodyLength)
                 throw new Exception("Auto deserialize final length mismatch");

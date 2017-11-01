@@ -23,7 +23,7 @@ namespace LibAtem.Test.MacroOp
         {
             var failures = new List<string>();
 
-            Assembly assembly = typeof(IMacroOperation).GetTypeInfo().Assembly;
+            Assembly assembly = typeof(MacroOpBase).GetTypeInfo().Assembly;
             IEnumerable<Type> types = assembly.GetTypes().Where(t => typeof(MacroOpBase).GetTypeInfo().IsAssignableFrom(t));
             foreach (Type type in types)
             {

@@ -40,8 +40,7 @@ namespace LibAtem.Util
             TKey key = idQueue.Take();
             lock (entries)
             {
-                TVal val;
-                if (entries.TryGetValue(key, out val))
+                if (entries.TryGetValue(key, out TVal val))
                 {
                     entries.Remove(key);
                     return val;

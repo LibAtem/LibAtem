@@ -1,4 +1,3 @@
-using System.Reflection;
 using LibAtem.MacroOperations;
 using LibAtem.Serialization;
 using System.Collections.Generic;

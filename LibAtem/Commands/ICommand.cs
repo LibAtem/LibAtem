@@ -99,8 +99,7 @@ namespace LibAtem.Commands
 
         public static Type FindForName(string name)
         {
-            Type res;
-            return GetAllTypes().TryGetValue(name, out res) ? res : null;
+            return GetAllTypes().TryGetValue(name, out Type res) ? res : null;
         }
     }
 }

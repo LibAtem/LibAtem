@@ -51,13 +51,13 @@ namespace LibAtem.Commands
 
         public bool Equals(CommandQueueKey other)
         {
-            return string.Equals((string) Name, (string) other.Name) && Mask == other.Mask && Id == other.Id;
+            return string.Equals(Name, other.Name) && Mask == other.Mask && Id == other.Id;
         }
 
         public override bool Equals(object obj)
         {
-            if (Object.ReferenceEquals(null, obj)) return false;
-            return obj is CommandQueueKey && Equals((CommandQueueKey) obj);
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is CommandQueueKey key && Equals(key);
         }
 
         public override int GetHashCode()

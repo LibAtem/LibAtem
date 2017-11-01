@@ -26,8 +26,8 @@ namespace LibAtem.Test.MacroOp
         {
             var failures = new List<string>();
             
-            Assembly assembly = typeof(IMacroOperation).GetTypeInfo().Assembly;
-            IEnumerable<Type> types = assembly.GetTypes().Where(t => (typeof(MacroOpBase).GetTypeInfo() as Type).IsAssignableFrom(t));
+            Assembly assembly = typeof(MacroOpBase).GetTypeInfo().Assembly;
+            IEnumerable<Type> types = assembly.GetTypes().Where(t => typeof(MacroOpBase).GetTypeInfo().IsAssignableFrom(t));
             foreach (Type type in types)
             {
                 if (type == typeof(MacroOpBase) || type.IsAbstract)
