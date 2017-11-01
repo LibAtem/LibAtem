@@ -623,8 +623,8 @@ namespace LibAtem.XmlState
                 case MacroOperationType.TransitionDVEPattern:
                 case MacroOperationType.TransitionDVERate:
                 case MacroOperationType.TransitionMixRate:
-                case MacroOperationType.TransitionPreview:
                 case MacroOperationType.TransitionPosition:
+                case MacroOperationType.TransitionPreview:
                 case MacroOperationType.TransitionSource:
                 case MacroOperationType.TransitionStingerMixRate:
                 case MacroOperationType.TransitionStingerRate:
@@ -1295,12 +1295,12 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.MixEffects.Transition.TransitionMixRateMacroOp":
                     var opTransitionMixRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionMixRateMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionMixRate, Rate = opTransitionMixRateMacroOp.Rate, MixEffectBlockIndex = opTransitionMixRateMacroOp.Index};
-                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionPreviewMacroOp":
-                    var opTransitionPreviewMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionPreviewMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.TransitionPreview, Preview = opTransitionPreviewMacroOp.Preview.ToAtemBool(), MixEffectBlockIndex = opTransitionPreviewMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Transition.TransitionPositionMacroOp":
                     var opTransitionPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionPositionMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionPosition, Position = opTransitionPositionMacroOp.Position, MixEffectBlockIndex = opTransitionPositionMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionPreviewMacroOp":
+                    var opTransitionPreviewMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionPreviewMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionPreview, Preview = opTransitionPreviewMacroOp.Preview.ToAtemBool(), MixEffectBlockIndex = opTransitionPreviewMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Transition.TransitionSourceMacroOp":
                     var opTransitionSourceMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionSourceMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionSource, TransitionSource = opTransitionSourceMacroOp.Source, MixEffectBlockIndex = opTransitionSourceMacroOp.Index};
@@ -1558,7 +1558,7 @@ namespace LibAtem.XmlState
 
     public static class MacroOperationsExtensions
     {
-        public static IMacroOperation ToMacroOp(this MacroOperation mac)
+        public static MacroOpBase ToMacroOp(this MacroOperation mac)
         {
             switch (mac.Id)
             {
@@ -1622,10 +1622,10 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionDVERateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionMixRate:
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionMixRateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
-                case MacroOperationType.TransitionPreview:
-                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionPreviewMacroOp{Preview = mac.Preview.Value(), Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionPosition:
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionPositionMacroOp{Position = mac.Position, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionPreview:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionPreviewMacroOp{Preview = mac.Preview.Value(), Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionSource:
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionSourceMacroOp{Source = mac.TransitionSource, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionStingerMixRate:
