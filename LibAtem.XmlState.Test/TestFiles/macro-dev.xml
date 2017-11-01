@@ -387,6 +387,27 @@
             <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="0" direction="183"/>
             <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="0" altitude="99"/>
         </Macro>
+        <Macro index="15" name="trans wipe and dip" description="">
+            <Op id="TransitionDipRate" mixEffectBlockIndex="0" rate="22"/>
+            <Op id="TransitionDipInput" mixEffectBlockIndex="0" input="Camera7"/>
+            <Op id="TransitionWipePattern" mixEffectBlockIndex="0" pattern="CornersInFourBox"/>
+            <Op id="TransitionWipeRate" mixEffectBlockIndex="0" rate="67"/>
+            <Op id="TransitionWipeSymmetry" mixEffectBlockIndex="0" symmetry="0.328995"/>
+            <Op id="TransitionWipeXPosition" mixEffectBlockIndex="0" xPosition="0.899994"/>
+            <Op id="TransitionWipeYPosition" mixEffectBlockIndex="0" yPosition="0.899994"/>
+            <Op id="TransitionWipeAndDVEReverse" mixEffectBlockIndex="0" reverse="True"/>
+            <Op id="TransitionWipeAndDVEFlipFlop" mixEffectBlockIndex="0" flipFlop="True"/>
+            <Op id="TransitionWipeBorderWidth" mixEffectBlockIndex="0" width="0.740997"/>
+            <Op id="TransitionWipeBorderSoftness" mixEffectBlockIndex="0" softness="0.328995"/>
+            <Op id="TransitionWipeBorderFillInput" mixEffectBlockIndex="0" input="MediaPlayer1"/>
+            <Op id="TransitionPreview" mixEffectBlockIndex="0" preview="True"/>
+            <Op id="TransitionStyle" mixEffectBlockIndex="0" style="Wipe"/>
+            <Op id="TransitionPosition" mixEffectBlockIndex="0" position="0.600006"/>
+            <Op id="MacroSleep" frames="1"/>
+            <Op id="TransitionPosition" mixEffectBlockIndex="0" position="0.231201"/>
+            <Op id="TransitionWipeBorderWidth" mixEffectBlockIndex="0" width="0.119995"/>
+            <Op id="TransitionWipeBorderSoftness" mixEffectBlockIndex="0" softness="0.929993"/>
+        </Macro>
         <Macro index="18" name="xplosion-test" description="">
             <Op id="DownstreamKeyTie" keyIndex="0" tie="True"/>
             <Op id="MediaPlayerPlay" mediaPlayer="1"/>

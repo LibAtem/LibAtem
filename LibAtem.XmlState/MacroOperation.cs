@@ -218,6 +218,24 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("flipFlop")]
+        public LibAtem.XmlState.AtemBool FlipFlop
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeFlipFlop()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.TransitionWipeAndDVEFlipFlop:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlAttribute("follow")]
         public LibAtem.XmlState.AtemBool Follow
         {
@@ -353,6 +371,8 @@ namespace LibAtem.XmlState
                 case MacroOperationType.SuperSourceBoxInput:
                 case MacroOperationType.PreviewInput:
                 case MacroOperationType.ProgramInput:
+                case MacroOperationType.TransitionDipInput:
+                case MacroOperationType.TransitionWipeBorderFillInput:
                 case MacroOperationType.KeyCutInput:
                 case MacroOperationType.KeyFillInput:
                 case MacroOperationType.DownstreamKeyCutInput:
@@ -598,15 +618,27 @@ namespace LibAtem.XmlState
                 case MacroOperationType.FadeToBlackRate:
                 case MacroOperationType.PreviewInput:
                 case MacroOperationType.ProgramInput:
+                case MacroOperationType.TransitionDipInput:
                 case MacroOperationType.TransitionDipRate:
                 case MacroOperationType.TransitionDVEPattern:
                 case MacroOperationType.TransitionDVERate:
                 case MacroOperationType.TransitionMixRate:
+                case MacroOperationType.TransitionPreview:
+                case MacroOperationType.TransitionPosition:
                 case MacroOperationType.TransitionSource:
                 case MacroOperationType.TransitionStingerMixRate:
                 case MacroOperationType.TransitionStingerRate:
                 case MacroOperationType.TransitionStyle:
+                case MacroOperationType.TransitionWipeAndDVEFlipFlop:
+                case MacroOperationType.TransitionWipeAndDVEReverse:
+                case MacroOperationType.TransitionWipeBorderFillInput:
+                case MacroOperationType.TransitionWipeBorderSoftness:
+                case MacroOperationType.TransitionWipeBorderWidth:
+                case MacroOperationType.TransitionWipePattern:
                 case MacroOperationType.TransitionWipeRate:
+                case MacroOperationType.TransitionWipeSymmetry:
+                case MacroOperationType.TransitionWipeXPosition:
+                case MacroOperationType.TransitionWipeYPosition:
                 case MacroOperationType.ChromaKeyGain:
                 case MacroOperationType.ChromaKeyHue:
                 case MacroOperationType.ChromaKeyLift:
@@ -701,6 +733,7 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.TransitionDVEPattern:
+                case MacroOperationType.TransitionWipePattern:
                 case MacroOperationType.PatternKeyPattern:
                     return true;
                 default:
@@ -714,9 +747,32 @@ namespace LibAtem.XmlState
             get => (LibAtem.Common.DVEEffect)Enum.Parse(typeof (LibAtem.Common.DVEEffect), PatternString) ; set => PatternString = value.ToString() ; }
 
         [XmlIgnore]
+        public LibAtem.Common.Pattern Pattern
+        {
+            get => (LibAtem.Common.Pattern)Enum.Parse(typeof (LibAtem.Common.Pattern), PatternString) ; set => PatternString = value.ToString() ; }
+
+        [XmlIgnore]
         public LibAtem.Common.Pattern PatternKeyPattern
         {
             get => (LibAtem.Common.Pattern)Enum.Parse(typeof (LibAtem.Common.Pattern), PatternString) ; set => PatternString = value.ToString() ; }
+
+        [XmlAttribute("position")]
+        public System.Double Position
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializePosition()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.TransitionPosition:
+                    return true;
+                default:
+                    return false;
+            }
+        }
 
         [XmlAttribute("preMultiply")]
         public LibAtem.XmlState.AtemBool PreMultiply
@@ -731,6 +787,24 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.LumaKeyPreMultiply:
                 case MacroOperationType.DownstreamKeyPreMultiply:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("preview")]
+        public LibAtem.XmlState.AtemBool Preview
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializePreview()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.TransitionPreview:
                     return true;
                 default:
                     return false;
@@ -756,6 +830,24 @@ namespace LibAtem.XmlState
                 case MacroOperationType.TransitionStingerRate:
                 case MacroOperationType.TransitionWipeRate:
                 case MacroOperationType.DownstreamKeyRate:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("reverse")]
+        public LibAtem.XmlState.AtemBool Reverse
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeReverse()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.TransitionWipeAndDVEReverse:
                     return true;
                 default:
                     return false;
@@ -867,6 +959,7 @@ namespace LibAtem.XmlState
         {
             switch (Id)
             {
+                case MacroOperationType.TransitionWipeBorderSoftness:
                 case MacroOperationType.PatternKeySoftness:
                     return true;
                 default:
@@ -944,6 +1037,7 @@ namespace LibAtem.XmlState
         {
             switch (Id)
             {
+                case MacroOperationType.TransitionWipeSymmetry:
                 case MacroOperationType.PatternKeySymmetry:
                     return true;
                 default:
@@ -1008,6 +1102,24 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("width")]
+        public System.Double Width
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeWidth()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.TransitionWipeBorderWidth:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlAttribute("xPosition")]
         public System.Double PositionX
         {
@@ -1020,6 +1132,7 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.SuperSourceBoxXPosition:
+                case MacroOperationType.TransitionWipeXPosition:
                 case MacroOperationType.DVEAndFlyKeyXPosition:
                 case MacroOperationType.PatternKeyXPosition:
                     return true;
@@ -1058,6 +1171,7 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.SuperSourceBoxYPosition:
+                case MacroOperationType.TransitionWipeYPosition:
                 case MacroOperationType.DVEAndFlyKeyYPosition:
                 case MacroOperationType.PatternKeyYPosition:
                     return true;
@@ -1166,6 +1280,9 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.MixEffects.ProgramInputMacroOp":
                     var opProgramInputMacroOp = (LibAtem.MacroOperations.MixEffects.ProgramInputMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.ProgramInput, Input = opProgramInputMacroOp.Source.ToMacroInput(), MixEffectBlockIndex = opProgramInputMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionDipInputMacroOp":
+                    var opTransitionDipInputMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionDipInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionDipInput, Input = opTransitionDipInputMacroOp.Input.ToMacroInput(), MixEffectBlockIndex = opTransitionDipInputMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Transition.TransitionDipRateMacroOp":
                     var opTransitionDipRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionDipRateMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionDipRate, Rate = opTransitionDipRateMacroOp.Rate, MixEffectBlockIndex = opTransitionDipRateMacroOp.Index};
@@ -1178,6 +1295,12 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.MixEffects.Transition.TransitionMixRateMacroOp":
                     var opTransitionMixRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionMixRateMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionMixRate, Rate = opTransitionMixRateMacroOp.Rate, MixEffectBlockIndex = opTransitionMixRateMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionPreviewMacroOp":
+                    var opTransitionPreviewMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionPreviewMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionPreview, Preview = opTransitionPreviewMacroOp.Preview.ToAtemBool(), MixEffectBlockIndex = opTransitionPreviewMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionPositionMacroOp":
+                    var opTransitionPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionPositionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionPosition, Position = opTransitionPositionMacroOp.Position, MixEffectBlockIndex = opTransitionPositionMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Transition.TransitionSourceMacroOp":
                     var opTransitionSourceMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionSourceMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionSource, TransitionSource = opTransitionSourceMacroOp.Source, MixEffectBlockIndex = opTransitionSourceMacroOp.Index};
@@ -1190,9 +1313,36 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.MixEffects.Transition.TransitionStyleMacroOp":
                     var opTransitionStyleMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionStyleMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionStyle, TransitionStyle = opTransitionStyleMacroOp.Style, MixEffectBlockIndex = opTransitionStyleMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeAndDVEFlipFlopMacroOp":
+                    var opTransitionWipeAndDVEFlipFlopMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeAndDVEFlipFlopMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipeAndDVEFlipFlop, FlipFlop = opTransitionWipeAndDVEFlipFlopMacroOp.FlipFlop.ToAtemBool(), MixEffectBlockIndex = opTransitionWipeAndDVEFlipFlopMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeAndDVEReverseMacroOp":
+                    var opTransitionWipeAndDVEReverseMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeAndDVEReverseMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipeAndDVEReverse, Reverse = opTransitionWipeAndDVEReverseMacroOp.ReverseDirection.ToAtemBool(), MixEffectBlockIndex = opTransitionWipeAndDVEReverseMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeBorderFillInputMacroOp":
+                    var opTransitionWipeBorderFillInputMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeBorderFillInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipeBorderFillInput, Input = opTransitionWipeBorderFillInputMacroOp.Input.ToMacroInput(), MixEffectBlockIndex = opTransitionWipeBorderFillInputMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeBorderSoftnessMacroOp":
+                    var opTransitionWipeBorderSoftnessMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeBorderSoftnessMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipeBorderSoftness, Softness = opTransitionWipeBorderSoftnessMacroOp.BorderSoftness, MixEffectBlockIndex = opTransitionWipeBorderSoftnessMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeBorderWidthMacroOp":
+                    var opTransitionWipeBorderWidthMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeBorderWidthMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipeBorderWidth, Width = opTransitionWipeBorderWidthMacroOp.BorderWidth, MixEffectBlockIndex = opTransitionWipeBorderWidthMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipePatternMacroOp":
+                    var opTransitionWipePatternMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipePatternMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipePattern, Pattern = opTransitionWipePatternMacroOp.Pattern, MixEffectBlockIndex = opTransitionWipePatternMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeRateMacroOp":
                     var opTransitionWipeRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeRateMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionWipeRate, Rate = opTransitionWipeRateMacroOp.Rate, MixEffectBlockIndex = opTransitionWipeRateMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeSymmetryMacroOp":
+                    var opTransitionWipeSymmetryMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeSymmetryMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipeSymmetry, Symmetry = opTransitionWipeSymmetryMacroOp.Symmetry, MixEffectBlockIndex = opTransitionWipeSymmetryMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeXPositionMacroOp":
+                    var opTransitionWipeXPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeXPositionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipeXPosition, PositionX = opTransitionWipeXPositionMacroOp.XPosition, MixEffectBlockIndex = opTransitionWipeXPositionMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeYPositionMacroOp":
+                    var opTransitionWipeYPositionMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeYPositionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionWipeYPosition, PositionY = opTransitionWipeYPositionMacroOp.YPosition, MixEffectBlockIndex = opTransitionWipeYPositionMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.ChromaKeyGainMacroOp":
                     var opChromaKeyGainMacroOp = (LibAtem.MacroOperations.MixEffects.Key.ChromaKeyGainMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.ChromaKeyGain, Gain = opChromaKeyGainMacroOp.Gain, UpstreamKeyIndex = opChromaKeyGainMacroOp.KeyIndex, MixEffectBlockIndex = opChromaKeyGainMacroOp.Index};
@@ -1462,6 +1612,8 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.MixEffects.PreviewInputMacroOp{Source = mac.Input.ToVideoSource(), Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.ProgramInput:
                     return new LibAtem.MacroOperations.MixEffects.ProgramInputMacroOp{Source = mac.Input.ToVideoSource(), Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionDipInput:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionDipInputMacroOp{Input = mac.Input.ToVideoSource(), Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionDipRate:
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionDipRateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionDVEPattern:
@@ -1470,6 +1622,10 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionDVERateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionMixRate:
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionMixRateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionPreview:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionPreviewMacroOp{Preview = mac.Preview.Value(), Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionPosition:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionPositionMacroOp{Position = mac.Position, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionSource:
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionSourceMacroOp{Source = mac.TransitionSource, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionStingerMixRate:
@@ -1478,8 +1634,26 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionStingerRateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionStyle:
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionStyleMacroOp{Style = mac.TransitionStyle, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionWipeAndDVEFlipFlop:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeAndDVEFlipFlopMacroOp{FlipFlop = mac.FlipFlop.Value(), Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionWipeAndDVEReverse:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeAndDVEReverseMacroOp{ReverseDirection = mac.Reverse.Value(), Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionWipeBorderFillInput:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeBorderFillInputMacroOp{Input = mac.Input.ToVideoSource(), Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionWipeBorderSoftness:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeBorderSoftnessMacroOp{BorderSoftness = mac.Softness, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionWipeBorderWidth:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeBorderWidthMacroOp{BorderWidth = mac.Width, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionWipePattern:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipePatternMacroOp{Pattern = mac.Pattern, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionWipeRate:
                     return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeRateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionWipeSymmetry:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeSymmetryMacroOp{Symmetry = mac.Symmetry, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionWipeXPosition:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeXPositionMacroOp{XPosition = mac.PositionX, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionWipeYPosition:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.TransitionWipeYPositionMacroOp{YPosition = mac.PositionY, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.ChromaKeyGain:
                     return new LibAtem.MacroOperations.MixEffects.Key.ChromaKeyGainMacroOp{Gain = mac.Gain, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.ChromaKeyHue:
