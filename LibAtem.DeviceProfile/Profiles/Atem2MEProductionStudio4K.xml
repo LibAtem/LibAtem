@@ -78,5 +78,6 @@
   <MediaPoolClips>2</MediaPoolClips>
   <MacroCount>100</MacroCount>
   <MultiViews>2</MultiViews>
+  <MultiViewVuMeters>true</MultiViewVuMeters>
   <SerialPort>1</SerialPort>
 </DeviceProfile>
