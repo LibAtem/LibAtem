@@ -80,7 +80,8 @@ namespace LibAtem.DeviceProfile.Properties {
         ///    &lt;/DevicePort&gt;
         ///    &lt;DevicePort id=&quot;4&quot;&gt;
         ///      &lt;Port&gt;HDMI&lt;/Port&gt;
-        ///    &lt; [rest of string was truncated]&quot;;.
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;D [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Atem1MEProductionSwitcher {
             get {
@@ -109,7 +110,8 @@ namespace LibAtem.DeviceProfile.Properties {
         ///    &lt;/DevicePort&gt;
         ///    &lt;DevicePort id=&quot;5&quot;&gt;
         ///      &lt;Port&gt;SDI&lt;/Port&gt;
-        ///   [rest of string was truncated]&quot;;.
+        ///    &lt;/DevicePort&gt;
+        ///     [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Atem2MEProductionStudio4K {
             get {
