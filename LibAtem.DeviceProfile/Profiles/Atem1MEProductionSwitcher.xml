@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DeviceProfile>
   <Product>ATEM 1 M/E Production Switcher</Product>
-  <MixEffectBlocks>2</MixEffectBlocks>
+  <MixEffectBlocks>1</MixEffectBlocks>
   <Sources>
     <DevicePort id="1">
       <Port>Composite</Port>

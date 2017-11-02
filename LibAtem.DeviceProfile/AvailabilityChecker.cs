@@ -36,6 +36,8 @@ namespace LibAtem.DeviceProfile
                 return IsAvailable((UpstreamKeyId)val, profile);
             if (val is DownstreamKeyId)
                 return IsAvailable((DownstreamKeyId)val, profile);
+            if (val is AuxiliaryId)
+                return IsAvailable((AuxiliaryId)val, profile);
 
             // Assume it is available as many types do not need implementing
             return true;
@@ -103,6 +105,11 @@ namespace LibAtem.DeviceProfile
         public static bool IsAvailable(this DownstreamKeyId id, DeviceProfile profile)
         {
             return id.IsValid() && (int)id < profile.DownstreamKeys;
+        }
+
+        public static bool IsAvailable(this AuxiliaryId id, DeviceProfile profile)
+        {
+            return id.IsValid() && (int)id < profile.Auxiliaries;
         }
     }
 }
