@@ -9,13 +9,17 @@ namespace LibAtem.Net.DataTransfer
 {
     public class UploadMacroJob : DataTransferJob
     {
+        private readonly string _name;
+        private readonly string _description;
         private readonly Action<bool> _onComplete;
         private readonly IReadOnlyList<byte[]> _dataQueue;
         private uint _id;
 
-        public UploadMacroJob(uint index, IReadOnlyList<MacroOpBase> dataQueue, Action<bool> onComplete, TimeSpan? timeout = null)
+        public UploadMacroJob(uint index, string name, string description, IEnumerable<MacroOpBase> dataQueue, Action<bool> onComplete, TimeSpan? timeout = null)
             : base(0xffff, index, timeout)
         {
+            _name = name;
+            _description = description;
             _onComplete = onComplete;
             _dataQueue = dataQueue.Select(o => o.ToByteArray()).ToList();
         }
@@ -45,7 +49,9 @@ namespace LibAtem.Net.DataTransfer
             {
                 var toSend = new DataTransferFileDescriptionCommand()
                 {
-                    TransferId = _id
+                    TransferId = _id,
+                    Name = _name,
+                    Description = _description,
                 };
                 connection.QueueCommand(toSend);
 

@@ -14,9 +14,9 @@ namespace LibAtem.Net.DataTransfer
         {
         }
 
-        private static IReadOnlyList<MacroOpBase> Deserialize(IReadOnlyList<byte[]> data)
+        private static IReadOnlyList<MacroOpBase> Deserialize(IEnumerable<byte[]> data)
         {
-            return data.Select(MacroOpManager.CreateFromData).ToList();
+            return data?.Select(MacroOpManager.CreateFromData).ToList();
         }
     }
 

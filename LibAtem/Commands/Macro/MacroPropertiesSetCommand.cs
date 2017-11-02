@@ -28,6 +28,7 @@ namespace LibAtem.Commands.Macro
         {
             base.Serialize(cmd);
 
+            // TODO - specify max lengths on these
             cmd.SetString(8, Name);
             cmd.SetString(8 + Name.Length, Description);
         }

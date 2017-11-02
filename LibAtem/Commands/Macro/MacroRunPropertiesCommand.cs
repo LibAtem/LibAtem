@@ -7,7 +7,7 @@ namespace LibAtem.Commands.Macro
     {
         public enum MaskFlags
         {
-            Looping = 0,
+            Looping = 1,
         }
 
         [Serialize(0), Enum8]
