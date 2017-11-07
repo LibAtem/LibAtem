@@ -3,7 +3,7 @@ using LibAtem.Commands.Settings.Multiview;
 using LibAtem.Common;
 using LibAtem.Serialization;
 
-namespace LibAtem.MacroOperations.Audio
+namespace LibAtem.MacroOperations.Settings
 {
     [MacroOperation(MacroOperationType.MultiViewLayout, 8)]
     public class MultiViewLayoutMacroOp : MacroOpBase

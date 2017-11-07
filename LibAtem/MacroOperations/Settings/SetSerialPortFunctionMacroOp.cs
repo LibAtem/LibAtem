@@ -3,7 +3,7 @@ using LibAtem.Commands.Settings;
 using LibAtem.Common;
 using LibAtem.Serialization;
 
-namespace LibAtem.MacroOperations.Audio
+namespace LibAtem.MacroOperations.Settings
 {
     [MacroOperation(MacroOperationType.SetSerialPortFunction, 8)]
     public class SetSerialPortFunctionMacroOp : MacroOpBase

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using LibAtem.Common;
 using LibAtem.MacroOperations;
-using LibAtem.MacroOperations.Audio;
+using LibAtem.MacroOperations.Settings;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
