@@ -48,7 +48,7 @@
         // TODO - other types
     }
 
-    public static class XmlPortTypeExtensions
+    public static class MacroPortTypeExtensions
     {
         public static MacroPortType ToMacroPortType(this ExternalPortType type)
         {

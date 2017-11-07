@@ -160,18 +160,13 @@ namespace LibAtem
     {
         private readonly string _name;
 
-        private readonly byte b1;
-        private readonly byte b2;
-
-        public CommandBuilder(string name, byte b1 = 0x00, byte b2 = 0x00)
+        public CommandBuilder(string name)
             : base(true)
         {
             if (name.Length != 4)
                 throw new ArgumentException("Invalid name length");
 
             _name = name;
-            this.b1 = b1;
-            this.b2 = b2;
         }
 
         public override byte[] ToByteArray()
@@ -184,7 +179,7 @@ namespace LibAtem
 
             byte[] prefix = {
                 l1, l2, // Length
-                b1, b2, // Unknown
+                0x00, 0x00, // Unknown
             };
 
             return prefix.Concat(Encoding.ASCII.GetBytes(_name)).Concat(data).ToArray();

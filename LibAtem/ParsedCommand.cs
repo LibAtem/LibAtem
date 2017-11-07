@@ -167,16 +167,32 @@ namespace LibAtem
 
     public class ParsedCommand : ParsedByteArray
     {
-        public byte B1 { get; }
-        public byte B2 { get; }
         public string Name { get; }
 
-        public ParsedCommand(byte b1, byte b2, string name, byte[] body)
+        public ParsedCommand(string name, byte[] body)
             : base(body, true)
         {
-            B1 = b1;
-            B2 = b2;
             Name = name;
+        }
+        
+        public static bool ReadNextCommand(byte[] payload, int offset, out ParsedCommand cmd)
+        {
+            cmd = null;
+
+            if (payload.Length < offset + 8)
+                return false;
+
+            int cmdLength = (payload[offset] << 8) | payload[offset + 1];
+            if (payload.Length < offset + cmdLength || cmdLength == 0)
+                return false;
+
+            byte[] cmdBody = new byte[cmdLength - 8];
+            Array.Copy(payload, offset + 8, cmdBody, 0, cmdLength - 8);
+
+            string name = Encoding.ASCII.GetString(payload, offset + 4, 4);
+            cmd = new ParsedCommand(name, cmdBody);
+
+            return true;
         }
     }
 }

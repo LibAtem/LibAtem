@@ -60,20 +60,11 @@ namespace LibAtem.Net
             int offset = 0;
             while (offset < payload.Length)
             {
-                // if not enough for command header then end
-                if (payload.Length < offset + 8)
+                if (!ParsedCommand.ReadNextCommand(payload, offset, out ParsedCommand cmd) || cmd == null)
                     return res;
 
-                int cmdLength = (payload[offset] << 8) | payload[offset + 1];
-                if (payload.Length < offset + cmdLength || cmdLength == 0)
-                    return res;
-
-                byte[] cmdBody = new byte[cmdLength - 8];
-                Array.Copy(payload, offset + 8, cmdBody, 0, cmdLength - 8);
-
-                string name = Encoding.ASCII.GetString(payload, offset + 4, 4);
-                res.Add(new ParsedCommand(payload[offset+2], payload[offset+3], name, cmdBody));
-                offset += cmdLength;
+                res.Add(cmd);
+                offset += 8 + cmd.BodyLength;
             }
 
             return res;

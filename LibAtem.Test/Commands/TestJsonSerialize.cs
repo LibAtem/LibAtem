@@ -6,20 +6,21 @@ using LibAtem.Commands;
 using LibAtem.Test.Util;
 using Xunit;
 using Xunit.Abstractions;
+using Newtonsoft.Json;
 
 namespace LibAtem.Test.Commands
 {
-    public class TestAutoSerialize
+    public class TestJsonSerialize
     {
         private readonly ITestOutputHelper output;
 
-        public TestAutoSerialize(ITestOutputHelper output)
+        public TestJsonSerialize(ITestOutputHelper output)
         {
             this.output = output;
         }
-        
+
         [Fact]
-        public void TestAutoPropertySerialization()
+        public void TestJsonSerialization()
         {
             var failures = new List<string>();
 
@@ -37,7 +38,6 @@ namespace LibAtem.Test.Commands
                 }
                 catch (Exception e)
                 {
-                    failures.Add(e.StackTrace);
                     failures.Add(string.Format("{0}: {1}", type.Name, e.Message));
                 }
             }
@@ -50,30 +50,15 @@ namespace LibAtem.Test.Commands
         {
             for (int i = 0; i < rounds; i++)
             {
-                ICommand raw =(ICommand) RandomPropertyGenerator.Create(t);
-                ICommand cmd = DeserializeSingle(raw.ToByteArray());
+                ICommand raw = (ICommand)RandomPropertyGenerator.Create(t);
+
+                string jsonStr = JsonConvert.SerializeObject(raw);
+                var cmd = (ICommand)JsonConvert.DeserializeObject(jsonStr, t);
                 if (!t.GetTypeInfo().IsAssignableFrom(cmd.GetType()))
                     throw new Exception("Deserialized command of wrong type");
-
-                RandomPropertyGenerator.AssertAreTheSame(raw, cmd);
+                
+                Assert.Equal(raw.ToByteArray(), cmd.ToByteArray());
             }
-        }
-        
-        private static ICommand DeserializeSingle(byte[] arr)
-        {
-            Assert.True(ParsedCommand.ReadNextCommand(arr, 0, out ParsedCommand parsed));
-            Assert.NotNull(parsed);
-
-            Type type = CommandManager.FindForName(parsed.Name);
-            if (type == null)
-                throw new Exception("Failed to find command during deserialize");
-
-            ICommand cmd = (ICommand)Activator.CreateInstance(type);
-            if (cmd == null)
-                throw new Exception("Failed to construct command");
-
-            cmd.Deserialize(parsed);
-            return cmd;
         }
     }
 }
