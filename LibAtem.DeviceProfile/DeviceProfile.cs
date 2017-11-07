@@ -26,7 +26,7 @@ namespace LibAtem.DeviceProfile
 
         public uint Stingers { get; set; }
 
-        public uint MultiViews { get; set; }
+        public MultiView MultiView { get; set; }
 
         public uint DVE { get; set; }
 
@@ -50,5 +50,14 @@ namespace LibAtem.DeviceProfile
 
         [XmlElement("Port")]
         public List<ExternalPortType> Port { get; set; }
+    }
+
+    public class MultiView
+    {
+        public uint Count { get; set; }
+
+        public bool VuMeters { get; set; }
+
+        public bool CanSwapPreviewProgram { get; set; }
     }
 }

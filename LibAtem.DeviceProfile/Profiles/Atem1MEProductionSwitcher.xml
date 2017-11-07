@@ -43,7 +43,10 @@
   <MediaPoolStills>20</MediaPoolStills>
   <MediaPoolClips>2</MediaPoolClips>
   <MacroCount>100</MacroCount>
-  <MultiViews>1</MultiViews>
-  <MultiViewVuMeters>false</MultiViewVuMeters>
+  <MultiView>
+    <Count>1</Count>
+    <VuMeters>false</VuMeters>
+    <CanSwapPreviewProgram>false</CanSwapPreviewProgram>
+  </MultiView>
   <SerialPort>0</SerialPort>
 </DeviceProfile>
