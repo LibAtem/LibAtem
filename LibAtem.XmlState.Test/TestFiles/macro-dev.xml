@@ -257,16 +257,54 @@
         <Property device="8" property="Locked" value="False"/>
     </CameraControl>
     <MacroPool>
+        <Macro index="0" name="fuzion" description="">
+            <Op id="ProgramInput" mixEffectBlockIndex="0" input="Camera5"/>
+            <Op id="MediaPlayerSourceStillIndex" mediaPlayer="0" index="0"/>
+            <Op id="MediaPlayerSourceStill" mediaPlayer="0"/>
+            <Op id="KeyFillInput" mixEffectBlockIndex="0" keyIndex="0" input="MediaPlayer1"/>
+            <Op id="KeyCutInput" mixEffectBlockIndex="0" keyIndex="0" input="MediaPlayer1Key"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="0" onAir="True"/>
+        </Macro>
+        <Macro index="1" name="Spetic" description="">
+            <Op id="ProgramInput" mixEffectBlockIndex="0" input="Camera6"/>
+            <Op id="MediaPlayerSourceStillIndex" mediaPlayer="0" index="1"/>
+            <Op id="MediaPlayerSourceStill" mediaPlayer="0"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="0" onAir="True"/>
+        </Macro>
+        <Macro index="2" name="botimus" description="">
+            <Op id="ProgramInput" mixEffectBlockIndex="0" input="Camera7"/>
+            <Op id="MediaPlayerSourceStillIndex" mediaPlayer="0" index="6"/>
+            <Op id="MediaPlayerSourceStill" mediaPlayer="0"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="0" onAir="True"/>
+        </Macro>
+        <Macro index="3" name="Sinder" description="">
+            <Op id="ProgramInput" mixEffectBlockIndex="0" input="Camera8"/>
+            <Op id="MediaPlayerSourceStillIndex" mediaPlayer="0" index="7"/>
+            <Op id="MediaPlayerSourceStill" mediaPlayer="0"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="0" onAir="True"/>
+        </Macro>
+        <Macro index="4" name="settings" description="">
+            <Op id="DownConvertMode" downConvertMode="Letterbox"/>
+            <Op id="VideoMode" videoMode="720p50"/>
+            <Op id="AudioMixerMonitorOut" enable="True"/>
+            <Op id="AudioMixerAfvFollowTransition" enable="True"/>
+            <Op id="MultiViewWindowInput" multiViewIndex="0" windowIndex="6" input="Camera6"/>
+            <Op id="MultiViewLayout" multiViewIndex="0" layout="ProgramBottom"/>
+            <Op id="InputVideoPort" input="Camera1" videoPort="Component"/>
+            <Op id="InputVideoPort" input="Camera1" videoPort="HDMI"/>
+            <Op id="SetSerialPortFunction" externalSerialPortIndex="0" function="Gvg100"/>
+            <Op id="SetSerialPortFunction" externalSerialPortIndex="0" function="PtzVisca"/>
+        </Macro>
         <Macro index="6" name="dev1" description="">
-            <Op id="LumaKeyGain" mixEffectBlockIndex="0" keyIndex="0" gain="0.854004"/>
             <Op id="LumaKeyClip" mixEffectBlockIndex="0" keyIndex="0" clip="0.391998"/>
+            <Op id="LumaKeyGain" mixEffectBlockIndex="0" keyIndex="0" gain="0.854004"/>
             <Op id="LumaKeyInvert" mixEffectBlockIndex="0" keyIndex="0" invert="True"/>
             <Op id="KeyMaskEnable" mixEffectBlockIndex="0" keyIndex="0" enable="True"/>
             <Op id="KeyMaskLeft" mixEffectBlockIndex="0" keyIndex="0" left="-10"/>
             <Op id="KeyMaskTop" mixEffectBlockIndex="0" keyIndex="0" top="5"/>
             <Op id="KeyMaskRight" mixEffectBlockIndex="0" keyIndex="0" right="10"/>
             <Op id="KeyMaskBottom" mixEffectBlockIndex="0" keyIndex="0" bottom="-5.00002"/>
-            <Op id="TransitionDVEPattern" mixEffectBlockIndex="0" pattern="PushLeft"/>
+            <Op id="TransitionDVEPattern" mixEffectBlockIndex="0" pattern="SqueezeTop"/>
             <Op id="TransitionDVERate" mixEffectBlockIndex="0" rate="35"/>
         </Macro>
         <Macro index="7" name="dev2" description="">
@@ -386,6 +424,7 @@
             <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="1" altitude="100"/>
             <Op id="DVEKeyShadowDirection" mixEffectBlockIndex="0" keyIndex="0" direction="183"/>
             <Op id="DVEKeyShadowAltitude" mixEffectBlockIndex="0" keyIndex="0" altitude="99"/>
+            <Op id="AuxiliaryInput" auxiliaryIndex="0" input="Black"/>
         </Macro>
         <Macro index="15" name="trans wipe and dip" description="">
             <Op id="TransitionDipRate" mixEffectBlockIndex="0" rate="22"/>

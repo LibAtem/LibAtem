@@ -192,6 +192,24 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("downConvertMode")]
+        public LibAtem.Common.DownConvertMode DownConvertMode
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeDownConvertMode()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.DownConvertMode:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlAttribute("enable")]
         public LibAtem.XmlState.AtemBool Enable
         {
@@ -212,6 +230,26 @@ namespace LibAtem.XmlState
                 case MacroOperationType.KeyFlyEnable:
                 case MacroOperationType.KeyMaskEnable:
                 case MacroOperationType.DownstreamKeyMaskEnable:
+                case MacroOperationType.HyperDeckSetRollOnTakeFrameDelay:
+                case MacroOperationType.AudioMixerMonitorOut:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("externalSerialPortIndex")]
+        public System.UInt32 ExternalSerialPortIndex
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeExternalSerialPortIndex()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.SetSerialPortFunction:
                     return true;
                 default:
                     return false;
@@ -266,6 +304,24 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.MacroSleep:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("function")]
+        public LibAtem.Common.SerialMode Function
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeFunction()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.SetSerialPortFunction:
                     return true;
                 default:
                     return false;
@@ -378,6 +434,8 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DownstreamKeyCutInput:
                 case MacroOperationType.DownstreamKeyFillInput:
                 case MacroOperationType.AudioMixerInputGain:
+                case MacroOperationType.InputVideoPort:
+                case MacroOperationType.MultiViewWindowInput:
                     return true;
                 default:
                     return false;
@@ -483,6 +541,24 @@ namespace LibAtem.XmlState
         public LibAtem.Common.DownstreamKeyId DownstreamKeyIndex
         {
             get => (LibAtem.Common.DownstreamKeyId)KeyIndexInt ; set => KeyIndexInt = (int)value ; }
+
+        [XmlAttribute("layout")]
+        public LibAtem.Common.MultiViewLayout Layout
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeLayout()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.MultiViewLayout:
+                    return true;
+                default:
+                    return false;
+            }
+        }
 
         [XmlAttribute("left")]
         public System.Double Left
@@ -678,6 +754,25 @@ namespace LibAtem.XmlState
                 case MacroOperationType.PatternKeySymmetry:
                 case MacroOperationType.PatternKeyXPosition:
                 case MacroOperationType.PatternKeyYPosition:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("multiViewIndex")]
+        public System.UInt32 MultiViewIndex
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeMultiViewIndex()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.MultiViewLayout:
+                case MacroOperationType.MultiViewWindowInput:
                     return true;
                 default:
                     return false;
@@ -1102,6 +1197,42 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("videoMode")]
+        public LibAtem.Common.VideoMode VideoMode
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeVideoMode()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.VideoMode:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("videoPort")]
+        public LibAtem.Common.MacroPortType VideoPort
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeVideoPort()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.InputVideoPort:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlAttribute("width")]
         public System.Double Width
         {
@@ -1114,6 +1245,24 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.TransitionWipeBorderWidth:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("windowIndex")]
+        public System.UInt32 WindowIndex
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeWindowIndex()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.MultiViewWindowInput:
                     return true;
                 default:
                     return false;
@@ -1262,6 +1411,12 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.SuperSource.SuperSourceBoxYPositionMacroOp":
                     var opSuperSourceBoxYPositionMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceBoxYPositionMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.SuperSourceBoxYPosition, PositionY = opSuperSourceBoxYPositionMacroOp.PositionY, SuperSourceBoxIndex = opSuperSourceBoxYPositionMacroOp.BoxIndex};
+                case "LibAtem.MacroOperations.Settings.DownConvertModeMacroOp":
+                    var opDownConvertModeMacroOp = (LibAtem.MacroOperations.Settings.DownConvertModeMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.DownConvertMode, DownConvertMode = opDownConvertModeMacroOp.DownConvertMode};
+                case "LibAtem.MacroOperations.Settings.VideoModeMacroOp":
+                    var opVideoModeMacroOp = (LibAtem.MacroOperations.Settings.VideoModeMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.VideoMode, VideoMode = opVideoModeMacroOp.VideoMode};
                 case "LibAtem.MacroOperations.MixEffects.AutoTransitionMacroOp":
                     var opAutoTransitionMacroOp = (LibAtem.MacroOperations.MixEffects.AutoTransitionMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AutoTransition, MixEffectBlockIndex = opAutoTransitionMacroOp.Index};
@@ -1544,12 +1699,30 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp":
                     var opDownstreamKeyTieMacroOp = (LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.DownstreamKeyTie, Tie = opDownstreamKeyTieMacroOp.Tie.ToAtemBool(), DownstreamKeyIndex = opDownstreamKeyTieMacroOp.KeyIndex};
+                case "LibAtem.MacroOperations.Audio.AudioMixerAfvFollowTransitionMacroOp":
+                    var opAudioMixerAfvFollowTransitionMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerAfvFollowTransitionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.HyperDeckSetRollOnTakeFrameDelay, Enable = opAudioMixerAfvFollowTransitionMacroOp.Enable.ToAtemBool()};
                 case "LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp":
                     var opAudioMixerInputGainMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerInputGain, Input = opAudioMixerInputGainMacroOp.Index.ToMacroInput(), Gain = opAudioMixerInputGainMacroOp.Gain};
                 case "LibAtem.MacroOperations.Audio.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp":
                     var opAudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1, Follow = opAudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp.Follow.ToAtemBool()};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMacroOp":
+                    var opAudioMixerMonitorOutMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOut, Enable = opAudioMixerMonitorOutMacroOp.Enable.ToAtemBool()};
+                case "LibAtem.MacroOperations.Audio.InputVideoPortMacroOp":
+                    var opInputVideoPortMacroOp = (LibAtem.MacroOperations.Audio.InputVideoPortMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.InputVideoPort, Input = opInputVideoPortMacroOp.Source.ToMacroInput(), VideoPort = opInputVideoPortMacroOp.Port};
+                case "LibAtem.MacroOperations.Audio.MultiViewLayoutMacroOp":
+                    var opMultiViewLayoutMacroOp = (LibAtem.MacroOperations.Audio.MultiViewLayoutMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.MultiViewLayout, MultiViewIndex = opMultiViewLayoutMacroOp.MultiViewIndex, Layout = opMultiViewLayoutMacroOp.Layout};
+                case "LibAtem.MacroOperations.Audio.MultiViewWindowInputMacroOp":
+                    var opMultiViewWindowInputMacroOp = (LibAtem.MacroOperations.Audio.MultiViewWindowInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.MultiViewWindowInput, MultiViewIndex = opMultiViewWindowInputMacroOp.MultiViewIndex, WindowIndex = opMultiViewWindowInputMacroOp.WindowIndex, Input = opMultiViewWindowInputMacroOp.Source.ToMacroInput()};
+                case "LibAtem.MacroOperations.Audio.SetSerialPortFunctionMacroOp":
+                    var opSetSerialPortFunctionMacroOp = (LibAtem.MacroOperations.Audio.SetSerialPortFunctionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SetSerialPortFunction, ExternalSerialPortIndex = opSetSerialPortFunctionMacroOp.ExternalSerialPortIndex, Function = opSetSerialPortFunctionMacroOp.SerialMode};
                 default:
                     throw new Exception(string.Format("Unknown type: {0}", op.Id));
             }
@@ -1600,6 +1773,10 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.SuperSource.SuperSourceBoxXPositionMacroOp{PositionX = mac.PositionX, BoxIndex = mac.SuperSourceBoxIndex};
                 case MacroOperationType.SuperSourceBoxYPosition:
                     return new LibAtem.MacroOperations.SuperSource.SuperSourceBoxYPositionMacroOp{PositionY = mac.PositionY, BoxIndex = mac.SuperSourceBoxIndex};
+                case MacroOperationType.DownConvertMode:
+                    return new LibAtem.MacroOperations.Settings.DownConvertModeMacroOp{DownConvertMode = mac.DownConvertMode};
+                case MacroOperationType.VideoMode:
+                    return new LibAtem.MacroOperations.Settings.VideoModeMacroOp{VideoMode = mac.VideoMode};
                 case MacroOperationType.AutoTransition:
                     return new LibAtem.MacroOperations.MixEffects.AutoTransitionMacroOp{Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.CutTransition:
@@ -1788,10 +1965,22 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyRateMacroOp{Rate = mac.Rate, KeyIndex = mac.DownstreamKeyIndex};
                 case MacroOperationType.DownstreamKeyTie:
                     return new LibAtem.MacroOperations.DownStreamKey.DownstreamKeyTieMacroOp{Tie = mac.Tie.Value(), KeyIndex = mac.DownstreamKeyIndex};
+                case MacroOperationType.HyperDeckSetRollOnTakeFrameDelay:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerAfvFollowTransitionMacroOp{Enable = mac.Enable.Value()};
                 case MacroOperationType.AudioMixerInputGain:
                     return new LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp{Index = mac.Input.ToAudioSource(), Gain = mac.Gain};
                 case MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp{Follow = mac.Follow.Value()};
+                case MacroOperationType.AudioMixerMonitorOut:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMacroOp{Enable = mac.Enable.Value()};
+                case MacroOperationType.InputVideoPort:
+                    return new LibAtem.MacroOperations.Audio.InputVideoPortMacroOp{Source = mac.Input.ToVideoSource(), Port = mac.VideoPort};
+                case MacroOperationType.MultiViewLayout:
+                    return new LibAtem.MacroOperations.Audio.MultiViewLayoutMacroOp{MultiViewIndex = mac.MultiViewIndex, Layout = mac.Layout};
+                case MacroOperationType.MultiViewWindowInput:
+                    return new LibAtem.MacroOperations.Audio.MultiViewWindowInputMacroOp{MultiViewIndex = mac.MultiViewIndex, WindowIndex = mac.WindowIndex, Source = mac.Input.ToVideoSource()};
+                case MacroOperationType.SetSerialPortFunction:
+                    return new LibAtem.MacroOperations.Audio.SetSerialPortFunctionMacroOp{ExternalSerialPortIndex = mac.ExternalSerialPortIndex, SerialMode = mac.Function};
                 default:
                     throw new Exception(string.Format("Unknown type: {0}", mac.Id));
             }
