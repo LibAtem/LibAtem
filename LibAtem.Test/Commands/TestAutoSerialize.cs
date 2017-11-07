@@ -37,7 +37,6 @@ namespace LibAtem.Test.Commands
                 }
                 catch (Exception e)
                 {
-                    failures.Add(e.StackTrace);
                     failures.Add(string.Format("{0}: {1}", type.Name, e.Message));
                 }
             }

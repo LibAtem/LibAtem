@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using LibAtem.MacroOperations;
 
 namespace LibAtem.Commands.DataTransfer
 {
@@ -12,7 +9,6 @@ namespace LibAtem.Commands.DataTransfer
         public uint TransferId { get; set; }
 
         public byte[] Body { get; set; }
-        //public List<MacroOpBase> Operations { get; set; }
 
         public void Deserialize(ParsedByteArray cmd)
         {
@@ -21,21 +17,6 @@ namespace LibAtem.Commands.DataTransfer
             Body = new byte[size];
             Array.Copy(cmd.Body, 4, Body, 0, size);
             cmd.Skip(size);
-            //            Operations = new List<MacroOpBase>();
-            //
-            //            uint length = cmd.GetUInt16();
-            //            uint pos = 0;
-            //            while (!cmd.HasFinished)
-            //            {
-            //                uint opLength = cmd.GetUInt16();
-            //                cmd.Skip(opLength - 2);
-            //
-            //                byte[] opData = new byte[opLength];
-            //                Array.Copy(cmd.Body, pos, opData, 0, opLength);
-            //                pos += opLength;
-            //
-            //                Operations.Add(MacroOpManager.CreateFromData(opData));
-            //            }
         }
 
         public void Serialize(ByteArrayBuilder cmd)
@@ -44,11 +25,6 @@ namespace LibAtem.Commands.DataTransfer
 
             cmd.AddUInt16(Body.Length);
             cmd.AddByte(Body);
-
-//            byte[] data = Operations.SelectMany(o => MacroOpExtensions.ToByteArray(o)).ToArray();
-//
-//            cmd.AddUInt16(data.Length);
-//            cmd.AddByte(data);
         }
     }
 }
