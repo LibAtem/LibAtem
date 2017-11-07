@@ -19,7 +19,7 @@ namespace LibAtem.Common
         StartRecordMacro,
         StopRecordMacro,
 
-        VideoMode,
+        VideoMode = 0x000c,
 
         CameraControlVoidBool,
         CameraControlByte,
@@ -37,16 +37,16 @@ namespace LibAtem.Common
         TransitionWipeXPositionOffset,
         TransitionWipeYPositionOffset,
 
-        DownConvertMode,
-        InputVideoPort,
+        DownConvertMode = 0x001a,
+        InputVideoPort = 0x001b,
         ColorGeneratorHue = 0x001c,
         ColorGeneratorSaturation = 0x001d,
         ColorGeneratorLuminescence = 0x001e,
 
         AuxiliaryInput = 0x001f,
 
-        MultiViewWindowInput,
-        MultiViewLayout,
+        MultiViewWindowInput = 0x0020,
+        MultiViewLayout = 0x0021,
 
         DeleteMacro,
 
@@ -58,8 +58,8 @@ namespace LibAtem.Common
         KeyOnAir = 0x0027,
         KeyType = 0x0028,
 
-        LumaKeyClip, //
-        LumaKeyGain, //
+        LumaKeyClip = 0x0029,
+        LumaKeyGain = 0x002a,
         
         KeyFlyEnable,
 
@@ -74,13 +74,13 @@ namespace LibAtem.Common
         KeyMaskLeft = 0x0032,
         KeyMaskRight = 0x0033,
           
-        TransitionDVEPattern, //
+        TransitionDVEPattern = 0x0034,
         DVEKeyMaskEnable = 0x0035,
         DVEKeyMaskTop = 0x0036,
         DVEKeyMaskBottom = 0x0037,
         DVEKeyMaskLeft = 0x0038,
         DVEKeyMaskRight = 0x0039,
-        TransitionDVERate, //
+        TransitionDVERate = 0x003a,
 
         ChromaKeyClip = 0x003b,
         ChromaKeyGain = 0x003c,
@@ -196,9 +196,9 @@ namespace LibAtem.Common
 
         FadeToBlackRate = 0x00a5,
         FadeToBlackCut, // Not used
-        FadeToBlackAuto = 0x00a7, // -
+        FadeToBlackAuto = 0x00a7,
 
-        SuperSourceArtCutInput, // -
+        SuperSourceArtCutInput = 0x00a8,
         SuperSourceArtFillInput = 0x00a9,
         SuperSourceArtAbove = 0x00aa,
         SuperSourceArtPreMultiply,
@@ -230,7 +230,7 @@ namespace LibAtem.Common
         SuperSourceBoxMaskRight = 0x00c5,
         
         AudioMixerInputMixType,
-        AudioMixerInputGain, //
+        AudioMixerInputGain = 0x00c7,
         AudioMixerInputBalance,
         AudioMixerMasterOutGain,
         AudioMixerMasterOutBalance,
@@ -286,6 +286,8 @@ namespace LibAtem.Common
         PtzRs422ViscaAllocateAddresses,
         PtzRs422ViscaBaudRate,
 
+        SetSerialPortFunction = 0x0103,
+
         GvgReadCrosspointPrgmBkgd,
         GvgReadCrosspointPresetBkgd,
         GvgReadCrosspointKey,
@@ -299,8 +301,6 @@ namespace LibAtem.Common
         GvgReadPushButtonLampControl,
         GvgReadFieldMode,
         GvgReadSoftwareVersion,
-
-        SetSerialPortFunction,
         
         ToggleTransitionWipeAndDVEReverse,
 
@@ -345,5 +345,6 @@ namespace LibAtem.Common
         AudioMixerInputTalkbackMuteSDI,
 
         MixMinusSetAudioMode,
+        AudioMixerAfvFollowTransition = 0x012b,
     }
 }

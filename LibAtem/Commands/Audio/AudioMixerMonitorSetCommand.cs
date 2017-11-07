@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.Audio;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
@@ -10,7 +13,7 @@ namespace LibAtem.Commands.Audio
         [Flags]
         public enum MaskFlags
         {
-           Enabled = 1 << 0,
+            Enabled = 1 << 0,
             Gain = 1 << 1,
             Mute = 1 << 2,
             Solo = 1 << 3,
@@ -32,5 +35,21 @@ namespace LibAtem.Commands.Audio
         public AudioSource SoloSource { get; set; }
         [Serialize(8), Bool]
         public bool Dim { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Enabled))
+                yield return new AudioMixerMonitorOutMacroOp {Enable = Enabled};
+            if (Mask.HasFlag(MaskFlags.Gain))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.Mute))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.Solo))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.SoloSource))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.Dim))
+                yield return null;
+        }
     }
 }

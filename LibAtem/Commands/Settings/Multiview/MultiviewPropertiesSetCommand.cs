@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.Audio;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
@@ -26,5 +29,15 @@ namespace LibAtem.Commands.Settings.Multiview
         public bool SafeAreaEnabled { get; set; }
         [Serialize(4), Bool]
         public bool ProgramPreviewSwapped { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.Layout))
+                yield return new MultiViewLayoutMacroOp {MultiViewIndex = MultiviewIndex, Layout = Layout};
+            if (Mask.HasFlag(MaskFlags.SafeAreaEnabled))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.ProgramPreviewSwapped))
+                yield return null;
+        }
     }
 }

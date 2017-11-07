@@ -1,4 +1,7 @@
-﻿using LibAtem.Common;
+﻿using System.Collections.Generic;
+using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.Audio;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
@@ -14,5 +17,15 @@ namespace LibAtem.Commands.Settings.Multiview
         public uint WindowIndex { get; set; }
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            yield return new MultiViewWindowInputMacroOp
+            {
+                MultiViewIndex = MultiviewIndex,
+                WindowIndex = WindowIndex,
+                Source = Source,
+            };
+        }
     }
 }

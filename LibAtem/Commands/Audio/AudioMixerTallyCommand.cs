@@ -17,6 +17,8 @@ namespace LibAtem.Commands.Audio
                 cmd.AddUInt16((int) src.Key);
                 cmd.AddBoolArray(src.Value);
             }
+
+            cmd.PadToNearestMultipleOf4();
         }
 
         public void Deserialize(ParsedByteArray cmd)
@@ -25,7 +27,9 @@ namespace LibAtem.Commands.Audio
 
             uint count = cmd.GetUInt16();
             for (int i = 0; i < count; i++)
-            Inputs.Add((AudioSource) cmd.GetUInt16(), cmd.GetBoolArray()[0]);
+                Inputs.Add((AudioSource) cmd.GetUInt16(), cmd.GetBoolArray()[0]);
+
+            cmd.SkipToNearestMultipleOf4();
         }
     }
 }

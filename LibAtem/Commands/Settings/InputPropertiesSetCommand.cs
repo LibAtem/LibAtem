@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.MacroOperations;
+using LibAtem.MacroOperations.Audio;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
@@ -26,5 +29,15 @@ namespace LibAtem.Commands.Settings
         public string ShortName { get; set; }
         [Serialize(28), Enum16]
         public ExternalPortType ExternalPortType { get; set; }
+
+        public override IEnumerable<MacroOpBase> ToMacroOps()
+        {
+            if (Mask.HasFlag(MaskFlags.LongName))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.ShortName))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.ExternalPortType))
+                yield return new InputVideoPortMacroOp {Source = Id, Port = ExternalPortType.ToMacroPortType()};
+        }
     }
 }

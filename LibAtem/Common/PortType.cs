@@ -39,4 +39,46 @@
         AESEBU = 64,
         RCA = 128,
     }
+
+    public enum MacroPortType
+    {
+        SDI = 0, // TODO Check this
+        HDMI = 1,
+        Component = 2,
+        // TODO - other types
+    }
+
+    public static class XmlPortTypeExtensions
+    {
+        public static MacroPortType ToMacroPortType(this ExternalPortType type)
+        {
+            switch (type)
+            {
+                case ExternalPortType.HDMI:
+                    return MacroPortType.HDMI;
+                case ExternalPortType.Component:
+                    return MacroPortType.Component;
+                case ExternalPortType.Composite:
+                case ExternalPortType.SVideo:
+                case ExternalPortType.Internal:
+                case ExternalPortType.SDI:
+                default:
+                    return MacroPortType.SDI;
+            }
+        }
+
+        public static ExternalPortType ToExternalPortType(this MacroPortType type)
+        {
+            switch (type)
+            {
+                case MacroPortType.HDMI:
+                    return ExternalPortType.HDMI;
+                case MacroPortType.Component:
+                    return ExternalPortType.Component;
+                case MacroPortType.SDI:
+                default:
+                    return ExternalPortType.SDI;
+            }
+        }
+    }
 }

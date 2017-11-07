@@ -6,15 +6,15 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("CVdM", 4), NoCommandId]
-    public class VideoModeSetCommand : SerializableCommandBase
+    [CommandName("CDcO", 4), NoCommandId]
+    public class DownConvertModeSetCommand : SerializableCommandBase
     {
         [Serialize(0), Enum8]
-        public VideoMode VideoMode { get; set; }
+        public DownConvertMode DownConvertMode { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
-            yield return new VideoModeMacroOp {VideoMode = VideoMode};
+            yield return new DownConvertModeMacroOp {DownConvertMode = DownConvertMode};
         }
     }
 }
