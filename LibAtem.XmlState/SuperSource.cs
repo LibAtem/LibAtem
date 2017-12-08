@@ -75,13 +75,13 @@ namespace LibAtem.XmlState
         {
         }
 
-        public SuperSourceBox(uint index)
+        public SuperSourceBox(SuperSourceBoxId index)
         {
             Index = index;
         }
 
         [XmlAttribute("index")]
-        public uint Index { get; set; }
+        public SuperSourceBoxId Index { get; set; }
 
         [XmlAttribute("enabled")]
         public AtemBool Enabled { get; set; }

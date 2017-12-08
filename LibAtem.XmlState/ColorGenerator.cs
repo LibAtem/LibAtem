@@ -1,11 +1,12 @@
 ﻿using System.Xml.Serialization;
+using LibAtem.Common;
 
 namespace LibAtem.XmlState
 {
     public class ColorGenerator
     {
         [XmlAttribute("index")]
-        public uint Index { get; set; }
+        public ColorGeneratorId Index { get; set; }
         
         [XmlAttribute("hue")]
         public double Hue { get; set; }

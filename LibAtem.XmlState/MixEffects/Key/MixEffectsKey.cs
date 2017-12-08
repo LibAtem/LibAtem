@@ -9,7 +9,7 @@ namespace LibAtem.XmlState.MixEffects.Key
         {
         }
 
-        public MixEffectsKey(uint index)
+        public MixEffectsKey(UpstreamKeyId index)
         {
             Index = index;
             Mode = MixEffectKeyType.Luma;
@@ -26,7 +26,7 @@ namespace LibAtem.XmlState.MixEffects.Key
         }
 
         [XmlAttribute("index")]
-        public uint Index { get; set; }
+        public UpstreamKeyId Index { get; set; }
 
         [XmlAttribute("type")]
         public MixEffectKeyType Mode { get; set; }
