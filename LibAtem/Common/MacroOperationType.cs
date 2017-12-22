@@ -107,9 +107,9 @@ namespace LibAtem.Common
 
         FlyKeySetKeyFrame,
         FlyKeyResetKeyFrame,
-        FlyKeyRunToFull,
+        FlyKeyRunToFull = 0x0052,
         FlyKeyRunToFullWithRate,
-        FlyKeyRunToKeyFrame,
+        FlyKeyRunToKeyFrame = 0x0054,
         FlyKeyRunToKeyFrameWithRate,
         FlyKeyRunToInfinity,
 
