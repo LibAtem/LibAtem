@@ -61,6 +61,12 @@
     <None Update="TestFiles\i61.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestMacroFiles\flykey.macros">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestMacroFiles\flykey.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestMacroFiles\macros1.macros">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

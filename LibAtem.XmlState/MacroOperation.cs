@@ -461,6 +461,24 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("keyFrameIndex")]
+        public LibAtem.Common.FlyKeyKeyFrameId KeyFrameIndex
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeKeyFrameIndex()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.FlyKeyRunToKeyFrame:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlAttribute("keyIndex")]
         public int KeyIndexInt
         {
@@ -491,6 +509,8 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DVEKeyShadowAltitude:
                 case MacroOperationType.DVEKeyShadowDirection:
                 case MacroOperationType.DVEKeyShadowEnable:
+                case MacroOperationType.FlyKeyRunToKeyFrame:
+                case MacroOperationType.FlyKeyRunToFull:
                 case MacroOperationType.KeyCutInput:
                 case MacroOperationType.KeyFillInput:
                 case MacroOperationType.KeyFlyEnable:
@@ -734,6 +754,8 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DVEKeyShadowAltitude:
                 case MacroOperationType.DVEKeyShadowDirection:
                 case MacroOperationType.DVEKeyShadowEnable:
+                case MacroOperationType.FlyKeyRunToKeyFrame:
+                case MacroOperationType.FlyKeyRunToFull:
                 case MacroOperationType.KeyCutInput:
                 case MacroOperationType.KeyFillInput:
                 case MacroOperationType.KeyFlyEnable:
@@ -1567,6 +1589,12 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp":
                     var opDVEKeyShadowEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.DVEKeyShadowEnable, Enable = opDVEKeyShadowEnableMacroOp.Enable.ToAtemBool(), UpstreamKeyIndex = opDVEKeyShadowEnableMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyShadowEnableMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToKeyFrameMacroOp":
+                    var opFlyKeyRunToKeyFrameMacroOp = (LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToKeyFrameMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.FlyKeyRunToKeyFrame, KeyFrameIndex = opFlyKeyRunToKeyFrameMacroOp.KeyFrameIndex, UpstreamKeyIndex = opFlyKeyRunToKeyFrameMacroOp.KeyIndex, MixEffectBlockIndex = opFlyKeyRunToKeyFrameMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToAllMacroOp":
+                    var opFlyKeyRunToAllMacroOp = (LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToAllMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.FlyKeyRunToFull, UpstreamKeyIndex = opFlyKeyRunToAllMacroOp.KeyIndex, MixEffectBlockIndex = opFlyKeyRunToAllMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp":
                     var opKeyCutInputMacroOp = (LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.KeyCutInput, Input = opKeyCutInputMacroOp.Source.ToMacroInput(), UpstreamKeyIndex = opKeyCutInputMacroOp.KeyIndex, MixEffectBlockIndex = opKeyCutInputMacroOp.Index};
@@ -1877,6 +1905,10 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowDirectionMacroOp{Direction = mac.Direction, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyShadowEnable:
                     return new LibAtem.MacroOperations.MixEffects.Key.DVEKeyShadowEnableMacroOp{Enable = mac.Enable.Value(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.FlyKeyRunToKeyFrame:
+                    return new LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToKeyFrameMacroOp{KeyFrameIndex = mac.KeyFrameIndex, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.FlyKeyRunToFull:
+                    return new LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToAllMacroOp{KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyCutInput:
                     return new LibAtem.MacroOperations.MixEffects.Key.KeyCutInputMacroOp{Source = mac.Input.ToVideoSource(), KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.KeyFillInput:

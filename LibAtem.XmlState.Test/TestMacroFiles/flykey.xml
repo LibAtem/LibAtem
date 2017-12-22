@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile majorVersion="1" minorVersion="4" product="ATEM 1 M/E Production Switcher">
+    <MacroPool>
+        <Macro index="0" name="sidebar-in" description="">
+            <Op id="PreviewInput" mixEffectBlockIndex="0" input="Camera6"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="3" onAir="True"/>
+            <Op id="CutTransition" mixEffectBlockIndex="0"/>
+            <Op id="FlyKeyRunToKeyFrame" mixEffectBlockIndex="0" keyIndex="3" keyFrameIndex="0"/>
+        </Macro>
+        <Macro index="1" name="sidebar-out" description="">
+            <Op id="FlyKeyRunToFull" mixEffectBlockIndex="0" keyIndex="3"/>
+            <Op id="MacroSleep" frames="25"/>
+            <Op id="CutTransition" mixEffectBlockIndex="0"/>
+            <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="3" onAir="False"/>
+        </Macro>
+    </MacroPool>
+</Profile>
