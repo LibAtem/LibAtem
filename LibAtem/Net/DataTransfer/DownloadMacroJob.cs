@@ -51,8 +51,7 @@ namespace LibAtem.Net.DataTransfer
 
         public override DataTransferStatus OnMessage(ICommand command, AtemConnection connection)
         {
-            var dataCommand = command as DataTransferDataCommand;
-            if (dataCommand != null && dataCommand.TransferId == _id)
+            if (command is DataTransferDataCommand dataCommand && dataCommand.TransferId == _id)
             {
                 // TODO - do i need to track ids to avoid duplicate data on retransmits?
                 _receivedData.Add(dataCommand.Body);
@@ -66,8 +65,7 @@ namespace LibAtem.Net.DataTransfer
                 return DataTransferStatus.OK;
             }
 
-            var completeCommand = command as DataTransferCompleteCommand;
-            if (completeCommand != null && completeCommand.TransferId == _id)
+            if (command is DataTransferCompleteCommand completeCommand && completeCommand.TransferId == _id)
             {
                 var ops = new List<byte[]>();
                 var fullData = _receivedData.SelectMany(d => d).ToArray();

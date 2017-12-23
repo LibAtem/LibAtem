@@ -1,4 +1,3 @@
-using System;
 using LibAtem.Commands;
 using LibAtem.Common;
 using LibAtem.Serialization;

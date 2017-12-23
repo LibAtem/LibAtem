@@ -44,8 +44,7 @@ namespace LibAtem.Net.DataTransfer
 
         public override DataTransferStatus OnMessage(ICommand command, AtemConnection connection)
         {
-            var continueCommand = command as DataTransferUploadContinueCommand;
-            if (continueCommand != null && continueCommand.TransferId == _id)
+            if (command is DataTransferUploadContinueCommand continueCommand && continueCommand.TransferId == _id)
             {
                 var toSend = new DataTransferFileDescriptionCommand()
                 {
@@ -82,8 +81,7 @@ namespace LibAtem.Net.DataTransfer
                 return DataTransferStatus.OK;
             }
 
-            var completeCommand = command as DataTransferCompleteCommand;
-            if (completeCommand != null && completeCommand.TransferId == _id)
+            if (command is DataTransferCompleteCommand completeCommand && completeCommand.TransferId == _id)
             {
                 _onComplete(true);
                 return DataTransferStatus.Success;

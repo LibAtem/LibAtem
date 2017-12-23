@@ -17,7 +17,7 @@ namespace LibAtem.Serialization
 
         public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            return (int)BitConverter.ToInt32(ReverseBytes(reverseBytes, data.Skip((int)start).Take(4)), 0);
+            return BitConverter.ToInt32(ReverseBytes(reverseBytes, data.Skip((int)start).Take(4)), 0);
         }
 
         public override bool AreEqual(object val1, object val2)
@@ -36,7 +36,7 @@ namespace LibAtem.Serialization
         }
     }
 
-    public class Int32DAttribute : Int32Attribute, IRandomGeneratorAttribute
+    public class Int32DAttribute : Int32Attribute
     {
         public double Scale { get; }
         public int ScaledMin { get; }
@@ -101,8 +101,7 @@ namespace LibAtem.Serialization
 
         public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-
-            return (uint)BitConverter.ToUInt32(ReverseBytes(reverseBytes, data.Skip((int)start).Take(4)), 0);
+            return BitConverter.ToUInt32(ReverseBytes(reverseBytes, data.Skip((int)start).Take(4)), 0);
         }
 
         public override bool AreEqual(object val1, object val2)
@@ -122,7 +121,7 @@ namespace LibAtem.Serialization
     }
 
 
-    public class UInt32DAttribute : UInt32Attribute, IRandomGeneratorAttribute
+    public class UInt32DAttribute : UInt32Attribute
     {
         public double Scale { get; }
         public uint ScaledMin { get; }

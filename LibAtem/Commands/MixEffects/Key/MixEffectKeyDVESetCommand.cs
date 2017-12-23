@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using LibAtem.Common;
 using LibAtem.MacroOperations;
-using LibAtem.MacroOperations.MixEffects.Key;
 using LibAtem.MacroOperations.MixEffects.Key.DVE;
 using LibAtem.Serialization;
 

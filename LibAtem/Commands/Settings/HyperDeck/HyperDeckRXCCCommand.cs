@@ -8,7 +8,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
 
         public void Serialize(ByteArrayBuilder cmd)
         {
-            cmd.AddUInt16((uint) Id);
+            cmd.AddUInt16(Id);
             cmd.AddByte(0x00, 0x0A);
         }
 
