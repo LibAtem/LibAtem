@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -28,7 +29,7 @@ namespace LibAtem.Util
         public static T GetPossibleAttribute<Te, T>(this Te src) where T : Attribute where Te : IConvertible
         {
             Type type = src.GetType();
-            MemberInfo[] memInfo = type.GetMember(src.ToString());
+            MemberInfo[] memInfo = type.GetMember(src.ToString(CultureInfo.InvariantCulture));
 
             return memInfo[0].GetCustomAttributes(typeof(T), false).OfType<T>().FirstOrDefault();
         }

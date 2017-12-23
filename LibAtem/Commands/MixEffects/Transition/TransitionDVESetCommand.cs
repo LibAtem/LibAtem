@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using LibAtem.Common;
 using LibAtem.MacroOperations;
-using LibAtem.MacroOperations.MixEffects.Transition;
+using LibAtem.MacroOperations.MixEffects.Transition.DVE;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition

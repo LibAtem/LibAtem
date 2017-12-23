@@ -1,9 +1,9 @@
 using System;
 using LibAtem.Common;
-using LibAtem.MacroOperations.MixEffects.Transition;
 using LibAtem.Serialization;
 using LibAtem.MacroOperations;
 using System.Collections.Generic;
+using LibAtem.MacroOperations.MixEffects.Transition.Stinger;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {

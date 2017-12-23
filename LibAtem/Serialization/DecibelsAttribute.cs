@@ -22,7 +22,7 @@ namespace LibAtem.Serialization
 
         private static uint DecibelToUInt(object val)
         {
-            return (uint)(Math.Pow(10, (double)val / 20d) * 32768); ;
+            return (uint)(Math.Pow(10, (double)val / 20d) * 32768);
         }
 
         public override bool AreEqual(object val1, object val2)

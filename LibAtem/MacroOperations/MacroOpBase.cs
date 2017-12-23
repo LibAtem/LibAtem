@@ -83,16 +83,12 @@ namespace LibAtem.MacroOperations
             if (macroOpTypes == null)
                 macroOpTypes = FindAllTypes();
 
-            Type res;
-            return macroOpTypes.TryGetValue(opId, out res) ? res : null;
+            return macroOpTypes.TryGetValue(opId, out Type res) ? res : null;
         }
 
         public static IReadOnlyDictionary<MacroOperationType, Type> FindAll()
         {
-            if (macroOpTypes == null)
-                macroOpTypes = FindAllTypes();
-
-            return macroOpTypes;
+            return macroOpTypes ?? (macroOpTypes = FindAllTypes());
         }
 
         public static MacroOpBase CreateFromData(byte[] arr)
