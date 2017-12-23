@@ -191,6 +191,26 @@
             <Op id="TransitionWipeBorderWidth" mixEffectBlockIndex="0" width="0.119995"/>
             <Op id="TransitionWipeBorderSoftness" mixEffectBlockIndex="0" softness="0.929993"/>
         </Macro>
+        <Macro index="16" name="stinger" description="">
+            <Op id="TransitionStingerPreRoll" mixEffectBlockIndex="0" preRoll="5" />
+            <Op id="TransitionStingerMixRate" mixEffectBlockIndex="0" mixRate="3" />
+            <Op id="TransitionStingerSourceMediaPlayer" mixEffectBlockIndex="0" mediaPlayer="1" />
+            <Op id="TransitionMixRate" mixEffectBlockIndex="0" rate="30" />
+            <Op id="TransitionStingerClipDuration" mixEffectBlockIndex="0" clipDuration="39" />
+            <Op id="TransitionStingerTriggerPoint" mixEffectBlockIndex="0" triggerPoint="20" />
+            <Op id="TransitionStingerResetDurations" mixEffectBlockIndex="0"/>
+        </Macro>
+        <Macro index="17" name="stinger2" description="">
+            <Op id="TransitionStingerSourceMediaPlayer" mixEffectBlockIndex="0" mediaPlayer="0"/>
+            <Op id="TransitionStingerClipDuration" mixEffectBlockIndex="0" clipDuration="38"/>
+            <Op id="TransitionStingerTriggerPoint" mixEffectBlockIndex="0" triggerPoint="10"/>
+            <Op id="TransitionStingerMixRate" mixEffectBlockIndex="0" mixRate="6"/>
+            <Op id="TransitionStingerPreRoll" mixEffectBlockIndex="0" preRoll="9"/>
+            <Op id="TransitionStingerDVEPreMultiply" mixEffectBlockIndex="0" preMultiply="False"/>
+            <Op id="TransitionStingerDVEClip" mixEffectBlockIndex="0" clip="0.296997"/>
+            <Op id="TransitionStingerDVEGain" mixEffectBlockIndex="0" gain="0.886002"/>
+            <Op id="TransitionStingerDVEInvert" mixEffectBlockIndex="0" invert="True"/>
+        </Macro>
         <Macro index="18" name="xplosion-test" description="">
             <Op id="DownstreamKeyTie" keyIndex="0" tie="True"/>
             <Op id="MediaPlayerPlay" mediaPlayer="1"/>
