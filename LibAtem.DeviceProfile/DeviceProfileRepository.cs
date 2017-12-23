@@ -5,6 +5,13 @@ using LibAtem.DeviceProfile.Properties;
 
 namespace LibAtem.DeviceProfile
 {
+    public enum DeviceProfileType
+    {
+        Auto,
+        Atem1ME,
+        Atem2ME4K,
+    }
+
     public static class DeviceProfileRepository
     {
         public static DeviceProfile LoadTopology(string path)
@@ -35,13 +42,15 @@ namespace LibAtem.DeviceProfile
             }
         }
 
-        public static DeviceProfile GetSystemProfile(string id)
+        public static DeviceProfile GetSystemProfile(DeviceProfileType id)
         {
             switch (id)
             {
-                case "atem-1me":
+                case DeviceProfileType.Auto:
+                    return ParseTopology(Resources.Unknown);
+                case DeviceProfileType.Atem1ME:
                     return ParseTopology(Resources.Atem1MEProductionSwitcher);
-                case "atem-2me-4k":
+                case DeviceProfileType.Atem2ME4K:
                 default:
                     return ParseTopology(Resources.Atem2MEProductionStudio4K);
             }

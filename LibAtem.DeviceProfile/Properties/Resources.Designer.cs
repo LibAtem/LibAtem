@@ -64,7 +64,7 @@ namespace LibAtem.DeviceProfile.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;DeviceProfile&gt;
         ///  &lt;Product&gt;ATEM 1 M/E Production Switcher&lt;/Product&gt;
-        ///  &lt;MixEffectBlocks&gt;2&lt;/MixEffectBlocks&gt;
+        ///  &lt;MixEffectBlocks&gt;1&lt;/MixEffectBlocks&gt;
         ///  &lt;Sources&gt;
         ///    &lt;DevicePort id=&quot;1&quot;&gt;
         ///      &lt;Port&gt;Composite&lt;/Port&gt;
@@ -80,8 +80,7 @@ namespace LibAtem.DeviceProfile.Properties {
         ///    &lt;/DevicePort&gt;
         ///    &lt;DevicePort id=&quot;4&quot;&gt;
         ///      &lt;Port&gt;HDMI&lt;/Port&gt;
-        ///    &lt;/DevicePort&gt;
-        ///    &lt;D [rest of string was truncated]&quot;;.
+        ///    &lt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Atem1MEProductionSwitcher {
             get {
@@ -110,12 +109,40 @@ namespace LibAtem.DeviceProfile.Properties {
         ///    &lt;/DevicePort&gt;
         ///    &lt;DevicePort id=&quot;5&quot;&gt;
         ///      &lt;Port&gt;SDI&lt;/Port&gt;
-        ///    &lt;/DevicePort&gt;
-        ///     [rest of string was truncated]&quot;;.
+        ///   [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Atem2MEProductionStudio4K {
             get {
                 return ResourceManager.GetString("Atem2MEProductionStudio4K", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;DeviceProfile&gt;
+        ///  &lt;Product&gt;Unknown ATEM Switcher&lt;/Product&gt;
+        ///  &lt;MixEffectBlocks&gt;1&lt;/MixEffectBlocks&gt;
+        ///  &lt;Sources&gt;
+        ///    &lt;DevicePort id=&quot;1&quot;&gt;
+        ///      &lt;Port&gt;SDI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;DevicePort id=&quot;2&quot;&gt;
+        ///      &lt;Port&gt;SDI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;DevicePort id=&quot;3&quot;&gt;
+        ///      &lt;Port&gt;SDI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;DevicePort id=&quot;4&quot;&gt;
+        ///      &lt;Port&gt;SDI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;DevicePort id=&quot;5&quot;&gt;
+        ///      &lt;Port&gt;SDI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;DevicePort id [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
     }
