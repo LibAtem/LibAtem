@@ -5,20 +5,20 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.MixEffects.Transition
 {
-    [MacroOperation(MacroOperationType.TransitionStingerMixRate, 8)]
-    public class TransitionStingerMixRateMacroOp : MixEffectMacroOpBase
+    [MacroOperation(MacroOperationType.TransitionStingerDVEClip, 12)]
+    public class TransitionStingerDVEClipMacroOp : MixEffectMacroOpBase
     {
-        [Serialize(6), UInt8Range(0, 250)]
-        [MacroField("MixRate")]
-        public uint MixRate { get; set; }
+        [Serialize(6), UInt32DScale]
+        [MacroField("Clip")]
+        public double Clip { get; set; }
 
         public override ICommand ToCommand()
         {
             return new TransitionStingerSetCommand
             {
-                Mask = TransitionStingerSetCommand.MaskFlags.MixRate,
+                Mask = TransitionStingerSetCommand.MaskFlags.Clip,
                 Index = Index,
-                MixRate = MixRate,
+                Clip = Clip,
             };
         }
     }

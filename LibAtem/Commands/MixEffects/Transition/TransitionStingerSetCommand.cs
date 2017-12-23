@@ -22,6 +22,8 @@ namespace LibAtem.Commands.MixEffects.Transition
             ClipDuration     = 1 << 6,
             TriggerPoint     = 1 << 7,
             MixRate          = 1 << 8,
+
+            Durations = Preroll | ClipDuration | TriggerPoint | MixRate,
         }
 
         [Serialize(0), Enum16]
@@ -50,11 +52,30 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(18), UInt16]
         public uint MixRate { get; set; }
 
+        // TODO - additional validation
+
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
-            if (Mask.HasFlag(MaskFlags.MixRate))
-                yield return new TransitionStingerMixRateMacroOp() { Index = Index, Rate = MixRate };
+            if (Mask.HasFlag(MaskFlags.Source))
+                yield return new TransitionStingerSourceMediaPlayerMacroOp {Index = Index, Source = Source};
+            if (Mask.HasFlag(MaskFlags.PreMultipliedKey))
+                yield return new TransitionStingerDVEPreMultiplyMacroOp {Index = Index, PreMultiply = PreMultipliedKey};
 
+            if (Mask.HasFlag(MaskFlags.Clip))
+                yield return new TransitionStingerDVEClipMacroOp {Index = Index, Clip = Clip};
+            if (Mask.HasFlag(MaskFlags.Gain))
+                yield return new TransitionStingerDVEGainMacroOp { Index = Index, Gain = Gain };
+            if (Mask.HasFlag(MaskFlags.Invert))
+                yield return new TransitionStingerDVEInvertMacroOp { Index = Index, Invert = Invert };
+
+            if (Mask.HasFlag(MaskFlags.Preroll))
+                yield return new TransitionStingerPreRollMacroOp {Index = Index, Preroll = Preroll};
+            if (Mask.HasFlag(MaskFlags.ClipDuration))
+                yield return new TransitionStingerClipDurationMacroOp {Index = Index, ClipDuration = ClipDuration};
+            if (Mask.HasFlag(MaskFlags.TriggerPoint))
+                yield return new TransitionStingerTriggerPointMacroOp {Index = Index, TriggerPoint = TriggerPoint};
+            if (Mask.HasFlag(MaskFlags.MixRate))
+                yield return new TransitionStingerMixRateMacroOp {Index = Index, MixRate = MixRate};
         }
     }
 }
