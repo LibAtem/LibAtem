@@ -30,6 +30,8 @@ namespace LibAtem.DeviceProfile
                 return IsAvailable((AudioSource)val, profile);
             if (val is MediaPlayerId)
                 return IsAvailable((MediaPlayerId)val, profile);
+            if (val is StingerSource)
+                return IsAvailable((StingerSource)val, profile);
             if (val is MixEffectBlockId)
                 return IsAvailable((MixEffectBlockId)val, profile);
             if (val is UpstreamKeyId)
@@ -90,6 +92,11 @@ namespace LibAtem.DeviceProfile
         public static bool IsAvailable(this MediaPlayerId id, DeviceProfile profile)
         {
             return id.IsValid() && (int) id < profile.MediaPlayers;
+        }
+
+        public static bool IsAvailable(this StingerSource src, DeviceProfile profile)
+        {
+            return src.IsValid() && src > 0 && (int) src < profile.MediaPlayers + 1;
         }
 
         public static bool IsAvailable(this MixEffectBlockId id, DeviceProfile profile)
