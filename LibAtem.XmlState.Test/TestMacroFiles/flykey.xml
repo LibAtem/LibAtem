@@ -13,5 +13,54 @@
             <Op id="CutTransition" mixEffectBlockIndex="0"/>
             <Op id="KeyOnAir" mixEffectBlockIndex="0" keyIndex="3" onAir="False"/>
         </Macro>
+        <Macro index="2" name="flykey2" description="">
+            <Op id="FlyKeySetKeyFrame" mixEffectBlockIndex="0" keyIndex="2" keyFrameIndex="0"/>
+            <Op id="FlyKeySetKeyFrame" mixEffectBlockIndex="0" keyIndex="2" keyFrameIndex="1"/>
+            <Op id="DVEAndFlyKeyRate" mixEffectBlockIndex="0" keyIndex="2" rate="35"/>
+            <Op id="FlyKeyRunToKeyFrame" mixEffectBlockIndex="0" keyIndex="2" keyFrameIndex="0"/>
+            <Op id="MacroSleep" frames="10"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="TopRight"/>
+            <Op id="MacroSleep" frames="10"/>
+            <Op id="FlyKeyRunToFull" mixEffectBlockIndex="0" keyIndex="2"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="TopLeft"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="TopCentre"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="TopRight"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="MiddleRight"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="BottomRight"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="BottomCentre"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="BottomLeft"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="MiddleLeft"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="CentreOfKey"/>
+            <Op id="FlyKeyRunToInfinity" mixEffectBlockIndex="0" keyIndex="2" location="MiddleCentre"/>
+        </Macro>
+        <Macro index="3" name="dve-border" description="">
+            <Op id="DVEKeyBorderHue" mixEffectBlockIndex="0" keyIndex="2" hue="132"/>
+            <Op id="DVEKeyBorderSaturation" mixEffectBlockIndex="0" keyIndex="2" saturation="0.679001"/>
+            <Op id="DVEKeyBorderLuminescence" mixEffectBlockIndex="0" keyIndex="2" luminescence="0.524002"/>
+            <Op id="DVEKeyBorderBevel" mixEffectBlockIndex="0" keyIndex="2" bevel="In"/>
+            <Op id="DVEKeyBorderOuterWidth" mixEffectBlockIndex="0" keyIndex="2" outerWidth="11.44"/>
+            <Op id="DVEKeyBorderInnerWidth" mixEffectBlockIndex="0" keyIndex="2" innerWidth="1.82001"/>
+            <Op id="DVEKeyBorderOuterSoftness" mixEffectBlockIndex="0" keyIndex="2" outerSoftness="32"/>
+            <Op id="DVEKeyBorderInnerSoftness" mixEffectBlockIndex="0" keyIndex="2" innerSoftness="17"/>
+            <Op id="DVEKeyBorderOpacity" mixEffectBlockIndex="0" keyIndex="2" opacity="63"/>
+            <Op id="DVEKeyBorderBevelPosition" mixEffectBlockIndex="0" keyIndex="2" bevelPosition="70"/>
+            <Op id="DVEKeyBorderBevelSoftness" mixEffectBlockIndex="0" keyIndex="2" bevelSoftness="30"/>
+            <Op id="MacroSleep" frames="10"/>
+            <Op id="DVEKeyBorderHue" mixEffectBlockIndex="0" keyIndex="2" hue="337"/>
+            <Op id="DVEKeyBorderSaturation" mixEffectBlockIndex="0" keyIndex="2" saturation="0.828003"/>
+            <Op id="DVEKeyBorderLuminescence" mixEffectBlockIndex="0" keyIndex="2" luminescence="0.365005"/>
+            <Op id="DVEKeyBorderBevel" mixEffectBlockIndex="0" keyIndex="2" bevel="Out"/>
+            <Op id="DVEKeyBorderOuterWidth" mixEffectBlockIndex="0" keyIndex="2" outerWidth="6.78"/>
+            <Op id="DVEKeyBorderInnerWidth" mixEffectBlockIndex="0" keyIndex="2" innerWidth="10.83"/>
+            <Op id="DVEKeyBorderOuterSoftness" mixEffectBlockIndex="0" keyIndex="2" outerSoftness="49"/>
+            <Op id="DVEKeyBorderInnerSoftness" mixEffectBlockIndex="0" keyIndex="2" innerSoftness="79"/>
+            <Op id="DVEKeyBorderOpacity" mixEffectBlockIndex="0" keyIndex="2" opacity="37"/>
+            <Op id="DVEKeyBorderBevelPosition" mixEffectBlockIndex="0" keyIndex="2" bevelPosition="6"/>
+            <Op id="DVEKeyBorderBevelSoftness" mixEffectBlockIndex="0" keyIndex="2" bevelSoftness="85"/>
+            <Op id="DVEKeyBorderSaturation" mixEffectBlockIndex="0" keyIndex="2" saturation="1"/>
+            <Op id="DVEKeyBorderSaturation" mixEffectBlockIndex="0" keyIndex="2" saturation="0"/>
+            <Op id="DVEKeyBorderSaturation" mixEffectBlockIndex="0" keyIndex="2" saturation="0.259003"/>
+            <Op id="DVEKeyBorderSaturation" mixEffectBlockIndex="0" keyIndex="2" saturation="0.759003"/>
+        </Macro>
     </MacroPool>
 </Profile>

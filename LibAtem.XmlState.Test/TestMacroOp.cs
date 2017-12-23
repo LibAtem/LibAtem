@@ -60,8 +60,8 @@ namespace LibAtem.XmlState.Test
                 {
                     try
                     {
-                        var converted = MacroOpManager.CreateFromData(data[i]);
-                        var op = (MacroOpBase) macroXml.Operations[i].ToMacroOp();
+                        MacroOpBase converted = MacroOpManager.CreateFromData(data[i]);
+                        MacroOpBase op = macroXml.Operations[i].ToMacroOp();
                         if (!Equals(converted, op))
                         {
                             output.WriteLine("Got:\n {0}Expected:\n {1}", ToString(converted), ToString(op));
