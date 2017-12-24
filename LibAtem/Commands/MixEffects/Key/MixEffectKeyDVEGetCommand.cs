@@ -13,15 +13,15 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(1), Enum8]
         public UpstreamKeyId KeyerIndex { get; set; }
 
-        [Serialize(4), Int32D(1000, -100, 100)] // TODO - check range
+        [Serialize(4), UInt32D(1000, 0, 99990)]
         public double SizeX { get; set; }
-        [Serialize(8), Int32D(1000, -100, 100)] // TODO - check range
+        [Serialize(8), UInt32D(1000, 0, 99990)]
         public double SizeY { get; set; }
-        [Serialize(12), Int32D(1000, -1000, 1000)] // TODO - check range
+        [Serialize(12), Int32D(1000, -1000 * 1000, 1000 * 1000)]
         public double PositionX { get; set; }
-        [Serialize(16), Int32D(1000, -1000, 1000)] // TODO - check range
+        [Serialize(16), Int32D(1000, -1000 * 1000, 1000 * 1000)]
         public double PositionY { get; set; }
-        [Serialize(20), Int32D(1000, -1000, 1000)] // TODO - check range
+        [Serialize(20), Int32D(10, -332230, 332230)]
         public double Rotation { get; set; }
 
         [Serialize(24), Bool]
@@ -34,17 +34,17 @@ namespace LibAtem.Commands.MixEffects.Key
         public double OuterWidth { get; set; }
         [Serialize(30), UInt16D(100, 0, 1600)]
         public double InnerWidth { get; set; }
-        [Serialize(32), UInt8D(100, 0, 100)]
-        public double OuterSoftness { get; set; }
-        [Serialize(33), UInt8D(100, 0, 100)]
-        public double InnerSoftness { get; set; }
+        [Serialize(32), UInt8Range(0, 100)]
+        public uint OuterSoftness { get; set; }
+        [Serialize(33), UInt8Range(0, 100)]
+        public uint InnerSoftness { get; set; }
         [Serialize(34), UInt8D(100, 0, 100)]
         public double BevelSoftness { get; set; }
         [Serialize(35), UInt8D(100, 0, 100)]
         public double BevelPosition { get; set; }
+
         [Serialize(36), UInt8D(100, 0, 100)]
         public double BorderOpacity { get; set; }
-
         [Serialize(38), UInt16D(1000, 0, 3599)]
         public double BorderHue { get; set; }
         [Serialize(40), UInt16D(1000, 0, 1000)]
@@ -70,19 +70,5 @@ namespace LibAtem.Commands.MixEffects.Key
 
         [Serialize(56), UInt8Range(1, 250)]
         public uint Rate { get; set; }
-
-//        public void Serialize(ByteArrayBuilder cmd)
-//        {
-//            cmd.AddByte(0x00, 0x2C, 0x00, 0x60, 0x72, 0x50, 0x6E, 0x49, 0x6F, 0x43, 0xD2, 0x07, 0x20, 0x72, 0x6F, 0x6C,
-//                0x00, 0x00, 0x00, 0x32, 0x60, 0x00, 0x2B, 0xC8, 0x08, 0xE7, 0x27, 0x60, 0x00, 0xA0, 0x6F, 0x43, 0x6C,
-//                0x32, 0x01, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00, 0x03, 0x01, 0x03, 0x2C, 0x00, 0x9B, 0x60, 0x6E, 0x49,
-//                0x72, 0x50, 0xC2, 0x0B, 0x65, 0x4D, 0x64, 0x69, 0x61, 0x20);
-//        }
-//
-//        public void Deserialize(ParsedByteArray cmd)
-//        {
-//            // TODO
-//            cmd.Skip(60);
-//        }
     }
 }

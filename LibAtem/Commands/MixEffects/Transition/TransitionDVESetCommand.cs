@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using LibAtem.Common;
 using LibAtem.MacroOperations;
 using LibAtem.MacroOperations.MixEffects.Transition.DVE;
+using LibAtem.MacroOperations.MixEffects.Transition.Stinger;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
@@ -63,11 +64,31 @@ namespace LibAtem.Commands.MixEffects.Transition
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.Rate))
-                yield return new TransitionDVERateMacroOp() { Index = Index, Rate = Rate };
-
+                yield return new TransitionDVERateMacroOp {Index = Index, Rate = Rate};
+            if (Mask.HasFlag(MaskFlags.LogoRate))
+                yield return null;
             if (Mask.HasFlag(MaskFlags.Style))
-                yield return new TransitionDVEPatternMacroOp() { Index = Index, Pattern = Style };
+                yield return new TransitionDVEPatternMacroOp {Index = Index, Pattern = Style};
 
+            if (Mask.HasFlag(MaskFlags.FillSource))
+                yield return new TransitionDVEFillInputMacroOp {Index = Index, Input = FillSource};
+            if (Mask.HasFlag(MaskFlags.KeySource))
+                yield return new TransitionDVECutInputMacroOp {Index = Index, Input = KeySource};
+
+            if (Mask.HasFlag(MaskFlags.EnableKey))
+                yield return new TransitionDVECutInputEnableMacroOp {Index = Index, Enable = EnableKey};
+            if (Mask.HasFlag(MaskFlags.PreMultiplied))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.Clip))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.Gain))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.InvertKey))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.Reverse))
+                yield return null;
+            if (Mask.HasFlag(MaskFlags.FlipFlop))
+                yield return null;
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿using LibAtem.Commands;
 using LibAtem.Common;
 
-namespace LibAtem.MacroOperations.MixEffects.Key
+namespace LibAtem.MacroOperations.MixEffects.Key.DVE
 {
     [MacroOperation(MacroOperationType.FlyKeyRunToFull, 8)]
     public class FlyKeyRunToAllMacroOp : MixEffectKeyMacroOpBase

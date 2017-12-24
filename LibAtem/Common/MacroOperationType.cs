@@ -98,7 +98,9 @@ namespace LibAtem.Common
         DVEAndFlyKeyRate = 0x0046,
         DVEAndFlyKeyXSize = 0x0047,
         DVEAndFlyKeyYSize = 0x0048,
-        // 0x0049
+
+        MediaPlayerSourceClip = 0x0049,
+
         DVEAndFlyKeyXPosition = 0x004a,
         DVEAndFlyKeyYPosition = 0x004b,
         // 0x004c
@@ -129,6 +131,7 @@ namespace LibAtem.Common
         DVEKeyBorderBevelPosition = 0x0063,
         DVEKeyBorderBevelSoftness = 0x0064,
 
+        // Not sure if there is a MixEffectKeyFlyKeyframeSetCommand these should work for
         FlyKeyFrameXSize,
         FlyKeyFrameYSize,
         FlyKeyFrameXPosition,
@@ -248,19 +251,18 @@ namespace LibAtem.Common
         AudioMixerMasterOutResetPeaks = 0x00d5,
         AudioMixerMonitorOutResetPeaks,
 
-        TransitionDVEFillInput,
-        TransitionDVECutInput,
-        TransitionDVECutInputEnable,
+        TransitionDVEFillInput = 0x00d7,
+        TransitionDVECutInput = 0x00d8,
+        TransitionDVECutInputEnable = 0x00d9,
 
         MediaPlayerSourceStillIndex = 0x00da,
-        MediaPlayerSourceClipIndex, //
-        MediaPlayerGoToBeginning, //
-        MediaPlayerGoToFrame,
+        MediaPlayerSourceClipIndex = 0x00db,
+        MediaPlayerGoToBeginning = 0x00dc,
+        MediaPlayerGoToFrame = 0x00dd,
         MediaPlayerPlay = 0x00de,
-        MediaPlayerPause,
+        MediaPlayerPause = 0x00df,
         MediaPlayerLoop = 0x00e0,
         MediaPlayerSourceStill = 0x00e1,
-        MediaPlayerSourceClip, // --
 
         PatternKeySizeOffset,
         PatternKeyXPositionOffset,
@@ -287,8 +289,6 @@ namespace LibAtem.Common
         PtzRs422ViscaAllocateAddresses,
         PtzRs422ViscaBaudRate,
 
-        SetSerialPortFunction = 0x0103,
-
         GvgReadCrosspointPrgmBkgd,
         GvgReadCrosspointPresetBkgd,
         GvgReadCrosspointKey,
@@ -302,7 +302,9 @@ namespace LibAtem.Common
         GvgReadPushButtonLampControl,
         GvgReadFieldMode,
         GvgReadSoftwareVersion,
-        
+
+        SetSerialPortFunction = 0x0103,
+
         ToggleTransitionWipeAndDVEReverse,
 
         ToggleKeyMaskEnable,

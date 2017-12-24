@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.Stinger
     [MacroOperation(MacroOperationType.TransitionStingerDVEPreMultiply, 8)]
     public class TransitionStingerDVEPreMultiplyMacroOp : MixEffectMacroOpBase
     {
-        [Serialize(6), Bool]
+        [Serialize(5), Bool]
         [MacroField("PreMultiply")]
         public bool PreMultiply { get; set; }
 
