@@ -4,6 +4,7 @@ using LibAtem.Commands;
 using LibAtem.Commands.DeviceProfile;
 using LibAtem.Commands.Settings;
 using LibAtem.Common;
+using LibAtem.Util;
 
 namespace LibAtem.DeviceProfile
 {
@@ -55,10 +56,7 @@ namespace LibAtem.DeviceProfile
             Profile.SuperSource = cmd.SuperSource;
 
             // Ensure VideoSources is the correct length, even if the values are wrong
-            while (Profile.Sources.Count < cmd.VideoSources)
-                Profile.Sources.Add(new DevicePort {Id = (VideoSource) (Profile.Sources.Count + 1), Port = new List<ExternalPortType> {ExternalPortType.SDI}});
-            if (Profile.Sources.Count > cmd.VideoSources)
-                Profile.Sources = Profile.Sources.OrderBy(c => c.Id).Take((int) cmd.VideoSources).ToList();
+            Profile.Sources.SetToLength(cmd.VideoSources, i => new DevicePort {Id = (VideoSource) (i + 1), Port = new List<ExternalPortType> {ExternalPortType.SDI}});
 
             // TODO
             // public uint DownstreamKeys { get; set; }
