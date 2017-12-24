@@ -31,6 +31,12 @@ namespace LibAtem.XmlState.Test
             RunForFile("TestMacroFiles/flykey.macros", "TestMacroFiles/flykey.xml");
         }
 
+        [Fact]
+        public void TestAudio()
+        {
+            RunForFile("TestMacroFiles/audio.macros", "TestMacroFiles/audio.xml");
+        }
+
         #region Helpers
 
         private void RunForFile(string byteFilename, string xmlFilename)

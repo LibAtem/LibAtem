@@ -61,6 +61,12 @@
     <None Update="TestFiles\i61.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestMacroFiles\audio.macros">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestMacroFiles\audio.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestMacroFiles\flykey.macros">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -73,10 +79,6 @@
     <None Update="TestMacroFiles\macros1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TestMacroFiles\" />
   </ItemGroup>
 
 </Project>

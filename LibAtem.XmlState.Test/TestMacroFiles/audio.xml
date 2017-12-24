@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Profile majorVersion="1" minorVersion="4" product="ATEM 1 M/E Production Switcher">
+  <MacroPool>
+    <Macro index="26" name="audio-bits" description="">
+      <Op id="AudioMixerInputBalance" input="Camera2" balance="0.934998"/>
+      <Op id="AudioMixerInputBalance" input="Camera3" balance="-0.865005"/>
+      <Op id="AudioMixerInputBalance" input="Camera1" balance="0.0599976"/>
+      <Op id="AudioMixerInputBalance" input="Camera4" balance="1"/>
+      <Op id="AudioMixerInputBalance" input="Camera5" balance="-1.00002"/>
+      <Op id="AudioMixerInputGain" input="Camera3" gain="9671"/>
+      <Op id="AudioMixerInputGain" input="Camera4" gain="21157"/>
+      <Op id="AudioMixerInputGain" input="Camera1" gain="12458"/>
+      <Op id="AudioMixerInputMixType" input="Camera1" mixType="On"/>
+      <Op id="AudioMixerInputMixType" input="Camera3" mixType="AudioFollowVideo"/>
+      <Op id="AudioMixerMonitorOutSolo" solo="True"/>
+      <Op id="AudioMixerMonitorOutSoloInput" input="Camera3"/>
+      <Op id="AudioMixerInputMixType" input="Camera2" mixType="AudioFollowVideo"/>
+      <Op id="AudioMixerMasterOutGain" gain="6389"/>
+      <Op id="AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1" follow="False"/>
+      <Op id="AudioMixerMonitorOutGain" gain="717"/>
+      <Op id="AudioMixerMonitorOutMute" mute="False"/>
+      <Op id="AudioMixerMonitorOutDim" dim="False"/>
+      <Op id="MacroSleep" frames="1"/>
+      <Op id="AudioMixerMonitorOutMute" mute="False"/>
+      <Op id="AudioMixerMonitorOutDim" dim="True"/>
+    </Macro>
+    <Macro index="28" name="audio 2" description="">
+      <Op id="AudioMixerMonitorOutMute" mute="False"/>
+      <Op id="AudioMixerMonitorOutDim" dim="True"/>
+      <Op id="AudioMixerMonitorOutGain" gain="10362"/>
+      <Op id="AudioMixerInputResetPeaks" input="Camera2"/>
+      <Op id="AudioMixerMasterOutResetPeaks"/>
+    </Macro>
+  </MacroPool>
+</Profile>

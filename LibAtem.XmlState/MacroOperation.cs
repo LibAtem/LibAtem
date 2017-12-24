@@ -68,6 +68,25 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("balance")]
+        public System.Double Balance
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeBalance()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.AudioMixerInputBalance:
+                case MacroOperationType.AudioMixerMasterOutBalance:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlIgnore]
         public LibAtem.Common.BorderBevel Bevel
         {
@@ -252,6 +271,24 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("dim")]
+        public LibAtem.XmlState.AtemBool Dim
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeDim()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.AudioMixerMonitorOutDim:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlAttribute("direction")]
         public System.Double Direction
         {
@@ -407,17 +444,19 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("gain")]
-        public System.Double Gain
+        public string GainString
         {
             get;
             set;
         }
 
-        public bool ShouldSerializeGain()
+        public bool ShouldSerializeGainString()
         {
             switch (Id)
             {
                 case MacroOperationType.AudioMixerInputGain:
+                case MacroOperationType.AudioMixerMasterOutGain:
+                case MacroOperationType.AudioMixerMonitorOutGain:
                 case MacroOperationType.ChromaKeyGain:
                 case MacroOperationType.DownstreamKeyGain:
                 case MacroOperationType.LumaKeyGain:
@@ -427,6 +466,16 @@ namespace LibAtem.XmlState
                     return false;
             }
         }
+
+        [XmlIgnore]
+        public System.Double Gain
+        {
+            get => System.Double.Parse(GainString) ; set => GainString = value.ToString() ; }
+
+        [XmlIgnore]
+        public System.UInt32 AudioGain
+        {
+            get => System.UInt32.Parse(GainString) ; set => GainString = value.ToString() ; }
 
         [XmlAttribute("hue")]
         public System.Double Hue
@@ -537,7 +586,11 @@ namespace LibAtem.XmlState
         {
             switch (Id)
             {
+                case MacroOperationType.AudioMixerInputBalance:
                 case MacroOperationType.AudioMixerInputGain:
+                case MacroOperationType.AudioMixerInputMixType:
+                case MacroOperationType.AudioMixerInputResetPeaks:
+                case MacroOperationType.AudioMixerMonitorOutSoloInput:
                 case MacroOperationType.AuxiliaryInput:
                 case MacroOperationType.DownstreamKeyCutInput:
                 case MacroOperationType.DownstreamKeyFillInput:
@@ -1002,6 +1055,24 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("mixType")]
+        public LibAtem.Common.AudioMixOption MixType
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeMixType()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.AudioMixerInputMixType:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlAttribute("multiViewIndex")]
         public System.UInt32 MultiViewIndex
         {
@@ -1015,6 +1086,24 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.MultiViewLayout:
                 case MacroOperationType.MultiViewWindowInput:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("mute")]
+        public LibAtem.XmlState.AtemBool Mute
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeMute()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.AudioMixerMonitorOutMute:
                     return true;
                 default:
                     return false;
@@ -1378,6 +1467,24 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("solo")]
+        public LibAtem.XmlState.AtemBool Solo
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeSolo()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.AudioMixerMonitorOutSolo:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlIgnore]
         public LibAtem.Common.TransitionLayer TransitionSource
         {
@@ -1688,15 +1795,48 @@ namespace LibAtem.XmlState
         {
             switch (op.GetType().FullName)
             {
+                case "LibAtem.MacroOperations.Audio.AudioMixerInputBalanceMacroOp":
+                    var opAudioMixerInputBalanceMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerInputBalanceMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerInputBalance, Input = opAudioMixerInputBalanceMacroOp.Index.ToMacroInput(), Balance = opAudioMixerInputBalanceMacroOp.Balance};
                 case "LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp":
                     var opAudioMixerInputGainMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.AudioMixerInputGain, Input = opAudioMixerInputGainMacroOp.Index.ToMacroInput(), Gain = opAudioMixerInputGainMacroOp.Gain};
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerInputGain, Input = opAudioMixerInputGainMacroOp.Index.ToMacroInput(), AudioGain = opAudioMixerInputGainMacroOp.RawGain};
+                case "LibAtem.MacroOperations.Audio.AudioMixerInputMixTypeMacroOp":
+                    var opAudioMixerInputMixTypeMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerInputMixTypeMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerInputMixType, Input = opAudioMixerInputMixTypeMacroOp.Index.ToMacroInput(), MixType = opAudioMixerInputMixTypeMacroOp.MixOption};
+                case "LibAtem.MacroOperations.Audio.AudioMixerInputResetPeaksMacroOp":
+                    var opAudioMixerInputResetPeaksMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerInputResetPeaksMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerInputResetPeaks, Input = opAudioMixerInputResetPeaksMacroOp.Input.ToMacroInput()};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMasterOutBalanceMacroOp":
+                    var opAudioMixerMasterOutBalanceMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMasterOutBalanceMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutBalance, Balance = opAudioMixerMasterOutBalanceMacroOp.Balance};
                 case "LibAtem.MacroOperations.Audio.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp":
                     var opAudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1, Follow = opAudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp.Follow.ToAtemBool()};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMasterOutGainMacroOp":
+                    var opAudioMixerMasterOutGainMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMasterOutGainMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutGain, Gain = opAudioMixerMasterOutGainMacroOp.RawGain};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMasterOutResetPeaksMacroOp":
+                    var opAudioMixerMasterOutResetPeaksMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMasterOutResetPeaksMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutResetPeaks};
                 case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMacroOp":
                     var opAudioMixerMonitorOutMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOut, Enable = opAudioMixerMonitorOutMacroOp.Enable.ToAtemBool()};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutDimMacroOp":
+                    var opAudioMixerMonitorOutDimMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutDimMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutDim, Dim = opAudioMixerMonitorOutDimMacroOp.Dim.ToAtemBool()};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutGainMacroOp":
+                    var opAudioMixerMonitorOutGainMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutGainMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutGain, Gain = opAudioMixerMonitorOutGainMacroOp.RawGain};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMuteMacroOp":
+                    var opAudioMixerMonitorOutMuteMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMuteMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutMute, Mute = opAudioMixerMonitorOutMuteMacroOp.Mute.ToAtemBool()};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutSoloMacroOp":
+                    var opAudioMixerMonitorOutSoloMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutSoloMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutSolo, Solo = opAudioMixerMonitorOutSoloMacroOp.Solo.ToAtemBool()};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutSoloInputMacroOp":
+                    var opAudioMixerMonitorOutSoloInputMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutSoloInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutSoloInput, Input = opAudioMixerMonitorOutSoloInputMacroOp.Input.ToMacroInput()};
                 case "LibAtem.MacroOperations.MixEffects.AutoTransitionMacroOp":
                     var opAutoTransitionMacroOp = (LibAtem.MacroOperations.MixEffects.AutoTransitionMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AutoTransition, MixEffectBlockIndex = opAutoTransitionMacroOp.Index};
@@ -2144,12 +2284,34 @@ namespace LibAtem.XmlState
         {
             switch (mac.Id)
             {
+                case MacroOperationType.AudioMixerInputBalance:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerInputBalanceMacroOp{Index = mac.Input.ToAudioSource(), Balance = mac.Balance};
                 case MacroOperationType.AudioMixerInputGain:
-                    return new LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp{Index = mac.Input.ToAudioSource(), Gain = mac.Gain};
+                    return new LibAtem.MacroOperations.Audio.AudioMixerInputGainMacroOp{Index = mac.Input.ToAudioSource(), RawGain = mac.AudioGain};
+                case MacroOperationType.AudioMixerInputMixType:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerInputMixTypeMacroOp{Index = mac.Input.ToAudioSource(), MixOption = mac.MixType};
+                case MacroOperationType.AudioMixerInputResetPeaks:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerInputResetPeaksMacroOp{Input = mac.Input.ToAudioSource()};
+                case MacroOperationType.AudioMixerMasterOutBalance:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutBalanceMacroOp{Balance = mac.Balance};
                 case MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp{Follow = mac.Follow.Value()};
+                case MacroOperationType.AudioMixerMasterOutGain:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutGainMacroOp{RawGain = mac.Gain};
+                case MacroOperationType.AudioMixerMasterOutResetPeaks:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutResetPeaksMacroOp{};
                 case MacroOperationType.AudioMixerMonitorOut:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMacroOp{Enable = mac.Enable.Value()};
+                case MacroOperationType.AudioMixerMonitorOutDim:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutDimMacroOp{Dim = mac.Dim.Value()};
+                case MacroOperationType.AudioMixerMonitorOutGain:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutGainMacroOp{RawGain = mac.Gain};
+                case MacroOperationType.AudioMixerMonitorOutMute:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMuteMacroOp{Mute = mac.Mute.Value()};
+                case MacroOperationType.AudioMixerMonitorOutSolo:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutSoloMacroOp{Solo = mac.Solo.Value()};
+                case MacroOperationType.AudioMixerMonitorOutSoloInput:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutSoloInputMacroOp{Input = mac.Input.ToAudioSource()};
                 case MacroOperationType.AutoTransition:
                     return new LibAtem.MacroOperations.MixEffects.AutoTransitionMacroOp{Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.AuxiliaryInput:
