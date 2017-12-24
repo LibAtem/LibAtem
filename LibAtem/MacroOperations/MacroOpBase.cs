@@ -43,6 +43,10 @@ namespace LibAtem.MacroOperations
         }
     }
 
+    public class NoMacroFieldsAttribute : Attribute
+    {
+    }
+
     public class MacroFieldAttribute : Attribute
     {
         public string Id { get; }

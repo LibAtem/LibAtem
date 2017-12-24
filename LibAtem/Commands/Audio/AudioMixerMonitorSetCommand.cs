@@ -41,15 +41,15 @@ namespace LibAtem.Commands.Audio
             if (Mask.HasFlag(MaskFlags.Enabled))
                 yield return new AudioMixerMonitorOutMacroOp {Enable = Enabled};
             if (Mask.HasFlag(MaskFlags.Gain))
-                yield return null;
+                yield return new AudioMixerMonitorOutGainMacroOp {Gain = Gain};
             if (Mask.HasFlag(MaskFlags.Mute))
-                yield return null;
+                yield return new AudioMixerMonitorOutMuteMacroOp {Mute = Mute};
             if (Mask.HasFlag(MaskFlags.Solo))
-                yield return null;
+                yield return new AudioMixerMonitorOutSoloMacroOp {Solo = Solo};
             if (Mask.HasFlag(MaskFlags.SoloSource))
-                yield return null;
+                yield return new AudioMixerMonitorOutSoloInputMacroOp {Input = SoloSource};
             if (Mask.HasFlag(MaskFlags.Dim))
-                yield return null;
+                yield return new AudioMixerMonitorOutDimMacroOp {Dim = Dim};
         }
     }
 }

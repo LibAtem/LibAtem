@@ -13,7 +13,7 @@ namespace LibAtem.Commands.Audio
         public enum MaskFlags
         {
             Gain = 1 << 0,
-            Balance = 1 << 1, //??
+            Balance = 1 << 1,
             ProgramOutFollowFadeToBlack = 1 << 2,
         }
 
@@ -29,9 +29,9 @@ namespace LibAtem.Commands.Audio
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.Gain))
-                yield return null;
+                yield return new AudioMixerMasterOutGainMacroOp {Gain = Gain};
             if (Mask.HasFlag(MaskFlags.Balance))
-                yield return null;
+                yield return new AudioMixerMasterOutBalanceMacroOp {Balance = Balance};
             if (Mask.HasFlag(MaskFlags.ProgramOutFollowFadeToBlack))
                 yield return new AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp {Follow = ProgramOutFollowFadeToBlack};
         }

@@ -29,5 +29,13 @@ namespace LibAtem.Util
             foreach (T elm in list)
                 func(elm);
         }
+
+        public static void SetToLength<T>(this List<T> list, uint target, Func<int, T> generator)
+        {
+            while (generator != null && list.Count < target)
+                list.Add(generator(list.Count));
+            if (list.Count > target)
+                list.RemoveRange((int) target, (int) (list.Count - target));
+        }
     }
 }

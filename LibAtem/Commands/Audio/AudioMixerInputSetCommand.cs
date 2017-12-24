@@ -33,17 +33,13 @@ namespace LibAtem.Commands.Audio
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.MixOption))
-                yield return null;
+                yield return new AudioMixerInputMixTypeMacroOp {Index = Index, MixOption = MixOption};
 
             if (Mask.HasFlag(MaskFlags.Gain))
-                yield return new AudioMixerInputGainMacroOp()
-                {
-                    Index = Index,
-                    Gain = Gain,
-                };
+                yield return new AudioMixerInputGainMacroOp {Index = Index, Gain = Gain};
 
             if (Mask.HasFlag(MaskFlags.Balance))
-                yield return null;
+                yield return new AudioMixerInputBalanceMacroOp {Index = Index, Balance = Balance};
         }
     }
 }

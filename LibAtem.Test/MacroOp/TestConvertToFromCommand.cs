@@ -65,6 +65,8 @@ namespace LibAtem.Test.MacroOp
                 Assert.NotNull(serCmd);
 
                 MacroOpBase entry = serCmd.ToMacroOps().Single();
+                if (entry == null)
+                    throw new Exception("Deserialized not implemented");
                 if (!t.GetTypeInfo().IsAssignableFrom(entry.GetType()))
                     throw new Exception("Deserialized operation of wrong type");
 

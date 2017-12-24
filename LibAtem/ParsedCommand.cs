@@ -38,6 +38,11 @@ namespace LibAtem
             return Body.Skip(i).Take(count);
         }
 
+        public uint GetUInt32()
+        {
+            return BitConverter.ToUInt32(ReverseBytesIfNeeded(TakeBytes(4)), 0);
+        }
+
         public uint GetUInt16()
         {
             return BitConverter.ToUInt16(ReverseBytesIfNeeded(TakeBytes(2)), 0);

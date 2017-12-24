@@ -48,6 +48,9 @@ namespace LibAtem.Test.Util
             PropertyInfo[] props = orig.GetType().GetProperties();
             foreach (PropertyInfo prop in props)
             {
+                if (prop.GetCustomAttribute<NoSerializeAttribute>() != null)
+                    continue;
+
                 object origVal = prop.GetValue(orig);
                 object decodedVal = prop.GetValue(decoded);
 

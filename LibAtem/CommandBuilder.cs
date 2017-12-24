@@ -154,6 +154,11 @@ namespace LibAtem
         {
             AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes((short)(val * scale)).Take(2)));
         }
+
+        public void AddUInt32(uint val)
+        {
+            AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes(val).Take(4)));
+        }
     }
 
     public class CommandBuilder : ByteArrayBuilder

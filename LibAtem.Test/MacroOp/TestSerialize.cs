@@ -61,7 +61,7 @@ namespace LibAtem.Test.MacroOp
 
         private static MacroOpBase DeserializeSingle(byte[] arr)
         {
-            Assert.True(arr.Length > 4);
+            Assert.True(arr.Length >= 4);
 
             int cmdLength = arr[0];
             Assert.False(arr.Length != cmdLength || cmdLength == 0);

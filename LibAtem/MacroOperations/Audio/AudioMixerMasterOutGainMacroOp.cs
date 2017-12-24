@@ -5,20 +5,15 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.Audio
 {
-    [MacroOperation(MacroOperationType.AudioMixerInputGain, 8)]
-    public class AudioMixerInputGainMacroOp : MacroOpBase
+    [MacroOperation(MacroOperationType.AudioMixerMasterOutGain, 8)]
+    public class AudioMixerMasterOutGainMacroOp : MacroOpBase
     {
-        [CommandId]
-        [Serialize(4), Enum16]
-        [MacroField("Input")]
-        public AudioSource Index { get; set; }
-
-        [Serialize(6), UInt16]
+        [Serialize(4), UInt16]
         [MacroField("AudioGain", "gain")]
         public uint RawGain
         {
             get => DecibelsAttribute.DecibelToUInt(Gain);
-            set => Gain = DecibelsAttribute.UIntToDecibel(value);
+            set => Gain = DecibelsAttribute.UIntToDecibel((uint)value);
         }
 
         [NoSerialize]
@@ -26,10 +21,9 @@ namespace LibAtem.MacroOperations.Audio
 
         public override ICommand ToCommand()
         {
-            return new AudioMixerInputSetCommand()
+            return new AudioMixerMasterSetCommand
             {
-                Mask = AudioMixerInputSetCommand.MaskFlags.Gain,
-                Index = Index,
+                Mask = AudioMixerMasterSetCommand.MaskFlags.Gain,
                 Gain = Gain,
             };
         }

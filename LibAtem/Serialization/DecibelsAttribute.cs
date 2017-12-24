@@ -15,12 +15,12 @@ namespace LibAtem.Serialization
             return UIntToDecibel((uint) base.Deserialize(reverseBytes, data, start, prop));
         }
 
-        private static double UIntToDecibel(uint val)
+        public static double UIntToDecibel(uint val)
         {
             return Math.Log10(val / 32768d) * 20;
         }
 
-        private static uint DecibelToUInt(object val)
+        public static uint DecibelToUInt(object val)
         {
             return (uint)(Math.Pow(10, (double)val / 20d) * 32768);
         }
