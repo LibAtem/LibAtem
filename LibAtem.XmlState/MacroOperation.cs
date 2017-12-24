@@ -336,17 +336,18 @@ namespace LibAtem.XmlState
         {
             switch (Id)
             {
+                case MacroOperationType.AudioMixerAfvFollowTransition:
                 case MacroOperationType.AudioMixerMonitorOut:
                 case MacroOperationType.DownstreamKeyMaskEnable:
                 case MacroOperationType.DVEKeyBorderEnable:
                 case MacroOperationType.DVEKeyMaskEnable:
                 case MacroOperationType.DVEKeyShadowEnable:
-                case MacroOperationType.HyperDeckSetRollOnTakeFrameDelay:
                 case MacroOperationType.KeyFlyEnable:
                 case MacroOperationType.KeyMaskEnable:
                 case MacroOperationType.SuperSourceBorderEnable:
                 case MacroOperationType.SuperSourceBoxEnable:
                 case MacroOperationType.SuperSourceBoxMaskEnable:
+                case MacroOperationType.TransitionDVECutInputEnable:
                     return true;
                 default:
                     return false;
@@ -401,6 +402,24 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        [XmlAttribute("frame")]
+        public System.UInt32 Frame
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeFrame()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.MediaPlayerGoToFrame:
                     return true;
                 default:
                     return false;
@@ -604,6 +623,8 @@ namespace LibAtem.XmlState
                 case MacroOperationType.SuperSourceArtFillInput:
                 case MacroOperationType.SuperSourceBoxInput:
                 case MacroOperationType.TransitionDipInput:
+                case MacroOperationType.TransitionDVECutInput:
+                case MacroOperationType.TransitionDVEFillInput:
                 case MacroOperationType.TransitionWipeBorderFillInput:
                     return true;
                 default:
@@ -906,7 +927,9 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.MediaPlayerGoToBeginning:
+                case MacroOperationType.MediaPlayerGoToFrame:
                 case MacroOperationType.MediaPlayerLoop:
+                case MacroOperationType.MediaPlayerPause:
                 case MacroOperationType.MediaPlayerPlay:
                 case MacroOperationType.MediaPlayerSourceClip:
                 case MacroOperationType.MediaPlayerSourceClipIndex:
@@ -1003,6 +1026,9 @@ namespace LibAtem.XmlState
                 case MacroOperationType.ProgramInput:
                 case MacroOperationType.TransitionDipInput:
                 case MacroOperationType.TransitionDipRate:
+                case MacroOperationType.TransitionDVECutInput:
+                case MacroOperationType.TransitionDVECutInputEnable:
+                case MacroOperationType.TransitionDVEFillInput:
                 case MacroOperationType.TransitionDVEPattern:
                 case MacroOperationType.TransitionDVERate:
                 case MacroOperationType.TransitionMixRate:
@@ -1795,6 +1821,9 @@ namespace LibAtem.XmlState
         {
             switch (op.GetType().FullName)
             {
+                case "LibAtem.MacroOperations.Audio.AudioMixerAfvFollowTransitionMacroOp":
+                    var opAudioMixerAfvFollowTransitionMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerAfvFollowTransitionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerAfvFollowTransition, Enable = opAudioMixerAfvFollowTransitionMacroOp.Enable.ToAtemBool()};
                 case "LibAtem.MacroOperations.Audio.AudioMixerInputBalanceMacroOp":
                     var opAudioMixerInputBalanceMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerInputBalanceMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerInputBalance, Input = opAudioMixerInputBalanceMacroOp.Index.ToMacroInput(), Balance = opAudioMixerInputBalanceMacroOp.Balance};
@@ -1815,7 +1844,7 @@ namespace LibAtem.XmlState
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1, Follow = opAudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp.Follow.ToAtemBool()};
                 case "LibAtem.MacroOperations.Audio.AudioMixerMasterOutGainMacroOp":
                     var opAudioMixerMasterOutGainMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMasterOutGainMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutGain, Gain = opAudioMixerMasterOutGainMacroOp.RawGain};
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutGain, AudioGain = opAudioMixerMasterOutGainMacroOp.RawGain};
                 case "LibAtem.MacroOperations.Audio.AudioMixerMasterOutResetPeaksMacroOp":
                     var opAudioMixerMasterOutResetPeaksMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMasterOutResetPeaksMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMasterOutResetPeaks};
@@ -1827,7 +1856,7 @@ namespace LibAtem.XmlState
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutDim, Dim = opAudioMixerMonitorOutDimMacroOp.Dim.ToAtemBool()};
                 case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutGainMacroOp":
                     var opAudioMixerMonitorOutGainMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutGainMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutGain, Gain = opAudioMixerMonitorOutGainMacroOp.RawGain};
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutGain, AudioGain = opAudioMixerMonitorOutGainMacroOp.RawGain};
                 case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMuteMacroOp":
                     var opAudioMixerMonitorOutMuteMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMuteMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutMute, Mute = opAudioMixerMonitorOutMuteMacroOp.Mute.ToAtemBool()};
@@ -2002,14 +2031,14 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.MixEffects.FadeToBlackRateMacroOp":
                     var opFadeToBlackRateMacroOp = (LibAtem.MacroOperations.MixEffects.FadeToBlackRateMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.FadeToBlackRate, Rate = opFadeToBlackRateMacroOp.Rate, MixEffectBlockIndex = opFadeToBlackRateMacroOp.Index};
-                case "LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToAllMacroOp":
-                    var opFlyKeyRunToAllMacroOp = (LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToAllMacroOp)op;
+                case "LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeyRunToAllMacroOp":
+                    var opFlyKeyRunToAllMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeyRunToAllMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.FlyKeyRunToFull, UpstreamKeyIndex = opFlyKeyRunToAllMacroOp.KeyIndex, MixEffectBlockIndex = opFlyKeyRunToAllMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeyRunToInfinityMacroOp":
                     var opFlyKeyRunToInfinityMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeyRunToInfinityMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.FlyKeyRunToInfinity, Location = opFlyKeyRunToInfinityMacroOp.Location, UpstreamKeyIndex = opFlyKeyRunToInfinityMacroOp.KeyIndex, MixEffectBlockIndex = opFlyKeyRunToInfinityMacroOp.Index};
-                case "LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToKeyFrameMacroOp":
-                    var opFlyKeyRunToKeyFrameMacroOp = (LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToKeyFrameMacroOp)op;
+                case "LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeyRunToKeyFrameMacroOp":
+                    var opFlyKeyRunToKeyFrameMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeyRunToKeyFrameMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.FlyKeyRunToKeyFrame, KeyFrameIndex = opFlyKeyRunToKeyFrameMacroOp.KeyFrameIndex, UpstreamKeyIndex = opFlyKeyRunToKeyFrameMacroOp.KeyIndex, MixEffectBlockIndex = opFlyKeyRunToKeyFrameMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeySetKeyFrameMacroOp":
                     var opFlyKeySetKeyFrameMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeySetKeyFrameMacroOp)op;
@@ -2020,9 +2049,6 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.HyperDeck.HyperDeckSetLoopMacroOp":
                     var opHyperDeckSetLoopMacroOp = (LibAtem.MacroOperations.HyperDeck.HyperDeckSetLoopMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.HyperDeckSetLoop, HyperDeckLoopEnabled = opHyperDeckSetLoopMacroOp.Loop.ToAtemBool(), HyperDeckIndex = opHyperDeckSetLoopMacroOp.Index};
-                case "LibAtem.MacroOperations.Audio.AudioMixerAfvFollowTransitionMacroOp":
-                    var opAudioMixerAfvFollowTransitionMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerAfvFollowTransitionMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.HyperDeckSetRollOnTakeFrameDelay, Enable = opAudioMixerAfvFollowTransitionMacroOp.Enable.ToAtemBool()};
                 case "LibAtem.MacroOperations.HyperDeck.HyperDeckSetSingleClipMacroOp":
                     var opHyperDeckSetSingleClipMacroOp = (LibAtem.MacroOperations.HyperDeck.HyperDeckSetSingleClipMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.HyperDeckSetSingleClip, HyperDeckSingleClipEnabled = opHyperDeckSetSingleClipMacroOp.SingleClipEnabled.ToAtemBool(), HyperDeckIndex = opHyperDeckSetSingleClipMacroOp.Index};
@@ -2086,9 +2112,15 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.Media.MediaPlayerGoToBeginningMacroOp":
                     var opMediaPlayerGoToBeginningMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerGoToBeginningMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.MediaPlayerGoToBeginning, MediaPlayerIndex = opMediaPlayerGoToBeginningMacroOp.Index};
+                case "LibAtem.MacroOperations.Media.MediaPlayerGoToFrameMacroOp":
+                    var opMediaPlayerGoToFrameMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerGoToFrameMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.MediaPlayerGoToFrame, Frame = opMediaPlayerGoToFrameMacroOp.Frame, MediaPlayerIndex = opMediaPlayerGoToFrameMacroOp.Index};
                 case "LibAtem.MacroOperations.Media.MediaPlayerLoopMacroOp":
                     var opMediaPlayerLoopMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerLoopMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.MediaPlayerLoop, Loop = opMediaPlayerLoopMacroOp.Loop.ToAtemBool(), MediaPlayerIndex = opMediaPlayerLoopMacroOp.Index};
+                case "LibAtem.MacroOperations.Media.MediaPlayerPauseMacroOp":
+                    var opMediaPlayerPauseMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerPauseMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.MediaPlayerPause, MediaPlayerIndex = opMediaPlayerPauseMacroOp.Index};
                 case "LibAtem.MacroOperations.Media.MediaPlayerPlayMacroOp":
                     var opMediaPlayerPlayMacroOp = (LibAtem.MacroOperations.Media.MediaPlayerPlayMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.MediaPlayerPlay, MediaPlayerIndex = opMediaPlayerPlayMacroOp.Index};
@@ -2185,6 +2217,15 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.MixEffects.Transition.Dip.TransitionDipRateMacroOp":
                     var opTransitionDipRateMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.Dip.TransitionDipRateMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionDipRate, Rate = opTransitionDipRateMacroOp.Rate, MixEffectBlockIndex = opTransitionDipRateMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.Stinger.TransitionDVECutInputMacroOp":
+                    var opTransitionDVECutInputMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.Stinger.TransitionDVECutInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionDVECutInput, Input = opTransitionDVECutInputMacroOp.Input.ToMacroInput(), MixEffectBlockIndex = opTransitionDVECutInputMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.Stinger.TransitionDVECutInputEnableMacroOp":
+                    var opTransitionDVECutInputEnableMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.Stinger.TransitionDVECutInputEnableMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionDVECutInputEnable, Enable = opTransitionDVECutInputEnableMacroOp.Enable.ToAtemBool(), MixEffectBlockIndex = opTransitionDVECutInputEnableMacroOp.Index};
+                case "LibAtem.MacroOperations.MixEffects.Transition.Stinger.TransitionDVEFillInputMacroOp":
+                    var opTransitionDVEFillInputMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.Stinger.TransitionDVEFillInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.TransitionDVEFillInput, Input = opTransitionDVEFillInputMacroOp.Input.ToMacroInput(), MixEffectBlockIndex = opTransitionDVEFillInputMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Transition.DVE.TransitionDVEPatternMacroOp":
                     var opTransitionDVEPatternMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.DVE.TransitionDVEPatternMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionDVEPattern, DVEEffectPattern = opTransitionDVEPatternMacroOp.Pattern, MixEffectBlockIndex = opTransitionDVEPatternMacroOp.Index};
@@ -2284,6 +2325,8 @@ namespace LibAtem.XmlState
         {
             switch (mac.Id)
             {
+                case MacroOperationType.AudioMixerAfvFollowTransition:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerAfvFollowTransitionMacroOp{Enable = mac.Enable.Value()};
                 case MacroOperationType.AudioMixerInputBalance:
                     return new LibAtem.MacroOperations.Audio.AudioMixerInputBalanceMacroOp{Index = mac.Input.ToAudioSource(), Balance = mac.Balance};
                 case MacroOperationType.AudioMixerInputGain:
@@ -2297,7 +2340,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp{Follow = mac.Follow.Value()};
                 case MacroOperationType.AudioMixerMasterOutGain:
-                    return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutGainMacroOp{RawGain = mac.Gain};
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutGainMacroOp{RawGain = mac.AudioGain};
                 case MacroOperationType.AudioMixerMasterOutResetPeaks:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMasterOutResetPeaksMacroOp{};
                 case MacroOperationType.AudioMixerMonitorOut:
@@ -2305,7 +2348,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.AudioMixerMonitorOutDim:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutDimMacroOp{Dim = mac.Dim.Value()};
                 case MacroOperationType.AudioMixerMonitorOutGain:
-                    return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutGainMacroOp{RawGain = mac.Gain};
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutGainMacroOp{RawGain = mac.AudioGain};
                 case MacroOperationType.AudioMixerMonitorOutMute:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMuteMacroOp{Mute = mac.Mute.Value()};
                 case MacroOperationType.AudioMixerMonitorOutSolo:
@@ -2423,19 +2466,17 @@ namespace LibAtem.XmlState
                 case MacroOperationType.FadeToBlackRate:
                     return new LibAtem.MacroOperations.MixEffects.FadeToBlackRateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.FlyKeyRunToFull:
-                    return new LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToAllMacroOp{KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeyRunToAllMacroOp{KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.FlyKeyRunToInfinity:
                     return new LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeyRunToInfinityMacroOp{Location = mac.Location, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.FlyKeyRunToKeyFrame:
-                    return new LibAtem.MacroOperations.MixEffects.Key.FlyKeyRunToKeyFrameMacroOp{KeyFrameIndex = mac.KeyFrameIndex, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeyRunToKeyFrameMacroOp{KeyFrameIndex = mac.KeyFrameIndex, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.FlyKeySetKeyFrame:
                     return new LibAtem.MacroOperations.MixEffects.Key.DVE.FlyKeySetKeyFrameMacroOp{KeyFrameIndex = mac.KeyFrameIndex, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.HyperDeckPlay:
                     return new LibAtem.MacroOperations.HyperDeck.HyperDeckPlayMacroOp{Index = mac.HyperDeckIndex};
                 case MacroOperationType.HyperDeckSetLoop:
                     return new LibAtem.MacroOperations.HyperDeck.HyperDeckSetLoopMacroOp{Loop = mac.HyperDeckLoopEnabled.Value(), Index = mac.HyperDeckIndex};
-                case MacroOperationType.HyperDeckSetRollOnTakeFrameDelay:
-                    return new LibAtem.MacroOperations.Audio.AudioMixerAfvFollowTransitionMacroOp{Enable = mac.Enable.Value()};
                 case MacroOperationType.HyperDeckSetSingleClip:
                     return new LibAtem.MacroOperations.HyperDeck.HyperDeckSetSingleClipMacroOp{SingleClipEnabled = mac.HyperDeckSingleClipEnabled.Value(), Index = mac.HyperDeckIndex};
                 case MacroOperationType.HyperDeckSetSourceClipIndex:
@@ -2478,8 +2519,12 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.MacroSleepMacroOp{Frames = mac.Frames};
                 case MacroOperationType.MediaPlayerGoToBeginning:
                     return new LibAtem.MacroOperations.Media.MediaPlayerGoToBeginningMacroOp{Index = mac.MediaPlayerIndex};
+                case MacroOperationType.MediaPlayerGoToFrame:
+                    return new LibAtem.MacroOperations.Media.MediaPlayerGoToFrameMacroOp{Frame = mac.Frame, Index = mac.MediaPlayerIndex};
                 case MacroOperationType.MediaPlayerLoop:
                     return new LibAtem.MacroOperations.Media.MediaPlayerLoopMacroOp{Loop = mac.Loop.Value(), Index = mac.MediaPlayerIndex};
+                case MacroOperationType.MediaPlayerPause:
+                    return new LibAtem.MacroOperations.Media.MediaPlayerPauseMacroOp{Index = mac.MediaPlayerIndex};
                 case MacroOperationType.MediaPlayerPlay:
                     return new LibAtem.MacroOperations.Media.MediaPlayerPlayMacroOp{Index = mac.MediaPlayerIndex};
                 case MacroOperationType.MediaPlayerSourceClip:
@@ -2544,6 +2589,12 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.MixEffects.Transition.Dip.TransitionDipInputMacroOp{Input = mac.Input.ToVideoSource(), Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionDipRate:
                     return new LibAtem.MacroOperations.MixEffects.Transition.Dip.TransitionDipRateMacroOp{Rate = mac.Rate, Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionDVECutInput:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.Stinger.TransitionDVECutInputMacroOp{Input = mac.Input.ToVideoSource(), Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionDVECutInputEnable:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.Stinger.TransitionDVECutInputEnableMacroOp{Enable = mac.Enable.Value(), Index = mac.MixEffectBlockIndex};
+                case MacroOperationType.TransitionDVEFillInput:
+                    return new LibAtem.MacroOperations.MixEffects.Transition.Stinger.TransitionDVEFillInputMacroOp{Input = mac.Input.ToVideoSource(), Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionDVEPattern:
                     return new LibAtem.MacroOperations.MixEffects.Transition.DVE.TransitionDVEPatternMacroOp{Pattern = mac.DVEEffectPattern, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionDVERate:

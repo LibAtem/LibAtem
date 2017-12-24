@@ -229,6 +229,19 @@
         <Macro index="20" name="another macro" description=""/>
         <Macro index="24" name="fake an implosion" description=""/>
         <Macro index="27" name="end of the line" description=""/>
+        <Macro index="31" name="media" description="">
+            <Op id="MediaPlayerGoToFrame" mediaPlayer="1" frame="7"/>
+            <Op id="MacroSleep" frames="1"/>
+            <Op id="MediaPlayerGoToBeginning" mediaPlayer="1"/>
+            <Op id="MacroSleep" frames="1"/>
+            <Op id="MediaPlayerPause" mediaPlayer="1"/>
+            <Op id="MediaPlayerLoop" mediaPlayer="1" loop="True"/>
+            <Op id="MediaPlayerPlay" mediaPlayer="1"/>
+            <Op id="MacroSleep" frames="1"/>
+            <Op id="MediaPlayerPause" mediaPlayer="1"/>
+            <Op id="MediaPlayerSourceClipIndex" mediaPlayer="1" index="0"/>
+            <Op id="MediaPlayerSourceClip" mediaPlayer="1"/>
+        </Macro>
     </MacroPool>
     <MacroControl loop="False"/>
 </Profile>

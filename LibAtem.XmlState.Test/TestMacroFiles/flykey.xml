@@ -62,5 +62,31 @@
             <Op id="DVEKeyBorderSaturation" mixEffectBlockIndex="0" keyIndex="2" saturation="0.259003"/>
             <Op id="DVEKeyBorderSaturation" mixEffectBlockIndex="0" keyIndex="2" saturation="0.759003"/>
         </Macro>
+        <Macro index="4" name="flykey-set" description="">
+            <Op id="DVEKeyBorderHue" mixEffectBlockIndex="0" keyIndex="2" hue="65.8"/>
+            <Op id="DVEKeyBorderSaturation" mixEffectBlockIndex="0" keyIndex="2" saturation="0.735992"/>
+            <Op id="DVEKeyBorderLuminescence" mixEffectBlockIndex="0" keyIndex="2" luminescence="0.445007"/>
+            <Op id="DVEKeyBorderBevel" mixEffectBlockIndex="0" keyIndex="2" bevel="In"/>
+            <Op id="DVEKeyBorderOuterWidth" mixEffectBlockIndex="0" keyIndex="2" outerWidth="2.74001"/>
+            <Op id="DVEKeyBorderInnerWidth" mixEffectBlockIndex="0" keyIndex="2" innerWidth="14.27"/>
+            <Op id="DVEKeyBorderOuterSoftness" mixEffectBlockIndex="0" keyIndex="2" outerSoftness="49"/>
+            <Op id="DVEKeyBorderInnerSoftness" mixEffectBlockIndex="0" keyIndex="2" innerSoftness="78"/>
+            <Op id="DVEKeyBorderOpacity" mixEffectBlockIndex="0" keyIndex="2" opacity="52"/>
+            <Op id="DVEKeyBorderBevelPosition" mixEffectBlockIndex="0" keyIndex="2" bevelPosition="28"/>
+            <Op id="DVEKeyBorderBevelSoftness" mixEffectBlockIndex="0" keyIndex="2" bevelSoftness="69"/>
+            <Op id="DVEAndFlyKeyRate" mixEffectBlockIndex="0" keyIndex="2" rate="15"/>
+            <Op id="FlyKeySetKeyFrame" mixEffectBlockIndex="0" keyIndex="2" keyFrameIndex="1"/>
+        </Macro>
+        <Macro index="5" name="trans-dve-effect" description="">
+            <Op id="TransitionDVEPattern" mixEffectBlockIndex="0" pattern="GraphicCWSpin"/>
+            <Op id="TransitionDVEFillInput" mixEffectBlockIndex="0" input="Camera3"/>
+            <Op id="TransitionDVECutInputEnable" mixEffectBlockIndex="0" enable="True"/>
+            <Op id="TransitionDVECutInput" mixEffectBlockIndex="0" input="Camera5"/>
+            <Op id="TransitionStingerDVEPreMultiply" mixEffectBlockIndex="0" preMultiply="True"/>
+            <Op id="MacroSleep" frames="1"/>
+            <Op id="TransitionDVEPattern" mixEffectBlockIndex="0" pattern="GraphicCCWSpin"/>
+            <Op id="MacroSleep" frames="1"/>
+            <Op id="TransitionDVEPattern" mixEffectBlockIndex="0" pattern="GraphicLogoWipe"/>
+        </Macro>
     </MacroPool>
 </Profile>
