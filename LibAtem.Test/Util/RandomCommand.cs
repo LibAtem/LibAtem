@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using LibAtem.Serialization;
@@ -6,7 +7,7 @@ using Xunit;
 
 namespace LibAtem.Test.Util
 {
-    internal class RandomPropertyGenerator
+    public class RandomPropertyGenerator
     {
         public static readonly Random random = new Random();
         
@@ -65,6 +66,41 @@ namespace LibAtem.Test.Util
                 Assert.True(Equals(origVal, decodedVal),
                     string.Format("{0}.{1} does not match. Orig:{2}, Decoded:{3}", orig.GetType().Name, prop.Name, origVal, decodedVal));
             }
+        }
+
+        public static bool AreTheSame(object orig, object decoded)
+        {
+            PropertyInfo[] props = orig.GetType().GetProperties();
+            foreach (PropertyInfo prop in props)
+            {
+                if (prop.GetCustomAttribute<NoSerializeAttribute>() != null)
+                    continue;
+
+                object origVal = prop.GetValue(orig);
+                object decodedVal = prop.GetValue(decoded);
+
+                SerializableAttributeBase attr = prop.GetCustomAttribute<SerializableAttributeBase>();
+                if (attr != null)
+                {
+                    if (!attr.AreEqual(origVal, decodedVal))
+                        return false;
+
+                    continue;
+                }
+
+                if (origVal is IEnumerable)
+                {
+                    if (!((IEnumerable) origVal).OfType<object>().SequenceEqual(((IEnumerable) decodedVal).OfType<object>()))
+                        return false;
+
+                    continue;
+                }
+
+                if (!Equals(origVal, decodedVal))
+                    return false;
+            }
+
+            return true;
         }
     }
 }

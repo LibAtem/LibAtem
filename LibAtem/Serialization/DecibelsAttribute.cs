@@ -28,7 +28,7 @@ namespace LibAtem.Serialization
         public override bool AreEqual(object val1, object val2)
         {
             uint tolerance = 10;
-            return Math.Abs(DecibelToUInt( val1) - DecibelToUInt( val2)) <= tolerance;
+            return Math.Abs((int) (DecibelToUInt(val1) - DecibelToUInt(val2))) <= tolerance;
         }
 
         public override object GetRandom(Random random)

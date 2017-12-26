@@ -1,4 +1,5 @@
-﻿using LibAtem.Common;
+﻿using System.Linq;
+using LibAtem.Common;
 using LibAtem.Serialization;
 using LibAtem.Util;
 
@@ -16,8 +17,8 @@ namespace LibAtem.Commands.Settings.HyperDeck
         [Serialize(2), ByteArray(4)]
         protected byte[] NetworkAddressBytes
         {
-            get => IPUtil.ParseAddress(NetworkAddress);
-            set => NetworkAddress = IPUtil.IPToString(value);
+            get => IPUtil.ParseAddress(NetworkAddress ?? "0.0.0.0");
+            set => NetworkAddress = value.All(v => v == 0) ? null : IPUtil.IPToString(value);
         }
 
         [Serialize(6), Enum16]

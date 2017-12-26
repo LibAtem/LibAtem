@@ -6,19 +6,19 @@ namespace LibAtem.Common
 {
     public enum VideoMode
     {
-        [VideoModeRate(59.94)]
+        [VideoModeRate(59.94), VideoModeSD]
         [VideoModeMaxClipLength(3600)]
         [XmlEnum("525i5994 NTSC")]
         N525i5994NTSC = 0,
-        [VideoModeRate(50)]
+        [VideoModeRate(50), VideoModeSD]
         [VideoModeMaxClipLength(3600)]
         [XmlEnum("625i50 PAL")]
         P625i50PAL = 1,
-        [VideoModeRate(59.94)]
+        [VideoModeRate(59.94), VideoModeSD]
         [VideoModeMaxClipLength(3600)]
         [XmlEnum("525i5994 16:9")]
         N525i5994169 = 2,
-        [VideoModeRate(50)]
+        [VideoModeRate(50), VideoModeSD]
         [VideoModeMaxClipLength(3600)]
         [XmlEnum("625i50 16:9")]
         P625i50169 = 3,
@@ -100,6 +100,10 @@ namespace LibAtem.Common
         {
             Rate = rate;
         }
+    }
+
+    public class VideoModeSDAttribute : Attribute
+    {
     }
 
     public class VideoModeMaxClipLengthAttribute : Attribute

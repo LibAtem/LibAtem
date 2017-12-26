@@ -8,6 +8,7 @@ using log4net;
 using LibAtem.Commands;
 using LibAtem.MacroOperations;
 using LibAtem.Serialization;
+using LibAtem.Util;
 
 namespace LibAtem.Net
 {
@@ -37,8 +38,10 @@ namespace LibAtem.Net
         private readonly BlockingCollection<ReceivedPacket> _processQueue;
 
         public delegate void DisconnectHandler(object sender);
+        public delegate void PacketHandler(object sender, ReceivedPacket pkt);
 
         public event DisconnectHandler OnDisconnect;
+        public event PacketHandler OnReceivePacket;
 
         private class InFlightMessage
         {
@@ -123,8 +126,8 @@ namespace LibAtem.Net
                 _messageQueue.Enqueue(msg);
             }
         }
-        
-        internal void Receive(Socket socket, ReceivedPacket packet)
+
+        public void Receive(Socket socket, ReceivedPacket packet)
         {
             try
             {
@@ -171,6 +174,7 @@ namespace LibAtem.Net
                         Log.DebugFormat("{0} - Parsed {1} commands with length {2}", Endpoint, packet.Commands.Count, packet.PayloadLength);
                         
                         _processQueue.Add(packet);
+                        OnReceivePacket?.Invoke(this, packet);
                     }
                     // Note: Handshake is handled elsewhere
                     // Note: Unknown, Retransmit both need no action
@@ -193,27 +197,7 @@ namespace LibAtem.Net
                 {
                     Log.DebugFormat("{0} - Received command {1} with content {2}", Endpoint, rawCmd.Name, BitConverter.ToString(rawCmd.Body));
 
-                    Type commandType = CommandManager.FindForName(rawCmd.Name);
-                    if (commandType == null)
-                    {
-                        Log.WarnFormat("{0} - Unknown command {1} with content {2}", Endpoint, rawCmd.Name, BitConverter.ToString(rawCmd.Body));
-                        continue;
-                    }
-
-                    try
-                    {
-                        ICommand cmd = (ICommand)Activator.CreateInstance(commandType);
-                        cmd.Deserialize(rawCmd);
-
-                        if (!rawCmd.HasFinished && !(cmd is SerializableCommandBase))
-                            throw new Exception("Some stray bytes were left after deserialize");
-
-                        result.Add(cmd);
-                    }
-                    catch (Exception e)
-                    {
-                        LogManager.GetLogger(commandType).Error(e);
-                    }
+                    result.AddIfNotNull(CommandParser.Parse(rawCmd));
                 }
 
                 return result;

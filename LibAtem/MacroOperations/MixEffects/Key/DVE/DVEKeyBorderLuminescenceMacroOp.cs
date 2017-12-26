@@ -8,8 +8,8 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
     [MacroOperation(MacroOperationType.DVEKeyBorderLuminescence, 12)]
     public class DVEKeyBorderLuminescenceMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(8), UInt32DScale]
-        [MacroField("Luma")]
+        [Serialize(6), UInt32DScale]
+        [MacroField("Luminescence")]
         public double Luma { get; set; }
 
         public override ICommand ToCommand()

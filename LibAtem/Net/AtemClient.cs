@@ -31,8 +31,14 @@ namespace LibAtem.Net
         public event ConnectedHandler OnConnection;
         public event DisconnectedHandler OnDisconnect;
 
-//        private int _lastSentAck;
-//        private int _nextSentAck;
+        public event AtemConnection.PacketHandler OnReceivePacket
+        {
+            add => _connection.OnReceivePacket += value;
+            remove => _connection.OnReceivePacket -= value;
+        }
+
+        //        private int _lastSentAck;
+        //        private int _nextSentAck;
 
         public DataTransferManager DataTransfer { get; }
 
