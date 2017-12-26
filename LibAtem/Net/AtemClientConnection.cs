@@ -40,7 +40,7 @@ namespace LibAtem.Net
             int removeCount = 0;
             foreach (ICommand cmd in commands)
             {
-                if (!builder.TryAddCommand(cmd))
+                if (!builder.TryAddData(cmd.ToByteArray()))
                     break;
                     
                 removeCount++;

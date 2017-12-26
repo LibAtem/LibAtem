@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using LibAtem.Commands;
 
 namespace LibAtem.Net
@@ -51,18 +52,22 @@ namespace LibAtem.Net
             currentLength = 0;
         }
 
-        public bool TryAddCommand(ICommand cmd)
+        public bool TryAddData(byte[] arr)
         {
-            return TryAddCommands(new List<ICommand> {cmd});
+            return TryAddData(new List<byte[]> {arr});
         }
 
         public bool TryAddCommands(IReadOnlyList<ICommand> commands)
         {
+            return TryAddData(commands.Select(c => c.ToByteArray()).ToList());
+        }
+
+        public bool TryAddData(IReadOnlyList<byte[]> arr)
+        {
             int newLength = currentLength;
-            List<byte[]> datasets = new List<byte[]>(commands.Count);
-            foreach (ICommand res in commands)
+            List<byte[]> datasets = new List<byte[]>(arr.Count);
+            foreach (byte[] data in arr)
             {
-                byte[] data = res.ToByteArray();
                 if (newLength + data.Length > maxLength && currentLength != 0)
                     return false;
 

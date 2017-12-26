@@ -6,7 +6,7 @@ namespace LibAtem.Commands.CameraControl
         public void Serialize(ByteArrayBuilder cmd)
         {
             cmd.AddByte(0x00, 0x00); // ??
-            cmd.AddByte(0x13, 0x88);
+            cmd.AddByte(0x13, 0x88); // 5000?
         }
 
         public void Deserialize(ParsedByteArray cmd)

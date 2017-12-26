@@ -69,13 +69,17 @@ namespace LibAtem.Test.Util
             }
         }
 
-        public static bool AreTheSame(object orig, object decoded)
+        public static bool AreTheSame(object orig, object decoded, bool allowedNoProps)
         {
+            int comparedProps = 0;
+
             PropertyInfo[] props = orig.GetType().GetProperties();
             foreach (PropertyInfo prop in props)
             {
                 if (prop.GetCustomAttribute<NoSerializeAttribute>() != null)
                     continue;
+
+                comparedProps++;
 
                 object origVal = prop.GetValue(orig);
                 object decodedVal = prop.GetValue(decoded);
@@ -132,7 +136,7 @@ namespace LibAtem.Test.Util
                     return false;
             }
 
-            return true;
+            return allowedNoProps || comparedProps > 0;
         }
     }
 }

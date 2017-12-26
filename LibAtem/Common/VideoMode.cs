@@ -8,6 +8,7 @@ namespace LibAtem.Common
     {
         SDISD,
         SDIHD,
+        SDIHDProgressive,
         SDI3G,
         SDI6G,
         SDI12G,
@@ -48,19 +49,20 @@ namespace LibAtem.Common
         [VideoModeMaxClipLength(720)]
         [XmlEnum("1080i5994")]
         N1080i5994 = 7,
-        [VideoModeRate(23.98), VideoModeStandard(VideoModeStandard.SDIHD)]
+
+        [VideoModeRate(23.98), VideoModeStandard(VideoModeStandard.SDIHDProgressive)]
         [VideoModeMaxClipLength(720)]
         [XmlEnum("1080p2398")]
         N1080p2398 = 8,
-        [VideoModeRate(24), VideoModeStandard(VideoModeStandard.SDIHD)]
+        [VideoModeRate(24), VideoModeStandard(VideoModeStandard.SDIHDProgressive)]
         [VideoModeMaxClipLength(720)]
         [XmlEnum("1080p24")]
         N1080p24 = 9,
-        [VideoModeRate(25), VideoModeStandard(VideoModeStandard.SDIHD)]
+        [VideoModeRate(25), VideoModeStandard(VideoModeStandard.SDIHDProgressive)]
         [VideoModeMaxClipLength(720)]
         [XmlEnum("1080p25")]
         P1080p25 = 10,
-        [VideoModeRate(29.97), VideoModeStandard(VideoModeStandard.SDIHD)]
+        [VideoModeRate(29.97), VideoModeStandard(VideoModeStandard.SDIHDProgressive)]
         [VideoModeMaxClipLength(720)]
         [XmlEnum("1080p2997")]
         N1080p2997 = 11,
