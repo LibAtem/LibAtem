@@ -79,6 +79,11 @@ namespace LibAtem.Common
         [AudioPortType(AudioPortType.RCA)]
         RCA = 1201,
 
+        [XmlEnum("1301")]
+        [AudioSourceType(AudioSourceType.ExternalAudio)]
+        [AudioPortType(AudioPortType.Internal)]
+        Unknown = 1301, // TODO - introduced by tv studio hd. headset mic?
+
         [XmlEnum("2001")]
         [AudioSourceType(AudioSourceType.MediaPlayer)]
         [AudioPortType(AudioPortType.Internal)]

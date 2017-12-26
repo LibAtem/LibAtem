@@ -14,18 +14,19 @@ namespace LibAtem.Commands.Settings.HyperDeck
 
         [NoSerialize]
         public string NetworkAddress { get; set; }
-        [Serialize(2), ByteArray(4)]
+        [Serialize(4), ByteArray(4)]
         protected byte[] NetworkAddressBytes
         {
             get => IPUtil.ParseAddress(NetworkAddress ?? "0.0.0.0");
             set => NetworkAddress = value.All(v => v == 0) ? null : IPUtil.IPToString(value);
         }
 
-        [Serialize(6), Enum16]
+        // TODO - these fields may not be correct
+        [Serialize(8), Enum16]
         public VideoSource Input { get; set; }
-        [Serialize(8), Bool]
+        [Serialize(10), Bool]
         public bool AutoRoll { get; set; }
-        [Serialize(10), UInt8Range(0, 60)]
+        [Serialize(12), UInt8Range(0, 60)]
         public uint AutoRollFrameDelay { get; set; }
     }
 }

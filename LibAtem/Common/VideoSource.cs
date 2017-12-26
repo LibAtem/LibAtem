@@ -172,38 +172,34 @@ namespace LibAtem.Common
 
         [VideoSourceType(InternalPortType.Mask, 1)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
-        [VideoSourceDefaults("Key 1 Mask", "Msk1")]
         [XmlEnum("4010")]
         Key1Mask = 4010,
         [VideoSourceType(InternalPortType.Mask, 2)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
-        [VideoSourceDefaults("Key 2 Mask", "Msk2")]
         [XmlEnum("4020")]
         Key2Mask = 4020,
-        [VideoSourceType(InternalPortType.Mask, 3)]
+        [VideoSourceType(InternalPortType.Mask, 3, 1)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
-        [VideoSourceDefaults("Key 3 Mask", "Msk3")]
         [XmlEnum("4030")]
         Key3Mask = 4030,
-        [VideoSourceType(InternalPortType.Mask, 4)]
+        [VideoSourceType(InternalPortType.Mask, 4, 2)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
-        [VideoSourceDefaults("Key 4 Mask", "Msk4")]
         [XmlEnum("4040")]
         Key4Mask = 4040,
         [VideoSourceType(InternalPortType.Mask, 0)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
-        [VideoSourceDefaults("DSK 1 Mask", "Dsk1")]
+        [VideoSourceDefaults("DSK 1 Mask", "DK1M")]
         [XmlEnum("5010")]
         DSK1Mask = 5010,
         [VideoSourceType(InternalPortType.Mask, 0)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
-        [VideoSourceDefaults("DSK 2 Mask", "Dsk2")]
+        [VideoSourceDefaults("DSK 2 Mask", "DK2M")]
         [XmlEnum("5020")]
         DSK2Mask = 5020,
 
         [VideoSourceType(InternalPortType.SuperSource, 1)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer | SourceAvailability.KeySource, MeAvailability.All)]
-        [VideoSourceDefaults("Super Source", "SSrc")]
+        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer | SourceAvailability.KeySource | SourceAvailability.SuperSourceBox, MeAvailability.All)]
+        [VideoSourceDefaults("SuperSource", "SSrc")]
         [XmlEnum("6000")]
         SuperSource = 6000,
 
@@ -251,22 +247,18 @@ namespace LibAtem.Common
 
         [VideoSourceType(InternalPortType.MEOutput, 1)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
-        [VideoSourceDefaults("ME1 Program", "Pro1")]
         [XmlEnum("10010")]
         ME1Prog = 10010,
         [VideoSourceType(InternalPortType.MEOutput, 1)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
-        [VideoSourceDefaults("ME1 Preview", "Prv1")]
         [XmlEnum("10011")]
         ME1Prev = 10011,
         [VideoSourceType(InternalPortType.MEOutput, 2)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1)]
-        [VideoSourceDefaults("ME2 Program", "Pro2")]
         [XmlEnum("10020")]
         ME2Prog = 10020,
         [VideoSourceType(InternalPortType.MEOutput, 2)]
         [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1)]
-        [VideoSourceDefaults("ME2 Preview", "Prv2")]
         [XmlEnum("10021")]
         ME2Prev = 10021,
     }
@@ -274,12 +266,14 @@ namespace LibAtem.Common
     public class VideoSourceTypeAttribute : Attribute
     {
         public InternalPortType PortType { get; }
-        public int Index { get; }
+        public int Me1Index { get; }
+        public int Me2Index { get; }
 
-        public VideoSourceTypeAttribute(InternalPortType portType, int index)
+        public VideoSourceTypeAttribute(InternalPortType portType, int me1Index, int me2Index=-1)
         {
             PortType = portType;
-            Index = index;
+            Me1Index = me1Index;
+            Me2Index = me2Index == -1 ? me1Index : me2Index;
         }
     }
 
