@@ -34,7 +34,7 @@ namespace LibAtem.DeviceProfile
             {
                 return LoadTopology(path);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

@@ -153,10 +153,27 @@ namespace LibAtem.DeviceProfile
 
         public static IEnumerable<ExternalPortType> FilterVideoMode(this IEnumerable<ExternalPortType> orig, VideoMode mode)
         {
-            if (mode.GetPossibleAttribute<VideoMode, VideoModeSDAttribute>() != null)
+            if (mode.GetStandard() == VideoModeStandard.SDISD)
                 return orig.OrderBy(p => p);
 
             return orig.Where(p => p != ExternalPortType.Composite && p != ExternalPortType.SVideo).OrderBy(p => p);
+        }
+
+        public static Tuple<string, string> GetDefaultName(this VideoSource src, DeviceProfile profile)
+        {
+            if (profile.MixEffectBlocks < 2)
+            {
+                switch (src)
+                {
+                    case VideoSource.ME1Prog:
+                        return Tuple.Create("Program", "Prog");
+                    case VideoSource.ME1Prev:
+                        return Tuple.Create("Preview", "Prev");
+                }
+            }
+
+            var nameAttr = src.GetAttribute<VideoSource, VideoSourceDefaultsAttribute>();
+            return Tuple.Create(nameAttr.LongName, nameAttr.ShortName);
         }
     }
 }
