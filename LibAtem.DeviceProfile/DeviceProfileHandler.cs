@@ -44,7 +44,7 @@ namespace LibAtem.DeviceProfile
 
         private void StoreTopology(TopologyCommand cmd)
         {
-            Profile.MixEffectBlocks = cmd.MixEffectBlocks;
+            Profile.MixEffectBlocks.SetToLength(cmd.MixEffectBlocks, e => new MixEffect(e));
             Profile.ColorGenerators = cmd.ColorGenerators;
             Profile.Auxiliaries = cmd.Auxiliaries;
             Profile.MediaPlayers = cmd.MediaPlayers;
@@ -59,6 +59,8 @@ namespace LibAtem.DeviceProfile
 
             // TODO
             // public uint DownstreamKeys { get; set; }
+            // RoutableKeyMasks
+            // AudioMonitor
         }
 
         private void StoreVideoSource(InputPropertiesGetCommand cmd)

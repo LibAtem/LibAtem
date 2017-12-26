@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using LibAtem.DeviceProfile.Properties;
 
@@ -10,6 +11,7 @@ namespace LibAtem.DeviceProfile
         Auto,
         Atem1ME,
         Atem2ME4K,
+        AtemTelevisionStudioHD,
     }
 
     public static class DeviceProfileRepository
@@ -62,10 +64,20 @@ namespace LibAtem.DeviceProfile
                     return ParseTopology(Resources.Unknown);
                 case DeviceProfileType.Atem1ME:
                     return ParseTopology(Resources.Atem1MEProductionSwitcher);
+                case DeviceProfileType.AtemTelevisionStudioHD:
+                    return ParseTopology(Resources.AtemTelevisionStudioHD);
                 case DeviceProfileType.Atem2ME4K:
                 default:
                     return ParseTopology(Resources.Atem2MEProductionStudio4K);
             }
+        }
+
+        public static DeviceProfile FindByProductName(string name)
+        {
+            return Enum.GetValues(typeof(DeviceProfileType))
+                .OfType<DeviceProfileType>()
+                .Select(GetSystemProfile)
+                .FirstOrDefault(p => p.Product == name);
         }
     }
 

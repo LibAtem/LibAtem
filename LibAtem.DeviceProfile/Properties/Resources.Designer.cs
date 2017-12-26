@@ -120,6 +120,35 @@ namespace LibAtem.DeviceProfile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;DeviceProfile&gt;
+        ///  &lt;Product&gt;ATEM Television Studio HD&lt;/Product&gt;
+        ///  &lt;MixEffectBlocks&gt;1&lt;/MixEffectBlocks&gt;
+        ///  &lt;Sources&gt;
+        ///    &lt;DevicePort id=&quot;1&quot;&gt;
+        ///      &lt;Port&gt;HDMI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;DevicePort id=&quot;2&quot;&gt;
+        ///      &lt;Port&gt;HDMI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;DevicePort id=&quot;3&quot;&gt;
+        ///      &lt;Port&gt;HDMI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;DevicePort id=&quot;4&quot;&gt;
+        ///      &lt;Port&gt;HDMI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;DevicePort id=&quot;5&quot;&gt;
+        ///      &lt;Port&gt;SDI&lt;/Port&gt;
+        ///    &lt;/DevicePort&gt;
+        ///    &lt;Devic [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string AtemTelevisionStudioHD {
+            get {
+                return ResourceManager.GetString("AtemTelevisionStudioHD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;DeviceProfile&gt;
         ///  &lt;Product&gt;Unknown ATEM Switcher&lt;/Product&gt;
         ///  &lt;MixEffectBlocks&gt;1&lt;/MixEffectBlocks&gt;
         ///  &lt;Sources&gt;

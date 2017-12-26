@@ -59,23 +59,25 @@ namespace LibAtem.DeviceProfile
             switch (props.PortType)
             {
                 case InternalPortType.Auxilary:
-                    return props.Index <= profile.Auxiliaries;
+                    return props.Me1Index <= profile.Auxiliaries;
                 case InternalPortType.Black:
                 case InternalPortType.ColorBars:
                     return true;
                 case InternalPortType.ColorGenerator:
-                    return props.Index <= profile.ColorGenerators;
+                    return props.Me1Index <= profile.ColorGenerators;
                 case InternalPortType.External:
-                    return props.Index <= profile.Sources.Count;
+                    return props.Me1Index <= profile.Sources.Count;
                 case InternalPortType.MEOutput:
-                    return props.Index <= profile.MixEffectBlocks;
+                    return props.Me1Index <= profile.MixEffectBlocks.Count;
                 case InternalPortType.Mask:
-                    return props.Index <= profile.UpstreamKeys;
+                    if (profile.MixEffectBlocks.Count > 1)
+                        return props.Me2Index <= profile.UpstreamKeys;
+                    return props.Me1Index <= profile.UpstreamKeys;
                 case InternalPortType.MediaPlayerFill:
                 case InternalPortType.MediaPlayerKey:
-                    return props.Index <= profile.MediaPlayers;
+                    return props.Me1Index <= profile.MediaPlayers;
                 case InternalPortType.SuperSource:
-                    return props.Index <= profile.SuperSource;
+                    return props.Me1Index <= profile.SuperSource;
                 default:
                     Debug.Fail(String.Format("Invalid source type:{0}", props.PortType));
                     return false;
@@ -106,7 +108,7 @@ namespace LibAtem.DeviceProfile
 
         public static bool IsAvailable(this MixEffectBlockId id, DeviceProfile profile)
         {
-            return id.IsValid() && (int)id < profile.MixEffectBlocks;
+            return id.IsValid() && (int)id < profile.MixEffectBlocks.Count;
         }
 
         public static bool IsAvailable(this UpstreamKeyId id, DeviceProfile profile)
@@ -127,7 +129,7 @@ namespace LibAtem.DeviceProfile
         public static MeAvailability FilterProfile(this MeAvailability orig, DeviceProfile profile)
         {
             MeAvailability res = orig;
-            if (profile.MixEffectBlocks < 2)
+            if (profile.MixEffectBlocks.Count < 2)
                 res &= ~MeAvailability.Me2;
 
             return res;
@@ -161,14 +163,41 @@ namespace LibAtem.DeviceProfile
 
         public static Tuple<string, string> GetDefaultName(this VideoSource src, DeviceProfile profile)
         {
-            if (profile.MixEffectBlocks < 2)
+            if (src == VideoSource.ME1Prog)
+                return Tuple.Create(profile.MixEffectBlocks[0].ProgramLong, profile.MixEffectBlocks[0].ProgramShort);
+            if (src == VideoSource.ME1Prev)
+                return Tuple.Create(profile.MixEffectBlocks[0].PreviewLong, profile.MixEffectBlocks[0].PreviewShort);
+            if (src == VideoSource.ME2Prog)
+                return Tuple.Create(profile.MixEffectBlocks[1].ProgramLong, profile.MixEffectBlocks[1].ProgramShort);
+            if (src == VideoSource.ME2Prev)
+                return Tuple.Create(profile.MixEffectBlocks[1].PreviewLong, profile.MixEffectBlocks[1].PreviewShort);
+
+            if (profile.MixEffectBlocks.Count > 1)
             {
                 switch (src)
                 {
-                    case VideoSource.ME1Prog:
-                        return Tuple.Create("Program", "Prog");
-                    case VideoSource.ME1Prev:
-                        return Tuple.Create("Preview", "Prev");
+                    case VideoSource.Key1Mask:
+                        return Tuple.Create("ME 1 Key 1 Mask", "M1K1");
+                    case VideoSource.Key2Mask:
+                        return Tuple.Create("ME 1 Key 2 Mask", "M1K2");
+                    case VideoSource.Key3Mask:
+                        return Tuple.Create("ME 2 Key 1 Mask", "M2K1");
+                    case VideoSource.Key4Mask:
+                        return Tuple.Create("ME 2 Key 2 Mask", "M2K2");
+                }
+            }
+            else
+            {
+                switch (src)
+                {
+                    case VideoSource.Key1Mask:
+                        return Tuple.Create("Key 1 Mask", "M1K1");
+                    case VideoSource.Key2Mask:
+                        return Tuple.Create("Key 2 Mask", "M1K2");
+                    case VideoSource.Key3Mask:
+                        return Tuple.Create("Key 3 Mask", "M1K3");
+                    case VideoSource.Key4Mask:
+                        return Tuple.Create("Key 4 Mask", "M1K4");
                 }
             }
 

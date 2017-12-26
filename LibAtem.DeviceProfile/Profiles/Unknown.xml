@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DeviceProfile>
   <Product>Unknown ATEM Switcher</Product>
-  <MixEffectBlocks>1</MixEffectBlocks>
+  <MixEffectBlocks>
+    <MixEffect programLong="Program" programShort="Pgm" previewLong="Preview" previewShort="Pvw" />
+  </MixEffectBlocks>
   <Sources>
     <DevicePort id="1">
       <Port>SDI</Port>
@@ -32,6 +34,7 @@
   <Auxiliaries>1</Auxiliaries>
   <DownstreamKeys>2</DownstreamKeys>
   <UpstreamKeys>2</UpstreamKeys>
+  <RoutableKeyMasks>false</RoutableKeyMasks>
   <Stingers>1</Stingers>
   <HyperDecks>4</HyperDecks>
   <DVE>1</DVE>
@@ -46,4 +49,6 @@
     <CanSwapPreviewProgram>false</CanSwapPreviewProgram>
   </MultiView>
   <SerialPort>0</SerialPort>
+  <AudioMonitor>false</AudioMonitor>
+  <DownConvertFrom>SDI6G</DownConvertFrom>
 </DeviceProfile>

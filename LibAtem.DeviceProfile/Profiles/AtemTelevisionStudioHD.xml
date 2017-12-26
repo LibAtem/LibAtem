@@ -1,14 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DeviceProfile>
-  <Product>ATEM 1 M/E Production Switcher</Product>
+  <Product>ATEM Television Studio HD</Product>
   <MixEffectBlocks>
-    <MixEffect programLong="Program" programShort="Prog" previewLong="Preview" previewShort="Prev" />
+    <MixEffect programLong="Program" programShort="Pgm" previewLong="Preview" previewShort="Pvw" />
   </MixEffectBlocks>
   <Sources>
     <DevicePort id="1">
-      <Port>Composite</Port>
-      <Port>SVideo</Port>
-      <Port>Component</Port>
       <Port>HDMI</Port>
     </DevicePort>
     <DevicePort id="2">
@@ -34,24 +31,24 @@
     </DevicePort>
   </Sources>
   <ColorGenerators>2</ColorGenerators>
-  <Auxiliaries>3</Auxiliaries>
+  <Auxiliaries>1</Auxiliaries>
   <DownstreamKeys>2</DownstreamKeys>
-  <UpstreamKeys>4</UpstreamKeys>
-  <RoutableKeyMasks>false</RoutableKeyMasks>
-  <Stingers>1</Stingers>
+  <UpstreamKeys>1</UpstreamKeys>
+  <RoutableKeyMasks>true</RoutableKeyMasks>
+  <Stingers>0</Stingers>
   <HyperDecks>4</HyperDecks>
   <DVE>1</DVE>
   <SuperSource>0</SuperSource>
   <MediaPlayers>2</MediaPlayers>
-  <MediaPoolStills>32</MediaPoolStills>
-  <MediaPoolClips>2</MediaPoolClips>
+  <MediaPoolStills>20</MediaPoolStills>
+  <MediaPoolClips>0</MediaPoolClips>
   <MacroCount>100</MacroCount>
   <MultiView>
     <Count>1</Count>
-    <VuMeters>false</VuMeters>
-    <CanSwapPreviewProgram>false</CanSwapPreviewProgram>
+    <VuMeters>true</VuMeters>
+    <CanSwapPreviewProgram>true</CanSwapPreviewProgram>
   </MultiView>
   <SerialPort>1</SerialPort>
-  <AudioMonitor>true</AudioMonitor>
-  <DownConvertFrom>SDIHD</DownConvertFrom>
+  <AudioMonitor>false</AudioMonitor>
+  <DownConvertFrom>SDI6G</DownConvertFrom>
 </DeviceProfile>

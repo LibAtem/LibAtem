@@ -6,10 +6,12 @@
 
   <ItemGroup>
     <None Remove="Profiles\Atem2MEProductionStudio4K.xml" />
+    <None Remove="Profiles\AtemTelevisionStudioHD.xml" />
     <None Remove="Profiles\Unknown.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Profiles\AtemTelevisionStudioHD.xml" />
     <EmbeddedResource Include="Profiles\Unknown.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
