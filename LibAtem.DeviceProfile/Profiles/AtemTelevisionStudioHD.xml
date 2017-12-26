@@ -50,5 +50,5 @@
   </MultiView>
   <SerialPort>1</SerialPort>
   <AudioMonitor>false</AudioMonitor>
-  <DownConvertFrom>SDI6G</DownConvertFrom>
+  <VideoModes minimumSupported="SDISD" maximumSupported="SDI3G" downConvertAbove="SDI6G" />
 </DeviceProfile>

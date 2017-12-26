@@ -45,7 +45,18 @@ namespace LibAtem.DeviceProfile
 
         public bool AudioMonitor { get; set; }
 
-        public VideoModeStandard DownConvertFrom { get; set; }
+        public VideoModeSet VideoModes { get; set; }
+    }
+
+    public class VideoModeSet
+    {
+        [XmlAttribute("minimumSupported")]
+        public VideoModeStandard MinimumSupported { get; set; }
+        [XmlAttribute("maximumSupported")]
+        public VideoModeStandard MaximumSupported { get; set; }
+
+        [XmlAttribute("downConvertAbove")]
+        public VideoModeStandard DownConvertAbove { get; set; }
     }
 
     public class MixEffect
