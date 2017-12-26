@@ -28,6 +28,18 @@ namespace LibAtem.DeviceProfile
             }
         }
 
+        public static DeviceProfile TryLoadTopology(string path)
+        {
+            try
+            {
+                return LoadTopology(path);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public static DeviceProfile ParseTopology(string data)
         {
             try

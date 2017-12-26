@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using LibAtem.Common;
 using LibAtem.Util;
 
@@ -45,12 +47,15 @@ namespace LibAtem.DeviceProfile
             return true;
         }
 
-        public static bool IsAvailable(this VideoSource src, DeviceProfile profile)
+        public static bool IsAvailable(this VideoSource src, DeviceProfile profile, params InternalPortType[] ignorePortTypes)
         {
             if (!src.IsValid())
                 return false;
-
+            
             VideoSourceTypeAttribute props = src.GetAttribute<VideoSource, VideoSourceTypeAttribute>();
+            if (ignorePortTypes.Contains(props.PortType))
+                return false;
+
             switch (props.PortType)
             {
                 case InternalPortType.Auxilary:
@@ -117,6 +122,41 @@ namespace LibAtem.DeviceProfile
         public static bool IsAvailable(this AuxiliaryId id, DeviceProfile profile)
         {
             return id.IsValid() && (int)id < profile.Auxiliaries;
+        }
+        
+        public static MeAvailability FilterProfile(this MeAvailability orig, DeviceProfile profile)
+        {
+            MeAvailability res = orig;
+            if (profile.MixEffectBlocks < 2)
+                res &= ~MeAvailability.Me2;
+
+            return res;
+        }
+
+        public static SourceAvailability FilterProfile(this SourceAvailability orig, DeviceProfile profile)
+        {
+            SourceAvailability res = orig;
+            if (profile.Auxiliaries == 0)
+                res &= ~SourceAvailability.Auxilary;
+
+            if (profile.MultiView == null || profile.MultiView.Count == 0)
+                res &= SourceAvailability.Multiviewer;
+
+            if (profile.SuperSource == 0)
+                res &= ~(SourceAvailability.SuperSourceArt | SourceAvailability.SuperSourceBox);
+
+            if (profile.UpstreamKeys == 0)
+                res &= SourceAvailability.KeySource;
+
+            return res;
+        }
+
+        public static IEnumerable<ExternalPortType> FilterVideoMode(this IEnumerable<ExternalPortType> orig, VideoMode mode)
+        {
+            if (mode.GetPossibleAttribute<VideoMode, VideoModeSDAttribute>() != null)
+                return orig.OrderBy(p => p);
+
+            return orig.Where(p => p != ExternalPortType.Composite && p != ExternalPortType.SVideo).OrderBy(p => p);
         }
     }
 }

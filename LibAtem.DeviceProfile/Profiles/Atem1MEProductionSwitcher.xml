@@ -40,7 +40,7 @@
   <DVE>1</DVE>
   <SuperSource>0</SuperSource>
   <MediaPlayers>2</MediaPlayers>
-  <MediaPoolStills>20</MediaPoolStills>
+  <MediaPoolStills>32</MediaPoolStills>
   <MediaPoolClips>2</MediaPoolClips>
   <MacroCount>100</MacroCount>
   <MultiView>
@@ -48,5 +48,5 @@
     <VuMeters>false</VuMeters>
     <CanSwapPreviewProgram>false</CanSwapPreviewProgram>
   </MultiView>
-  <SerialPort>0</SerialPort>
+  <SerialPort>1</SerialPort>
 </DeviceProfile>
