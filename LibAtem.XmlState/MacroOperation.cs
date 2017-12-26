@@ -879,24 +879,6 @@ namespace LibAtem.XmlState
             }
         }
 
-        [XmlAttribute("luma")]
-        public System.Double Luma
-        {
-            get;
-            set;
-        }
-
-        public bool ShouldSerializeLuma()
-        {
-            switch (Id)
-            {
-                case MacroOperationType.DVEKeyBorderLuminescence:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
         [XmlAttribute("luminescence")]
         public System.Double Luminescence
         {
@@ -909,6 +891,7 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.ColorGeneratorLuminescence:
+                case MacroOperationType.DVEKeyBorderLuminescence:
                     return true;
                 default:
                     return false;
@@ -1988,7 +1971,7 @@ namespace LibAtem.XmlState
                     return new MacroOperation{Id = MacroOperationType.DVEKeyBorderInnerWidth, InnerWidth = opDVEKeyBorderInnerWidthMacroOp.InnerWidth, UpstreamKeyIndex = opDVEKeyBorderInnerWidthMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyBorderInnerWidthMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVE.DVEKeyBorderLuminescenceMacroOp":
                     var opDVEKeyBorderLuminescenceMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVE.DVEKeyBorderLuminescenceMacroOp)op;
-                    return new MacroOperation{Id = MacroOperationType.DVEKeyBorderLuminescence, Luma = opDVEKeyBorderLuminescenceMacroOp.Luma, UpstreamKeyIndex = opDVEKeyBorderLuminescenceMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyBorderLuminescenceMacroOp.Index};
+                    return new MacroOperation{Id = MacroOperationType.DVEKeyBorderLuminescence, Luminescence = opDVEKeyBorderLuminescenceMacroOp.Luma, UpstreamKeyIndex = opDVEKeyBorderLuminescenceMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyBorderLuminescenceMacroOp.Index};
                 case "LibAtem.MacroOperations.MixEffects.Key.DVE.DVEKeyBorderOpacityMacroOp":
                     var opDVEKeyBorderOpacityMacroOp = (LibAtem.MacroOperations.MixEffects.Key.DVE.DVEKeyBorderOpacityMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.DVEKeyBorderOpacity, Opacity = opDVEKeyBorderOpacityMacroOp.Opacity, UpstreamKeyIndex = opDVEKeyBorderOpacityMacroOp.KeyIndex, MixEffectBlockIndex = opDVEKeyBorderOpacityMacroOp.Index};
@@ -2436,7 +2419,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DVEKeyBorderInnerWidth:
                     return new LibAtem.MacroOperations.MixEffects.Key.DVE.DVEKeyBorderInnerWidthMacroOp{InnerWidth = mac.InnerWidth, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyBorderLuminescence:
-                    return new LibAtem.MacroOperations.MixEffects.Key.DVE.DVEKeyBorderLuminescenceMacroOp{Luma = mac.Luma, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
+                    return new LibAtem.MacroOperations.MixEffects.Key.DVE.DVEKeyBorderLuminescenceMacroOp{Luma = mac.Luminescence, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyBorderOpacity:
                     return new LibAtem.MacroOperations.MixEffects.Key.DVE.DVEKeyBorderOpacityMacroOp{Opacity = mac.Opacity, KeyIndex = mac.UpstreamKeyIndex, Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.DVEKeyBorderOuterSoftness:

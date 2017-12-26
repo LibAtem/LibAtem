@@ -9,10 +9,8 @@ namespace LibAtem.XmlState
         public static XmlState LoadState(string path)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(XmlState));
-            FileStream fs = new FileStream(path, FileMode.Open);
-            var res = (XmlState)serializer.Deserialize(fs);
-            fs.Dispose();
-            return res;
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+                return (XmlState) serializer.Deserialize(fs);
         }
 
         public static bool SaveState(string path, XmlState profile)
@@ -21,10 +19,11 @@ namespace LibAtem.XmlState
             ns.Add("", "");
 
             XmlSerializer serializer = new XmlSerializer(typeof(XmlState));
-            FileStream fs = new FileStream(path, FileMode.Create);
-            serializer.Serialize(fs, profile, ns);
-            fs.Flush();
-            fs.Dispose();
+            using(FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                serializer.Serialize(fs, profile, ns);
+                fs.Flush();
+            }
             return true;
         }
     }

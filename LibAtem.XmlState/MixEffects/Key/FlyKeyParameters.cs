@@ -20,6 +20,9 @@ namespace LibAtem.XmlState.MixEffects.Key
         [XmlAttribute("rotation")]
         public double Rotation { get; set; }
         [XmlAttribute("rate")]
-        public int Rate { get; set; }
+        public uint Rate { get; set; }
+
+        public FlyKeyFrame KeyFrameA { get; set; }
+        public FlyKeyFrame KeyFrameB { get; set; }
     }
 }

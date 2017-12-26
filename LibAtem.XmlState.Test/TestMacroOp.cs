@@ -46,42 +46,44 @@ namespace LibAtem.XmlState.Test
 
             bool failed = false;
 
-            StreamReader byteFile = new StreamReader(byteFilename);
-            while (!byteFile.EndOfStream)
+            using (StreamReader byteFile = new StreamReader(byteFilename))
             {
-                string[] parts = byteFile.ReadLine().Split(": ");
-                Assert.Equal(2, parts.Length);
-
-                int index = int.Parse(parts[0]);
-                int count = int.Parse(parts[1]);
-
-                Macro macroXml = xmlSpec.MacroPool.FirstOrDefault(m => m.Index == index);
-                Assert.NotNull(macroXml);
-
-                List<byte[]> data = Enumerable.Range(0, count).Select(x => StringToByteArray(byteFile.ReadLine())).ToList();
-
-                Assert.Equal(macroXml.Operations.Count, data.Count);
-
-                for (var i = 0; i < count; i++)
+                while (!byteFile.EndOfStream)
                 {
-                    try
+                    string[] parts = byteFile.ReadLine().Split(": ");
+                    Assert.Equal(2, parts.Length);
+
+                    int index = int.Parse(parts[0]);
+                    int count = int.Parse(parts[1]);
+
+                    Macro macroXml = xmlSpec.MacroPool.FirstOrDefault(m => m.Index == index);
+                    Assert.NotNull(macroXml);
+
+                    List<byte[]> data = Enumerable.Range(0, count).Select(x => StringToByteArray(byteFile.ReadLine())).ToList();
+
+                    Assert.Equal(macroXml.Operations.Count, data.Count);
+
+                    for (var i = 0; i < count; i++)
                     {
-                        MacroOpBase converted = MacroOpManager.CreateFromData(data[i]);
-                        MacroOpBase op = macroXml.Operations[i].ToMacroOp();
-                        if (!Equals(converted, op))
+                        try
                         {
-                            output.WriteLine("Got:\n {0}Expected:\n {1}", ToString(converted), ToString(op));
+                            MacroOpBase converted = MacroOpManager.CreateFromData(data[i]);
+                            MacroOpBase op = macroXml.Operations[i].ToMacroOp();
+                            if (!Equals(converted, op))
+                            {
+                                output.WriteLine("Got:\n {0}Expected:\n {1}", ToString(converted), ToString(op));
+                                failed = true;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            output.WriteLine(e.Message + "\n");
                             failed = true;
                         }
                     }
-                    catch (Exception e)
-                    {
-                        output.WriteLine(e.Message + "\n");
-                        failed = true;
-                    }
                 }
             }
-            
+
             Assert.False(failed);
         }
 

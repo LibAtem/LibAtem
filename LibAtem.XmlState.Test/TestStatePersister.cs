@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using System.Xml.Serialization;
 using FatAntelope;
 using Xunit;
 using Xunit.Abstractions;
@@ -123,6 +124,12 @@ namespace LibAtem.XmlState.Test
             RunForFile("TestFiles/macro-dev.xml");
         }
 
+        [Fact]
+        public void TestAtem1MEDev()
+        {
+            RunForFile("TestFiles/atem-1me-dev.xml");
+        }
+
         #region Helpers
 
         private void RunForFile(string filename)
@@ -191,7 +198,7 @@ namespace LibAtem.XmlState.Test
                     if (canIgnore.Contains(thisFqPath))
                         return new List<string>();
 
-                    return new List<string>() {prefix + "Unexpected " + node.Name };
+                    return new List<string>() {prefix + "Unexpected " + node.Name + ": " + NodeToString(node)};
                 case MatchType.Change:
                     break;
                 default:
@@ -202,16 +209,26 @@ namespace LibAtem.XmlState.Test
             var res = new List<string>();
 
             foreach (XNode attr in node.Attributes)
-            {
                 res.AddRange(CompileXmlChangesForNode(canIgnore, thisFqPath, prefix + "  ", attr));
-            }
 
             foreach (XNode ch in node.Children)
-            {
                 res.AddRange(CompileXmlChangesForNode(canIgnore, thisFqPath, prefix + "  ", ch));
-            }
 
             return res.Any() ? res.Prepend(prefix + node.Name + ":").ToList() : res;
+        }
+
+        private static string NodeToString(XNode node)
+        {
+            var ns = new XmlSerializerNamespaces();
+            ns.Add("", "");
+
+            XmlSerializer serializer = new XmlSerializer(typeof(XmlElement));
+            using (var sw = new StringWriter())
+            {
+                serializer.Serialize(sw, node.XmlNode, ns);
+                sw.Flush();
+                return sw.ToString();
+            }
         }
 
         private static int CalculateFileVersion(int major, int minor)

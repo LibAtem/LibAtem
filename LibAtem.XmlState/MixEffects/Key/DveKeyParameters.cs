@@ -41,9 +41,9 @@ namespace LibAtem.XmlState.MixEffects.Key
         [XmlAttribute("borderWidthIn")]
         public double BorderWidthIn { get; set; }
         [XmlAttribute("borderSoftnessOut")]
-        public double BorderSoftnessOut { get; set; }
+        public uint BorderSoftnessOut { get; set; }
         [XmlAttribute("borderSoftnessIn")]
-        public double BorderSoftnessIn { get; set; }
+        public uint BorderSoftnessIn { get; set; }
         [XmlAttribute("borderBevelOpacity")]
         public double BorderBevelOpacity { get; set; }
         [XmlAttribute("borderBevelPosition")]
