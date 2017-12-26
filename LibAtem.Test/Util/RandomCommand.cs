@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using LibAtem.Serialization;
@@ -88,14 +89,45 @@ namespace LibAtem.Test.Util
                     continue;
                 }
 
-                if (origVal is IEnumerable)
+                Type t = prop.PropertyType;
+                if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Dictionary<,>))
                 {
-                    if (!((IEnumerable) origVal).OfType<object>().SequenceEqual(((IEnumerable) decodedVal).OfType<object>()))
+                    dynamic origDict = Convert.ChangeType(origVal, t);
+                    dynamic decodedDict = Convert.ChangeType(decodedVal, t);
+
+                    var origKeys = new List<object>(Enumerable.OfType<object>(origDict.Keys));
+                    origKeys.Sort();
+                    var decodedKeys = new List<object>(Enumerable.OfType<object>(decodedDict.Keys));
+                    decodedKeys.Sort();
+
+                    if (!origKeys.SequenceEqual(decodedKeys))
+                        return false;
+
+                    var origVals = new List<object>();
+                    var decodedVals = new List<object>();
+
+                    foreach (dynamic k in origKeys)
+                    {
+                        origVals.Add(origDict[k]);
+                        decodedVals.Add(decodedDict[k]);
+                    }
+
+                    if (!origVals.SequenceEqual(decodedVals))
+                        return false;
+                    
+                    continue;
+                }
+                
+                if (origVal is IEnumerable enumVal)
+                {
+                    List<object> origList = enumVal.OfType<object>().ToList();
+                    List<object> decodedList = ((IEnumerable) decodedVal).OfType<object>().ToList();
+                    if (!origList.SequenceEqual(decodedList))
                         return false;
 
                     continue;
                 }
-
+                
                 if (!Equals(origVal, decodedVal))
                     return false;
             }

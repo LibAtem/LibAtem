@@ -16,9 +16,9 @@ namespace LibAtem.Commands.DownstreamKey
 
         [Serialize(3), Bool]
         public bool PreMultipliedKey { get; set; }
-        [Serialize(4), UInt16D(10, 0, 100)]
+        [Serialize(4), UInt16D(10, 0, 1000)]
         public double Clip { get; set; }
-        [Serialize(6), UInt16D(10, 0, 100)]
+        [Serialize(6), UInt16D(10, 0, 1000)]
         public double Gain { get; set; }
         [Serialize(8), Bool]
         public bool Invert { get; set; }
