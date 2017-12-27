@@ -53,5 +53,7 @@
   </MultiView>
   <SerialPort>1</SerialPort>
   <AudioMonitor>true</AudioMonitor>
-  <VideoModes minimumSupported="SDISD" maximumSupported="SDIHD" downConvertAbove="SDIHD" />
+  <VideoModes minimumSupported="SDISD" maximumSupported="SDIHD" downConvertAbove="SDIHD">
+    <MaxFrames sd="900" _720="360" _1080="180" _4k="0" />
+  </VideoModes>
 </DeviceProfile>

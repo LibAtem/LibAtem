@@ -57,6 +57,23 @@ namespace LibAtem.DeviceProfile
 
         [XmlAttribute("downConvertAbove")]
         public VideoModeStandard DownConvertAbove { get; set; }
+        
+        public MaxFramesSet MaxFrames { get; set; }
+    }
+
+    public class MaxFramesSet
+    {
+        [XmlAttribute("sd")]
+        public uint SD { get; set; }
+
+        [XmlAttribute("_720")]
+        public uint _720 { get; set; }
+
+        [XmlAttribute("_1080")]
+        public uint _1080 { get; set; }
+
+        [XmlAttribute("_4k")]
+        public uint _4K { get; set; }
     }
 
     public class MixEffect
@@ -102,5 +119,7 @@ namespace LibAtem.DeviceProfile
         public bool VuMeters { get; set; }
 
         public bool CanSwapPreviewProgram { get; set; }
+
+        public bool Supports1080p { get; set; }
     }
 }

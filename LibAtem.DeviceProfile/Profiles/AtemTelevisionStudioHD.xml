@@ -47,8 +47,11 @@
     <Count>1</Count>
     <VuMeters>true</VuMeters>
     <CanSwapPreviewProgram>true</CanSwapPreviewProgram>
+    <Supports1080p>true</Supports1080p>
   </MultiView>
   <SerialPort>1</SerialPort>
   <AudioMonitor>false</AudioMonitor>
-  <VideoModes minimumSupported="SDISD" maximumSupported="SDI3G" downConvertAbove="SDI6G" />
+  <VideoModes minimumSupported="SDISD" maximumSupported="SDI3G" downConvertAbove="SDI6G">
+    <MaxFrames sd="0" _720="0" _1080="0" _4k="0" />
+  </VideoModes>
 </DeviceProfile>
