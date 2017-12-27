@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,11 +9,11 @@ namespace LibAtem.Serialization
 {
     public abstract class AutoSerializeBase
     {
-        private static readonly Dictionary<Type, CommandPropertySpec> _propertySpecCache;
+        private static readonly ConcurrentDictionary<Type, CommandPropertySpec> _propertySpecCache;
 
         static AutoSerializeBase()
         {
-            _propertySpecCache = new Dictionary<Type, CommandPropertySpec>();
+            _propertySpecCache = new ConcurrentDictionary<Type, CommandPropertySpec>();
         }
 
         public static void CompilePropertySpecForTypes(IEnumerable<Type> types)

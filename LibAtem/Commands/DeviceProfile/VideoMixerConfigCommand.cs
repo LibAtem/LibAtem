@@ -1,40 +1,92 @@
-using LibAtem.Util;
+using System;
+using System.Collections.Generic;
+using LibAtem.Common;
 
 namespace LibAtem.Commands.DeviceProfile
 {
     [CommandName("_VMC"), NoCommandId]
     public class VideoMixerConfigCommand : ICommand
     {
+        public class Entry : IEquatable<Entry>
+        {
+            public VideoMode Mode { get; }
+            public VideoMode MultiviewMode { get; }
+
+            public Entry(VideoMode mode, VideoMode multiviewMode)
+            {
+                Mode = mode;
+                MultiviewMode = multiviewMode;
+            }
+
+            #region IEquatable
+
+            public bool Equals(Entry other)
+            {
+                if (ReferenceEquals(null, other)) return false;
+                if (ReferenceEquals(this, other)) return true;
+                return Mode == other.Mode && MultiviewMode == other.MultiviewMode;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj)) return false;
+                if (ReferenceEquals(this, obj)) return true;
+                if (obj.GetType() != this.GetType()) return false;
+                return Equals((Entry) obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    return ((int) Mode * 397) ^ (int) MultiviewMode;
+                }
+            }
+
+            #endregion IEquatable
+        }
+
+        public List<Entry> Modes { get; set; }
+
         public void Serialize(ByteArrayBuilder cmd)
         {
-            // TODO
-//            cmd.AddByte(0x00, 0x12, 0xA3, 0x60, 0x00, 0xC8, 0x10, 0x60, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x01,
-//                0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x02, 0x02, 0xC8, 0x10, 0x60, 0x00,
-//                0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x04, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00,
-//                0x00, 0x08, 0x04, 0x7C, 0xA2, 0x60, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x10, 0x05, 0xCF, 0xA8,
-//                0x60, 0x00, 0x00, 0x00, 0x20, 0x00, 0x00, 0x00, 0x20, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40,
-//                0x00, 0x00, 0x00, 0x40, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x80, 0x08,
-//                0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00,
-//                0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x04,
-//                0x00, 0x0B, 0x45, 0x10, 0x60, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x08, 0x00, 0x0C, 0x00, 0x00, 0x00,
-//                0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x10, 0x00, 0x0D, 0xE7, 0x27, 0x60, 0x00, 0x00, 0x00, 0x80, 0x00,
-//                0x00, 0x20, 0x00, 0x0E, 0xD0, 0xA8, 0x60, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x0F, 0x00,
-//                0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-//                0x40, 0x00, 0x00, 0x00, 0x40, 0x11, 0x37, 0x9B, 0x60, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x80);
+            cmd.AddUInt16(Modes.Count);
+            cmd.Pad(2);
 
-            cmd.AddByte("00-08-E2-A8-00-00-00-00-00-00-00-80-00-00-00-00-01-02-00-00-00-00-00-40-00-00-00-00-02-00-00-00-00-00-00-80-00-00-00-00-03-EB-E2-C0-00-00-00-40-00-00-00-00-04-00-00-00-00-00-00-10-00-00-00-00-05-EB-E2-E0-00-00-00-20-00-00-00-00-06-0F-8F-80-00-00-00-40-00-00-00-00-07-FB-6B-20-00-00-00-80-00-00-00-00".HexToByteArray());
+            foreach (Entry mode in Modes)
+            {
+                cmd.AddUInt8((uint) mode.Mode);
+                cmd.Pad(5);
+                cmd.AddUInt16(1 << (int) mode.MultiviewMode);
+                cmd.Pad(4);
+            }
 
-            //            res.Pad(1);
-            //            res.AddBoolArray(true, true, true, true, true, true, true, true); // TODO
-            //            res.AddBoolArray(true, true, true, true, true, true, true, true); // TODO
-            //            res.AddBoolArray(true, true, true, true, true, true, true, true); // TODO
-            //            res.Pad(216);
+            // cmd.AddByte("00-08".HexToByteArray());
+            // cmd.Pad(2);
+            // cmd.AddByte("00-00-00-00-00-00-00-80-00-00-00-00".HexToByteArray());
+            // cmd.AddByte("01-02-00-00-00-00-00-40-00-00-00-00".HexToByteArray());
+            // cmd.AddByte("02-00-00-00-00-00-00-80-00-00-00-00".HexToByteArray());
+            // cmd.AddByte("03-EB-E2-C0-00-00-00-40-00-00-00-00".HexToByteArray());
+            // cmd.AddByte("04-00-00-00-00-00-00-10-00-00-00-00".HexToByteArray());
+            // cmd.AddByte("05-EB-E2-E0-00-00-00-20-00-00-00-00".HexToByteArray());
+            // cmd.AddByte("06-0F-e2-80-00-00-01-00-00-00-00-00".HexToByteArray());
+            // cmd.AddByte("07-FB-6B-20-00-00-00-80-00-00-00-00".HexToByteArray());
         }
 
         public void Deserialize(ParsedByteArray cmd)
         {
-            //TODO
-            cmd.Skip(220);
+            var count = cmd.GetUInt16();
+            Modes = new List<Entry>((int) count);
+            cmd.Skip(2);
+
+            for (int i = 0; i < count; i++)
+            {
+                VideoMode mode = (VideoMode)cmd.GetUInt8();
+                cmd.Skip(5);
+                VideoMode mvMode = (VideoMode) Math.Floor(Math.Log(cmd.GetUInt16(), 2)); // TODO - check this is correct
+                cmd.Skip(4);
+                Modes.Add(new Entry(mode, mvMode));
+            }
         }
     }
 }

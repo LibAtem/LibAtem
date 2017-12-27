@@ -25,7 +25,9 @@ namespace LibAtem.Commands.DeviceProfile
         public void Deserialize(ParsedByteArray cmd)
         {
             Count = cmd.GetUInt8();
-            cmd.Skip(7);
+            cmd.Skip(4);
+            Unknown = cmd.GetBoolArray()[0];
+            cmd.Skip(2);
         }
     }
 }

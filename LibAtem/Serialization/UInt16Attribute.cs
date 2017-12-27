@@ -120,4 +120,19 @@ namespace LibAtem.Serialization
             return Math.Abs((double) val1 - (double) val2) <= tolerance;
         }
     }
+
+    public class UInt16TolAttribute : UInt16Attribute
+    {
+        private readonly uint _tolerance;
+
+        public UInt16TolAttribute(uint tolerance)
+        {
+            _tolerance = tolerance;
+        }
+
+        public override bool AreEqual(object val1, object val2)
+        {
+            return Math.Abs((int) ((uint) val1 - (uint) val2)) <= _tolerance;
+        }
+    }
 }
