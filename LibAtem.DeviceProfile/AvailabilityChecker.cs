@@ -124,5 +124,10 @@ namespace LibAtem.DeviceProfile
         {
             return id.IsValid() && (int)id < profile.Auxiliaries;
         }
+
+        public static bool IsAvailable(this VideoMode mode, DeviceProfile profile)
+        {
+            return profile.GetStandards().Contains(mode.GetStandard());
+        }
     }
 }

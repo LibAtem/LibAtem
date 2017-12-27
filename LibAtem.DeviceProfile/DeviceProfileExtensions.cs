@@ -61,6 +61,13 @@ namespace LibAtem.DeviceProfile
             return orig.Where(p => p != ExternalPortType.Composite && p != ExternalPortType.SVideo).OrderBy(p => p);
         }
 
+        public static IEnumerable<VideoModeStandard> GetStandards(this DeviceProfile profile)
+        {
+            return Enum.GetValues(typeof(VideoModeStandard))
+                .OfType<VideoModeStandard>()
+                .Where(s => s >= profile.VideoModes.MinimumSupported && s <= profile.VideoModes.MaximumSupported);
+        }
+
         public static Tuple<string, string> GetDefaultName(this VideoSource src, DeviceProfile profile)
         {
             if (src == VideoSource.ME1Prog)
