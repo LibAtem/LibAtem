@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.Audio
     [MacroOperation(MacroOperationType.AudioMixerMonitorOutGain, 8)]
     public class AudioMixerMonitorOutGainMacroOp : MacroOpBase
     {
-        [Serialize(4), UInt16]
+        [Serialize(4), UInt16Tol(5)]
         [MacroField("AudioGain", "gain")]
         public uint RawGain
         {

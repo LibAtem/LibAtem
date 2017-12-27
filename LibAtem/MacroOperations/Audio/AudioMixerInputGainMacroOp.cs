@@ -13,7 +13,7 @@ namespace LibAtem.MacroOperations.Audio
         [MacroField("Input")]
         public AudioSource Index { get; set; }
 
-        [Serialize(6), UInt16]
+        [Serialize(6), UInt16Tol(5)]
         [MacroField("AudioGain", "gain")]
         public uint RawGain
         {
