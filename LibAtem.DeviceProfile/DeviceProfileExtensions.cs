@@ -39,7 +39,7 @@ namespace LibAtem.DeviceProfile
         {
             SourceAvailability res = orig;
             if (profile.Auxiliaries == 0)
-                res &= ~SourceAvailability.Auxilary;
+                res &= ~SourceAvailability.Auxiliary;
 
             if (profile.MultiView == null || profile.MultiView.Count == 0)
                 res &= SourceAvailability.Multiviewer;
@@ -48,8 +48,8 @@ namespace LibAtem.DeviceProfile
                 res &= ~(SourceAvailability.SuperSourceArt | SourceAvailability.SuperSourceBox);
 
             if (profile.UpstreamKeys == 0)
-                res &= SourceAvailability.KeySource;
-
+                res &= ~SourceAvailability.KeySource;
+            
             return res;
         }
 
