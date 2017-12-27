@@ -99,11 +99,16 @@ namespace LibAtem.Test.Util
                     dynamic origDict = Convert.ChangeType(origVal, t);
                     dynamic decodedDict = Convert.ChangeType(decodedVal, t);
 
-                    var origKeys = new List<object>(Enumerable.OfType<object>(origDict.Keys));
+                    var origKeys = new List<object>();
+                    foreach (dynamic v in origDict)
+                        origKeys.Add(v.Key);
+                    
+                    var decodedKeys = new List<object>();
+                    foreach (dynamic v in decodedDict)
+                        decodedKeys.Add(v.Key);
+                    
                     origKeys.Sort();
-                    var decodedKeys = new List<object>(Enumerable.OfType<object>(decodedDict.Keys));
                     decodedKeys.Sort();
-
                     if (!origKeys.SequenceEqual(decodedKeys))
                         return false;
 

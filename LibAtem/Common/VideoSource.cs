@@ -119,12 +119,12 @@ namespace LibAtem.Common
         ColorBars = 1000,
 
         [VideoSourceType(InternalPortType.ColorGenerator, 1)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox | SourceAvailability.SuperSourceArt, MeAvailability.All)]
+        [VideoSourceAvailability(SourceAvailability.All & ~SourceAvailability.KeySource, MeAvailability.All)]
         [VideoSourceDefaults("Color 1", "Col1")]
         [XmlEnum("2001")]
         Color1 = 2001,
         [VideoSourceType(InternalPortType.ColorGenerator, 2)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox | SourceAvailability.SuperSourceArt, MeAvailability.All)]
+        [VideoSourceAvailability(SourceAvailability.All & ~SourceAvailability.KeySource, MeAvailability.All)]
         [VideoSourceDefaults("Color 2", "Col2")]
         [XmlEnum("2002")]
         Color2 = 2002,
@@ -171,45 +171,45 @@ namespace LibAtem.Common
         MediaPlayer4Key = 3041,
 
         [VideoSourceType(InternalPortType.Mask, 1)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [XmlEnum("4010")]
         Key1Mask = 4010,
         [VideoSourceType(InternalPortType.Mask, 2)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [XmlEnum("4020")]
         Key2Mask = 4020,
         [VideoSourceType(InternalPortType.Mask, 3, 1)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [XmlEnum("4030")]
         Key3Mask = 4030,
         [VideoSourceType(InternalPortType.Mask, 4, 2)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [XmlEnum("4040")]
         Key4Mask = 4040,
         [VideoSourceType(InternalPortType.Mask, 0)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("DSK 1 Mask", "DK1M")]
         [XmlEnum("5010")]
         DSK1Mask = 5010,
         [VideoSourceType(InternalPortType.Mask, 0)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("DSK 2 Mask", "DK2M")]
         [XmlEnum("5020")]
         DSK2Mask = 5020,
 
         [VideoSourceType(InternalPortType.SuperSource, 1)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer | SourceAvailability.KeySource | SourceAvailability.SuperSourceBox, MeAvailability.All)]
+        [VideoSourceAvailability(SourceAvailability.All & ~SourceAvailability.SuperSourceArt, MeAvailability.All)]
         [VideoSourceDefaults("SuperSource", "SSrc")]
         [XmlEnum("6000")]
         SuperSource = 6000,
 
         [VideoSourceType(InternalPortType.MEOutput, 0)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("Clean Feed 1", "Cfd1")]
         [XmlEnum("7001")]
         CleanFeed1 = 7001,
         [VideoSourceType(InternalPortType.MEOutput, 0)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("Clean Feed 2", "Cfd2")]
         [XmlEnum("7002")]
         CleanFeed2 = 7002,
@@ -246,19 +246,19 @@ namespace LibAtem.Common
         Auxilary6 = 8006,
 
         [VideoSourceType(InternalPortType.MEOutput, 1)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [XmlEnum("10010")]
         ME1Prog = 10010,
         [VideoSourceType(InternalPortType.MEOutput, 1)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [XmlEnum("10011")]
         ME1Prev = 10011,
         [VideoSourceType(InternalPortType.MEOutput, 2)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1)]
         [XmlEnum("10020")]
         ME2Prog = 10020,
         [VideoSourceType(InternalPortType.MEOutput, 2)]
-        [VideoSourceAvailability(SourceAvailability.Auxilary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1)]
         [XmlEnum("10021")]
         ME2Prev = 10021,
     }
