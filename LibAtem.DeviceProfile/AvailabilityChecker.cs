@@ -57,7 +57,7 @@ namespace LibAtem.DeviceProfile
 
             switch (props.PortType)
             {
-                case InternalPortType.Auxilary:
+                case InternalPortType.Auxiliary:
                     return props.Me1Index <= profile.Auxiliaries;
                 case InternalPortType.Black:
                 case InternalPortType.ColorBars:

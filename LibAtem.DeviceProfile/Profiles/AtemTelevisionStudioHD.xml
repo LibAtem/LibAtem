@@ -48,6 +48,8 @@
     <VuMeters>true</VuMeters>
     <CanSwapPreviewProgram>true</CanSwapPreviewProgram>
     <Supports1080p>true</Supports1080p>
+    <CanRouteInputs>true</CanRouteInputs>
+    <CanToggleSafeArea>true</CanToggleSafeArea>
   </MultiView>
   <SerialPort>1</SerialPort>
   <AudioMonitor>false</AudioMonitor>

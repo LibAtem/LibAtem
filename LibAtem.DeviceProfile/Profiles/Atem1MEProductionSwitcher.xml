@@ -50,6 +50,8 @@
     <Count>1</Count>
     <VuMeters>false</VuMeters>
     <CanSwapPreviewProgram>false</CanSwapPreviewProgram>
+    <CanRouteInputs>true</CanRouteInputs>
+    <CanToggleSafeArea>false</CanToggleSafeArea>
   </MultiView>
   <SerialPort>1</SerialPort>
   <AudioMonitor>true</AudioMonitor>

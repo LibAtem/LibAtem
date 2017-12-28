@@ -95,6 +95,10 @@ namespace LibAtem.DeviceProfile
         private void StoreMultiViewer(MultiviewerConfigCommand cmd)
         {
             Profile.MultiView.Count = cmd.Count;
+            Profile.MultiView.CanRouteInputs = cmd.CanRouteInputs;
+            Profile.MultiView.VuMeters = cmd.SupportsVuMeters;
+            Profile.MultiView.CanToggleSafeArea = cmd.CanToggleSafeArea;
+            Profile.MultiView.CanSwapPreviewProgram = cmd.CanSwapPreviewProgram;
             // TODO - other props
         }
     }

@@ -120,6 +120,12 @@ namespace LibAtem.DeviceProfile
 
         public bool CanSwapPreviewProgram { get; set; }
 
+        // TODO - is this supposed to be here?
         public bool Supports1080p { get; set; }
+
+        public bool CanRouteInputs { get; set; }
+
+        public bool CanToggleSafeArea { get; set; }
+
     }
 }
