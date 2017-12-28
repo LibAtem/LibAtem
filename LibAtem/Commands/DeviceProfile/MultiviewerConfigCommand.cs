@@ -1,33 +1,27 @@
-using LibAtem.Util;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_MvC"), NoCommandId]
-    public class MultiviewerConfigCommand : ICommand
+    [CommandName("_MvC", 8), NoCommandId]
+    public class MultiviewerConfigCommand : SerializableCommandBase
     {
+        [Serialize(0), UInt8]
         public uint Count { get; set; }
+        [Serialize(1), UInt8]
+        public uint WindowCount { get; set; }
+
+        // TODO - order of these is incorrect
+        [Serialize(2), Bool]
+        public bool CanRouteInputs { get; set; }
+        [Serialize(3), Bool]
         public bool Unknown { get; set; }
 
-        public void Serialize(ByteArrayBuilder cmd)
-        {
-            cmd.AddUInt8(Count);
-            cmd.AddByte(0x0a);
-            cmd.AddByte(0x01);
-            cmd.AddByte(0x01);
-            cmd.AddByte(0x00);
-
-            // Note: not sure what these are, but they are 0 in older (non 4k/3g) models
-            cmd.AddBoolArray(Unknown);
-            cmd.AddBoolArray(Unknown);
-            cmd.AddBoolArray(Unknown);
-        }
-
-        public void Deserialize(ParsedByteArray cmd)
-        {
-            Count = cmd.GetUInt8();
-            cmd.Skip(4);
-            Unknown = cmd.GetBoolArray()[0];
-            cmd.Skip(2);
-        }
+        // TODO - order of these is incorrect
+        [Serialize(5), Bool]
+        public bool SupportsVuMeters { get; set; }
+        [Serialize(6), Bool]
+        public bool CanToggleSafeArea { get; set; }
+        [Serialize(7), Bool]
+        public bool CanSwapPreviewProgram { get; set; }
     }
 }

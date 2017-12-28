@@ -22,7 +22,7 @@
         SuperSource = 6,
 
         MEOutput = 128,
-        Auxilary = 129,
+        Auxiliary = 129,
         Mask = 130,
     }
 

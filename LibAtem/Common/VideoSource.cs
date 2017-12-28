@@ -214,32 +214,32 @@ namespace LibAtem.Common
         [XmlEnum("7002")]
         CleanFeed2 = 7002,
 
-        [VideoSourceType(InternalPortType.Auxilary, 1)]
+        [VideoSourceType(InternalPortType.Auxiliary, 1)]
         [VideoSourceAvailability(SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("Auxiliary 1", "Aux1")]
         [XmlEnum("8001")]
         Auxilary1 = 8001,
-        [VideoSourceType(InternalPortType.Auxilary, 2)]
+        [VideoSourceType(InternalPortType.Auxiliary, 2)]
         [VideoSourceAvailability(SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("Auxiliary 2", "Aux2")]
         [XmlEnum("8002")]
         Auxilary2 = 8002,
-        [VideoSourceType(InternalPortType.Auxilary, 3)]
+        [VideoSourceType(InternalPortType.Auxiliary, 3)]
         [VideoSourceAvailability(SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("Auxiliary 3", "Aux3")]
         [XmlEnum("8003")]
         Auxilary3 = 8003,
-        [VideoSourceType(InternalPortType.Auxilary, 4)]
+        [VideoSourceType(InternalPortType.Auxiliary, 4)]
         [VideoSourceAvailability(SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("Auxiliary 4", "Aux4")]
         [XmlEnum("8004")]
         Auxilary4 = 8004,
-        [VideoSourceType(InternalPortType.Auxilary, 5)]
+        [VideoSourceType(InternalPortType.Auxiliary, 5)]
         [VideoSourceAvailability(SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("Auxiliary 5", "Aux5")]
         [XmlEnum("8005")]
         Auxilary5 = 8005,
-        [VideoSourceType(InternalPortType.Auxilary, 6)]
+        [VideoSourceType(InternalPortType.Auxiliary, 6)]
         [VideoSourceAvailability(SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("Auxiliary 6", "Aux6")]
         [XmlEnum("8006")]
