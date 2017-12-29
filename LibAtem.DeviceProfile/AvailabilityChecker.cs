@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using LibAtem.Common;
@@ -41,6 +42,10 @@ namespace LibAtem.DeviceProfile
                 return IsAvailable((DownstreamKeyId)val, profile);
             if (val is AuxiliaryId)
                 return IsAvailable((AuxiliaryId)val, profile);
+            if (val is TStyle)
+                return IsAvailable((TStyle)val, profile);
+            if (val is TransitionLayer)
+                return IsAvailable((TransitionLayer)val, profile);
 
             // Assume it is available as many types do not need implementing
             return true;
@@ -128,6 +133,38 @@ namespace LibAtem.DeviceProfile
         public static bool IsAvailable(this VideoMode mode, DeviceProfile profile)
         {
             return profile.GetStandards().Contains(mode.GetStandard());
+        }
+
+        public static bool IsAvailable(this TStyle style, DeviceProfile profile)
+        {
+            if (!style.IsValid())
+                return false;
+
+            switch (style)
+            {
+                case TStyle.Mix:
+                    return true;
+                case TStyle.Dip:
+                    return true;
+                case TStyle.Wipe:
+                    return true;
+                case TStyle.DVE:
+                    return profile.DVE > 0;
+                case TStyle.Stinger:
+                    return profile.Stingers > 0;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(style), style, null);
+            }
+        }
+
+        public static bool IsAvailable(this TransitionLayer layer, DeviceProfile profile)
+        {
+            if (!layer.IsValid())
+                return false;
+
+            List<UpstreamKeyId> unavailableKeyers = Enum.GetValues(typeof(UpstreamKeyId)).OfType<UpstreamKeyId>().Where(i => !i.IsAvailable(profile)).ToList();
+
+            return !unavailableKeyers.Any(k => layer.HasKeyEnabled(k));
         }
     }
 }
