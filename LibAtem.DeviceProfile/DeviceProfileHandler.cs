@@ -53,10 +53,7 @@ namespace LibAtem.DeviceProfile
             Profile.DVE = cmd.DVE;
             Profile.Stingers = cmd.Stingers;
             Profile.SuperSource = cmd.SuperSource;
-
-            // Ensure VideoSources is the correct length, even if the values are wrong
-            Profile.Sources.SetToLength(cmd.VideoSources, i => new DevicePort {Id = (VideoSource) (i + 1), Port = new List<ExternalPortType> {ExternalPortType.SDI}});
-
+            
             // TODO
             // public uint DownstreamKeys { get; set; }
             // RoutableKeyMasks
@@ -65,14 +62,17 @@ namespace LibAtem.DeviceProfile
 
         private void StoreVideoSource(InputPropertiesGetCommand cmd)
         {
-            if (Profile.Sources.Count <= (int) cmd.Id)
+            if (cmd.Id > VideoSource.Input20 || cmd.Id < VideoSource.Input1)
                 return;
 
-            Profile.Sources[(int) cmd.Id] = new DevicePort
+            Profile.Sources.RemoveAll(d => d.Id == cmd.Id);
+
+            Profile.Sources.Add(new DevicePort
             {
                 Id = cmd.Id,
                 Port = cmd.ExternalPorts,
-            };
+            });
+            Profile.Sources.Sort((a, b) => a.Id.CompareTo(b.Id));
         }
 
         private void StoreMixEffectBlock(MixEffectBlockConfigCommand cmd)
