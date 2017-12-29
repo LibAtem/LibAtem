@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using LibAtem.MacroOperations;
 using LibAtem.Serialization;
+using LibAtem.Util;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -59,7 +60,7 @@ namespace LibAtem.XmlState.Test
                     Macro macroXml = xmlSpec.MacroPool.FirstOrDefault(m => m.Index == index);
                     Assert.NotNull(macroXml);
 
-                    List<byte[]> data = Enumerable.Range(0, count).Select(x => StringToByteArray(byteFile.ReadLine())).ToList();
+                    List<byte[]> data = Enumerable.Range(0, count).Select(x => byteFile.ReadLine().HexToByteArray()).ToList();
 
                     Assert.Equal(macroXml.Operations.Count, data.Count);
 
@@ -85,15 +86,6 @@ namespace LibAtem.XmlState.Test
             }
 
             Assert.False(failed);
-        }
-
-        private static byte[] StringToByteArray(string hex)
-        {
-            hex = hex.Replace("-", "");
-            return Enumerable.Range(0, hex.Length)
-                .Where(x => x % 2 == 0)
-                .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                .ToArray();
         }
 
         private static bool Equals(MacroOpBase x, MacroOpBase y)
