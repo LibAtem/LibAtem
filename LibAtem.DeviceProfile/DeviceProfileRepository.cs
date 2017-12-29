@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Serialization;
-using LibAtem.DeviceProfile.Properties;
 
 namespace LibAtem.DeviceProfile
 {
@@ -42,12 +42,14 @@ namespace LibAtem.DeviceProfile
             }
         }
 
-        public static DeviceProfile ParseTopology(string data)
+        public static DeviceProfile ParseTopology(string name)
         {
             try
             {
+                var assembly = typeof(DeviceProfileRepository).GetTypeInfo().Assembly;
+                Stream resource = assembly.GetManifestResourceStream("LibAtem.DeviceProfile.Profiles." + name + ".xml");
                 XmlSerializer serializer = new XmlSerializer(typeof(DeviceProfile));
-                using (var tx = new StringReader(data))
+                using (var tx = new StreamReader(resource))
                     return (DeviceProfile) serializer.Deserialize(tx);
             }
             catch (Exception e)
@@ -61,14 +63,14 @@ namespace LibAtem.DeviceProfile
             switch (id)
             {
                 case DeviceProfileType.Auto:
-                    return ParseTopology(Resources.Unknown);
+                    return ParseTopology("Unknown");
                 case DeviceProfileType.Atem1ME:
-                    return ParseTopology(Resources.Atem1MEProductionSwitcher);
+                    return ParseTopology("Atem1MEProductionSwitcher");
                 case DeviceProfileType.AtemTelevisionStudioHD:
-                    return ParseTopology(Resources.AtemTelevisionStudioHD);
+                    return ParseTopology("AtemTelevisionStudioHD");
                 case DeviceProfileType.Atem2ME4K:
                 default:
-                    return ParseTopology(Resources.Atem2MEProductionStudio4K);
+                    return ParseTopology("Atem2MEProductionStudio4K");
             }
         }
 
