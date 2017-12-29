@@ -8,7 +8,6 @@ namespace LibAtem.Common
     [Flags]
     public enum TransitionLayer
     {
-        None = 0,
         Background = 1 << 0,
 
         [KeyIndex(UpstreamKeyId.One)]
@@ -58,7 +57,7 @@ namespace LibAtem.Common
                     return val;
             }
 
-            return TransitionLayer.None;
+            return 0;
         }
     }
 }

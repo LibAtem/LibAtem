@@ -13,8 +13,11 @@ namespace LibAtem.Util
                 return Enum.IsDefined(typeof(T), src);
 
             // Is a flags, handle seperately
-            return Convert.ToInt32(src) < Enum.GetValues(typeof(T)).Cast<int>().Max() * 2;
+            int ival = Convert.ToInt32(src);
+            if (ival == 0 && !Enum.IsDefined(typeof(T), 0))
+                return false;
 
+            return ival < Enum.GetValues(typeof(T)).Cast<int>().Max() * 2;
         }
 
         public static T GetAttribute<Te, T>(this Te src) where T : Attribute where Te : IConvertible
