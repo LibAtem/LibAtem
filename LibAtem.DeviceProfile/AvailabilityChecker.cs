@@ -107,7 +107,7 @@ namespace LibAtem.DeviceProfile
 
         public static bool IsAvailable(this StingerSource src, DeviceProfile profile)
         {
-            return src.IsValid() && src > 0 && (int) src < profile.MediaPlayers + 1;
+            return src.IsValid() && (int) src < profile.MediaPlayers + 1;
         }
 
         public static bool IsAvailable(this MixEffectBlockId id, DeviceProfile profile)
