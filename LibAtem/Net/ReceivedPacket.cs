@@ -39,7 +39,7 @@ namespace LibAtem.Net
                 throw new ArgumentException("raw");
 
             CommandCode = ParseCommandCode(raw[0]);
-            PayloadLength = ((raw[0] & 0x07) << 8) | raw[1] - HeaderLength;
+            PayloadLength = ((raw[0] & 0x07) << 8) + raw[1] - HeaderLength;
             SessionId = (uint)((raw[2] << 8) | raw[3]);
             AckedId = (uint)((raw[4] << 8) | raw[5]);
             PacketId = (uint)((raw[10] << 8) | raw[11]);
