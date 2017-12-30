@@ -46,6 +46,8 @@ namespace LibAtem.DeviceProfile
                 return IsAvailable((TStyle)val, profile);
             if (val is TransitionLayer)
                 return IsAvailable((TransitionLayer)val, profile);
+            if (val is MixEffectKeyType)
+                return IsAvailable((MixEffectKeyType)val, profile);
 
             // Assume it is available as many types do not need implementing
             return true;
@@ -165,6 +167,20 @@ namespace LibAtem.DeviceProfile
             List<UpstreamKeyId> unavailableKeyers = Enum.GetValues(typeof(UpstreamKeyId)).OfType<UpstreamKeyId>().Where(i => !i.IsAvailable(profile)).ToList();
 
             return !unavailableKeyers.Any(k => layer.HasKeyEnabled(k));
+        }
+
+        public static bool IsAvailable(this MixEffectKeyType type, DeviceProfile profile)
+        {
+            if (!type.IsValid())
+                return false;
+
+            switch (type)
+            {
+                case MixEffectKeyType.DVE:
+                    return profile.DVE > 0;
+                default:
+                    return true;
+            }
         }
     }
 }
