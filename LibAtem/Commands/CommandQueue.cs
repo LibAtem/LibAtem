@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using LibAtem.Util;
 
@@ -24,7 +23,7 @@ namespace LibAtem.Commands
     {
         public string Name { get; }
         public int Mask { get; }
-        public int Id { get; }
+        public long Id { get; }
 
         public CommandQueueKey(ICommand cmd)
         {
@@ -42,9 +41,14 @@ namespace LibAtem.Commands
             return (int) mask.GetValue(cmd);
         }
 
-        private static int GetId(ICommand cmd)
+        private static long GetId(ICommand cmd)
         {
-            return CommandIdAttribute.GetProperties(cmd.GetType()).Select(p => Convert.ToInt32(p.GetValue(cmd))).Sum();
+            int hashCode = 0;
+            // TODO - this should be cached to improve performance
+            foreach (PropertyInfo prop in CommandIdAttribute.GetProperties(cmd.GetType()))
+                hashCode = (hashCode * 256) + (1 + Convert.ToInt32(prop.GetValue(cmd)));
+
+            return hashCode;
         }
 
         #region IEquatable
@@ -57,16 +61,16 @@ namespace LibAtem.Commands
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj is CommandQueueKey key && Equals(key);
+            return obj is CommandQueueKey && Equals((CommandQueueKey) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = (Name != null ? Name.GetHashCode() : 0);
+                int hashCode = (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Mask;
-                hashCode = (hashCode * 397) ^ Id;
+                hashCode = (hashCode * 397) ^ Id.GetHashCode();
                 return hashCode;
             }
         }

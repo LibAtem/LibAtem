@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using LibAtem.Util;
 
 namespace LibAtem.Common
 {
@@ -303,6 +304,26 @@ namespace LibAtem.Common
         {
             SourceAvailability = sourceAvailability;
             MeAvailability = me;
+        }
+    }
+
+    public static class VideoSourceAvailabilityExtensions
+    {
+        public static bool IsAvailable(this VideoSource src, MixEffectBlockId meId)
+        {
+            var attr = src.GetPossibleAttribute<VideoSource, VideoSourceAvailabilityAttribute>();
+            if (attr == null)
+                return false;
+
+            return attr.MeAvailability.Includes(meId);
+        }
+        public static bool IsAvailable(this VideoSource src, SourceAvailability available)
+        {
+            var attr = src.GetPossibleAttribute<VideoSource, VideoSourceAvailabilityAttribute>();
+            if (attr == null)
+                return false;
+
+            return attr.SourceAvailability.HasFlag(available);
         }
     }
 }
