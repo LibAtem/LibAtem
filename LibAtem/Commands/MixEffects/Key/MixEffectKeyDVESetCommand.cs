@@ -51,9 +51,9 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(5), Enum8]
         public UpstreamKeyId KeyerIndex { get; set; }
 
-        [Serialize(8), Int32D(1000, -100, 100)] // TODO - check range
+        [Serialize(8), UInt32D(1000, 0, 99990)]
         public double SizeX { get; set; }
-        [Serialize(12), Int32D(1000, -100, 100)] // TODO - check range
+        [Serialize(12), UInt32D(1000, 0, 99990)]
         public double SizeY { get; set; }
         [Serialize(16), Int32D(1000, -1000, 1000)] // TODO - check range
         public double PositionX { get; set; }
@@ -83,48 +83,32 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(40), UInt8Range(0, 100)]
         public uint BorderOpacity { get; set; }
 
-        [Serialize(42), UInt16D(1000, 0, 3599)]
+        [Serialize(42), UInt16D(10, 0, 3599)]
         public double BorderHue { get; set; }
-        [Serialize(44), UInt16D(1000, 0, 1000)]
+        [Serialize(44), UInt16D(10, 0, 1000)]
         public double BorderSaturation { get; set; }
-        [Serialize(46), UInt16D(1000, 0, 1000)]
+        [Serialize(46), UInt16D(10, 0, 1000)]
         public double BorderLuma { get; set; }
 
-        [Serialize(48), UInt16D(10, 0, 3590)]
+        [Serialize(48), UInt16D(10, 0, 3599)]
         public double LightSourceDirection { get; set; }
-        [Serialize(50), UInt8Range(10, 100)]
+        [Serialize(50), UInt8Range(0, 100)]
         public uint LightSourceAltitude { get; set; }
 
         [Serialize(51), Bool]
         public bool MaskEnabled { get; set; }
-        [Serialize(52), Int16D(1000, -9000, 9000)]
+        [Serialize(52), UInt16D(1000, 0, 38000)]
         public double MaskTop { get; set; }
-        [Serialize(54), Int16D(1000, -9000, 9000)]
+        [Serialize(54), UInt16D(1000, 0, 38000)]
         public double MaskBottom { get; set; }
-        [Serialize(56), Int16D(1000, -16000, 16000)]
+        [Serialize(56), UInt16D(1000, 0, 52000)]
         public double MaskLeft { get; set; }
-        [Serialize(58), Int16D(1000, -16000, 16000)]
+        [Serialize(58), UInt16D(1000, 0, 52000)]
         public double MaskRight { get; set; }
 
         [Serialize(60), UInt8Range(1, 250)]
         public uint Rate { get; set; }
-
-//        public void Serialize(ByteArrayBuilder cmd)
-//        {
-//            cmd.Pad(4); // Mask
-//            cmd.AddUInt8((int)MixEffectIndex);
-//            cmd.AddUInt8(KeyerIndex);
-//            cmd.Pad(58);
-//        }
-//
-//        public void Deserialize(ParsedByteArray cmd)
-//        {
-//            cmd.Skip(4);
-//            MixEffectIndex = (MixEffectBlockId)cmd.GetUInt8();
-//            KeyerIndex = cmd.GetUInt8();
-//            cmd.Skip(58);
-//        }
-
+        
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.SizeX))

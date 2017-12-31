@@ -38,34 +38,34 @@ namespace LibAtem.Commands.MixEffects.Key
         public uint OuterSoftness { get; set; }
         [Serialize(33), UInt8Range(0, 100)]
         public uint InnerSoftness { get; set; }
-        [Serialize(34), UInt8D(100, 0, 100)]
-        public double BevelSoftness { get; set; }
-        [Serialize(35), UInt8D(100, 0, 100)]
-        public double BevelPosition { get; set; }
+        [Serialize(34), UInt8Range(0, 100)]
+        public uint BevelSoftness { get; set; }
+        [Serialize(35), UInt8Range(0, 100)]
+        public uint BevelPosition { get; set; }
 
-        [Serialize(36), UInt8D(100, 0, 100)]
-        public double BorderOpacity { get; set; }
-        [Serialize(38), UInt16D(1000, 0, 3599)]
+        [Serialize(36), UInt8Range(0, 100)]
+        public uint BorderOpacity { get; set; }
+        [Serialize(38), UInt16D(10, 0, 3599)]
         public double BorderHue { get; set; }
-        [Serialize(40), UInt16D(1000, 0, 1000)]
+        [Serialize(40), UInt16D(10, 0, 1000)]
         public double BorderSaturation { get; set; }
-        [Serialize(42), UInt16D(1000, 0, 1000)]
+        [Serialize(42), UInt16D(10, 0, 1000)]
         public double BorderLuma { get; set; }
 
-        [Serialize(44), UInt16D(10, 0, 3590)]
+        [Serialize(44), UInt16D(10, 0, 3599)]
         public double LightSourceDirection { get; set; }
-        [Serialize(46), UInt8D(1, 10, 100)]
-        public double LightSourceAltitude { get; set; }
+        [Serialize(46), UInt8Range(0, 100)]
+        public uint LightSourceAltitude { get; set; }
 
         [Serialize(47), Bool]
         public bool MaskEnabled { get; set; }
-        [Serialize(48), Int16D(1000, -9000, 9000)]
+        [Serialize(48), UInt16D(1000, 0, 38000)]
         public double MaskTop { get; set; }
-        [Serialize(50), Int16D(1000, -9000, 9000)]
+        [Serialize(50), UInt16D(1000, 0, 38000)]
         public double MaskBottom { get; set; }
-        [Serialize(52), Int16D(1000, -16000, 16000)]
+        [Serialize(52), UInt16D(1000, 0, 52000)]
         public double MaskLeft { get; set; }
-        [Serialize(54), Int16D(1000, -16000, 16000)]
+        [Serialize(54), UInt16D(1000, 0, 52000)]
         public double MaskRight { get; set; }
 
         [Serialize(56), UInt8Range(1, 250)]

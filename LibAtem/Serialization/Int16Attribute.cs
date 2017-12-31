@@ -48,15 +48,14 @@ namespace LibAtem.Serialization
 
         public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            int rawVal = (int)base.Deserialize(reverseBytes, data, start, prop);
-            double val = rawVal / Scale;
+            double val = (int)base.Deserialize(reverseBytes, data, start, prop);
 
             if (val < ScaledMin)
-                return ScaledMin;
+                return ScaledMin / Scale;
             if (val > ScaledMax)
-                return ScaledMax;
+                return ScaledMax / Scale;
 
-            return val;
+            return val / Scale;
         }
 
         public object GetRandom(Random random)
