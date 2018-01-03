@@ -1,9 +1,12 @@
+using LibAtem.Serialization;
+
 namespace LibAtem.Commands.Settings.HyperDeck
 {
     [CommandName("RXSS")]
     public class HyperDeckRXSSCommand : ICommand
     {
         [CommandId]
+        [Serialize(0), UInt16]
         public uint Id { get; set; }
 
         public void Serialize(ByteArrayBuilder cmd)

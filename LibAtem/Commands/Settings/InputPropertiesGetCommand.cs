@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
@@ -8,6 +9,7 @@ namespace LibAtem.Commands.Settings
     public class InputPropertiesGetCommand : ICommand
     {
         [CommandId]
+        [Serialize(0), Enum16]
         public VideoSource Id { get; set; }
         public string LongName { get; set; }
         public string ShortName { get; set; }

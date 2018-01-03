@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using LibAtem.Commands;
 
 namespace LibAtem.Serialization
 {
@@ -48,7 +49,9 @@ namespace LibAtem.Serialization
                 Delegate setter = prop.CanWrite && prop.GetSetMethod() != null ? Delegate.CreateDelegate(Expression.GetActionType(t, prop.PropertyType), prop.GetSetMethod()) : null;
                 Delegate getter = prop.GetGetMethod() != null ? Delegate.CreateDelegate(Expression.GetFuncType(t, prop.PropertyType), prop.GetGetMethod()) : null;
 
-                props.Add(new PropertySpec(setter, getter, serAttr, attr, prop));
+                bool isCommandId = prop.GetCustomAttribute<CommandIdAttribute>() != null;
+
+                props.Add(new PropertySpec(setter, getter, serAttr, attr, prop, isCommandId));
             }
 
             return _propertySpecCache[t] = new CommandPropertySpec(length, props);
@@ -73,14 +76,16 @@ namespace LibAtem.Serialization
             public SerializableAttributeBase SerAttr { get; }
             public SerializeAttribute Attr { get; }
             public PropertyInfo PropInfo { get; }
+            public bool IsCommandId { get; }
 
-            public PropertySpec(Delegate setter, Delegate getter, SerializableAttributeBase serAttr, SerializeAttribute attr, PropertyInfo propInfo)
+            public PropertySpec(Delegate setter, Delegate getter, SerializableAttributeBase serAttr, SerializeAttribute attr, PropertyInfo propInfo, bool isCommandId)
             {
                 Setter = setter;
                 Getter = getter;
                 SerAttr = serAttr;
                 Attr = attr;
                 PropInfo = propInfo;
+                IsCommandId = isCommandId;
             }
         }
         

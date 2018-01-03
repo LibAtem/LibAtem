@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using LibAtem.Serialization;
 using LibAtem.Util;
 
 namespace LibAtem.Commands
@@ -43,10 +45,11 @@ namespace LibAtem.Commands
 
         private static long GetId(ICommand cmd)
         {
+            var spec = AutoSerializeBase.GetPropertySpecForType(cmd.GetType());
+            
             int hashCode = 0;
-            // TODO - this should be cached to improve performance
-            foreach (PropertyInfo prop in CommandIdAttribute.GetProperties(cmd.GetType()))
-                hashCode = (hashCode * 256) + (1 + Convert.ToInt32(prop.GetValue(cmd)));
+            foreach (AutoSerializeBase.PropertySpec prop in spec.Properties.Where(p => p.IsCommandId))
+                hashCode = (hashCode * 256) + 1 + Convert.ToInt32(prop.Getter.DynamicInvoke(cmd));
 
             return hashCode;
         }

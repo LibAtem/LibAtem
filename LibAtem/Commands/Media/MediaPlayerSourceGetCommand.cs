@@ -1,4 +1,5 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
@@ -6,6 +7,7 @@ namespace LibAtem.Commands.Media
     public class MediaPlayerSourceGetCommand : ICommand
     {
         [CommandId]
+        [Serialize(0), Enum8]
         public MediaPlayerId Index { get; set; }
         public MediaPlayerSource SourceType { get; set; }
         public uint SourceIndex { get; set; }

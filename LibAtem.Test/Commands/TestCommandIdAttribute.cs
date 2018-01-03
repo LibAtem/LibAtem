@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using LibAtem.Commands;
+using LibAtem.Serialization;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -72,8 +72,14 @@ namespace LibAtem.Test.Commands
                 IEnumerable<PropertyInfo> props = CommandIdAttribute.GetProperties(type);
                 foreach (PropertyInfo prop in props)
                 {
+                    // The props founds through Serialize attribute are used for CommandQueueKey
+                    if (prop.GetCustomAttribute<SerializeAttribute>() == null)
+                    {
+                        badTypes.Add(string.Format("{0}: {1} is missing serialize attribute", type.Name, prop.Name));
+                        continue;
+                    }
+
                     Type propType = prop.PropertyType;
-                   
                     
                     bool isValid = typeof(uint) == propType || propType.GetTypeInfo().IsEnum;
                     if (!isValid)

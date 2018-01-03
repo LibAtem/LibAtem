@@ -1,3 +1,5 @@
+using LibAtem.Serialization;
+
 namespace LibAtem.Commands.Macro
 {
     [CommandName("MAct", 4)]
@@ -14,7 +16,9 @@ namespace LibAtem.Commands.Macro
         }
 
         [CommandId]
+        [Serialize(0), UInt16]
         public uint Index { get; set; }
+        [Serialize(2), Enum8]
         public MacroAction Action { get; set; }
 
         public void Serialize(ByteArrayBuilder cmd)

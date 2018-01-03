@@ -1,4 +1,5 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
@@ -6,8 +7,10 @@ namespace LibAtem.Commands.Media
     public class MediaPoolFileCommand : ICommand
     {
         [CommandId]
+        [Serialize(0), Enum8]
         public MediaPoolFileType Type { get; set; }
         [CommandId]
+        [Serialize(3), UInt8]
         public uint Index { get; set; }
 
         public void Serialize(ByteArrayBuilder cmd)

@@ -1,4 +1,5 @@
 using LibAtem.Common;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
@@ -6,8 +7,10 @@ namespace LibAtem.Commands.MixEffects.Key
     public class MixEffectKeyFlyPropertiesGetCommand : ICommand
     {
         [CommandId]
+        [Serialize(0), Enum8]
         public MixEffectBlockId MixEffectIndex { get; set; }
         [CommandId]
+        [Serialize(1), Enum8]
         public UpstreamKeyId KeyerIndex { get; set; }
 
         public void Serialize(ByteArrayBuilder cmd)

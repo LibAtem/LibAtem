@@ -1,4 +1,5 @@
 using System;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
@@ -6,6 +7,7 @@ namespace LibAtem.Commands.DataTransfer
     public class DataTransferDataCommand : ICommand
     {
         [CommandId]
+        [Serialize(0), UInt16]
         public uint TransferId { get; set; }
 
         public byte[] Body { get; set; }
