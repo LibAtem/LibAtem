@@ -233,7 +233,7 @@ namespace LibAtem.Net
             return true;
         }
 
-        private int GetTimeSince(DateTime since)
+        private static int GetTimeSince(DateTime since)
         {
             TimeSpan diff = DateTime.Now - since;
             return diff.Seconds * 1000 + diff.Milliseconds;
@@ -284,10 +284,7 @@ namespace LibAtem.Net
             }
         }
 
-        protected virtual OutboundMessage CompileNextMessage()
-        {
-            return null;
-        }
+        protected abstract OutboundMessage CompileNextMessage();
         
         private void SendMessage(Socket socket, InFlightMessage msg)
         {

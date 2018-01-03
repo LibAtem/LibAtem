@@ -104,7 +104,7 @@ namespace LibAtem.Net
                 while (!_connection.HasTimedOut)
                 {
                     if (!_connection.TrySendQueued(_client.Client))
-                        Task.Delay(3).Wait();
+                        Thread.Sleep(1);
                 }
             });
             _sendThread.Name = "LibAtem.Send";
@@ -202,6 +202,11 @@ namespace LibAtem.Net
             DataTransfer?.Dispose();
             
             _timeoutTimer?.Dispose();
+        }
+
+        public bool HasQueuedOutbound()
+        {
+            return _connection.HasQueuedOutbound();
         }
     }
 }
