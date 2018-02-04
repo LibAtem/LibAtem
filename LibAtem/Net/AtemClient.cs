@@ -19,9 +19,10 @@ namespace LibAtem.Net
         private readonly IPEndPoint _remoteEp;
 
         private readonly AtemClientConnection _connection;
-        private Timer _pingTimer;
+        private Timer _timeoutTimer;
         private Thread _sendThread;
         private Thread _handleThread;
+        private bool _run;
 
         public delegate void CommandHandler(object sender, IReadOnlyList<ICommand> commands);
         public delegate void ConnectedHandler(object sender);
@@ -37,16 +38,12 @@ namespace LibAtem.Net
             remove => _connection.OnReceivePacket -= value;
         }
 
-        //        private int _lastSentAck;
-        //        private int _nextSentAck;
-
         public DataTransferManager DataTransfer { get; }
 
         public AtemClient(string address, bool autoConnect=true)
         {
             _remoteEp = new IPEndPoint(IPAddress.Parse(address), 9910);
             _client = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
-//            _lastSentAck = _nextSentAck = -1;
 
             _connection = new AtemClientConnection(_remoteEp, new Random().Next(32767));
             _connection.OnDisconnect += sender => OnDisconnect?.Invoke(this);
@@ -60,26 +57,44 @@ namespace LibAtem.Net
         public bool Connect()
         {
             // Check if connect has already been called
-            if (_pingTimer != null)
+            if (_run)
                 return false;
 
+            _run = true;
             StartReceiving();
             SendHandshake();
-//            StartPingTimer();
             StartSendingTimer();
             StartHandleThread();
+            StartTimeoutTimer();
             return true;
         }
 
-        private void StartPingTimer()
+        private bool Reconnect()
         {
-            _pingTimer = new Timer(o =>
+            lock (_connection)
             {
-                if (_connection.HasTimedOut)
+                if (!_connection.HasTimedOut)
+                    return false;
+
+                Log.InfoFormat("Attempting Reconnect");
+                _connection.ResetConnStatsInfo();
+                _connection.SessionId = new Random().Next(32767);
+                SendHandshake();
+                StartSendingTimer();
+            }
+
+            return true;
+        }
+        
+        private void StartTimeoutTimer()
+        {
+            _timeoutTimer = new Timer(o =>
+            {
+                if (!_connection.HasTimedOut)
                     return;
 
-                _connection.QueuePing();
-            }, null, 0, AtemConstants.PingInterval);
+                Reconnect();
+            }, null, 0, AtemConstants.TimeoutInterval);
         }
 
         private void StartSendingTimer()
@@ -92,6 +107,7 @@ namespace LibAtem.Net
                         Task.Delay(3).Wait();
                 }
             });
+            _sendThread.Name = "LibAtem.Send";
             _sendThread.Start();
         }
 
@@ -99,7 +115,7 @@ namespace LibAtem.Net
         {
             _handleThread = new Thread(o =>
             {
-                while (!_connection.HasTimedOut || _connection.HasCommandsToProcess)
+                while (_run || _connection.HasCommandsToProcess)
                 {
                     List<ICommand> cmds = _connection.GetNextCommands();
                     
@@ -112,6 +128,7 @@ namespace LibAtem.Net
                         OnReceive?.Invoke(this, cmds);
                 }
             });
+            _handleThread.Name = "LibAtem.Handle";
             _handleThread.Start();
         }
 
@@ -137,7 +154,7 @@ namespace LibAtem.Net
         {
             var thread = new Thread(() =>
             {
-                while (!_connection.HasTimedOut)
+                while (_run)
                 {
                     try
                     {
@@ -169,6 +186,7 @@ namespace LibAtem.Net
                     }
                 }
             });
+            thread.Name = "LibAtem.Receive";
             thread.Start();
         }
 
@@ -183,7 +201,7 @@ namespace LibAtem.Net
 
             DataTransfer?.Dispose();
             
-            _pingTimer?.Dispose();
+            _timeoutTimer?.Dispose();
         }
     }
 }

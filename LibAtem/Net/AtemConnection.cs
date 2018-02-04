@@ -73,11 +73,12 @@ namespace LibAtem.Net
             _inFlight = new List<InFlightMessage>();
             _processQueue = new BlockingCollection<ReceivedPacket>(new ConcurrentQueue<ReceivedPacket>());
         }
-
+        
         public bool IsOpened => _isOpen;
 
         public void ResetConnStatsInfo()
         {
+            _lastReceivedTime = DateTime.Now;
             _lastPacketId = 0;
             _lastReceivedAck = 0;
             _lastSentAck = 0;
