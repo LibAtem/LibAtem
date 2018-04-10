@@ -1,5 +1,6 @@
 # LibAtem
 
+[![Build Status](https://travis-ci.org/LibAtem/LibAtem.svg?branch=master)](https://travis-ci.org/LibAtem/LibAtem)
 
 This is the library for connecting with Blackmagic Design ATEM devices.
 
