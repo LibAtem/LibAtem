@@ -39,6 +39,6 @@ This builds on the work done by the following projects:
 
 ### License
 
-LibAtem is distributed under the GNU Lesser General Public License LGPLv3 or higher, see the file LICENSE.md for details.
+LibAtem is distributed under the GNU Lesser General Public License LGPLv3 or higher, see the file LICENSE for details.
 
 
