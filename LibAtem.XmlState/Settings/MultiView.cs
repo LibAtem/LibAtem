@@ -6,8 +6,6 @@ namespace LibAtem.XmlState.Settings
 {
     public class MultiView
     {
-        public const uint WindowCount = 10;
-
         public MultiView() : this(0)
         {
         }
