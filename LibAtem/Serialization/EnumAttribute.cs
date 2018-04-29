@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using LibAtem.Util;
 
 namespace LibAtem.Serialization
 {
@@ -25,6 +26,11 @@ namespace LibAtem.Serialization
         {
             return Equals(val1, val2);
         }
+
+        public override bool IsValid(PropertyInfo prop, object val)
+        {
+            return val.IsValid(prop.PropertyType);
+        }
     }
 
     public class Enum16Attribute : SerializableAttributeBase
@@ -46,6 +52,11 @@ namespace LibAtem.Serialization
         {
             return Equals(val1, val2);
         }
+
+        public override bool IsValid(PropertyInfo prop, object val)
+        {
+            return val.IsValid(prop.PropertyType);
+        }
     }
 
     public class Enum8Attribute : SerializableAttributeBase
@@ -63,6 +74,11 @@ namespace LibAtem.Serialization
         public override bool AreEqual(object val1, object val2)
         {
             return Equals(val1, val2);
+        }
+
+        public override bool IsValid(PropertyInfo prop, object val)
+        {
+            return val.IsValid(prop.PropertyType);
         }
     }
 }

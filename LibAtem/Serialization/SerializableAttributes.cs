@@ -24,6 +24,7 @@ namespace LibAtem.Serialization
         public abstract void Serialize(bool reverseBytes, byte[] data, uint start, object val);
         public abstract object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop);
         public abstract bool AreEqual(object val1, object val2);
+        public abstract bool IsValid(PropertyInfo prop, object val);
 
         protected byte[] ReverseBytes(bool reverse, IEnumerable<byte> data)
         {
@@ -34,6 +35,6 @@ namespace LibAtem.Serialization
     public interface IRandomGeneratorAttribute
     {
         object GetRandom(Random random);
-        bool IsValid(object obj);
+        bool IsValid(PropertyInfo prop, object obj);
     }
 }

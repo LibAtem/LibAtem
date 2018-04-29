@@ -22,6 +22,11 @@ namespace LibAtem.Serialization
         {
             return Equals(val1, val2);
         }
+
+        public override bool IsValid(PropertyInfo prop, object obj)
+        {
+            return true; // TODO 
+        }
     }
 
     public class Int16DAttribute : Int16Attribute, IRandomGeneratorAttribute
@@ -64,7 +69,7 @@ namespace LibAtem.Serialization
             return (random.NextDouble() * range + ScaledMin) / Scale;
         }
 
-        public bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             return (double)obj >= ScaledMin && (double)obj <= ScaledMax;
         }

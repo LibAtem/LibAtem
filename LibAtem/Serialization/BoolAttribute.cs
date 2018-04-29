@@ -33,7 +33,7 @@ namespace LibAtem.Serialization
             return random.Next(1) > 0;
         }
 
-        public bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             return true;
         }

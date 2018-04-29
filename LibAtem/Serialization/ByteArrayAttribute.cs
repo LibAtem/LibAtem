@@ -43,7 +43,7 @@ namespace LibAtem.Serialization
             return res;
         }
 
-        public bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             if (_length == 0)
                 return true;

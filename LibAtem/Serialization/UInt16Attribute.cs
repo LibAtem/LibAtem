@@ -28,7 +28,7 @@ namespace LibAtem.Serialization
             return (uint) random.Next(65535);
         }
 
-        public virtual bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             return (uint) obj <= 65535;
         }
@@ -62,7 +62,7 @@ namespace LibAtem.Serialization
             return (uint)random.Next(Min, Max);
         }
 
-        public override bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             return (uint)obj >= Min && (uint)obj <= Max;
         }
@@ -109,7 +109,7 @@ namespace LibAtem.Serialization
             return (random.NextDouble() * range + _scaledMin) / _scale;
         }
 
-        public override bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             return (double) obj >= _scaledMin && (double) obj <= _scaledMax;
         }

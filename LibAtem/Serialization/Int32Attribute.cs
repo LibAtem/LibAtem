@@ -30,9 +30,9 @@ namespace LibAtem.Serialization
             return random.Next();
         }
 
-        public virtual bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
-            return true;
+            return true; // TODO 
         }
     }
 
@@ -76,7 +76,7 @@ namespace LibAtem.Serialization
             return (random.NextDouble() * range + ScaledMin) / Scale;
         }
 
-        public override bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             return (double)obj >= ScaledMin && (double)obj <= ScaledMax;
         }
@@ -114,12 +114,11 @@ namespace LibAtem.Serialization
             return random.Next();
         }
 
-        public virtual bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
-            return true;
+            return true; // TODO 
         }
     }
-
 
     public class UInt32DAttribute : UInt32Attribute
     {
@@ -161,7 +160,7 @@ namespace LibAtem.Serialization
             return (random.NextDouble() * range + ScaledMin) / Scale;
         }
 
-        public override bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             return (double)obj >= ScaledMin && (double)obj <= ScaledMax;
         }

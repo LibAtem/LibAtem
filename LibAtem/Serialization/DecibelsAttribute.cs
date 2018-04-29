@@ -36,7 +36,7 @@ namespace LibAtem.Serialization
             return UIntToDecibel((uint) random.Next(65535));
         }
 
-        public override bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             return (double) obj <= 32768 && (double) obj >= 0;
         }

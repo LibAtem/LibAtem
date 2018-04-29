@@ -9,15 +9,20 @@ namespace LibAtem.Util
     {
         public static bool IsValid<T>(this T src) where T: IComparable, IConvertible, IFormattable
         {
-            if (!typeof(T).GetTypeInfo().GetCustomAttributes<FlagsAttribute>().Any())
-                return Enum.IsDefined(typeof(T), src);
+            return src.IsValid(typeof(T));
+        }
+
+        public static bool IsValid(this object src, Type t)
+        {
+            if (!t.GetTypeInfo().GetCustomAttributes<FlagsAttribute>().Any())
+                return Enum.IsDefined(t, src);
 
             // Is a flags, handle seperately
             int ival = Convert.ToInt32(src);
-            if (ival == 0 && !Enum.IsDefined(typeof(T), 0))
+            if (ival == 0 && !Enum.IsDefined(t, 0))
                 return false;
 
-            return ival < Enum.GetValues(typeof(T)).Cast<int>().Max() * 2;
+            return ival < Enum.GetValues(t).Cast<int>().Max() * 2;
         }
 
         public static T GetAttribute<Te, T>(this Te src) where T : Attribute where Te : IConvertible

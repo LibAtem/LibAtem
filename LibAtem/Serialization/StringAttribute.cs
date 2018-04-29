@@ -52,7 +52,7 @@ namespace LibAtem.Serialization
             return str.ToString().Substring(0, targetLength);
         }
 
-        public bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             return true;
         }
@@ -94,7 +94,7 @@ namespace LibAtem.Serialization
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public bool IsValid(object obj)
+        public override bool IsValid(PropertyInfo prop, object obj)
         {
             string str = (string) obj;
             return str.Length <= _maxlength;
