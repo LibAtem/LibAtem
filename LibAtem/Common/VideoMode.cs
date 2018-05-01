@@ -169,5 +169,10 @@ namespace LibAtem.Common
         {
             return mode.GetAttribute<VideoMode, VideoModeStandardAttribute>().Standard;
         }
+
+        public static double GetRate(this VideoMode mode)
+        {
+            return mode.GetAttribute<VideoMode, VideoModeRateAttribute>().Rate;
+        }
     }
 }

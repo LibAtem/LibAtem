@@ -41,7 +41,7 @@ namespace LibAtem.Commands.SuperSource
         [Serialize(6), Int16D(100, -4800, 4800)]
         public double PositionX { get; set; }
         
-        [Serialize(8), Int16D(100, -4800, 4800)]
+        [Serialize(8), Int16D(100, -3400, 3400)]
         public double PositionY { get; set; }
         
         [Serialize(10), UInt16D(1000, 70, 1000)]
