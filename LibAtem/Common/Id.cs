@@ -2,6 +2,19 @@
 
 namespace LibAtem.Common
 {
+    public enum ModelId
+    {
+        Unknown    = 0,
+        TVStudio   = 1,
+        OneME      = 2,
+        TwoME      = 3,
+        PS4K       = 4,
+        OneME4K    = 5,
+        TwoMe4K    = 6,
+        TwoMEBS4K  = 7,
+        TVStudioHD = 8,
+    }
+
     public enum MixEffectBlockId
     {
         [XmlEnum("0")]

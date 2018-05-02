@@ -18,10 +18,13 @@ namespace LibAtem.Serialization
         {
             string str = (string)val;
             byte[] res = new byte[_length];
-            int i;
+            int i = 0;
 
-            for (i = 0; i < _length && i < str.Length; i++)
-                res[i] = (byte)str[i];
+            if (str != null)
+            {
+                for (; i < _length && i < str.Length; i++)
+                    res[i] = (byte) str[i];
+            }
 
             for (; i < _length; i++)
                 res[i] = 0;
