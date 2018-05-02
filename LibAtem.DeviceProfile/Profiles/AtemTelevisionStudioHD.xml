@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DeviceProfile>
+  <Model>TVStudioHD</Model>
   <Product>ATEM Television Studio HD</Product>
-  <MixEffectBlocks>
-    <MixEffect programLong="Program" programShort="Pgm" previewLong="Preview" previewShort="Pvw" />
-  </MixEffectBlocks>
+  <MixEffectBlocks>1</MixEffectBlocks>
   <Sources>
     <DevicePort id="1">
       <Port>HDMI</Port>

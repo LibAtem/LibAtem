@@ -29,7 +29,7 @@ namespace LibAtem.DeviceProfile
         public static MeAvailability FilterProfile(this MeAvailability orig, DeviceProfile profile)
         {
             MeAvailability res = orig;
-            if (profile.MixEffectBlocks.Count < 2)
+            if (profile.MixEffectBlocks < 2)
                 res &= ~MeAvailability.Me2;
 
             return res;
@@ -70,16 +70,46 @@ namespace LibAtem.DeviceProfile
 
         public static Tuple<string, string> GetDefaultName(this VideoSource src, DeviceProfile profile)
         {
-            if (src == VideoSource.ME1Prog)
-                return Tuple.Create(profile.MixEffectBlocks[0].ProgramLong, profile.MixEffectBlocks[0].ProgramShort);
-            if (src == VideoSource.ME1Prev)
-                return Tuple.Create(profile.MixEffectBlocks[0].PreviewLong, profile.MixEffectBlocks[0].PreviewShort);
-            if (src == VideoSource.ME2Prog)
-                return Tuple.Create(profile.MixEffectBlocks[1].ProgramLong, profile.MixEffectBlocks[1].ProgramShort);
-            if (src == VideoSource.ME2Prev)
-                return Tuple.Create(profile.MixEffectBlocks[1].PreviewLong, profile.MixEffectBlocks[1].PreviewShort);
+            switch (profile.Model)
+            {
+                case ModelId.TwoME:
+                case ModelId.TwoMe4K:
+                case ModelId.TwoMEBS4K:
+                    switch (src)
+                    {
+                        case VideoSource.ME1Prev:
+                            return Tuple.Create("ME 1 PVW", "Pvw1");
+                        case VideoSource.ME1Prog:
+                            return Tuple.Create("ME 1 PGM", "Pgm1");
+                        case VideoSource.ME2Prev:
+                            return Tuple.Create("ME 2 PVW", "Pvw2");
+                        case VideoSource.ME2Prog:
+                            return Tuple.Create("ME 2 PGM", "Pgm2");
+                    }
+                    break;
+                case ModelId.OneME:
+                case ModelId.OneME4K:
+                    switch (src)
+                    {
+                        case VideoSource.ME1Prev:
+                            return Tuple.Create("Preview", "Prev");
+                        case VideoSource.ME1Prog:
+                            return Tuple.Create("Program", "Prog");
+                    }
+                    break;
+                case ModelId.TVStudio:
+                case ModelId.TVStudioHD:
+                    switch (src)
+                    {
+                        case VideoSource.ME1Prev:
+                            return Tuple.Create("Preview", "Pvw");
+                        case VideoSource.ME1Prog:
+                            return Tuple.Create("Program", "Pgm");
+                    }
+                    break;
+            }
 
-            if (profile.MixEffectBlocks.Count > 1)
+            if (profile.MixEffectBlocks > 1)
             {
                 switch (src)
                 {

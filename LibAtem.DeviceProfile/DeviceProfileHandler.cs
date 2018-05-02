@@ -3,7 +3,6 @@ using LibAtem.Commands;
 using LibAtem.Commands.DeviceProfile;
 using LibAtem.Commands.Settings;
 using LibAtem.Common;
-using LibAtem.Util;
 
 namespace LibAtem.DeviceProfile
 {
@@ -39,12 +38,13 @@ namespace LibAtem.DeviceProfile
 
         private void StoreIdentifier(ProductIdentifierCommand cmd)
         {
+            Profile.Model = cmd.Model;
             Profile.Product = cmd.Name;
         }
 
         private void StoreTopology(TopologyCommand cmd)
         {
-            Profile.MixEffectBlocks.SetToLength(cmd.MixEffectBlocks, e => new MixEffect(e));
+            Profile.MixEffectBlocks = cmd.MixEffectBlocks;
             Profile.ColorGenerators = cmd.ColorGenerators;
             Profile.Auxiliaries = cmd.Auxiliaries;
             Profile.MediaPlayers = cmd.MediaPlayers;

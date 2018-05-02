@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DeviceProfile>
+  <Model>OneME</Model>
   <Product>ATEM 1 M/E Production Switcher</Product>
-  <MixEffectBlocks>
-    <MixEffect programLong="Program" programShort="Prog" previewLong="Preview" previewShort="Prev" />
-  </MixEffectBlocks>
+  <MixEffectBlocks>1</MixEffectBlocks>
   <Sources>
     <DevicePort id="1">
       <Port>Composite</Port>

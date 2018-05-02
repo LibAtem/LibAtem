@@ -74,9 +74,9 @@ namespace LibAtem.DeviceProfile
                 case InternalPortType.External:
                     return props.Me1Index <= profile.Sources.Count;
                 case InternalPortType.MEOutput:
-                    return props.Me1Index <= profile.MixEffectBlocks.Count;
+                    return props.Me1Index <= profile.MixEffectBlocks;
                 case InternalPortType.Mask:
-                    if (profile.MixEffectBlocks.Count > 1)
+                    if (profile.MixEffectBlocks > 1)
                         return props.Me2Index <= profile.UpstreamKeys;
                     return props.Me1Index <= profile.UpstreamKeys;
                 case InternalPortType.MediaPlayerFill:
@@ -114,7 +114,7 @@ namespace LibAtem.DeviceProfile
 
         public static bool IsAvailable(this MixEffectBlockId id, DeviceProfile profile)
         {
-            return id.IsValid() && (int)id < profile.MixEffectBlocks.Count;
+            return id.IsValid() && (int)id < profile.MixEffectBlocks;
         }
 
         public static bool IsAvailable(this UpstreamKeyId id, DeviceProfile profile)

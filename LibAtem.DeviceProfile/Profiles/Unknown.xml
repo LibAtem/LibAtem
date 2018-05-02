@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DeviceProfile>
+  <Model>Unknown</Model>
   <Product>Unknown ATEM Switcher</Product>
-  <MixEffectBlocks>
-    <MixEffect programLong="Program" programShort="Pgm" previewLong="Preview" previewShort="Pvw" />
-  </MixEffectBlocks>
+  <MixEffectBlocks>1</MixEffectBlocks>
   <Sources>
     <DevicePort id="1">
       <Port>SDI</Port>
@@ -52,7 +51,7 @@
   </MultiView>
   <SerialPort>0</SerialPort>
   <AudioMonitor>false</AudioMonitor>
-  <VideoModes minimumSupported="SDISD" maximumSupported="SDIHD" downConvertAbove="SDI6G">
+  <VideoModes minimumSupported="SDISD" maximumSupported="SDI6G" downConvertAbove="SDI6G">
     <MaxFrames sd="0" _720="0" _1080="0" _4k="0" />
   </VideoModes>
 </DeviceProfile>

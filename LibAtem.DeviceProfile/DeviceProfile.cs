@@ -7,9 +7,11 @@ namespace LibAtem.DeviceProfile
     [XmlRoot("DeviceProfile", IsNullable = false)]
     public class DeviceProfile
     {
-        public string Product { get; set; }
+        public ModelId Model { get; set; }
 
-        public List<MixEffect> MixEffectBlocks { get; set; }
+        public string Product { get; set; }
+        
+        public uint MixEffectBlocks { get; set; }
 
         public List<DevicePort> Sources { get; set; }
 
@@ -74,33 +76,6 @@ namespace LibAtem.DeviceProfile
 
         [XmlAttribute("_4k")]
         public uint _4K { get; set; }
-    }
-
-    public class MixEffect
-    {
-        public MixEffect()
-        {
-        }
-
-        public MixEffect(int i)
-        {
-            i++;
-
-            ProgramLong = "Program " + i;
-            ProgramShort = "Pgm" + i;
-            PreviewLong = "Preview " + i;
-            PreviewShort = "Pvw" + i;
-        }
-
-        [XmlAttribute("programLong")]
-        public string ProgramLong { get; set; }
-        [XmlAttribute("programShort")]
-        public string ProgramShort { get; set; }
-
-        [XmlAttribute("previewLong")]
-        public string PreviewLong { get; set; }
-        [XmlAttribute("previewShort")]
-        public string PreviewShort { get; set; }
     }
 
     public class DevicePort
