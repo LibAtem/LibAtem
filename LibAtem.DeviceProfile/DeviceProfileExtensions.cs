@@ -89,14 +89,6 @@ namespace LibAtem.DeviceProfile
                     break;
                 case ModelId.OneME:
                 case ModelId.OneME4K:
-                    switch (src)
-                    {
-                        case VideoSource.ME1Prev:
-                            return Tuple.Create("Preview", "Prev");
-                        case VideoSource.ME1Prog:
-                            return Tuple.Create("Program", "Prog");
-                    }
-                    break;
                 case ModelId.TVStudio:
                 case ModelId.TVStudioHD:
                     switch (src)
