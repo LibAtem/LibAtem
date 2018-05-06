@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.Media
 {
     [CommandName("RCPS", 8)]
-    public class MediaPlayerStatusCommand : SerializableCommandBase
+    public class MediaPlayerClipStatusGetCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum8]

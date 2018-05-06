@@ -1,34 +1,45 @@
 using LibAtem.Common;
 using LibAtem.Serialization;
+using LibAtem.Util;
 
 namespace LibAtem.Commands.Media
 {
     [CommandName("MPfe")]
-    public class MediaPoolFileCommand : ICommand
+    public class MediaPoolFileCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum8]
         public MediaPoolFileType Type { get; set; }
         [CommandId]
-        [Serialize(3), UInt8]
+        [Serialize(2), UInt16]
         public uint Index { get; set; }
 
-        public void Serialize(ByteArrayBuilder cmd)
+        [Serialize(4), Bool]
+        public bool IsUsed { get; set; }
+
+        [Serialize(5), ByteArray(16)]
+        public byte[] Hash { get; set; }
+        
+        [Serialize(22), StringLength(20)]
+        public string Filename { get; set; }
+
+        public override void Serialize(ByteArrayBuilder cmd)
         {
-            cmd.AddUInt8((int) Type);
-            cmd.AddByte(0x45);
-            cmd.Pad();
-            cmd.AddUInt8(Index);
-            cmd.Pad(17); // ?? (Various bits)
-            cmd.AddByte(0x1b, 0x00, 0x00);
+            base.Serialize(cmd);
+
+            cmd.SetString(24, Filename);
         }
 
-        public void Deserialize(ParsedByteArray cmd)
+        public override void Deserialize(ParsedByteArray cmd)
         {
-            Type = (MediaPoolFileType) cmd.GetUInt8();
-            cmd.Skip(2);
-            Index = cmd.GetUInt8();
-            cmd.Skip(20);
+            base.Deserialize(cmd);
+
+            Filename = cmd.GetString(24, Filename.Length);
+        }
+
+        protected override int GetLength()
+        {
+            return MathExt.NextMultipleOf4(24 + (Filename?.Length ?? 0));
         }
     }
 }

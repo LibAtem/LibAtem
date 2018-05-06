@@ -10,12 +10,14 @@ namespace LibAtem.Commands.DataTransfer
         public uint TransferId { get; set; }
         
         [Serialize(2), UInt8]
-        public uint Count => 26; // TODO - why this number?
+        public uint Unknown => 26; // TODO - why this number?
 
         [Serialize(6), UInt16]
-        public uint Test => 0x0574;
+        public uint ChunkSize { get; set; }
+
         [Serialize(8), UInt16]
-        public uint Test2 => 0x0142;
+        public uint ChunkCount { get; set; }
+
         [Serialize(10), UInt16]
         public uint Test3 => 0x8b00;
     }

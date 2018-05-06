@@ -16,6 +16,8 @@ namespace LibAtem.Commands.DataTransfer
         public uint TransferIndex { get; set; }
 
         [Serialize(8), UInt16]
-        public uint Unknown { get; set; } = 0x03f7;
+        public uint Unknown { get; set; } = 0x00f9;
+        [Serialize(10), UInt16]
+        public uint Unknown2 { get; set; } = 0x020f;
     }
 }

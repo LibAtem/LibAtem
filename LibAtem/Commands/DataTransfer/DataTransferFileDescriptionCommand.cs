@@ -14,5 +14,8 @@ namespace LibAtem.Commands.DataTransfer
 
         [Serialize(66), String(128)]
         public string Description { get; set; }
+
+        [Serialize(194), ByteArray(16)]
+        public byte[] FileHash { get; set; }
     }
 }
