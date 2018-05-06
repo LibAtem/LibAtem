@@ -20,6 +20,7 @@ namespace LibAtem.Net
 
         private readonly AtemClientConnection _connection;
         private Timer _timeoutTimer;
+        private Timer _ackTimer;
         private Thread _sendThread;
         private Thread _handleThread;
         private bool _run;
@@ -66,6 +67,7 @@ namespace LibAtem.Net
             StartSendingTimer();
             StartHandleThread();
             StartTimeoutTimer();
+            StartAckTimer();
             return true;
         }
 
@@ -95,6 +97,17 @@ namespace LibAtem.Net
 
                 Reconnect();
             }, null, 0, AtemConstants.TimeoutInterval);
+        }
+
+        private void StartAckTimer()
+        {
+            _ackTimer = new Timer(o =>
+            {
+                if (!_connection.HasTimedOut)
+                    return;
+
+                _connection.SendAckNow(_client.Client);
+            }, null, 0, AtemConstants.AckInterval);
         }
 
         private void StartSendingTimer()
@@ -167,7 +180,7 @@ namespace LibAtem.Net
                         {
                             Log.DebugFormat("Completed handshake");
                             OnConnection?.Invoke(this);
-                            _connection.SendAck(_client.Client, packet.PacketId, true);
+                            _connection.SendAckNow(_client.Client, true);
                             continue;
                         }
 
