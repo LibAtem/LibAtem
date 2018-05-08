@@ -13,7 +13,8 @@ namespace LibAtem.DeviceProfile
             VideoModeResolution res = mode.GetResolution();
             switch (res)
             {
-                case VideoModeResolution.SD:
+                case VideoModeResolution.PAL:
+                case VideoModeResolution.NTSC:
                     return profile.VideoModes.MaxFrames.SD;
                 case VideoModeResolution._720:
                     return profile.VideoModes.MaxFrames._720;
