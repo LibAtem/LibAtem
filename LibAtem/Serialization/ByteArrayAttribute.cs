@@ -15,6 +15,9 @@ namespace LibAtem.Serialization
 
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
+            if (val == null)
+                return;
+
             byte[] arr = (byte[])val;
             int len = _length > 0 ? _length : arr.Length;
             arr.Take(len).ToArray().CopyTo(data, (int) start);

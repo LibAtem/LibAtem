@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.DataTransfer;
+using LibAtem.Common;
+using LibAtem.Util.Media;
 
 namespace LibAtem.Net.DataTransfer
 {
     public class DownloadMediaStillJob : DataTransferJob
     {
-        private readonly Action<byte[]> _onComplete;
+        private readonly VideoModeResolution _resolution;
+        private readonly Action<AtemFrame> _onComplete;
         private readonly List<byte[]> _receivedData;
         private uint _id;
 
-        public DownloadMediaStillJob(uint index, Action<byte[]> onComplete, TimeSpan? timeout = null)
+        // TODO - name to use
+        public DownloadMediaStillJob(uint index, VideoModeResolution resolution, Action<AtemFrame> onComplete, TimeSpan? timeout = null)
             : base(0, index, timeout)
         {
+            _resolution = resolution;
             _onComplete = onComplete;
             _receivedData = new List<byte[]>();
         }
@@ -54,7 +59,7 @@ namespace LibAtem.Net.DataTransfer
             if (command is DataTransferCompleteCommand completeCommand && completeCommand.TransferId == _id)
             {
                 var fullData = _receivedData.SelectMany(d => d).ToArray();
-                _onComplete(fullData);
+                _onComplete(AtemFrame.FromAtem(_resolution, "", fullData)); // TODO - name
                 return DataTransferStatus.Success;
             }
 

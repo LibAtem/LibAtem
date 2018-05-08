@@ -16,28 +16,34 @@ namespace LibAtem.Common
 
     public enum VideoModeResolution
     {
-        SD,
+        [Size(640, 480)]
+        NTSC,
+        [Size(720, 576)]
+        PAL,
+        [Size(1280, 720)]
         _720,
+        [Size(1920, 1080)]
         _1080,
+        [Size(3840, 2160)]
         _4K,
     }
 
     public enum VideoMode
     {
         [VideoModeRate(59.94), VideoModeStandard(VideoModeStandard.SDISD), VideoModeMultiviewerMode(N1080i5994)]
-        [VideoModeResolution(VideoModeResolution.SD)]
+        [VideoModeResolution(VideoModeResolution.NTSC)]
         [XmlEnum("525i5994 NTSC")]
         N525i5994NTSC = 0,
         [VideoModeRate(50), VideoModeStandard(VideoModeStandard.SDISD), VideoModeMultiviewerMode(P1080i50)]
-        [VideoModeResolution(VideoModeResolution.SD)]
+        [VideoModeResolution(VideoModeResolution.PAL)]
         [XmlEnum("625i50 PAL")]
         P625i50PAL = 1,
         [VideoModeRate(59.94), VideoModeStandard(VideoModeStandard.SDISD), VideoModeMultiviewerMode(N1080i5994)]
-        [VideoModeResolution(VideoModeResolution.SD)]
+        [VideoModeResolution(VideoModeResolution.NTSC)]
         [XmlEnum("525i5994 16:9")]
         N525i5994169 = 2,
         [VideoModeRate(50), VideoModeStandard(VideoModeStandard.SDISD), VideoModeMultiviewerMode(P1080i50)]
-        [VideoModeResolution(VideoModeResolution.SD)]
+        [VideoModeResolution(VideoModeResolution.PAL)]
         [XmlEnum("625i50 16:9")]
         P625i50169 = 3,
 
@@ -158,11 +164,36 @@ namespace LibAtem.Common
         }
     }
 
+    public class SizeAttribute : Attribute
+    {
+        public uint Width { get; }
+        public uint Height { get; }
+
+        public Tuple<uint, uint> Size => Tuple.Create(Width, Height);
+
+        public SizeAttribute(uint width, uint height)
+        {
+            Width = width;
+            Height = height;
+        }
+    }
+
     public static class VideoModeExtensions
     {
         public static VideoModeResolution GetResolution(this VideoMode mode)
         {
             return mode.GetAttribute<VideoMode, VideoModeResolutionAttribute>().Resolution;
+        }
+
+        public static Tuple<uint, uint> GetSize(this VideoModeResolution res)
+        {
+            return res.GetAttribute<VideoModeResolution, SizeAttribute>().Size;
+        }
+
+        public static int GetByteCount(this VideoModeResolution res)
+        {
+            var size = res.GetAttribute<VideoModeResolution, SizeAttribute>().Size;
+            return (int) (size.Item1 * size.Item2 * 4);
         }
 
         public static VideoModeStandard GetStandard(this VideoMode mode)

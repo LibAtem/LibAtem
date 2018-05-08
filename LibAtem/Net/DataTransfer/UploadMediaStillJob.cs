@@ -1,24 +1,24 @@
 using System;
 using System.Linq;
-using System.Security.Cryptography;
 using LibAtem.Commands;
 using LibAtem.Commands.DataTransfer;
+using LibAtem.Util.Media;
 
 namespace LibAtem.Net.DataTransfer
 {
     public class UploadMediaStillJob : DataTransferJob
     {
-        private readonly string _name;
+        private readonly AtemFrame _frame;
         private readonly Action<bool> _onComplete;
         private byte[] _remainingData;
         private uint _id;
 
-        public UploadMediaStillJob(uint index, string name, byte[] data, Action<bool> onComplete, TimeSpan? timeout = null)
+        public UploadMediaStillJob(uint index, AtemFrame frame, Action<bool> onComplete, TimeSpan? timeout = null)
             : base(0, index, timeout)
         {
-            _name = name;
+            _frame = frame;
             _onComplete = onComplete;
-            _remainingData = data;
+            _remainingData = frame.GetYCbCrData();
         }
 
         public override ICommand Start(uint transferID)
@@ -28,13 +28,13 @@ namespace LibAtem.Net.DataTransfer
                 return null;
 
             _id = transferID;
-
+            
             return new DataTransferUploadRequestCommand()
             {
                 TransferId = transferID,
                 TransferIndex = Index,
                 TransferStoreId = StoreId,
-                Size = _remainingData.Length,
+                Size = _frame.GetYCbCrData().Length,
                 Mode = DataTransferUploadRequestCommand.TransferMode.Write,
             };
             // TODO - seperate clear op?
@@ -48,16 +48,12 @@ namespace LibAtem.Net.DataTransfer
             {
                 if (!sentDescription)
                 {
-                    byte[] resHash;
-                    using (MD5 md5Hash = MD5.Create())
-                        resHash = md5Hash.ComputeHash(_remainingData);
-
                     var toSend = new DataTransferFileDescriptionCommand()
                     {
                         TransferId = _id,
-                        Name = _name,
+                        Name = _frame.Name,
                         Description = "",
-                        FileHash = resHash,
+                        FileHash = _frame.GetHash(),
                     };
                     connection.QueueCommand(toSend);
                     sentDescription = true;
