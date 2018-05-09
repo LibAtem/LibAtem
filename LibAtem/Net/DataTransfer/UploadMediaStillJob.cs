@@ -1,24 +1,35 @@
 using System;
-using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.DataTransfer;
 using LibAtem.Util.Media;
 
 namespace LibAtem.Net.DataTransfer
 {
-    public class UploadMediaStillJob : DataTransferJob
+    public class UploadMediaStillJob : UploadMediaFrameJob
     {
+        public UploadMediaStillJob(uint index, AtemFrame frame, Action<bool> onComplete, TimeSpan? timeout = null)
+            : base(0, index, frame, onComplete, timeout)
+        {
+        }
+    }
+
+
+    public class UploadMediaFrameJob : DataTransferJob
+    {
+        private readonly uint _index;
         private readonly AtemFrame _frame;
         private readonly Action<bool> _onComplete;
-        private byte[] _remainingData;
+        private readonly byte[] _remainingData;
+        private int _sentData;
         private uint _id;
 
-        public UploadMediaStillJob(uint index, AtemFrame frame, Action<bool> onComplete, TimeSpan? timeout = null)
-            : base(0, index, timeout)
+        public UploadMediaFrameJob(uint bank, uint index, AtemFrame frame, Action<bool> onComplete, TimeSpan? timeout = null)
+            : base(bank, timeout)
         {
+            _index = index;
             _frame = frame;
             _onComplete = onComplete;
-            _remainingData = frame.GetYCbCrData();
+            _remainingData = frame.GetRLEEncodedYCbCr();
         }
 
         public override ICommand Start(uint transferID)
@@ -28,11 +39,11 @@ namespace LibAtem.Net.DataTransfer
                 return null;
 
             _id = transferID;
-            
+
             return new DataTransferUploadRequestCommand()
             {
                 TransferId = transferID,
-                TransferIndex = Index,
+                TransferIndex = _index,
                 TransferStoreId = StoreId,
                 Size = _frame.GetYCbCrData().Length,
                 Mode = DataTransferUploadRequestCommand.TransferMode.Write,
@@ -59,7 +70,7 @@ namespace LibAtem.Net.DataTransfer
                     sentDescription = true;
                 }
 
-                if (_remainingData.Length == 0)
+                if (_sentData >= _remainingData.Length)
                 {
                     return DataTransferStatus.OK;
                 }
@@ -68,18 +79,20 @@ namespace LibAtem.Net.DataTransfer
                 var chunkSize = continueCommand.ChunkSize - 4;
                 for (int i = 0; i < continueCommand.ChunkCount; i++)
                 {
-                    int startPos = (int) (chunkSize * i);
-                    if (startPos > _remainingData.Length)
+                    if (_sentData >= _remainingData.Length)
                         break;
-                    
-                    connection.QueueCommand(new DataTransferDataCommand()
+
+                    var len = _sentData + chunkSize > _remainingData.Length ? (long) (_remainingData.Length - _sentData) : chunkSize;
+                    byte[] b = new byte[len];
+                    Array.Copy(_remainingData, _sentData, b, 0, len);
+
+                    connection.QueueCommand(new DataTransferDataCommand
                     {
                         TransferId = _id,
-                        Body = _remainingData.Skip(startPos).Take((int)chunkSize).ToArray()
+                        Body = b,
                     });
+                    _sentData += (int) len;
                 }
-
-                _remainingData = _remainingData.Skip((int) (continueCommand.ChunkCount * chunkSize)).ToArray();
 
                 return DataTransferStatus.OK;
             }
@@ -89,7 +102,7 @@ namespace LibAtem.Net.DataTransfer
                 _onComplete(true);
                 return DataTransferStatus.Success;
             }
-            
+
             _onComplete(false);
             return DataTransferStatus.Error;
         }

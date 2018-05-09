@@ -9,6 +9,7 @@ namespace LibAtem.Net.DataTransfer
 {
     public class UploadMacroJob : DataTransferJob
     {
+        private readonly uint _index;
         private readonly string _name;
         private readonly string _description;
         private readonly Action<bool> _onComplete;
@@ -16,8 +17,9 @@ namespace LibAtem.Net.DataTransfer
         private uint _id;
 
         public UploadMacroJob(uint index, string name, string description, IEnumerable<MacroOpBase> dataQueue, Action<bool> onComplete, TimeSpan? timeout = null)
-            : base(0xffff, index, timeout)
+            : base(0xffff, timeout)
         {
+            _index = index;
             _name = name;
             _description = description;
             _onComplete = onComplete;
@@ -35,7 +37,7 @@ namespace LibAtem.Net.DataTransfer
             return new DataTransferUploadRequestCommand()
             {
                 TransferId = transferID,
-                TransferIndex = Index,
+                TransferIndex = _index,
                 TransferStoreId = StoreId,
                 Size = _dataQueue.Sum(o => o.Length),
                 Mode = DataTransferUploadRequestCommand.TransferMode.Clear | DataTransferUploadRequestCommand.TransferMode.Write,
@@ -57,7 +59,7 @@ namespace LibAtem.Net.DataTransfer
                 // also queue data
                 const int maxBodySize = 1350;
 
-                // TODO - is this chunking correctly?
+                // TODO - base chunking off of UploedMediaFrameJob
                 int startPos = 0;
                 while (startPos < _dataQueue.Count)
                 {

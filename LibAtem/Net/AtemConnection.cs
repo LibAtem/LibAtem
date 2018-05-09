@@ -94,7 +94,7 @@ namespace LibAtem.Net
                 _messageQueue.Clear();
         }
 
-        public bool HasTimedOut => GetTimeSince(_lastReceivedTime) > TimeOutMilliseonds;
+        public bool HasTimedOut => GetTimeBetween(_lastReceivedTime, DateTime.Now) > TimeOutMilliseonds;
 
         private uint IncrementPacketId(uint pktId, uint delta = 1)
         {
@@ -246,7 +246,7 @@ namespace LibAtem.Net
                 if (_readyToAck - _lastSentAck >= 16)
                     shouldSend = true;
 
-                if (_ackWaitingSince.HasValue && GetTimeSince(_ackWaitingSince.Value) >= AtemConstants.AckInterval)
+                if (_ackWaitingSince.HasValue && GetTimeBetween(_ackWaitingSince.Value, DateTime.Now) >= AtemConstants.AckInterval)
                     shouldSend = true;
 
                 if (!shouldSend)
@@ -276,9 +276,9 @@ namespace LibAtem.Net
             return true;
         }
 
-        private static int GetTimeSince(DateTime since)
+        private static int GetTimeBetween(DateTime since, DateTime before)
         {
-            TimeSpan diff = DateTime.Now - since;
+            TimeSpan diff = before - since;
             return diff.Seconds * 1000 + diff.Milliseconds;
         }
         
@@ -293,14 +293,17 @@ namespace LibAtem.Net
             lock (_inFlight)
             {
                 _inFlight.RemoveAll(m => IdIsLessThanEqualOther(m.Message.PacketId, _lastReceivedAck));
-                
-                bool shouldResend = _inFlight.Any(m => GetTimeSince(m.LastSent) > InFlightTimeout);
+
                 // If any were resent, then dont send anything new
-                if (shouldResend)
+                if (_inFlight.Count > 0)
                 {
-                    List<InFlightMessage> toResend = _inFlight.ToList();
-                    Log.WarnFormat("{0} - Resending {1} packets from #{2}", Endpoint, toResend.Count, toResend[0].Message.PacketId);
-                    return toResend;
+                    DateTime now = DateTime.Now;
+                    if (_inFlight.Any(m => GetTimeBetween(m.LastSent, now) > InFlightTimeout))
+                    {
+                        List<InFlightMessage> toResend = _inFlight.ToList();
+                        Log.WarnFormat("{0} - Resending {1} packets from #{2}", Endpoint, toResend.Count, toResend[0].Message.PacketId);
+                        return toResend;
+                    }
                 }
 
                 if (_inFlight.Count >= MaxInFlight)

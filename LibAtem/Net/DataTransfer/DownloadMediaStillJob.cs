@@ -10,6 +10,7 @@ namespace LibAtem.Net.DataTransfer
 {
     public class DownloadMediaStillJob : DataTransferJob
     {
+        private readonly uint _index;
         private readonly VideoModeResolution _resolution;
         private readonly Action<AtemFrame> _onComplete;
         private readonly List<byte[]> _receivedData;
@@ -17,8 +18,9 @@ namespace LibAtem.Net.DataTransfer
 
         // TODO - name to use
         public DownloadMediaStillJob(uint index, VideoModeResolution resolution, Action<AtemFrame> onComplete, TimeSpan? timeout = null)
-            : base(0, index, timeout)
+            : base(0, timeout)
         {
+            _index = index;
             _resolution = resolution;
             _onComplete = onComplete;
             _receivedData = new List<byte[]>();
@@ -35,7 +37,7 @@ namespace LibAtem.Net.DataTransfer
             return new DataTransferDownloadRequestCommand()
             {
                 TransferId = transferID,
-                TransferIndex = Index,
+                TransferIndex = _index,
                 TransferStoreId = StoreId,
             };
         }
@@ -50,7 +52,7 @@ namespace LibAtem.Net.DataTransfer
                 connection.QueueCommand(new DataTransferAckCommand()
                 {
                     TransferId = _id,
-                    TransferIndex = Index,
+                    TransferIndex = _index,
                 });
 
                 return DataTransferStatus.OK;

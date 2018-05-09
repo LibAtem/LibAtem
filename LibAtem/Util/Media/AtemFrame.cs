@@ -53,6 +53,11 @@ namespace LibAtem.Util.Media
             return _data;
         }
 
+        public byte[] GetRLEEncodedYCbCr()
+        {
+            return _data; // TODO
+        }
+
         public byte[] GetRGBA(ColourSpace colour)
         {
             switch (colour)

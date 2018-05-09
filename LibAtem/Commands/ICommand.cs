@@ -52,7 +52,7 @@ namespace LibAtem.Commands
     {
         public static byte[] ToByteArray(this ICommand cmd)
         {
-            var builder = new CommandBuilder(CommandNameAttribute.GetName(cmd.GetType()));
+            var builder = new CommandBuilder(CommandManager.FindNameForType(cmd));
             cmd.Serialize(builder);
             return builder.ToByteArray();
         }
@@ -63,15 +63,14 @@ namespace LibAtem.Commands
         private static readonly ILog Log = LogManager.GetLogger(typeof(CommandManager));
 
         private static IReadOnlyDictionary<string, Type> commandTypes;
+        private static IReadOnlyDictionary<Type, string> commandNames;
 
-        public static IReadOnlyDictionary<string, Type> GetAllTypes()
+        private static void GenerateDictionaries()
         {
-            if (commandTypes != null)
-                return commandTypes;
-
             try
             {
-                var result = new Dictionary<string, Type>();
+                var resultTypes = new Dictionary<string, Type>();
+                var resultNames = new Dictionary<Type, string>();
                 var assembly = typeof(CommandNameAttribute).GetTypeInfo().Assembly;
                 foreach (Type type in assembly.GetTypes())
                 {
@@ -82,13 +81,15 @@ namespace LibAtem.Commands
                     if (!typeof(ICommand).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
                         continue;
 
-                    if (result.ContainsKey(attribute.Name))
+                    if (resultTypes.ContainsKey(attribute.Name))
                         Log.FatalFormat("Duplicate definition for {0}", attribute.Name);
 
-                    result[attribute.Name] = type;
+                    resultTypes[attribute.Name] = type;
+                    resultNames[type] = attribute.Name;
                 }
 
-                return commandTypes = result;
+                commandTypes = resultTypes;
+                commandNames = resultNames;
             }
             catch (Exception e)
             {
@@ -97,9 +98,30 @@ namespace LibAtem.Commands
             }
         }
 
+        public static IReadOnlyDictionary<string, Type> GetAllTypes()
+        {
+            if (commandTypes == null)
+                GenerateDictionaries();
+
+            return commandTypes;
+        }
+
+        public static IReadOnlyDictionary<Type, string> GetAllNames()
+        {
+            if (commandNames == null)
+                GenerateDictionaries();
+
+            return commandNames;
+        }
+
         public static Type FindForName(string name)
         {
             return GetAllTypes().TryGetValue(name, out Type res) ? res : null;
+        }
+
+        public static string FindNameForType(ICommand cmd)
+        {
+            return GetAllNames().TryGetValue(cmd.GetType(), out string res) ? res : null;
         }
     }
 }

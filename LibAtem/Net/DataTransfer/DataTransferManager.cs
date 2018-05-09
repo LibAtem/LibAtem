@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using LibAtem.Commands;
 using LibAtem.Commands.DataTransfer;
+using LibAtem.Commands.Media;
 
 namespace LibAtem.Net.DataTransfer
 {
@@ -42,6 +43,7 @@ namespace LibAtem.Net.DataTransfer
                 typeof(DataTransferCompleteCommand),
                 typeof(DataTransferErrorCommand),
                 typeof(DataTransferUploadContinueCommand),
+                typeof(MediaPoolClipSourceCommand), // TODO - this shouldnt be here
             };
         }
 

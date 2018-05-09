@@ -42,7 +42,7 @@ namespace LibAtem.Net
                     if (!builder.TryAddData(data))
                         break;
 
-                    Log.DebugFormat("{0} - Sending command {1} with content {2}", Endpoint, CommandNameAttribute.GetName(cmd.GetType()), BitConverter.ToString(data));
+                    //Log.DebugFormat("{0} - Sending command {1} with content {2}", Endpoint, CommandNameAttribute.GetName(cmd.GetType()), BitConverter.ToString(data));
                     
                     removeCount++;
                 }

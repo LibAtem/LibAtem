@@ -22,13 +22,15 @@ namespace LibAtem.Net.DataTransfer
 
     public class DownloadMacroBytesJob : DataTransferJob
     {
+        private readonly uint _index;
         private readonly Action<IReadOnlyList<byte[]>> _onComplete;
         private readonly List<byte[]> _receivedData;
         private uint _id;
 
         public DownloadMacroBytesJob(uint index, Action<IReadOnlyList<byte[]>> onComplete, TimeSpan? timeout = null)
-            : base(0xffff, index, timeout)
+            : base(0xffff, timeout)
         {
+            _index = index;
             _onComplete = onComplete;
             _receivedData = new List<byte[]>();
         }
@@ -44,7 +46,7 @@ namespace LibAtem.Net.DataTransfer
             return new DataTransferDownloadRequestCommand()
             {
                 TransferId = transferID,
-                TransferIndex = Index,
+                TransferIndex = _index,
                 TransferStoreId = StoreId,
             };
         }
@@ -59,7 +61,7 @@ namespace LibAtem.Net.DataTransfer
                 connection.QueueCommand(new DataTransferAckCommand()
                 {
                     TransferId = _id,
-                    TransferIndex = Index,
+                    TransferIndex = _index,
                 });
 
                 return DataTransferStatus.OK;
