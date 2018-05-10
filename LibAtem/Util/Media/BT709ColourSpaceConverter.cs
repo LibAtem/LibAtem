@@ -44,6 +44,7 @@ namespace LibAtem.Util.Media
             return (y1, cb, cr);
         }
 
+        // TODO - this is really slow, taking 98ms per frame (43ms of which is inside ToYCbCr10Bit422)
         public static byte[] RGBAToYCbCrA10Bit422(byte[] data)
         {
             var res = new byte[data.Length];

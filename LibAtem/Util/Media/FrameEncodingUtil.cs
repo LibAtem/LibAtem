@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LibAtem.Common;
 
@@ -6,6 +7,78 @@ namespace LibAtem.Util.Media
 {
     public static class FrameEncodingUtil
     {
+        private const int BlockSize = 8;
+        public static byte[] EncodeRLE(byte[] data)
+        {
+            if (data.Length % 8 != 0)
+                return data;
+            
+            var res = new byte[data.Length];
+            int used = 0;
+
+            for (int i = 0; i < data.Length; )
+            {
+                int r = CountRun(data, i);
+                if (r == 0)
+                    break;
+
+                if (r <= 2)
+                {
+                    for (int o = 0; o < r; o++)
+                    {
+                        Array.Copy(data, i, res, used, BlockSize);
+                        used += BlockSize;
+                    }
+
+                    i += r * BlockSize;
+                    continue;
+                }
+
+                AddRLEHeader(res, used, r);
+                used += 16;
+
+                Array.Copy(data, i, res, used, BlockSize);
+                used += BlockSize;
+                i += r * BlockSize;
+            }
+
+            var trimmed = new byte[used];
+            Array.Copy(res, trimmed, used);
+            return trimmed;
+        }
+
+        private static void AddRLEHeader(byte[] res, int pos, long count)
+        {
+            for (int i = 0; i < 8; i++)
+                res[pos + i] = 0xfe;
+
+            byte[] size = BitConverter.GetBytes(count).Reverse().ToArray();
+            Array.Copy(size, 0, res, pos + 8, 8);
+        }
+
+        // TODO - this is really slow, taking 64ms per frame (39ms in AreBlocksEqual)
+        private static int CountRun(byte[] data, int pos)
+        {
+            int i = 1;
+            while (pos + BlockSize * i < data.Length && AreBlocksEqual(data, pos, pos + BlockSize * i))
+            {
+                i++;
+            }
+
+            return i;
+        }
+        
+        private static bool AreBlocksEqual(byte[] data, int pos1, int pos2)
+        {
+            for (int i = 0; i < BlockSize; i++)
+            {
+                if (data[pos1 + i] != data[pos2 + i])
+                    return false;
+            }
+
+            return true;
+        }
+
         public static byte[] DecodeRLE(VideoModeResolution size, byte[] data)
         {
             byte[] res = new byte[size.GetByteCount()];

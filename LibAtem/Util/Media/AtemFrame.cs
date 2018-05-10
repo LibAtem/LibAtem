@@ -55,7 +55,7 @@ namespace LibAtem.Util.Media
 
         public byte[] GetRLEEncodedYCbCr()
         {
-            return _data; // TODO
+            return FrameEncodingUtil.EncodeRLE(_data);
         }
 
         public byte[] GetRGBA(ColourSpace colour)
