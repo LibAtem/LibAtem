@@ -43,7 +43,7 @@ namespace LibAtem.Net.DataTransfer
                 typeof(DataTransferCompleteCommand),
                 typeof(DataTransferErrorCommand),
                 typeof(DataTransferUploadContinueCommand),
-                typeof(MediaPoolClipSourceCommand), // TODO - this shouldnt be here
+                typeof(MediaPoolClipDescriptionCommand), // TODO - this shouldnt be here
             };
         }
 

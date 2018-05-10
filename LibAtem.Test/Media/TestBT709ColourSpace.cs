@@ -2,7 +2,7 @@
 using LibAtem.Util.Media;
 using Xunit;
 
-namespace LibAtem.Test.Colour
+namespace LibAtem.Test.Media
 {
     public class TestBT709ColourSpaceConverter
     {

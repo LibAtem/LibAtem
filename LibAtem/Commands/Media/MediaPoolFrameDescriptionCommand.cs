@@ -5,11 +5,12 @@ using LibAtem.Util;
 namespace LibAtem.Commands.Media
 {
     [CommandName("MPfe")]
-    public class MediaPoolFileCommand : SerializableCommandBase
+    public class MediaPoolFrameDescriptionCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum8]
-        public MediaPoolFileType Type { get; set; }
+        public MediaPoolFileType Bank { get; set; }
+
         [CommandId]
         [Serialize(2), UInt16]
         public uint Index { get; set; }
@@ -21,7 +22,7 @@ namespace LibAtem.Commands.Media
         public byte[] Hash { get; set; }
         
         [Serialize(22), StringLength(20)]
-        public string Filename { get; set; }
+        public string Filename { get; set; } // TODO - guard length
 
         public override void Serialize(ByteArrayBuilder cmd)
         {

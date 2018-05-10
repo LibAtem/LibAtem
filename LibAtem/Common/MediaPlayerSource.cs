@@ -9,8 +9,7 @@
     public enum MediaPoolFileType
     {
         Still = 0,
-        Clip = 1,  // ??
-        audio = 2, // ??
-        audio2 = 3, // ??
+        Clip1 = 1,
+        Clip2 = 2,
     }
 }

@@ -51,7 +51,7 @@ namespace LibAtem.Net.DataTransfer
                         _onComplete(false);
                         return DataTransferStatus.Error;
                 }
-            } else if (command.GetType() != typeof(MediaPoolClipSourceCommand)) // TODO - check the command values match
+            } else if (command.GetType() != typeof(MediaPoolClipDescriptionCommand)) // TODO - check the command values match
                 return DataTransferStatus.OK;
 
             // status was success, or is first frame
