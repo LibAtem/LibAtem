@@ -9,7 +9,7 @@ namespace LibAtem.Commands.DataTransfer
         [Serialize(0), UInt16]
         public uint TransferId { get; set; }
 
-        [Serialize(2), String(20)]
+        [Serialize(2), String(64)]
         public string Name { get; set; }
 
         [Serialize(66), String(128)]

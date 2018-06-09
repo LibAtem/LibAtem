@@ -391,5 +391,20 @@ namespace LibAtem.Common
         {
             return src.GetAttribute<VideoSource, VideoSourceTypeAttribute>().PortType;
         }
+
+        public static bool SupportsVuMeter(this VideoSource src)
+        {
+            switch (src.GetPortType())
+            {
+                case InternalPortType.External:
+                case InternalPortType.MediaPlayerFill:
+                case InternalPortType.MediaPlayerKey:
+                case InternalPortType.MEOutput:
+                case InternalPortType.Auxiliary:
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 }

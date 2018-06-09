@@ -8,7 +8,7 @@ namespace LibAtem.Commands.Settings.Multiview
         [CommandId]
         [Serialize(0), UInt8]
         public uint MultiviewIndex { get; set; }
-        [Serialize(1), UInt8D(100, 10, 100)]
+        [Serialize(1), UInt8D(1, 0, 100)]
         public double Opacity { get; set; }
     }
 }
