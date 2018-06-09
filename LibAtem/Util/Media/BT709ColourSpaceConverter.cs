@@ -37,54 +37,71 @@ namespace LibAtem.Util.Media
         {
             return ((a << 2) * 219 / 255) + (16 << 2);
         }
+        
+        // TODO - tidy up these consts
+        private const int Scale3 = 1 << 14;
 
-        public static (int y, int cb, int cr) ToYCbCr10(byte r, byte g, byte b)
+        const int KRy3 = (int)(KR * YRange * Scale3 + 0.5);
+        const int KGy3 = (int)(KG * YRange * Scale3 + 0.5);
+        const int KBy3 = (int)(KB * YRange * Scale3 + 0.5);
+
+        private const int KRoKBi3 = (int)(KRoKBi * Scale3 + 0.5);
+        private const int KGoKBi3 = (int)(KGoKBi * Scale3 + 0.5);
+        private const int KGoKRi3 = (int)(KGoKRi * Scale3 + 0.5);
+        private const int KBoKRi3 = (int)(KBoKRi * Scale3 + 0.5);
+
+        // Note: This is a little less accurate than doing the conversion with doubles, but it is much more efficient
+        public static ulong RGBAToYCbCrA10Bit422(byte[] data, int o)
         {
-            (int y1, int _, int cb, int cr) = ToYCbCr10Bit422(r, g, b);
-            return (y1, cb, cr);
+            int y1 = (YOffset * Scale3 + KRy3 * data[o] + KGy3 * data[o + 1] + KBy3 * data[o + 2]) >> 20;
+            int y2 = (YOffset * Scale3 + KRy3 * data[o + 4] + KGy3 * data[o + 5] + KBy3 * data[o + 6]) >> 20;
+            int cb = (CbCrOffset * Scale3 + (-KRoKBi3 * data[o] - KGoKBi3 * data[o + 1] + HalfCbCrRange * Scale3 * data[o + 2])) >> 20;
+            int cr = (CbCrOffset * Scale3 + (HalfCbCrRange * Scale3 * data[o] - KGoKRi3 * data[o + 1] - KBoKRi3 * data[o + 2])) >> 20;
+
+            int a1a = ToA10(data[o + 3]);
+            int a2a = ToA10(data[o + 7]);
+
+            // TODO ensure endianness
+
+            ulong val = (ulong) y2;
+            val |= (ulong) cr << 10;
+            val |= (ulong) a2a << 20;
+            val |= (ulong) y1 << 32;
+            val |= (ulong) cb << 42;
+            val |= (ulong) a1a << 52;
+
+            return val;
         }
 
-        // TODO - this is really slow, taking 98ms per frame (43ms of which is inside ToYCbCr10Bit422)
-        public static byte[] RGBAToYCbCrA10Bit422(byte[] data)
+        // TODO - this is way too slow at 50ms-100ms (25%) slower than Safe2
+        public static unsafe byte[] RGBAToYCbCrA10Bit422Safe4(byte[] data)
         {
             var res = new byte[data.Length];
-            for (int i = 0; i <= data.Length-8; i += 8)
-            {
-                (int y1, int y2, int cb, int cr) = ToYCbCr10Bit422(data[i], data[i + 1], data[i + 2], data[i + 4], data[i + 5], data[i + 6]);
-                int a1a = ToA10(data[i + 3]);
-                int a2a = ToA10(data[i + 7]);
 
-                res[i] = (byte) (a1a >> 4);
-                res[i + 1] = (byte) (((a1a & 0x0f) << 4) | (cb >> 6));
-                res[i + 2] = (byte) (((cb & 0x3f) << 2) | (y1 >> 8));
-                res[i + 3] = res[i] = (byte) (y1 & 0xff);
-                res[i + 4] = (byte) (a2a >> 4);
-                res[i + 5] = (byte) (((a2a & 0x0f) << 4) | (cr >> 6));
-                res[i + 6] = (byte) (((cr & 0x3f) << 2) | (y2 >> 8));
-                res[i + 7] = (byte) (y2 & 0xff);
+            fixed (byte* pRes = res)
+            {
+                var len = data.Length / 8;
+                for (int i = 0; i < len; i++)
+                {
+                    ulong val = RGBAToYCbCrA10Bit422(data, i * 8);
+                    FrameEncodingUtil.Copy(&val, 0, pRes, i * 8, 1);
+                }
             }
 
             return res;
         }
 
-        public static (int y1, int y2, int cb, int cr) ToYCbCr10Bit422(byte r1, byte g1, byte b1, byte? r2 = null, byte? g2 = null, byte? b2 = null)
+        public static ulong[] RGBAToYCbCrA10Bit422Safe2(byte[] data)
         {
-            double y16a = YOffset + KR * YRange * r1 + KG * YRange * g1 + KB * YRange * b1;
-            double cb16 = CbCrOffset + (-KRoKBi * r1 - KGoKBi * g1 + HalfCbCrRange * b1);
-            double cr16 = CbCrOffset + (HalfCbCrRange * r1 - KGoKRi * g1 - KBoKRi * b1);
+            var len = data.Length / 8;
+            var res = new ulong[len];
 
-            int y10a = (int)Math.Round(y16a) >> 6;
-            int cb10 = (int)Math.Round(cb16) >> 6;
-            int cr10 = (int)Math.Round(cr16) >> 6;
-
-            int y10b = 0;
-            if (r2.HasValue && g2.HasValue && b2.HasValue)
+            for (int i = 0; i < len; i++)
             {
-                double y16b = YOffset + KR * YRange * r2.Value + KG * YRange * g2.Value + KB * YRange * b2.Value;
-                y10b = (int)Math.Round(y16b) >> 6;
+                res[i] = RGBAToYCbCrA10Bit422(data, i * 8);
             }
 
-            return (y10a, y10b, cb10, cr10);
+            return res;
         }
 
         public static byte[] ToRGBA8(byte[] data)

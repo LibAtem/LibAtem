@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using LibAtem.Common;
 
@@ -8,38 +7,43 @@ namespace LibAtem.Util.Media
     public static class FrameEncodingUtil
     {
         private const int BlockSize = 8;
-        public static byte[] EncodeRLE(byte[] data)
+        
+        public static unsafe byte[] EncodeRLEUnsafe2(ulong[] data)
         {
-            if (data.Length % 8 != 0)
-                return data;
-            
-            var res = new byte[data.Length];
+            var res = new byte[data.Length* BlockSize];
             int used = 0;
 
-            for (int i = 0; i < data.Length; )
-            {
-                int r = CountRun(data, i);
-                if (r == 0)
-                    break;
+            int len = data.Length;
 
-                if (r <= 2)
+            fixed (ulong* pData = data)
+            fixed (byte* pRes = res)
+            {
+
+                for (int i = 0; i < len;)
                 {
-                    for (int o = 0; o < r; o++)
+                    int r = CountRun(pData, i, len);
+                    if (r == 0)
+                        break;
+
+                    if (r <= 2)
                     {
-                        Array.Copy(data, i, res, used, BlockSize);
-                        used += BlockSize;
+                        for (int o = 0; o < r; o++)
+                        {
+                            Copy(pData, i, pRes, used, 1);
+                            used += BlockSize;
+                        }
+
+                        i += r;
+                        continue;
                     }
 
-                    i += r * BlockSize;
-                    continue;
+                    AddRLEHeader2(pRes, used, r);
+                    used += 16;
+
+                    Copy(pData, i, pRes, used, 1);
+                    used += BlockSize;
+                    i += r;
                 }
-
-                AddRLEHeader(res, used, r);
-                used += 16;
-
-                Array.Copy(data, i, res, used, BlockSize);
-                used += BlockSize;
-                i += r * BlockSize;
             }
 
             var trimmed = new byte[used];
@@ -47,37 +51,132 @@ namespace LibAtem.Util.Media
             return trimmed;
         }
 
-        private static void AddRLEHeader(byte[] res, int pos, long count)
+        private static unsafe void AddRLEHeader2(byte* res, int pos, long count)
+        {
+            ((ulong*) res)[pos] = 0xfefefefefefefefe;
+
+            byte[] size = BitConverter.GetBytes(count).Reverse().ToArray();
+            fixed (byte* pSize = size)
+                Copy(pSize, 0, res, pos + 8, 8);
+        }
+
+        // TODO - this is really slow, taking 64ms per frame (39ms in AreBlocksEqual)
+        private static unsafe int CountRun(ulong* data, int pos, int length)
+        {
+            int i = 1;
+            while (pos + BlockSize * i < length && data[pos] == data[pos + 1])
+                i++;
+
+            return i;
+        }
+
+        public static unsafe void Copy(ulong* src, int srcPos, byte* dest, int destPos, int blockCount)
+        {
+            // Copy the specified number of bytes from source to target.
+            var src2 = (byte*) src;
+            for (int o = 0; o < blockCount; o++)
+            {
+                for (int i = 0; i < BlockSize; i++)
+                    dest[destPos + (o * 8) + i] = src2[(srcPos + o) * 8 + (BlockSize - 1 - i)];
+            }
+        }
+
+        public static unsafe byte[] ToByteArray(ulong[] data)
+        {
+            var res = new byte[data.Length * 8];
+
+            fixed (ulong* pData = data)
+            fixed (byte* pRes = res)
+            {
+                Copy(pData, 0, pRes, 0, data.Length);
+            }
+
+            return res;
+        }
+
+
+
+        public static unsafe byte[] EncodeRLEUnsafe(byte[] data)
+        {
+            if (data.Length % 8 != 0)
+                return data;
+
+            var res = new byte[data.Length];
+            int used = 0;
+
+            int len = data.Length;
+
+            fixed (byte* pData = data, pRes = res)
+            {
+
+                for (int i = 0; i < len;)
+                {
+                    int r = CountRun(pData, i, len);
+                    if (r == 0)
+                        break;
+
+                    if (r <= 2)
+                    {
+                        for (int o = 0; o < r; o++)
+                        {
+                            Copy(pData, i, pRes, used, BlockSize);
+                            used += BlockSize;
+                        }
+
+                        i += r * BlockSize;
+                        continue;
+                    }
+
+                    AddRLEHeader(pRes, used, r);
+                    used += 16;
+
+                    Copy(pData, i, pRes, used, BlockSize);
+                    used += BlockSize;
+                    i += r * BlockSize;
+                }
+            }
+
+            var trimmed = new byte[used];
+            Array.Copy(res, trimmed, used);
+            return trimmed;
+        }
+
+        private static unsafe void Copy(byte* src, int srcPos, byte* dest, int destPos, int len)
+        {
+            // Copy the specified number of bytes from source to target.
+            for (int i = 0; i < len; i++)
+                dest[destPos + i] = src[srcPos + i];
+        }
+
+        private static unsafe void AddRLEHeader(byte* res, int pos, long count)
         {
             for (int i = 0; i < 8; i++)
                 res[pos + i] = 0xfe;
 
             byte[] size = BitConverter.GetBytes(count).Reverse().ToArray();
-            Array.Copy(size, 0, res, pos + 8, 8);
+            fixed (byte* pSize = size)
+                Copy(pSize, 0, res, pos + 8, 8);
         }
 
         // TODO - this is really slow, taking 64ms per frame (39ms in AreBlocksEqual)
-        private static int CountRun(byte[] data, int pos)
+        private static unsafe int CountRun(byte* data, int pos, int length)
         {
+            var longData = (ulong*)data;
+            var longPos = pos / BlockSize;
+            var longLen = length / BlockSize;
+
             int i = 1;
-            while (pos + BlockSize * i < data.Length && AreBlocksEqual(data, pos, pos + BlockSize * i))
-            {
+            while (longPos+ i < longLen && longData[longPos] == longData[longPos+i])
                 i++;
-            }
 
             return i;
         }
-        
-        private static bool AreBlocksEqual(byte[] data, int pos1, int pos2)
-        {
-            for (int i = 0; i < BlockSize; i++)
-            {
-                if (data[pos1 + i] != data[pos2 + i])
-                    return false;
-            }
 
-            return true;
+        private static unsafe bool AreBlocksEqual(long* data, int pos1, int pos2)
+        {
+            return data[pos1] == data[pos2];
         }
+
 
         public static byte[] DecodeRLE(VideoModeResolution size, byte[] data)
         {

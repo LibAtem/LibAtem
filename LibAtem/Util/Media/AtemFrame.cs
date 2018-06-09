@@ -36,9 +36,9 @@ namespace LibAtem.Util.Media
             switch (colour)
             {
                 case ColourSpace.BT709:
-                    return BT709ColourSpaceConverter.RGBAToYCbCrA10Bit422;
+                    return BT709ColourSpaceConverter.RGBAToYCbCrA10Bit422Safe3;
                 default:
-                    throw new ArgumentOutOfRangeException("colour");
+                    throw new ArgumentOutOfRangeException(nameof(colour));
             }
         }
 
@@ -55,7 +55,7 @@ namespace LibAtem.Util.Media
 
         public byte[] GetRLEEncodedYCbCr()
         {
-            return FrameEncodingUtil.EncodeRLE(_data);
+            return FrameEncodingUtil.EncodeRLEUnsafe(_data);
         }
 
         public byte[] GetRGBA(ColourSpace colour)
@@ -65,7 +65,7 @@ namespace LibAtem.Util.Media
                 case ColourSpace.BT709:
                     return BT709ColourSpaceConverter.ToRGBA8(_data);
                 default:
-                    throw new ArgumentOutOfRangeException("colour");
+                    throw new ArgumentOutOfRangeException(nameof(colour));
             }
         }
 
