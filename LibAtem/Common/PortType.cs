@@ -1,6 +1,7 @@
 ﻿namespace LibAtem.Common
 {
-    // TODO - this should be converted to flags.
+    // TODO - add attribute to describe as audio/video/both
+    // TODO - are all these values correct or should it be flags?
     public enum ExternalPortType
     {
         Internal = 0,
@@ -9,6 +10,10 @@
         Composite = 3,
         Component = 4,
         SVideo = 5,
+        XLR = 32,
+        AESEBU = 64,
+        RCA = 128,
+        TSJack = 256, // TODO - verify value
     }
 
     public enum InternalPortType
@@ -25,21 +30,7 @@
         Auxiliary = 129,
         Mask = 130,
     }
-
-    // TODO - can this be combined with external port tpye?
-    public enum AudioPortType
-    {
-        Internal = 0,
-        SDI = 1,
-        HDMI = 2,
-        Component = 3,
-        Composite = 4,
-        SVideo = 5,
-        XLR = 32,
-        AESEBU = 64,
-        RCA = 128,
-    }
-
+    
     public enum MacroPortType
     {
         SDI = 0, // TODO Check this

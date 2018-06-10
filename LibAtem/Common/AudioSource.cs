@@ -68,37 +68,37 @@ namespace LibAtem.Common
 
         [XmlEnum("1001")]
         [AudioSourceType(AudioSourceType.ExternalAudio)]
-        [AudioPortType(AudioPortType.XLR)]
+        [AudioPortType(ExternalPortType.XLR)]
         XLR = 1001,
         [XmlEnum("1101")]
         [AudioSourceType(AudioSourceType.ExternalAudio)]
-        [AudioPortType(AudioPortType.AESEBU)]
+        [AudioPortType(ExternalPortType.AESEBU)]
         AESEBU = 1101,
         [XmlEnum("1201")]
         [AudioSourceType(AudioSourceType.ExternalAudio)]
-        [AudioPortType(AudioPortType.RCA)]
+        [AudioPortType(ExternalPortType.RCA)]
         RCA = 1201,
 
         [XmlEnum("1301")]
         [AudioSourceType(AudioSourceType.ExternalAudio)]
-        [AudioPortType(AudioPortType.Internal)]
+        [AudioPortType(ExternalPortType.Internal)]
         Unknown = 1301, // TODO - introduced by tv studio hd. headset mic?
 
         [XmlEnum("2001")]
         [AudioSourceType(AudioSourceType.MediaPlayer)]
-        [AudioPortType(AudioPortType.Internal)]
+        [AudioPortType(ExternalPortType.Internal)]
         MP1 = 2001,
         [XmlEnum("2002")]
         [AudioSourceType(AudioSourceType.MediaPlayer)]
-        [AudioPortType(AudioPortType.Internal)]
+        [AudioPortType(ExternalPortType.Internal)]
         MP2 = 2002,
         [XmlEnum("2003")]
         [AudioSourceType(AudioSourceType.MediaPlayer)]
-        [AudioPortType(AudioPortType.Internal)]
+        [AudioPortType(ExternalPortType.Internal)]
         MP3 = 2003,
         [XmlEnum("2004")]
         [AudioSourceType(AudioSourceType.MediaPlayer)]
-        [AudioPortType(AudioPortType.Internal)]
+        [AudioPortType(ExternalPortType.Internal)]
         MP4 = 2004,
     }
 
@@ -121,9 +121,9 @@ namespace LibAtem.Common
 
     public class AudioPortTypeAttribute : Attribute
     {
-        public AudioPortType Type { get; }
+        public ExternalPortType Type { get; }
 
-        public AudioPortTypeAttribute(AudioPortType type)
+        public AudioPortTypeAttribute(ExternalPortType type)
         {
             Type = type;
         }

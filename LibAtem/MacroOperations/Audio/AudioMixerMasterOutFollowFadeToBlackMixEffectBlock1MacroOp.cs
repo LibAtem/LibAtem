@@ -16,8 +16,8 @@ namespace LibAtem.MacroOperations.Audio
         {
             return new AudioMixerMasterSetCommand()
             {
-                Mask = AudioMixerMasterSetCommand.MaskFlags.ProgramOutFollowFadeToBlack,
-                ProgramOutFollowFadeToBlack = Follow,
+                Mask = AudioMixerMasterSetCommand.MaskFlags.FollowFadeToBlack,
+                FollowFadeToBlack = Follow,
             };
         }
     }

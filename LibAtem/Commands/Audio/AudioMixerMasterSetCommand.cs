@@ -14,7 +14,7 @@ namespace LibAtem.Commands.Audio
         {
             Gain = 1 << 0,
             Balance = 1 << 1,
-            ProgramOutFollowFadeToBlack = 1 << 2,
+            FollowFadeToBlack = 1 << 2,
         }
 
         [Serialize(0), Enum8]
@@ -24,7 +24,7 @@ namespace LibAtem.Commands.Audio
         [Serialize(4), Int16D(200, -10000, 10000)]
         public double Balance { get; set; }
         [Serialize(6), Bool]
-        public bool ProgramOutFollowFadeToBlack { get; set; }
+        public bool FollowFadeToBlack { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
@@ -32,8 +32,8 @@ namespace LibAtem.Commands.Audio
                 yield return new AudioMixerMasterOutGainMacroOp {Gain = Gain};
             if (Mask.HasFlag(MaskFlags.Balance))
                 yield return new AudioMixerMasterOutBalanceMacroOp {Balance = Balance};
-            if (Mask.HasFlag(MaskFlags.ProgramOutFollowFadeToBlack))
-                yield return new AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp {Follow = ProgramOutFollowFadeToBlack};
+            if (Mask.HasFlag(MaskFlags.FollowFadeToBlack))
+                yield return new AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp {Follow = FollowFadeToBlack };
         }
     }
 }
