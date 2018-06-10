@@ -97,13 +97,14 @@ namespace LibAtem.Net.DataTransfer
                 _currentId = _nextTransferId++;
                 _currentJobCompleted = false;
 
-                // Try and get lock
-                _connection.QueueCommand(new LockStateSetCommand {Index = _currentJob.StoreId, Locked = true});
-
-                if (_currentJob.StoreId == 255) // Macro pool doesnt use a lock
+                if (_currentJob.StoreId == 0xffff) // Macro pool doesnt use a lock
                 {
                     GotLock(_currentJob.StoreId);
+                    return;
                 }
+
+                // Try and get lock
+                _connection.QueueCommand(new LockStateSetCommand { Index = _currentJob.StoreId, Locked = true });
             }
         }
 
@@ -135,7 +136,8 @@ namespace LibAtem.Net.DataTransfer
                 if (cmd == null)
                 {
                     // Release lock
-                    _connection.QueueCommand(new LockStateSetCommand { Index = _currentJob.StoreId, Locked = false });
+                    if (_currentJob.StoreId != 0xffff) // If not macro
+                        ReleaseLock(_currentJob.StoreId);
 
                     _currentJob = null;
                     DequeueAndRun();

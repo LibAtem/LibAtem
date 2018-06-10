@@ -9,5 +9,7 @@ namespace LibAtem.Commands.DataTransfer
         [Serialize(0), UInt16]
         public uint TransferId { get; set; }
 
+        [Serialize(2), UInt8]
+        public uint ErrorCode { get; set; }
     }
 }

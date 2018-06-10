@@ -16,6 +16,8 @@ namespace LibAtem.Commands.Macro
         [Serialize(6), StringLength]
         public string Description { get; set; }
 
+        // TODO HasUnsupportedOps?
+
         public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);

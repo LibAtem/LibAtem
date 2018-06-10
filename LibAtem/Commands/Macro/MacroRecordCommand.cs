@@ -1,30 +1,39 @@
+using LibAtem.Serialization;
+using LibAtem.Util;
+
 namespace LibAtem.Commands.Macro
 {
     [CommandName("MSRc"), NoCommandId]
-    public class MacroRecordCommand : ICommand
+    public class MacroRecordCommand : SerializableCommandBase
     {
+        [CommandId]
+        [Serialize(0), UInt16]
         public uint Index { get; set; }
+        [Serialize(2), StringLength]
         public string Name { get; set; }
+        [Serialize(4), StringLength]
         public string Description { get; set; }
-        
-        public void Serialize(ByteArrayBuilder cmd)
+
+
+        public override void Serialize(ByteArrayBuilder cmd)
         {
-            cmd.AddUInt16(Index);
-            cmd.AddUInt16(Name.Length);
-            cmd.AddUInt16(Description.Length);
-            cmd.AddString(Name);
-            cmd.AddString(Description);
-            cmd.PadToNearestMultipleOf4();
+            base.Serialize(cmd);
+
+            cmd.SetString(6, Name);
+            cmd.SetString(6 + Name.Length, Description);
         }
 
-        public void Deserialize(ParsedByteArray cmd)
+        public override void Deserialize(ParsedByteArray cmd)
         {
-            Index = cmd.GetUInt16();
-            uint nameLenth = cmd.GetUInt16();
-            uint descriptionLength = cmd.GetUInt16();
-            Name = cmd.GetString(nameLenth);
-            Description = cmd.GetString(descriptionLength);
-            cmd.SkipToNearestMultipleOf4();
+            base.Deserialize(cmd);
+
+            Name = cmd.GetString(6, Name.Length);
+            Description = cmd.GetString(6 + Name.Length, Description.Length);
+        }
+
+        protected override int GetLength()
+        {
+            return MathExt.NextMultipleOf4(8 + (Name?.Length ?? 0) + (Description?.Length ?? 0));
         }
     }
 }
