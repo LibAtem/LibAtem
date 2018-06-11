@@ -120,31 +120,6 @@ namespace LibAtem.XmlState.Settings
         public ExternalPortType PortType { get; set; }
     }
 
-    public static class ExternalPortTypeExtensions
-    {
-        public static AudioPortType GetAudioPortType(this ExternalPortType type)
-        {
-            switch (type)
-            {
-                case ExternalPortType.Internal:
-                    return AudioPortType.Internal;
-                case ExternalPortType.SDI:
-                    return AudioPortType.SDI;
-                case ExternalPortType.HDMI:
-                    return AudioPortType.HDMI;
-                case ExternalPortType.Component:
-                    return AudioPortType.Component;
-                case ExternalPortType.Composite:
-                    return AudioPortType.Composite;
-                case ExternalPortType.SVideo:
-                    return AudioPortType.SVideo;
-                default:
-                    Debug.Fail(string.Format("Unhandled ExternalPortType {0}", type));
-                    return AudioPortType.Internal;
-            }
-        }   
-    }
-
     public class ButtonMap
     {
         [XmlAttribute("index")]
