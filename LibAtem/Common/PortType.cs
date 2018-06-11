@@ -13,7 +13,7 @@
         XLR = 32,
         AESEBU = 64,
         RCA = 128,
-        TSJack = 256, // TODO - verify value
+        TSJack, // TODO - check value
     }
 
     public enum InternalPortType

@@ -3,7 +3,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("MSRc"), NoCommandId]
+    [CommandName("MSRc")]
     public class MacroRecordCommand : SerializableCommandBase
     {
         [CommandId]
@@ -13,8 +13,7 @@ namespace LibAtem.Commands.Macro
         public string Name { get; set; }
         [Serialize(4), StringLength]
         public string Description { get; set; }
-
-
+        
         public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
