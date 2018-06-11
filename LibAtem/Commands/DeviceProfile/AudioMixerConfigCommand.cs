@@ -7,7 +7,7 @@ namespace LibAtem.Commands.DeviceProfile
     {
         [Serialize(0), UInt8]
         public uint Inputs { get; set; }
-        [Serialize(1), Bool]
-        public bool HasMonitor { get; set; }
+        [Serialize(1), UInt8]
+        public uint Monitors { get; set; }
     }
 }

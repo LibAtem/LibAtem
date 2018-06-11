@@ -13,10 +13,10 @@ namespace LibAtem.Commands.Audio
         [Flags]
         public enum MaskFlags
         {
-            // Unknown = 1 << 0, // Possibly ResetAll?
+            All = 1 << 0,
             Input = 1 << 1,
             Master = 1 << 2,
-            // Monitor?
+            Monitor = 1 << 3,
         }
 
         [Serialize(0), Enum16]
@@ -24,9 +24,6 @@ namespace LibAtem.Commands.Audio
 
         [Serialize(2), Enum16]
         public AudioSource Source { get; set; }
-
-        [Serialize(4), Bool]
-        public bool Master { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
