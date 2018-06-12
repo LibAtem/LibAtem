@@ -37,13 +37,13 @@ namespace LibAtem.Commands.MixEffects.Key
         public uint OuterSoftness { get; set; }
         [Serialize(29), UInt8Range(0, 100)]
         public uint InnerSoftness { get; set; }
-        [Serialize(30), UInt8D(100, 0, 100)]
-        public double BevelSoftness { get; set; }
-        [Serialize(31), UInt8D(100, 0, 100)]
-        public double BevelPosition { get; set; }
+        [Serialize(30), UInt8Range(0, 100)]
+        public uint BevelSoftness { get; set; }
+        [Serialize(31), UInt8Range(0, 100)]
+        public uint BevelPosition { get; set; }
 
-        [Serialize(32), UInt8D(100, 0, 100)]
-        public double BorderOpacity { get; set; }
+        [Serialize(32), UInt8Range(0, 100)]
+        public uint BorderOpacity { get; set; }
         [Serialize(34), UInt16D(10, 0, 3599)]
         public double BorderHue { get; set; }
         [Serialize(36), UInt16D(10, 0, 1000)]
@@ -53,8 +53,8 @@ namespace LibAtem.Commands.MixEffects.Key
 
         [Serialize(40), UInt16D(10, 0, 3590)]
         public double LightSourceDirection { get; set; }
-        [Serialize(42), UInt8D(1, 10, 100)]
-        public double LightSourceAltitude { get; set; }
+        [Serialize(42), UInt8Range(10, 100)]
+        public uint LightSourceAltitude { get; set; }
         
         [Serialize(43), Bool(7)]
         public bool MaskEnabled { get; set; }
