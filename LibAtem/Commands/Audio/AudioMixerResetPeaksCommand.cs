@@ -19,12 +19,18 @@ namespace LibAtem.Commands.Audio
             Monitor = 1 << 3,
         }
 
-        [Serialize(0), Enum16]
+        [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
+
+        [Serialize(1), Bool]
+        public bool All => Mask.HasFlag(MaskFlags.All);
 
         [Serialize(2), Enum16]
         public AudioSource Source { get; set; }
 
+        [Serialize(4), Bool]
+        public bool Master => Mask.HasFlag(MaskFlags.Master);
+        
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.Input))
