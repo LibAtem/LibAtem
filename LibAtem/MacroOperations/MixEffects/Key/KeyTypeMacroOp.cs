@@ -16,7 +16,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
         {
             return new MixEffectKeyTypeSetCommand()
             {
-                Mask = MixEffectKeyTypeSetCommand.MaskFlags.Type,
+                Mask = MixEffectKeyTypeSetCommand.MaskFlags.KeyType,
                 MixEffectIndex = Index,
                 KeyerIndex = KeyIndex,
                 KeyType = KeyType,

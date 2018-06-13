@@ -17,7 +17,7 @@ namespace LibAtem.MacroOperations.Audio
             return new AudioMixerResetPeaksCommand
             {
                 Mask = AudioMixerResetPeaksCommand.MaskFlags.Input,
-                Source = Input,
+                Input = Input,
             };
         }
     }

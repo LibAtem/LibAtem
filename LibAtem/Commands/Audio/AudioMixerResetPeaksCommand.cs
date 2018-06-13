@@ -26,7 +26,7 @@ namespace LibAtem.Commands.Audio
         public bool All => Mask.HasFlag(MaskFlags.All);
 
         [Serialize(2), Enum16]
-        public AudioSource Source { get; set; }
+        public AudioSource Input { get; set; }
 
         [Serialize(4), Bool]
         public bool Master => Mask.HasFlag(MaskFlags.Master);
@@ -34,7 +34,7 @@ namespace LibAtem.Commands.Audio
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.Input))
-                yield return new AudioMixerInputResetPeaksMacroOp { Input = Source };
+                yield return new AudioMixerInputResetPeaksMacroOp { Input = Input };
             if (Mask.HasFlag(MaskFlags.Master))
                 yield return new AudioMixerMasterOutResetPeaksMacroOp();
         }

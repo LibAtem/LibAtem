@@ -19,7 +19,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
                 Mask = MixEffectKeyDVESetCommand.MaskFlags.BorderBevelPosition,
                 MixEffectIndex = Index,
                 KeyerIndex = KeyIndex,
-                BevelPosition = BevelPosition,
+                BorderBevelPosition = BevelPosition,
             };
         }
     }

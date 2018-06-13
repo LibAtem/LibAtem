@@ -19,7 +19,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
                 Mask = MixEffectKeyDVESetCommand.MaskFlags.BorderOuterSoftness,
                 MixEffectIndex = Index,
                 KeyerIndex = KeyIndex,
-                OuterSoftness = OuterSoftness,
+                BorderOuterSoftness = OuterSoftness,
             };
         }
     }

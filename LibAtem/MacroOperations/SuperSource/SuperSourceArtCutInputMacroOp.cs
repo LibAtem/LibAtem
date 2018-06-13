@@ -16,8 +16,8 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourcePropertiesSetCommand()
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.CutSource,
-                ArtKeyInput = Source,
+                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtCutSource,
+                ArtCutSource = Source,
             };
         }
     }

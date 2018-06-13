@@ -16,8 +16,8 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourcePropertiesSetCommand()
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.FillSource,
-                ArtFillInput = Source,
+                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtFillSource,
+                ArtFillSource = Source,
             };
         }
     }

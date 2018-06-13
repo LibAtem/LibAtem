@@ -18,7 +18,7 @@ namespace LibAtem.MacroOperations.SuperSource
             {
                 Mask = SuperSourceBoxSetCommand.MaskFlags.Source,
                 Index = BoxIndex,
-                InputSource = Source,
+                Source = Source,
             };
         }
     }

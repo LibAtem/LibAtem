@@ -19,7 +19,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
                 Mask = MixEffectKeyDVESetCommand.MaskFlags.BorderOuterWidth,
                 MixEffectIndex = Index,
                 KeyerIndex = KeyIndex,
-                OuterWidth = OuterWidth,
+                BorderOuterWidth = OuterWidth,
             };
         }
     }

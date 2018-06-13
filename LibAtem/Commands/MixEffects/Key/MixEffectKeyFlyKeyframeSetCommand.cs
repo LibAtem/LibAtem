@@ -15,11 +15,9 @@ namespace LibAtem.Commands.MixEffects.Key
             XPosition = 1 << 2,
             YPosition = 1 << 3,
             Rotation = 1 << 4,
-            BorderEnabled = 1 << 5, // TODO check this
-            ShadowEnabled = 1 << 6, // TODO check this
-            BorderBevel = 1 << 7,
-            BorderOuterWidth = 1 << 8,
-            BorderInnerWidth = 1 << 9,
+            //BorderBevel = 1 << 7, // ???
+            BorderOuterWidth = 1 << 5,
+            BorderInnerWidth = 1 << 6,
             BorderOuterSoftness = 1 << 10,
             BorderInnerSoftness = 1 << 11,
             BorderBevelSoftness = 1 << 12,
@@ -30,7 +28,6 @@ namespace LibAtem.Commands.MixEffects.Key
             BorderLuma = 1 << 17,
             LightSourceDirection = 1 << 18,
             LightSourceAltitude = 1 << 19,
-            MaskEnabled = 1 << 20, // TODO check this
             MaskTop = 1 << 21,
             MaskBottom = 1 << 22,
             MaskLeft = 1 << 23,
@@ -64,17 +61,17 @@ namespace LibAtem.Commands.MixEffects.Key
         public double Rotation { get; set; }
 
         [Serialize(28), UInt16D(100, 0, 1600)]
-        public double OuterWidth { get; set; }
+        public double BorderOuterWidth { get; set; }
         [Serialize(30), UInt16D(100, 0, 1600)]
-        public double InnerWidth { get; set; }
+        public double BorderInnerWidth { get; set; }
         [Serialize(32), UInt8Range(0, 100)]
-        public uint OuterSoftness { get; set; }
+        public uint BorderOuterSoftness { get; set; }
         [Serialize(33), UInt8Range(0, 100)]
-        public uint InnerSoftness { get; set; }
+        public uint BorderInnerSoftness { get; set; }
         [Serialize(34), UInt8Range(0, 100)]
-        public uint BevelSoftness { get; set; }
+        public uint BorderBevelSoftness { get; set; }
         [Serialize(35), UInt8Range(0, 100)]
-        public uint BevelPosition { get; set; }
+        public uint BorderBevelPosition { get; set; }
 
         [Serialize(36), UInt8Range(0, 100)]
         public uint BorderOpacity { get; set; }
@@ -90,8 +87,6 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(46), UInt8Range(10, 100)]
         public uint LightSourceAltitude { get; set; }
 
-        [Serialize(47), Bool(7)]
-        public bool MaskEnabled { get; set; }
         [Serialize(48), Int16D(1000, -9000, 9000)]
         public double MaskTop { get; set; }
         [Serialize(50), Int16D(1000, -9000, 9000)]

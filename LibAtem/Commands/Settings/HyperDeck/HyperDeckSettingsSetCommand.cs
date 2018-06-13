@@ -11,8 +11,8 @@ namespace LibAtem.Commands.Settings.HyperDeck
         [Flags]
         public enum MaskFlags
         {
-            Address = 1 << 0,
-            Input = 1 << 1,
+            NetworkAddress = 1 << 0,
+            Source = 1 << 1,
             AutoRoll = 1 << 2,
             AutoRollFrameDelay = 1 << 2,
         }
@@ -33,7 +33,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
         }
 
         [Serialize(8), Enum16]
-        public VideoSource Input { get; set; }
+        public VideoSource Source { get; set; }
         [Serialize(10), Bool]
         public bool AutoRoll { get; set; }
         [Serialize(12), UInt8Range(0, 60)]

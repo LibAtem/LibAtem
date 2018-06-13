@@ -69,20 +69,20 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(30), Enum8]
         public BorderBevel BorderBevel { get; set; }
         [Serialize(32), UInt16D(100, 0, 1600)]
-        public double OuterWidth { get; set; }
+        public double BorderOuterWidth { get; set; }
         [Serialize(34), UInt16D(100, 0, 1600)]
-        public double InnerWidth { get; set; }
+        public double BorderInnerWidth { get; set; }
         [Serialize(36), UInt8Range(0, 100)]
-        public uint OuterSoftness { get; set; }
+        public uint BorderOuterSoftness { get; set; }
         [Serialize(37), UInt8Range(0, 100)]
-        public uint InnerSoftness { get; set; }
+        public uint BorderInnerSoftness { get; set; }
         [Serialize(38), UInt8Range(0, 100)]
-        public uint BevelSoftness { get; set; }
+        public uint BorderBevelSoftness { get; set; }
         [Serialize(39), UInt8Range(0, 100)]
-        public uint BevelPosition { get; set; }
+        public uint BorderBevelPosition { get; set; }
+
         [Serialize(40), UInt8Range(0, 100)]
         public uint BorderOpacity { get; set; }
-
         [Serialize(42), UInt16D(10, 0, 3599)]
         public double BorderHue { get; set; }
         [Serialize(44), UInt16D(10, 0, 1000)]
@@ -136,22 +136,22 @@ namespace LibAtem.Commands.MixEffects.Key
                 yield return new DVEKeyBorderBevelMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Bevel = BorderBevel};
 
             if (Mask.HasFlag(MaskFlags.BorderOuterWidth))
-                yield return new DVEKeyBorderOuterWidthMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, OuterWidth = OuterWidth};
+                yield return new DVEKeyBorderOuterWidthMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, OuterWidth = BorderOuterWidth };
 
             if (Mask.HasFlag(MaskFlags.BorderInnerWidth))
-                yield return new DVEKeyBorderInnerWidthMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, InnerWidth = InnerWidth};
+                yield return new DVEKeyBorderInnerWidthMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, InnerWidth = BorderInnerWidth };
 
             if (Mask.HasFlag(MaskFlags.BorderOuterSoftness))
-                yield return new DVEKeyBorderOuterSoftnessMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, OuterSoftness = OuterSoftness};
+                yield return new DVEKeyBorderOuterSoftnessMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, OuterSoftness = BorderOuterSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderInnerSoftness))
-                yield return new DVEKeyBorderInnerSoftnessMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, InnerSoftness = InnerSoftness};
+                yield return new DVEKeyBorderInnerSoftnessMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, InnerSoftness = BorderInnerSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderBevelSoftness))
-                yield return new DVEKeyBorderBevelSoftnessMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, BevelSoftness = BevelSoftness};
+                yield return new DVEKeyBorderBevelSoftnessMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, BevelSoftness = BorderBevelSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderBevelPosition))
-                yield return new DVEKeyBorderBevelPositionMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, BevelPosition = BevelPosition};
+                yield return new DVEKeyBorderBevelPositionMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, BevelPosition = BorderBevelPosition };
 
             if (Mask.HasFlag(MaskFlags.BorderOpacity))
                 yield return new DVEKeyBorderOpacityMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Opacity = BorderOpacity};

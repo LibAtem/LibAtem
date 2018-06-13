@@ -13,7 +13,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Flags]
         public enum MaskFlags
         {
-            Type = 1 << 0,
+            KeyType = 1 << 0,
             FlyEnabled = 1 << 1,
         }
 
@@ -32,7 +32,7 @@ namespace LibAtem.Commands.MixEffects.Key
 
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
-            if (Mask.HasFlag(MaskFlags.Type))
+            if (Mask.HasFlag(MaskFlags.KeyType))
                 yield return new KeyTypeMacroOp()
                 {
                     Index = MixEffectIndex,

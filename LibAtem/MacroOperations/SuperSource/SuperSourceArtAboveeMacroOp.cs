@@ -16,7 +16,7 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourcePropertiesSetCommand()
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtForeground,
+                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtOption,
                 ArtOption = ArtAbove ? SuperSourceArtOption.Foreground : SuperSourceArtOption.Background,
             };
         }

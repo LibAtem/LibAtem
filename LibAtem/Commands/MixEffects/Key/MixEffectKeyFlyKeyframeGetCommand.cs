@@ -29,9 +29,9 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(20), Int32D(10, -327680, 327680)]
         public double Rotation { get; set; }
 
-        [Serialize(24), UInt16D(100, 0, 1600)]
+        [Serialize(24), UInt16D(100, 0, 65535)]
         public double OuterWidth { get; set; }
-        [Serialize(26), UInt16D(100, 0, 1600)]
+        [Serialize(26), UInt16D(100, 0, 65535)]
         public double InnerWidth { get; set; }
         [Serialize(28), UInt8Range(0, 100)]
         public uint OuterSoftness { get; set; }

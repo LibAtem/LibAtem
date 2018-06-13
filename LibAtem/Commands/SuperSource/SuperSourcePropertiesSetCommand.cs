@@ -13,13 +13,13 @@ namespace LibAtem.Commands.SuperSource
         [Flags]
         public enum MaskFlags
         {
-            FillSource = 1 << 0,
-            CutSource = 1 << 1,
-            ArtForeground = 1 << 2,
-            PreMultiplied = 1 << 3,
-            Clip = 1 << 4,
-            Gain = 1 << 5,
-            InvertKey = 1 << 6,
+            ArtFillSource = 1 << 0,
+            ArtCutSource = 1 << 1,
+            ArtOption = 1 << 2,
+            ArtPreMultiplied = 1 << 3,
+            ArtClip = 1 << 4,
+            ArtGain = 1 << 5,
+            ArtInvertKey = 1 << 6,
             BorderEnabled = 1 << 7,
             BorderBevel = 1 << 8,
             BorderOuterWidth = 1 << 9,
@@ -31,16 +31,16 @@ namespace LibAtem.Commands.SuperSource
             BorderHue = 1 << 15,
             BorderSaturation = 1 << 16,
             BorderLuma = 1 << 17,
-            LightSourceDirection = 1 << 18,
-            LightSourceAltitude = 1 << 19,
+            BorderLightSourceDirection = 1 << 18,
+            BorderLightSourceAltitude = 1 << 19,
         }
 
         [Serialize(0), Enum32]
         public MaskFlags Mask { get; set; }
         [Serialize(4), Enum16]
-        public VideoSource ArtFillInput { get; set; }
+        public VideoSource ArtFillSource { get; set; }
         [Serialize(6), Enum16]
-        public VideoSource ArtKeyInput { get; set; }
+        public VideoSource ArtCutSource { get; set; }
         [Serialize(8), Enum8]
         public SuperSourceArtOption ArtOption { get; set; }
         [Serialize(9), Bool]
@@ -57,13 +57,13 @@ namespace LibAtem.Commands.SuperSource
         [Serialize(16), Enum8]
         public BorderBevel BorderBevel { get; set; }
         [Serialize(18), UInt16D(100, 0, 1600)]
-        public double BorderWidthOut { get; set; }
+        public double BorderOuterWidth { get; set; }
         [Serialize(20), UInt16D(100, 0, 1600)]
-        public double BorderWidthIn { get; set; }
+        public double BorderInnerWidth { get; set; }
         [Serialize(22), UInt8Range(0, 100)]
-        public uint BorderSoftnessOut { get; set; }
+        public uint BorderOuterSoftness { get; set; }
         [Serialize(23), UInt8Range(0, 100)]
-        public uint BorderSoftnessIn { get; set; }
+        public uint BorderInnerSoftness { get; set; }
         [Serialize(24), UInt8Range(0, 100)]
         public uint BorderBevelSoftness { get; set; }
         [Serialize(25), UInt8Range(0, 100)]
@@ -81,25 +81,25 @@ namespace LibAtem.Commands.SuperSource
 
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
-            if (Mask.HasFlag(MaskFlags.FillSource))
-                yield return new SuperSourceArtFillInputMacroOp() {Source = ArtFillInput};
+            if (Mask.HasFlag(MaskFlags.ArtFillSource))
+                yield return new SuperSourceArtFillInputMacroOp() {Source = ArtFillSource };
 
-            if (Mask.HasFlag(MaskFlags.CutSource))
-                yield return new SuperSourceArtCutInputMacroOp() {Source = ArtKeyInput};
+            if (Mask.HasFlag(MaskFlags.ArtCutSource))
+                yield return new SuperSourceArtCutInputMacroOp() {Source = ArtCutSource};
 
-            if (Mask.HasFlag(MaskFlags.ArtForeground))
+            if (Mask.HasFlag(MaskFlags.ArtOption))
                 yield return new SuperSourceArtAboveMacroOp() {ArtAbove = ArtOption == SuperSourceArtOption.Foreground};
 
-            if (Mask.HasFlag(MaskFlags.PreMultiplied))
+            if (Mask.HasFlag(MaskFlags.ArtPreMultiplied))
                 yield return null;
 
-            if (Mask.HasFlag(MaskFlags.Clip))
+            if (Mask.HasFlag(MaskFlags.ArtClip))
                 yield return null;
 
-            if (Mask.HasFlag(MaskFlags.Gain))
+            if (Mask.HasFlag(MaskFlags.ArtGain))
                 yield return null;
 
-            if (Mask.HasFlag(MaskFlags.InvertKey))
+            if (Mask.HasFlag(MaskFlags.ArtInvertKey))
                 yield return null;
 
             if (Mask.HasFlag(MaskFlags.BorderEnabled))
@@ -135,10 +135,10 @@ namespace LibAtem.Commands.SuperSource
             if (Mask.HasFlag(MaskFlags.BorderLuma))
                 yield return null;
 
-            if (Mask.HasFlag(MaskFlags.LightSourceDirection))
+            if (Mask.HasFlag(MaskFlags.BorderLightSourceDirection))
                 yield return null;
 
-            if (Mask.HasFlag(MaskFlags.LightSourceAltitude))
+            if (Mask.HasFlag(MaskFlags.BorderLightSourceAltitude))
                 yield return null;
 
         }
