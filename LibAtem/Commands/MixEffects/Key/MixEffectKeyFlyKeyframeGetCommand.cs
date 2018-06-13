@@ -16,17 +16,17 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(2), Enum8]
         public FlyKeyKeyFrameId KeyFrame { get; set; }
 
-        [Serialize(4), UInt32D(1000, 0, 99990)]
+        [Serialize(4), UInt32D(1000, 0, 32767900)]
         public double XSize { get; set; }
-        [Serialize(8), UInt32D(1000, 0, 99990)]
+        [Serialize(8), UInt32D(1000, 0, 32767900)]
         public double YSize { get; set; }
 
-        [Serialize(12), Int32D(1000, -1000 * 1000, 1000 * 1000)]
+        [Serialize(12), Int32D(1000, -32768 * 1000, 32768 * 1000)]
         public double XPosition { get; set; }
-        [Serialize(16), Int32D(1000, -1000 * 1000, 1000 * 1000)]
+        [Serialize(16), Int32D(1000, -32768 * 1000, 32768 * 1000)]
         public double YPosition { get; set; }
 
-        [Serialize(20), Int32D(10, -332230, 332230)]
+        [Serialize(20), Int32D(10, -327680, 327680)]
         public double Rotation { get; set; }
 
         [Serialize(24), UInt16D(100, 0, 1600)]
