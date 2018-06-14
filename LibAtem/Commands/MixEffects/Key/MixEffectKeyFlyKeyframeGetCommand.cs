@@ -16,9 +16,9 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(2), Enum8]
         public FlyKeyKeyFrameId KeyFrame { get; set; }
 
-        [Serialize(4), UInt32D(1000, 0, 32767900)]
+        [Serialize(4), UInt32D(1000, 0, 1000 * 1000)]
         public double XSize { get; set; }
-        [Serialize(8), UInt32D(1000, 0, 32767900)]
+        [Serialize(8), UInt32D(1000, 0, 1000 * 1000)]
         public double YSize { get; set; }
 
         [Serialize(12), Int32D(1000, -32768 * 1000, 32768 * 1000)]
@@ -29,9 +29,9 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(20), Int32D(10, -327680, 327680)]
         public double Rotation { get; set; }
 
-        [Serialize(24), UInt16D(100, 0, 65535)]
+        [Serialize(24), UInt16D(100, 0, 1600)]
         public double OuterWidth { get; set; }
-        [Serialize(26), UInt16D(100, 0, 65535)]
+        [Serialize(26), UInt16D(100, 0, 1600)]
         public double InnerWidth { get; set; }
         [Serialize(28), UInt8Range(0, 100)]
         public uint OuterSoftness { get; set; }
@@ -51,7 +51,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(38), UInt16D(10, 0, 1000)]
         public double BorderLuma { get; set; }
 
-        [Serialize(40), UInt16D(10, 0, 3590)]
+        [Serialize(40), UInt16D(10, 0, 3599)]
         public double LightSourceDirection { get; set; }
         [Serialize(42), UInt8Range(10, 100)]
         public uint LightSourceAltitude { get; set; }
