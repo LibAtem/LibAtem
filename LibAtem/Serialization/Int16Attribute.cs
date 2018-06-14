@@ -71,7 +71,7 @@ namespace LibAtem.Serialization
 
         public override bool IsValid(PropertyInfo prop, object obj)
         {
-            return (double)obj >= ScaledMin && (double)obj <= ScaledMax;
+            return (double)obj >= ScaledMin / Scale && (double)obj <= ScaledMax / Scale;
         }
 
         public override bool AreEqual(object val1, object val2)
