@@ -29,7 +29,7 @@ namespace LibAtem.Net.DataTransfer
                 TransferIndex = 0,
                 TransferStoreId = StoreId,
                 Size = Data.Length,
-                Mode = DataTransferUploadRequestCommand.TransferMode.WriteAudio,
+                Mode = DataTransferUploadRequestCommand.TransferMode.Write2,
             };
             // TODO - seperate clear op?
         }

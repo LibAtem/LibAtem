@@ -59,6 +59,19 @@ namespace LibAtem.Net.DataTransfer
             StartTimer();
         }
 
+        internal void Reset()
+        {
+            lock(_ownersLock)
+            {
+                _owners.Clear();
+            }
+
+            lock (_jobLock) {
+                _currentJob = null;
+                _currentId = 0;
+            }
+        }
+
         private void StartTimer()
         {
             _startTimer = new Timer(o =>
@@ -90,6 +103,7 @@ namespace LibAtem.Net.DataTransfer
                 // If job has timed out, skip it and try again
                 if (_currentJob.ExpiresAt.HasValue && _currentJob.ExpiresAt.Value < DateTime.Now)
                 {
+                    _currentJob = null;
                     DequeueAndRun();
                     return;
                 }
@@ -239,6 +253,8 @@ namespace LibAtem.Net.DataTransfer
 
                         if (HoldsLock(_currentJob.StoreId))
                             ReleaseLock(_currentJob.StoreId);
+                        else
+                            _currentJob = null;
                         break;
                     case DataTransferStatus.Error:
                         // TODO - send error
@@ -246,6 +262,8 @@ namespace LibAtem.Net.DataTransfer
 
                         if (HoldsLock(_currentJob.StoreId))
                             ReleaseLock(_currentJob.StoreId);
+                        else
+                            _currentJob = null;
                         break;
                 }
 

@@ -180,6 +180,7 @@ namespace LibAtem.Net
                         {
                             Log.DebugFormat("Completed handshake");
                             OnConnection?.Invoke(this);
+                            DataTransfer.Reset();
                             _connection.SendAckNow(_client.Client, true);
                             continue;
                         }

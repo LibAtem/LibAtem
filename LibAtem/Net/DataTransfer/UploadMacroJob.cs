@@ -40,7 +40,7 @@ namespace LibAtem.Net.DataTransfer
                 TransferIndex = _index,
                 TransferStoreId = StoreId,
                 Size = _dataQueue.Sum(o => o.Length),
-                Mode = DataTransferUploadRequestCommand.TransferMode.Clear | DataTransferUploadRequestCommand.TransferMode.Write,
+                Mode = DataTransferUploadRequestCommand.TransferMode.Clear2 | DataTransferUploadRequestCommand.TransferMode.Write2,
             };
         }
 

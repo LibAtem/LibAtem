@@ -48,6 +48,8 @@ namespace LibAtem.Net.DataTransfer
                 TransferId = transferID,
                 TransferIndex = _index,
                 TransferStoreId = StoreId,
+                Unknown = 0x03fe,
+                Unknown2 = 0x6411,
             };
         }
 

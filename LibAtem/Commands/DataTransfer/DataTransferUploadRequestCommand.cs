@@ -12,7 +12,8 @@ namespace LibAtem.Commands.DataTransfer
             NoOp = 0,
             Write = 1,
             Clear = 2, // ?
-            WriteAudio = 256, // TODO - name of this?
+            Write2 = 256,
+            Clear2 = 512,
         }
 
         [CommandId]
@@ -29,6 +30,9 @@ namespace LibAtem.Commands.DataTransfer
         public int Size { get; set; }
 
         [Serialize(12), Enum16]
-        public TransferMode Mode { get; set; } // TODO - should this be split into 2x enum8?
+        public TransferMode Mode { get; set; }
+
+        [Serialize(14), UInt16]
+        public uint Unknown { get; set; } = 0x6411;
     }
 }
