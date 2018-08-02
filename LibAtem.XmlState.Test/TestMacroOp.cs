@@ -129,7 +129,7 @@ namespace LibAtem.XmlState.Test
                     {
                         try
                         {
-                            MacroOpBase converted = MacroOpManager.CreateFromData(data[i]);
+                            MacroOpBase converted = MacroOpManager.CreateFromData(data[i], false);
                             MacroOpBase op = macroXml.Operations[i].ToMacroOp();
                             if (!Equals(converted, op))
                             {
