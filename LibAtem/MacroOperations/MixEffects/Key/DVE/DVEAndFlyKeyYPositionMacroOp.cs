@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
     [MacroOperation(MacroOperationType.DVEAndFlyKeyYPosition, 12)]
     public class DVEAndFlyKeyYPositionMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(8), Int32D(65536, -48 * 65536, 48 * 65536)] // TODO - check range
+        [Serialize(8), Int32D(65536, -1000 * 65536, 1000 * 65536)]
         [MacroField("PositionY", "yPosition")]
         public double PositionY { get; set; }
 

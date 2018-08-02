@@ -66,7 +66,7 @@ namespace LibAtem.Test.MacroOp
             int cmdLength = arr[0];
             Assert.False(arr.Length != cmdLength || cmdLength == 0);
 
-            return MacroOpManager.CreateFromData(arr);
+            return MacroOpManager.CreateFromData(arr, false);
         }
     }
 }

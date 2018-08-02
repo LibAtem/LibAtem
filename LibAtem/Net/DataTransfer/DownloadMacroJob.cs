@@ -16,7 +16,7 @@ namespace LibAtem.Net.DataTransfer
 
         private static IReadOnlyList<MacroOpBase> Deserialize(IEnumerable<byte[]> data)
         {
-            return data?.Select(MacroOpManager.CreateFromData).ToList();
+            return data?.Select(d => MacroOpManager.CreateFromData(d, true)).ToList();
         }
     }
 
