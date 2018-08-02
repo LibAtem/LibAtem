@@ -94,9 +94,9 @@ namespace LibAtem.Common
     public enum FlyKeyKeyFrameId
     {
         [XmlEnum("0")]
-        One = 1,
+        One = 0,
         [XmlEnum("1")]
-        Two = 2,
+        Two = 1,
     }
 
     public enum FlyKeyLocation

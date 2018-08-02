@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
     [MacroOperation(MacroOperationType.DVEAndFlyKeyRotation, 12)]
     public class DVEAndFlyKeyRotationMacroOp : MixEffectKeyMacroOpBase
     {
-        [Serialize(8), Int32D(65536, 0 * 65536, 360 * 65536)] // TODO - check range
+        [Serialize(8), Int32D(65536, -32768 * 65536, 32767 * 65536)]
         [MacroField("Rotation")]
         public double Rotation { get; set; }
 
