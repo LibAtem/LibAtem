@@ -88,5 +88,13 @@
             <Op id="MacroSleep" frames="1"/>
             <Op id="TransitionDVEPattern" mixEffectBlockIndex="0" pattern="GraphicLogoWipe"/>
         </Macro>
+        <Macro index="17" name="flykeypos" description="">
+            <Op id="DVEAndFlyKeyXPosition" mixEffectBlockIndex="0" keyIndex="0" xPosition="1.23"/>
+            <Op id="DVEAndFlyKeyYPosition" mixEffectBlockIndex="0" keyIndex="0" yPosition="9.87"/>
+            <Op id="DVEAndFlyKeyXSize" mixEffectBlockIndex="0" keyIndex="0" xSize="0.119995"/>
+            <Op id="DVEAndFlyKeyYSize" mixEffectBlockIndex="0" keyIndex="0" ySize="1.34"/>
+            <Op id="DVEAndFlyKeyRotation" mixEffectBlockIndex="0" keyIndex="0" rotation="3972"/>
+            <Op id="FlyKeySetKeyFrame" mixEffectBlockIndex="0" keyIndex="0" keyFrameIndex="1"/>
+        </Macro>
     </MacroPool>
 </Profile>
