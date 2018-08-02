@@ -38,6 +38,12 @@ namespace LibAtem.XmlState.Test
             RunForFile("TestMacroFiles/audio.macros", "TestMacroFiles/audio.xml");
         }
 
+        [Fact]
+        public void TestSupersource()
+        {
+            RunForFile("TestMacroFiles/ssrc.macros", "TestMacroFiles/ssrc.xml");
+        }
+
         #region Helpers
 
         private void RunForFile(string byteFilename, string xmlFilename)
