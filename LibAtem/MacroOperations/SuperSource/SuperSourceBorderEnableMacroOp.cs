@@ -5,7 +5,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.MacroOperations.SuperSource
 {
-    [MacroOperation(MacroOperationType.SuperSourceBorderEnable, 12)]
+    [MacroOperation(MacroOperationType.SuperSourceBorderEnable, 8)]
     public class SuperSourceBorderEnableMacroOp : MacroOpBase
     {
         [Serialize(4), Bool]

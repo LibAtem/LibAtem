@@ -76,8 +76,8 @@ namespace LibAtem.Commands.SuperSource
         public double BorderLuma { get; set; }
         [Serialize(32), UInt16D(10, 0, 3590)]
         public double BorderLightSourceDirection { get; set; }
-        [Serialize(34), UInt8D(1, 0, 100)]
-        public double BorderLightSourceAltitude { get; set; }
+        [Serialize(34), UInt8Range(0, 100)]
+        public uint BorderLightSourceAltitude { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
@@ -91,55 +91,55 @@ namespace LibAtem.Commands.SuperSource
                 yield return new SuperSourceArtAboveMacroOp() {ArtAbove = ArtOption == SuperSourceArtOption.Foreground};
 
             if (Mask.HasFlag(MaskFlags.ArtPreMultiplied))
-                yield return null;
+                yield return new SuperSourceArtPreMultiplyMacroOp { PreMultiply = ArtPreMultiplied };
 
             if (Mask.HasFlag(MaskFlags.ArtClip))
-                yield return null;
+                yield return new SuperSourceArtClipMacroOp { Clip = ArtClip };
 
             if (Mask.HasFlag(MaskFlags.ArtGain))
-                yield return null;
+                yield return new SuperSourceArtGainMacroOp { Gain = ArtGain };
 
             if (Mask.HasFlag(MaskFlags.ArtInvertKey))
-                yield return null;
+                yield return new SuperSourceArtInvertMacroOp { Invert = ArtInvertKey }; ;
 
             if (Mask.HasFlag(MaskFlags.BorderEnabled))
                 yield return new SuperSourceBorderEnableMacroOp() {Enable = BorderEnabled};
 
             if (Mask.HasFlag(MaskFlags.BorderBevel))
-                yield return null;
+                yield return new SuperSourceBorderBevelMacroOp { Bevel = BorderBevel };
 
             if (Mask.HasFlag(MaskFlags.BorderOuterWidth))
-                yield return null;
+                yield return new SuperSourceBorderOuterWidthMacroOp { OuterWidth = BorderOuterWidth };
 
             if (Mask.HasFlag(MaskFlags.BorderInnerWidth))
-                yield return null;
+                yield return new SuperSourceBorderInnerWidthMacroOp { InnerWidth = BorderInnerWidth };
 
             if (Mask.HasFlag(MaskFlags.BorderOuterSoftness))
-                yield return null;
+                yield return new SuperSourceBorderOuterSoftnessMacroOp { OuterSoftness = BorderOuterSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderInnerSoftness))
-                yield return null;
+                yield return new SuperSourceBorderInnerSoftnessMacroOp { InnerSoftness = BorderInnerSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderBevelSoftness))
-                yield return null;
+                yield return new SuperSourceBorderBevelSoftnessMacroOp { BevelSoftness = BorderBevelSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderBevelPosition))
-                yield return null;
+                yield return new SuperSourceBorderBevelPositionMacroOp { BevelPosition = BorderBevelPosition };
 
             if (Mask.HasFlag(MaskFlags.BorderHue))
-                yield return null;
+                yield return new SuperSourceBorderHueMacroOp { Hue = BorderHue };
 
             if (Mask.HasFlag(MaskFlags.BorderSaturation))
-                yield return null;
+                yield return new SuperSourceBorderSaturationMacroOp { Saturation = BorderSaturation };
 
             if (Mask.HasFlag(MaskFlags.BorderLuma))
-                yield return null;
+                yield return new SuperSourceBorderLuminescenceMacroOp { Luma = BorderLuma };
 
             if (Mask.HasFlag(MaskFlags.BorderLightSourceDirection))
-                yield return null;
+                yield return new SuperSourceShadowDirectionMacroOp { Direction = BorderLightSourceDirection };
 
             if (Mask.HasFlag(MaskFlags.BorderLightSourceAltitude))
-                yield return null;
+                yield return new SuperSourceShadowAltitudeMacroOp { Altitude = BorderLightSourceAltitude };
 
         }
     }
