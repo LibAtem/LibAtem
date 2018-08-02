@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using LibAtem.Common;
 using LibAtem.MacroOperations;
 using LibAtem.Serialization;
 using LibAtem.Util;
@@ -44,7 +45,61 @@ namespace LibAtem.XmlState.Test
             RunForFile("TestMacroFiles/ssrc.macros", "TestMacroFiles/ssrc.xml");
         }
 
+        [Fact]
+        public void CheckAllMacroOpsAreCovered()
+        {
+            string[] files =
+            {
+                "TestMacroFiles/macros1.macros",
+                "TestMacroFiles/flykey.macros",
+                "TestMacroFiles/audio.macros",
+                "TestMacroFiles/ssrc.macros",
+            };
+
+            List<MacroOperationType> testedOps = files.SelectMany(FindAllUsedOps).Distinct().ToList();
+
+            bool failed = false;
+            foreach (MacroOperationType op in Enum.GetValues(typeof(MacroOperationType)).OfType<MacroOperationType>())
+            {
+                if (!testedOps.Contains(op))
+                {
+                    failed = true;
+                    output.WriteLine("Not tested: {0}", op.ToString());
+                }
+            }
+
+            // TODO - enable this once more complete
+            // Assert.False(failed);
+        }
+
         #region Helpers
+
+        private List<MacroOperationType> FindAllUsedOps(string byteFilename)
+        {
+            var ops = new List<MacroOperationType>();
+
+            using (StreamReader byteFile = new StreamReader(byteFilename))
+            {
+                while (!byteFile.EndOfStream)
+                {
+                    string[] parts = byteFile.ReadLine().Split(": ");
+                    Assert.Equal(2, parts.Length);
+
+                    int index = int.Parse(parts[0]);
+                    int count = int.Parse(parts[1]);
+                    
+                    List<byte[]> data = Enumerable.Range(0, count).Select(x => byteFile.ReadLine().HexToByteArray()).ToList();
+
+                    for (var i = 0; i < count; i++)
+                    {
+                        int opId = (data[i][3] << 8) | data[i][2];
+                        ops.Add((MacroOperationType)opId);
+                    }
+                }
+            }
+
+            return ops;
+        }
 
         private void RunForFile(string byteFilename, string xmlFilename)
         {
