@@ -1,5 +1,6 @@
 ﻿using LibAtem.Commands;
 using LibAtem.Commands.MixEffects.Key;
+using LibAtem.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,10 +38,14 @@ namespace LibAtem.Test.Commands
 
                 var maskItems = new List<string>();
                 foreach (var i in Enum.GetValues(maskProp.PropertyType))
-                    maskItems.Add(i.ToString());
+                {
+                    if (IsPowerOfTwo((ulong)Convert.ChangeType(i, typeof(ulong))))
+                        maskItems.Add(i.ToString());
+                }
 
                 var propsList = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                     .Where(p => !p.GetCustomAttributes<CommandIdAttribute>().Any())
+                    .Where(p => !p.GetCustomAttributes<NoSerializeAttribute>().Any())
                     .Select(p => p.Name)
                     .Except(new[] { "Mask" })
                     .ToList();
@@ -53,6 +58,11 @@ namespace LibAtem.Test.Commands
 
             errors.ForEach(output.WriteLine);
             Assert.Empty(errors);
+        }
+
+        private bool IsPowerOfTwo(ulong x)
+        {
+            return (x != 0) && ((x & (x - 1)) == 0);
         }
     }
 }

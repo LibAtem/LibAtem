@@ -30,13 +30,18 @@ namespace LibAtem.Commands.Audio
 
         [Serialize(4), Bool]
         public bool Master => Mask.HasFlag(MaskFlags.Master);
-        
+
+        [Serialize(5), Bool]
+        public bool Monitor => Mask.HasFlag(MaskFlags.Monitor);
+
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.Input))
                 yield return new AudioMixerInputResetPeaksMacroOp { Input = Input };
             if (Mask.HasFlag(MaskFlags.Master))
                 yield return new AudioMixerMasterOutResetPeaksMacroOp();
+            if (Mask.HasFlag(MaskFlags.Monitor))
+                yield return new AudioMixerMonitorOutResetPeaksMacroOp();
         }
     }
 }

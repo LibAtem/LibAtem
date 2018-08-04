@@ -14,7 +14,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
             NetworkAddress = 1 << 0,
             Source = 1 << 1,
             AutoRoll = 1 << 2,
-            AutoRollFrameDelay = 1 << 2,
+            AutoRollFrameDelay = 1 << 3,
         }
 
         [Serialize(0), Enum8]
@@ -24,12 +24,12 @@ namespace LibAtem.Commands.Settings.HyperDeck
         public uint Id { get; set; }
         
         [NoSerialize]
-        public string NetworkAddress { get; set; }
+        public string NetworkAddressStr { get; set; }
         [Serialize(4), ByteArray(4)]
-        protected byte[] NetworkAddressBytes
+        protected byte[] NetworkAddress
         {
-            get => IPUtil.ParseAddress(NetworkAddress);
-            set => NetworkAddress = IPUtil.IPToString(value);
+            get => IPUtil.ParseAddress(NetworkAddressStr);
+            set => NetworkAddressStr = IPUtil.IPToString(value);
         }
 
         [Serialize(8), Enum16]
