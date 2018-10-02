@@ -13,6 +13,8 @@ namespace LibAtem.Commands.DeviceProfile
         public uint ColorGenerators { get; set; }
         [Serialize(3), UInt8]
         public uint Auxiliaries { get; set; }
+        [Serialize(3), UInt8]
+        public uint TalkbackOutputs { get; set; }
         [Serialize(5), UInt8]
         public uint MediaPlayers { get; set; }
         [Serialize(6), UInt8]
@@ -29,8 +31,6 @@ namespace LibAtem.Commands.DeviceProfile
         public override void Serialize(ByteArrayBuilder cmd)
         {
             base.Serialize(cmd);
-
-            cmd.Set(4, 0x00); // Constants
 
             // 2ME
             //            cmd.Set(11, 0x01, 0x00, 0x01, 0x01); // Constants
