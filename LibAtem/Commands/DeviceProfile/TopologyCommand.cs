@@ -13,7 +13,7 @@ namespace LibAtem.Commands.DeviceProfile
         public uint ColorGenerators { get; set; }
         [Serialize(3), UInt8]
         public uint Auxiliaries { get; set; }
-        [Serialize(3), UInt8]
+        [Serialize(4), UInt8]
         public uint TalkbackOutputs { get; set; }
         [Serialize(5), UInt8]
         public uint MediaPlayers { get; set; }
