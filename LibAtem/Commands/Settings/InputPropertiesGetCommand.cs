@@ -14,7 +14,7 @@ namespace LibAtem.Commands.Settings
         public string LongName { get; set; }
         public string ShortName { get; set; }
         public bool IsExternal { get; set; }
-        public List<ExternalPortType> ExternalPorts { get; set; }
+        public ExternalPortTypeFlags AvailableExternalPorts { get; set; }
         public ExternalPortType ExternalPortType { get; set; }
         public InternalPortType InternalPortType { get; set; }
         public SourceAvailability SourceAvailability { get; set; }
@@ -29,14 +29,7 @@ namespace LibAtem.Commands.Settings
             cmd.Pad(); // ??
             cmd.AddByte((byte)(IsExternal ? 0x00 : 0x01)); // Xb
 
-            if (ExternalPorts == null)
-                cmd.AddBoolArray(false); // Is an external type, so no port options
-            else
-                cmd.AddBoolArray(ExternalPorts.Contains(ExternalPortType.SDI),
-                    ExternalPorts.Contains(ExternalPortType.HDMI),
-                    ExternalPorts.Contains(ExternalPortType.Component),
-                    ExternalPorts.Contains(ExternalPortType.Composite),
-                    ExternalPorts.Contains(ExternalPortType.SVideo));
+            cmd.AddUInt8((uint)AvailableExternalPorts);
 
             cmd.AddByte((byte)(IsExternal ? 0x00 : 0x01)); // Xd
             cmd.AddUInt8((int)ExternalPortType); // Xe
@@ -54,21 +47,8 @@ namespace LibAtem.Commands.Settings
             cmd.Skip(2);
             IsExternal = cmd.GetUInt8() == 0;
 
-            // TODO - one of the unknowns will be the currently selected ExternalPortType
-
-            bool[] portBools = cmd.GetBoolArray();
-            var ports = new List<ExternalPortType>();
-            if (portBools[0])
-                ports.Add(ExternalPortType.SDI);
-            if (portBools[1])
-                ports.Add(ExternalPortType.HDMI);
-            if (portBools[2])
-                ports.Add(ExternalPortType.Component);
-            if (portBools[3])
-                ports.Add(ExternalPortType.Composite);
-            if (portBools[4])
-                ports.Add(ExternalPortType.SVideo);
-            ExternalPorts = ports.Any() ? ports : null;
+            AvailableExternalPorts = (ExternalPortTypeFlags)cmd.GetUInt8();
+            if (!IsExternal) AvailableExternalPorts = ExternalPortTypeFlags.Internal;
 
             cmd.Skip(); // Xd
             ExternalPortType = (ExternalPortType) cmd.GetUInt8();
