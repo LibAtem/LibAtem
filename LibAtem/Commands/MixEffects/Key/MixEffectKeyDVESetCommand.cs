@@ -19,7 +19,7 @@ namespace LibAtem.Commands.MixEffects.Key
             PositionY            = 1 << 3,
             Rotation             = 1 << 4,
             BorderEnabled        = 1 << 5,
-            ShadowEnabled        = 1 << 6,
+            BorderShadowEnabled = 1 << 6,
             BorderBevel          = 1 << 7,
             BorderOuterWidth     = 1 << 8,
             BorderInnerWidth     = 1 << 9,
@@ -65,7 +65,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(28), Bool]
         public bool BorderEnabled { get; set; }
         [Serialize(29), Bool]
-        public bool ShadowEnabled { get; set; }
+        public bool BorderShadowEnabled { get; set; }
         [Serialize(30), Enum8]
         public BorderBevel BorderBevel { get; set; }
         [Serialize(32), UInt16D(100, 0, 1600)]
@@ -129,8 +129,8 @@ namespace LibAtem.Commands.MixEffects.Key
             if (Mask.HasFlag(MaskFlags.BorderEnabled))
                 yield return new DVEKeyBorderEnableMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = BorderEnabled};
 
-            if (Mask.HasFlag(MaskFlags.ShadowEnabled))
-                yield return new DVEKeyShadowEnableMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = ShadowEnabled};
+            if (Mask.HasFlag(MaskFlags.BorderShadowEnabled))
+                yield return new DVEKeyShadowEnableMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = BorderShadowEnabled};
 
             if (Mask.HasFlag(MaskFlags.BorderBevel))
                 yield return new DVEKeyBorderBevelMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Bevel = BorderBevel};

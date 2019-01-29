@@ -16,10 +16,10 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
         {
             return new MixEffectKeyDVESetCommand()
             {
-                Mask = MixEffectKeyDVESetCommand.MaskFlags.ShadowEnabled,
+                Mask = MixEffectKeyDVESetCommand.MaskFlags.BorderShadowEnabled,
                 MixEffectIndex = Index,
                 KeyerIndex = KeyIndex,
-                ShadowEnabled = Enable,
+                BorderShadowEnabled = Enable,
             };
         }
     }

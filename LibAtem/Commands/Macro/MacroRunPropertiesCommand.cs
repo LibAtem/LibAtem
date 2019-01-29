@@ -7,12 +7,12 @@ namespace LibAtem.Commands.Macro
     {
         public enum MaskFlags
         {
-            Looping = 1,
+            Loop = 1,
         }
 
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
         [Serialize(1), Bool]
-        public bool Looping { get; set; }
+        public bool Loop { get; set; }
     }
 }

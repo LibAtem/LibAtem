@@ -16,9 +16,9 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(2), Enum8]
         public FlyKeyKeyFrameId KeyFrame { get; set; }
 
-        [Serialize(4), UInt32D(1000, 0, 1000 * 1000)]
+        [Serialize(4), UInt32D(1000, 0, (32768 * 1000) - 1)]
         public double XSize { get; set; }
-        [Serialize(8), UInt32D(1000, 0, 1000 * 1000)]
+        [Serialize(8), UInt32D(1000, 0, (32768 * 1000) - 1)]
         public double YSize { get; set; }
 
         [Serialize(12), Int32D(1000, -32768 * 1000, 32768 * 1000)]
@@ -29,31 +29,31 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(20), Int32D(10, -327680, 327680)]
         public double Rotation { get; set; }
 
-        [Serialize(24), UInt16D(100, 0, 1600)]
+        [Serialize(24), UInt16D(100, 0, 65535)]
         public double OuterWidth { get; set; }
-        [Serialize(26), UInt16D(100, 0, 1600)]
+        [Serialize(26), UInt16D(100, 0, 65535)]
         public double InnerWidth { get; set; }
-        [Serialize(28), UInt8Range(0, 100)]
+        [Serialize(28), UInt8Range(0, 254)]
         public uint OuterSoftness { get; set; }
-        [Serialize(29), UInt8Range(0, 100)]
+        [Serialize(29), UInt8Range(0, 254)]
         public uint InnerSoftness { get; set; }
-        [Serialize(30), UInt8Range(0, 100)]
+        [Serialize(30), UInt8Range(0, 254)]
         public uint BevelSoftness { get; set; }
-        [Serialize(31), UInt8Range(0, 100)]
+        [Serialize(31), UInt8Range(0, 254)]
         public uint BevelPosition { get; set; }
 
-        [Serialize(32), UInt8Range(0, 100)]
+        [Serialize(32), UInt8Range(0, 254)]
         public uint BorderOpacity { get; set; }
-        [Serialize(34), UInt16D(10, 0, 3599)]
+        [Serialize(34), UInt16D(10, 0, 65535)]
         public double BorderHue { get; set; }
-        [Serialize(36), UInt16D(10, 0, 1000)]
+        [Serialize(36), UInt16D(10, 0, 65535)]
         public double BorderSaturation { get; set; }
-        [Serialize(38), UInt16D(10, 0, 1000)]
+        [Serialize(38), UInt16D(10, 0, 65535)]
         public double BorderLuma { get; set; }
 
-        [Serialize(40), UInt16D(10, 0, 3599)]
+        [Serialize(40), UInt16D(10, 0, 65535)]
         public double LightSourceDirection { get; set; }
-        [Serialize(42), UInt8Range(10, 100)]
+        [Serialize(42), UInt8Range(0, 254)]
         public uint LightSourceAltitude { get; set; }
         
         [Serialize(43), Bool(7)]

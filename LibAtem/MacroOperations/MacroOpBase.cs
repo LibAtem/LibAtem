@@ -76,7 +76,7 @@ namespace LibAtem.MacroOperations
         private static IReadOnlyDictionary<MacroOperationType, Type> FindAllTypes()
         {
             var result = new Dictionary<MacroOperationType, Type>();
-            var assembly = typeof(CommandNameAttribute).GetTypeInfo().Assembly;
+            var assembly = typeof(MacroOperationAttribute).GetTypeInfo().Assembly;
             foreach (Type type in assembly.GetTypes())
             {
                 if (!typeof(MacroOpBase).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))

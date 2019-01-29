@@ -13,11 +13,11 @@ namespace LibAtem.Commands.DownstreamKey
         [Flags]
         public enum MaskFlags
         {
-            Enabled = 1 << 0,
-            Top = 1 << 1,
-            Bottom = 1 << 2,
-            Left = 1 << 3,
-            Right = 1 << 4,
+            MaskEnabled = 1 << 0,
+            MaskTop = 1 << 1,
+            MaskBottom = 1 << 2,
+            MaskLeft = 1 << 3,
+            MaskRight = 1 << 4,
         }
 
         [Serialize(0), Enum8]
@@ -26,32 +26,32 @@ namespace LibAtem.Commands.DownstreamKey
         [Serialize(1), Enum8]
         public DownstreamKeyId Index { get; set; }
         [Serialize(2), Bool]
-        public bool Enabled { get; set; }
+        public bool MaskEnabled { get; set; }
         [Serialize(4), Int16D(1000, -9000, 9000)]
-        public double Top { get; set; }
+        public double MaskTop { get; set; }
         [Serialize(6), Int16D(1000, -9000, 9000)]
-        public double Bottom { get; set; }
+        public double MaskBottom { get; set; }
         [Serialize(8), Int16D(1000, -16000, 16000)]
-        public double Left { get; set; }
+        public double MaskLeft { get; set; }
         [Serialize(10), Int16D(1000, -16000, 16000)]
-        public double Right { get; set; }
+        public double MaskRight { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
-            if (Mask.HasFlag(MaskFlags.Enabled))
-                yield return new DownstreamKeyMaskEnableMacroOp() {KeyIndex = Index, Enable = Enabled};
+            if (Mask.HasFlag(MaskFlags.MaskEnabled))
+                yield return new DownstreamKeyMaskEnableMacroOp() {KeyIndex = Index, Enable = MaskEnabled };
 
-            if (Mask.HasFlag(MaskFlags.Top))
-                yield return new DownstreamKeyMaskTopMacroOp() { KeyIndex = Index, Top = Top };
+            if (Mask.HasFlag(MaskFlags.MaskTop))
+                yield return new DownstreamKeyMaskTopMacroOp() { KeyIndex = Index, Top = MaskTop };
 
-            if (Mask.HasFlag(MaskFlags.Bottom))
-                yield return new DownstreamKeyMaskBottomMacroOp() { KeyIndex = Index, Bottom = Bottom };
+            if (Mask.HasFlag(MaskFlags.MaskBottom))
+                yield return new DownstreamKeyMaskBottomMacroOp() { KeyIndex = Index, Bottom = MaskBottom };
 
-            if (Mask.HasFlag(MaskFlags.Left))
-                yield return new DownstreamKeyMaskLeftMacroOp() { KeyIndex = Index, Left = Left };
+            if (Mask.HasFlag(MaskFlags.MaskLeft))
+                yield return new DownstreamKeyMaskLeftMacroOp() { KeyIndex = Index, Left = MaskLeft };
 
-            if (Mask.HasFlag(MaskFlags.Right))
-                yield return new DownstreamKeyMaskRightMacroOp() { KeyIndex = Index, Right = Right };
+            if (Mask.HasFlag(MaskFlags.MaskRight))
+                yield return new DownstreamKeyMaskRightMacroOp() { KeyIndex = Index, Right = MaskRight };
         }
     }
 }

@@ -54,6 +54,11 @@ namespace LibAtem.Commands
             return hashCode;
         }
 
+        public override string ToString()
+        {
+            return "[CommandQueueKey " + Name + " " + Id + "]";
+        }
+
         #region IEquatable
 
         public bool Equals(CommandQueueKey other)

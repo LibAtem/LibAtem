@@ -16,9 +16,9 @@ namespace LibAtem.MacroOperations.DownStreamKey
         {
             return new DownstreamKeyMaskSetCommand()
             {
-                Mask = DownstreamKeyMaskSetCommand.MaskFlags.Left,
+                Mask = DownstreamKeyMaskSetCommand.MaskFlags.MaskLeft,
                 Index = KeyIndex,
-                Left = Left,
+                MaskLeft = Left,
             };
         }
     }

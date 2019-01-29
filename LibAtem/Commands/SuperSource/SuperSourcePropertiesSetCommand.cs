@@ -74,7 +74,7 @@ namespace LibAtem.Commands.SuperSource
         public double BorderSaturation { get; set; }
         [Serialize(30), UInt16D(10, 0, 1000)]
         public double BorderLuma { get; set; }
-        [Serialize(32), UInt16D(10, 0, 3590)]
+        [Serialize(32), UInt16D(10, 0, 3599)]
         public double BorderLightSourceDirection { get; set; }
         [Serialize(34), UInt8Range(0, 100)]
         public uint BorderLightSourceAltitude { get; set; }
