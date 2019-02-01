@@ -18,19 +18,33 @@ namespace LibAtem.Commands
 
             try
             {
-                ICommand cmd = (ICommand)Activator.CreateInstance(commandType);
-                cmd.Deserialize(rawCmd);
-
-                if (!rawCmd.HasFinished && !(cmd is SerializableCommandBase))
-                    throw new Exception("Some stray bytes were left after deserialize");
-
-                return cmd;
+                return ParseInner(rawCmd, commandType);
             }
             catch (Exception e)
             {
                 LogManager.GetLogger(commandType).Error(e);
                 return null;
             }
+        }
+
+        public static ICommand ParseUnsafe(ParsedCommand rawCmd)
+        {
+            Type commandType = CommandManager.FindForName(rawCmd.Name);
+            if (commandType == null)
+                throw new ArgumentOutOfRangeException(string.Format("Unknown command {0}", rawCmd.Name));
+
+            return ParseInner(rawCmd, commandType);
+        }
+
+        private static ICommand ParseInner(ParsedCommand rawCmd, Type commandType)
+        {
+            ICommand cmd = (ICommand)Activator.CreateInstance(commandType);
+            cmd.Deserialize(rawCmd);
+
+            if (!rawCmd.HasFinished && !(cmd is SerializableCommandBase))
+                throw new Exception("Some stray bytes were left after deserialize");
+
+            return cmd;
         }
     }
 }
