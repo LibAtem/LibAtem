@@ -15,7 +15,7 @@ namespace LibAtem.Commands.Settings
         public string ShortName { get; set; }
         public bool IsExternal { get; set; }
         public ExternalPortTypeFlags AvailableExternalPorts { get; set; }
-        public ExternalPortType ExternalPortType { get; set; }
+        public ExternalPortTypeFlags ExternalPortType { get; set; }
         public InternalPortType InternalPortType { get; set; }
         public SourceAvailability SourceAvailability { get; set; }
         public MeAvailability MeAvailability { get; set; }
@@ -48,14 +48,16 @@ namespace LibAtem.Commands.Settings
             IsExternal = cmd.GetUInt8() == 0;
 
             AvailableExternalPorts = (ExternalPortTypeFlags)cmd.GetUInt8();
-            if (!IsExternal) AvailableExternalPorts = ExternalPortTypeFlags.Internal;
 
             cmd.Skip(); // Xd
-            ExternalPortType = (ExternalPortType) cmd.GetUInt8();
+            ExternalPortType = (ExternalPortTypeFlags) cmd.GetUInt8();
             InternalPortType = (InternalPortType) cmd.GetUInt8();
             cmd.Skip();
             SourceAvailability = (SourceAvailability) cmd.GetUInt8();
             MeAvailability = (MeAvailability) cmd.GetUInt8();
+
+            if (!IsExternal) AvailableExternalPorts = ExternalPortTypeFlags.Internal;
+            if (!IsExternal) ExternalPortType = ExternalPortTypeFlags.Internal;
         }
     }
 }

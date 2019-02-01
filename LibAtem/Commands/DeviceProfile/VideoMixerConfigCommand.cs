@@ -11,11 +11,13 @@ namespace LibAtem.Commands.DeviceProfile
         {
             public VideoMode Mode { get; }
             public VideoMode MultiviewMode { get; }
+            public VideoMode SomeMode { get; }
 
-            public Entry(VideoMode mode, VideoMode multiviewMode)
+            public Entry(VideoMode mode, VideoMode multiviewMode, VideoMode someMode)
             {
                 Mode = mode;
                 MultiviewMode = multiviewMode;
+                SomeMode = someMode;
             }
 
             #region IEquatable
@@ -24,7 +26,7 @@ namespace LibAtem.Commands.DeviceProfile
             {
                 if (ReferenceEquals(null, other)) return false;
                 if (ReferenceEquals(this, other)) return true;
-                return Mode == other.Mode && MultiviewMode == other.MultiviewMode;
+                return Mode == other.Mode && MultiviewMode == other.MultiviewMode && SomeMode == other.SomeMode;
             }
 
             public override bool Equals(object obj)
@@ -39,7 +41,10 @@ namespace LibAtem.Commands.DeviceProfile
             {
                 unchecked
                 {
-                    return ((int) Mode * 397) ^ (int) MultiviewMode;
+                    var hashCode = (int)Mode;
+                    hashCode = (hashCode * 397) ^ (int)MultiviewMode;
+                    hashCode = (hashCode * 397) ^ (int)SomeMode;
+                    return hashCode;
                 }
             }
 
@@ -56,21 +61,10 @@ namespace LibAtem.Commands.DeviceProfile
             foreach (Entry mode in Modes)
             {
                 cmd.AddUInt8((uint) mode.Mode);
-                cmd.Pad(5);
-                cmd.AddUInt16(1 << (int) mode.MultiviewMode);
-                cmd.Pad(4);
+                cmd.Pad(3);
+                cmd.AddUInt32((uint)(1 << (int)mode.MultiviewMode)); // TODO - should be mask
+                cmd.AddUInt32((uint)(1 << (int)mode.SomeMode)); // TODO - should be mask
             }
-
-            // cmd.AddByte("00-08".HexToByteArray());
-            // cmd.Pad(2);
-            // cmd.AddByte("00-00-00-00-00-00-00-80-00-00-00-00".HexToByteArray());
-            // cmd.AddByte("01-02-00-00-00-00-00-40-00-00-00-00".HexToByteArray());
-            // cmd.AddByte("02-00-00-00-00-00-00-80-00-00-00-00".HexToByteArray());
-            // cmd.AddByte("03-EB-E2-C0-00-00-00-40-00-00-00-00".HexToByteArray());
-            // cmd.AddByte("04-00-00-00-00-00-00-10-00-00-00-00".HexToByteArray());
-            // cmd.AddByte("05-EB-E2-E0-00-00-00-20-00-00-00-00".HexToByteArray());
-            // cmd.AddByte("06-0F-e2-80-00-00-01-00-00-00-00-00".HexToByteArray());
-            // cmd.AddByte("07-FB-6B-20-00-00-00-80-00-00-00-00".HexToByteArray());
         }
 
         public void Deserialize(ParsedByteArray cmd)
@@ -82,10 +76,10 @@ namespace LibAtem.Commands.DeviceProfile
             for (int i = 0; i < count; i++)
             {
                 VideoMode mode = (VideoMode)cmd.GetUInt8();
-                cmd.Skip(5);
-                VideoMode mvMode = (VideoMode) Math.Floor(Math.Log(cmd.GetUInt16(), 2)); // TODO - check this is correct
-                cmd.Skip(4);
-                Modes.Add(new Entry(mode, mvMode));
+                cmd.Skip(3);
+                VideoMode mvMode = (VideoMode) Math.Floor(Math.Log(cmd.GetUInt32(), 2)); // TODO - should be mask
+                VideoMode someMode = (VideoMode)Math.Floor(Math.Log(cmd.GetUInt32(), 2)); // TODO - should be mask
+                Modes.Add(new Entry(mode, mvMode, someMode));
             }
         }
     }

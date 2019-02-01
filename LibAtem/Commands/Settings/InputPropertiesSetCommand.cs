@@ -28,7 +28,7 @@ namespace LibAtem.Commands.Settings
         [Serialize(24), String(4)]
         public string ShortName { get; set; }
         [Serialize(28), Enum16]
-        public ExternalPortType ExternalPortType { get; set; }
+        public ExternalPortTypeFlags ExternalPortType { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
@@ -36,8 +36,8 @@ namespace LibAtem.Commands.Settings
                 yield return null;
             if (Mask.HasFlag(MaskFlags.ShortName))
                 yield return null;
-            if (Mask.HasFlag(MaskFlags.ExternalPortType))
-                yield return new InputVideoPortMacroOp {Source = Id, Port = ExternalPortType.ToMacroPortType()};
+            //if (Mask.HasFlag(MaskFlags.ExternalPortType))
+                //yield return new InputVideoPortMacroOp {Source = Id, Port = ExternalPortType.ToMacroPortType()};
         }
     }
 }

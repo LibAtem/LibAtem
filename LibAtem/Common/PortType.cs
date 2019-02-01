@@ -26,8 +26,8 @@ namespace LibAtem.Common
         Unknown = 0,
         SDI = 1,
         HDMI = 2,
-        Composite = 4,
-        Component = 8,
+        Component = 4,
+        Composite = 8,
         SVideo = 16,
         Internal = 32,
         XLR = 64,
@@ -49,6 +49,17 @@ namespace LibAtem.Common
         MEOutput = 128,
         Auxiliary = 129,
         Mask = 130,
+    }
+
+    public enum AudioPortType
+    {
+        Internal = 0,
+        SDI = 1,
+        HDMI = 2,
+        XLR = 32,
+        AESEBU = 64,
+        RCA = 128,
+        TSJack = 256, // TODO - check value
     }
     
     public enum MacroPortType
@@ -126,19 +137,38 @@ namespace LibAtem.Common
                 case ExternalPortType.TSJack:
                     return ExternalPortTypeFlags.TSJack;
                 case ExternalPortType.SDI:
+                    return ExternalPortTypeFlags.SDI;
                 default:
                     return ExternalPortTypeFlags.Unknown;
             }
         }
 
-        public static IEnumerable<ExternalPortType> ToExternalPortTypes(this ExternalPortTypeFlags type)
+        public static List<ExternalPortType> ToExternalPortTypes(this ExternalPortTypeFlags type)
         {
+            var res = new List<ExternalPortType>();
+
             var possibles = Enum.GetValues(typeof(ExternalPortType)).OfType<ExternalPortType>().ToArray();
             foreach (ExternalPortType e in possibles)
             {
                 if ((type & e.ToFlag()) != 0)
-                    yield return e;
+                    res.Add(e);
             }
+
+            if (res.Count == 0) res.Add(0);
+            return res;
+        }
+
+        /*
+        public static AudioPortType ToAudioPortType(this ExternalPortTypeFlags type)
+        {
+
+        }*/
+
+        public static ExternalPortTypeFlags ToExternalPortType(this AudioPortType type)
+        {
+            if (type >= AudioPortType.XLR) return (ExternalPortTypeFlags)((int)type << 1);
+            if (type == AudioPortType.Internal) return ExternalPortTypeFlags.Internal;
+            return (ExternalPortTypeFlags)type;
         }
     }
 }

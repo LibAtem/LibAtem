@@ -18,12 +18,15 @@ namespace LibAtem.MacroOperations.Settings
 
         public override ICommand ToCommand()
         {
+            /*
             return new InputPropertiesSetCommand
             {
                 Mask = InputPropertiesSetCommand.MaskFlags.ExternalPortType,
                 Id = Source,
                 ExternalPortType = Port.ToExternalPortType(),
             };
+            */
+            return null;
         }
     }
 }
