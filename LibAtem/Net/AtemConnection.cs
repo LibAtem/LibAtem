@@ -136,50 +136,47 @@ namespace LibAtem.Net
                 if (HasTimedOut)
                     return;
 
-                lock (_lastSentAckLock)
+                _lastReceivedTime = DateTime.Now;
+
+                // If we have already acked, then reack 
+                if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest) && IdIsLessThanEqualOther(packet.PacketId, _readyToAck))
                 {
-                    _lastReceivedTime = DateTime.Now;
-
-                    // If we have already acked, then reack 
-                    if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest) && IdIsLessThanEqualOther(packet.PacketId, _readyToAck))
-                    {
-                        QueueOrSendAck(socket, packet.PacketId);
-                        return;
-                    }
-
-                    // If we have skipped something, then discard
-                    if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest) && packet.PacketId != IncrementPacketId(_readyToAck))
-                    {
-                        Log.DebugFormat("{0} - Discarding message received out of order Got:{1} Expected:{2}", Endpoint, packet.PacketId, _readyToAck);
-                        return;
-                    }
-
-                    // Handle it
-                    if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest))
-                    {
-                        QueueOrSendAck(socket, packet.PacketId);
-                    }
-
-                    Log.DebugFormat("{0} - Command {1}, Length {2}, Session {3:X}, Acked {4}, Packet {5}", Endpoint, 
-                        packet.CommandCode, packet.PayloadLength, packet.SessionId, packet.AckedId, packet.PacketId);
-
-                    if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckReply))
-                    {
-                        _isOpen = true;
-
-                        if (packet.AckedId > _lastReceivedAck || IdIsLessThanEqualOther(packet.AckedId, _lastReceivedAck)) // tODO This condition is causing the wrapped '0' packet to not be acked properly
-                            _lastReceivedAck = packet.AckedId;
-                    }
-                    if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest))
-                    {
-                        Log.DebugFormat("{0} - Parsed {1} commands with length {2}", Endpoint, packet.Commands.Count, packet.PayloadLength);
-                        
-                        _processQueue.Add(packet);
-                        OnReceivePacket?.Invoke(this, packet);
-                    }
-                    // Note: Handshake is handled elsewhere
-                    // Note: Unknown, Retransmit both need no action
+                    QueueOrSendAck(socket, packet.PacketId);
+                    return;
                 }
+
+                // If we have skipped something, then discard
+                if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest) && packet.PacketId != IncrementPacketId(_readyToAck))
+                {
+                    Log.DebugFormat("{0} - Discarding message received out of order Got:{1} Expected:{2}", Endpoint, packet.PacketId, _readyToAck);
+                    return;
+                }
+
+                // Handle it
+                if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest))
+                {
+                    QueueOrSendAck(socket, packet.PacketId);
+                }
+
+                Log.DebugFormat("{0} - Command {1}, Length {2}, Session {3:X}, Acked {4}, Packet {5}", Endpoint, 
+                    packet.CommandCode, packet.PayloadLength, packet.SessionId, packet.AckedId, packet.PacketId);
+
+                if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckReply))
+                {
+                    _isOpen = true;
+
+                    if (packet.AckedId > _lastReceivedAck || IdIsLessThanEqualOther(packet.AckedId, _lastReceivedAck)) // tODO This condition is causing the wrapped '0' packet to not be acked properly
+                        _lastReceivedAck = packet.AckedId;
+                }
+                if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest))
+                {
+                    Log.DebugFormat("{0} - Parsed {1} commands with length {2}", Endpoint, packet.Commands.Count, packet.PayloadLength);
+                        
+                    _processQueue.Add(packet);
+                    OnReceivePacket?.Invoke(this, packet);
+                }
+                // Note: Handshake is handled elsewhere
+                // Note: Unknown, Retransmit both need no action
             }
             catch (ArgumentException)
             {
@@ -196,7 +193,9 @@ namespace LibAtem.Net
                 var result = new List<ICommand>();
                 foreach (ParsedCommand rawCmd in _processQueue.Take().Commands)
                 {
-                    Log.DebugFormat("{0} - Received command {1} with content {2}", Endpoint, rawCmd.Name, BitConverter.ToString(rawCmd.Body));
+                    // Don't print full command, if it is really long for performance reasons 
+                    string payloadStr = rawCmd.BodyLength > 100 ? "of " + rawCmd.BodyLength + " bytes" : BitConverter.ToString(rawCmd.Body);
+                    Log.DebugFormat("{0} - Received command {1} with content {2}", Endpoint, rawCmd.Name, payloadStr);
 
                     result.AddIfNotNull(CommandParser.Parse(rawCmd));
                 }

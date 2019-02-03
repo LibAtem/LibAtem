@@ -45,6 +45,7 @@ namespace LibAtem.Net
         {
             _remoteEp = new IPEndPoint(IPAddress.Parse(address), 9910);
             _client = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
+            _client.Client.ReceiveBufferSize = 1500 * 50; // TODO tweak this value
 
             _connection = new AtemClientConnection(_remoteEp, new Random().Next(32767));
             _connection.OnDisconnect += sender => OnDisconnect?.Invoke(this);
@@ -131,11 +132,10 @@ namespace LibAtem.Net
                 while (_run || _connection.HasCommandsToProcess)
                 {
                     List<ICommand> cmds = _connection.GetNextCommands();
+                    int rawCount = cmds.Count;
                     
-                    Log.DebugFormat("Recieved {0} commands", cmds.Count);
-
                     cmds = cmds.Where(c => !DataTransfer.HandleCommand(c)).ToList();
-                    Log.DebugFormat("{0} commands to be handle by user code", cmds.Count);
+                    Log.DebugFormat("Recieved {0} commands. {1} to be handle by user code", rawCount, cmds.Count);
 
                     if (cmds.Any())
                         OnReceive?.Invoke(this, cmds);

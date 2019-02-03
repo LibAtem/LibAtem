@@ -133,8 +133,8 @@ namespace LibAtem.Common
     {
         public static VideoSource? GetVideoSource(this AudioSource src)
         {
-            if ((int) src <= 20)
-                return (VideoSource) src;
+            if ((int)src <= 20)
+                return (VideoSource)src;
             
             switch (src)
             {
@@ -146,6 +146,25 @@ namespace LibAtem.Common
                     return VideoSource.MediaPlayer3;
                 case AudioSource.MP4:
                     return VideoSource.MediaPlayer4;
+                default:
+                    return null;
+            }
+        }
+        public static AudioSource? GetAudioSource(this VideoSource src)
+        {
+            if ((int)src <= 20 && (int)src >= 1)
+                return (AudioSource)src;
+
+            switch (src)
+            {
+                case VideoSource.MediaPlayer1:
+                    return AudioSource.MP1;
+                case VideoSource.MediaPlayer2:
+                    return AudioSource.MP2;
+                case VideoSource.MediaPlayer3:
+                    return AudioSource.MP3;
+                case VideoSource.MediaPlayer4:
+                    return AudioSource.MP4;
                 default:
                     return null;
             }
