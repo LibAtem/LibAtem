@@ -30,6 +30,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.DVEKeyShadowAltitude:
                 case MacroOperationType.SuperSourceShadowAltitude:
+                case MacroOperationType.SuperSourceV2ShadowAltitude:
                     return true;
                 default:
                     return false;
@@ -48,6 +49,7 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.SuperSourceArtAbove:
+                case MacroOperationType.SuperSourceV2ArtAbove:
                     return true;
                 default:
                     return false;
@@ -109,6 +111,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.DVEKeyBorderBevel:
                 case MacroOperationType.SuperSourceBorderBevel:
+                case MacroOperationType.SuperSourceV2BorderBevel:
                     return true;
                 default:
                     return false;
@@ -128,6 +131,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.DVEKeyBorderBevelPosition:
                 case MacroOperationType.SuperSourceBorderBevelPosition:
+                case MacroOperationType.SuperSourceV2BorderBevelPosition:
                     return true;
                 default:
                     return false;
@@ -147,6 +151,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.DVEKeyBorderBevelSoftness:
                 case MacroOperationType.SuperSourceBorderBevelSoftness:
+                case MacroOperationType.SuperSourceV2BorderBevelSoftness:
                     return true;
                 default:
                     return false;
@@ -168,6 +173,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DVEKeyMaskBottom:
                 case MacroOperationType.KeyMaskBottom:
                 case MacroOperationType.SuperSourceBoxMaskBottom:
+                case MacroOperationType.SuperSourceV2BoxMaskBottom:
                     return true;
                 default:
                     return false;
@@ -195,6 +201,16 @@ namespace LibAtem.XmlState
                 case MacroOperationType.SuperSourceBoxSize:
                 case MacroOperationType.SuperSourceBoxXPosition:
                 case MacroOperationType.SuperSourceBoxYPosition:
+                case MacroOperationType.SuperSourceV2BoxEnable:
+                case MacroOperationType.SuperSourceV2BoxInput:
+                case MacroOperationType.SuperSourceV2BoxMaskBottom:
+                case MacroOperationType.SuperSourceV2BoxMaskEnable:
+                case MacroOperationType.SuperSourceV2BoxMaskLeft:
+                case MacroOperationType.SuperSourceV2BoxMaskRight:
+                case MacroOperationType.SuperSourceV2BoxMaskTop:
+                case MacroOperationType.SuperSourceV2BoxSize:
+                case MacroOperationType.SuperSourceV2BoxXPosition:
+                case MacroOperationType.SuperSourceV2BoxYPosition:
                     return true;
                 default:
                     return false;
@@ -216,6 +232,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DownstreamKeyClip:
                 case MacroOperationType.LumaKeyClip:
                 case MacroOperationType.SuperSourceArtClip:
+                case MacroOperationType.SuperSourceV2ArtClip:
                 case MacroOperationType.TransitionStingerDVEClip:
                     return true;
                 default:
@@ -310,6 +327,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.DVEKeyShadowDirection:
                 case MacroOperationType.SuperSourceShadowDirection:
+                case MacroOperationType.SuperSourceV2ShadowDirection:
                     return true;
                 default:
                     return false;
@@ -356,6 +374,9 @@ namespace LibAtem.XmlState
                 case MacroOperationType.SuperSourceBorderEnable:
                 case MacroOperationType.SuperSourceBoxEnable:
                 case MacroOperationType.SuperSourceBoxMaskEnable:
+                case MacroOperationType.SuperSourceV2BorderEnable:
+                case MacroOperationType.SuperSourceV2BoxEnable:
+                case MacroOperationType.SuperSourceV2BoxMaskEnable:
                 case MacroOperationType.TransitionDVECutInputEnable:
                     return true;
                 default:
@@ -489,6 +510,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DownstreamKeyGain:
                 case MacroOperationType.LumaKeyGain:
                 case MacroOperationType.SuperSourceArtGain:
+                case MacroOperationType.SuperSourceV2ArtGain:
                 case MacroOperationType.TransitionStingerDVEGain:
                     return true;
                 default:
@@ -521,6 +543,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.ColorGeneratorHue:
                 case MacroOperationType.DVEKeyBorderHue:
                 case MacroOperationType.SuperSourceBorderHue:
+                case MacroOperationType.SuperSourceV2BorderHue:
                     return true;
                 default:
                     return false;
@@ -582,6 +605,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.DVEKeyBorderInnerSoftness:
                 case MacroOperationType.SuperSourceBorderInnerSoftness:
+                case MacroOperationType.SuperSourceV2BorderInnerSoftness:
                     return true;
                 default:
                     return false;
@@ -601,6 +625,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.DVEKeyBorderInnerWidth:
                 case MacroOperationType.SuperSourceBorderInnerWidth:
+                case MacroOperationType.SuperSourceV2BorderInnerWidth:
                     return true;
                 default:
                     return false;
@@ -635,6 +660,9 @@ namespace LibAtem.XmlState
                 case MacroOperationType.SuperSourceArtCutInput:
                 case MacroOperationType.SuperSourceArtFillInput:
                 case MacroOperationType.SuperSourceBoxInput:
+                case MacroOperationType.SuperSourceV2ArtCutInput:
+                case MacroOperationType.SuperSourceV2ArtFillInput:
+                case MacroOperationType.SuperSourceV2BoxInput:
                 case MacroOperationType.TransitionDipInput:
                 case MacroOperationType.TransitionDVECutInput:
                 case MacroOperationType.TransitionDVEFillInput:
@@ -659,6 +687,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DownstreamKeyInvert:
                 case MacroOperationType.LumaKeyInvert:
                 case MacroOperationType.SuperSourceArtInvert:
+                case MacroOperationType.SuperSourceV2ArtInvert:
                 case MacroOperationType.TransitionStingerDVEInvert:
                     return true;
                 default:
@@ -783,7 +812,7 @@ namespace LibAtem.XmlState
             get => (LibAtem.Common.DownstreamKeyId)KeyIndexInt ; set => KeyIndexInt = (int)value ; }
 
         [XmlAttribute("layout")]
-        public LibAtem.Common.MultiViewLayout Layout
+        public LibAtem.Common.MultiViewLayoutOld Layout
         {
             get;
             set;
@@ -815,6 +844,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DVEKeyMaskLeft:
                 case MacroOperationType.KeyMaskLeft:
                 case MacroOperationType.SuperSourceBoxMaskLeft:
+                case MacroOperationType.SuperSourceV2BoxMaskLeft:
                     return true;
                 default:
                     return false;
@@ -905,6 +935,7 @@ namespace LibAtem.XmlState
             switch (Id)
             {
                 case MacroOperationType.SuperSourceBorderLuminescence:
+                case MacroOperationType.SuperSourceV2BorderLuminescence:
                     return true;
                 default:
                     return false;
@@ -1219,6 +1250,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.DVEKeyBorderOuterSoftness:
                 case MacroOperationType.SuperSourceBorderOuterSoftness:
+                case MacroOperationType.SuperSourceV2BorderOuterSoftness:
                     return true;
                 default:
                     return false;
@@ -1238,6 +1270,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.DVEKeyBorderOuterWidth:
                 case MacroOperationType.SuperSourceBorderOuterWidth:
+                case MacroOperationType.SuperSourceV2BorderOuterWidth:
                     return true;
                 default:
                     return false;
@@ -1311,6 +1344,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DownstreamKeyPreMultiply:
                 case MacroOperationType.LumaKeyPreMultiply:
                 case MacroOperationType.SuperSourceArtPreMultiply:
+                case MacroOperationType.SuperSourceV2ArtPreMultiply:
                 case MacroOperationType.TransitionStingerDVEPreMultiply:
                     return true;
                 default:
@@ -1412,6 +1446,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DVEKeyMaskRight:
                 case MacroOperationType.KeyMaskRight:
                 case MacroOperationType.SuperSourceBoxMaskRight:
+                case MacroOperationType.SuperSourceV2BoxMaskRight:
                     return true;
                 default:
                     return false;
@@ -1450,6 +1485,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.ColorGeneratorSaturation:
                 case MacroOperationType.DVEKeyBorderSaturation:
                 case MacroOperationType.SuperSourceBorderSaturation:
+                case MacroOperationType.SuperSourceV2BorderSaturation:
                     return true;
                 default:
                     return false;
@@ -1487,6 +1523,7 @@ namespace LibAtem.XmlState
             {
                 case MacroOperationType.PatternKeySize:
                 case MacroOperationType.SuperSourceBoxSize:
+                case MacroOperationType.SuperSourceV2BoxSize:
                     return true;
                 default:
                     return false;
@@ -1589,6 +1626,53 @@ namespace LibAtem.XmlState
             }
         }
 
+        [XmlAttribute("superSource")]
+        public LibAtem.Common.SuperSourceId SuperSourceIndex
+        {
+            get;
+            set;
+        }
+
+        public bool ShouldSerializeSuperSourceIndex()
+        {
+            switch (Id)
+            {
+                case MacroOperationType.SuperSourceV2ArtAbove:
+                case MacroOperationType.SuperSourceV2ArtClip:
+                case MacroOperationType.SuperSourceV2ArtCutInput:
+                case MacroOperationType.SuperSourceV2ArtFillInput:
+                case MacroOperationType.SuperSourceV2ArtGain:
+                case MacroOperationType.SuperSourceV2ArtInvert:
+                case MacroOperationType.SuperSourceV2ArtPreMultiply:
+                case MacroOperationType.SuperSourceV2BorderBevel:
+                case MacroOperationType.SuperSourceV2BorderBevelPosition:
+                case MacroOperationType.SuperSourceV2BorderBevelSoftness:
+                case MacroOperationType.SuperSourceV2BorderEnable:
+                case MacroOperationType.SuperSourceV2BorderHue:
+                case MacroOperationType.SuperSourceV2BorderInnerSoftness:
+                case MacroOperationType.SuperSourceV2BorderInnerWidth:
+                case MacroOperationType.SuperSourceV2BorderLuminescence:
+                case MacroOperationType.SuperSourceV2BorderOuterSoftness:
+                case MacroOperationType.SuperSourceV2BorderOuterWidth:
+                case MacroOperationType.SuperSourceV2BorderSaturation:
+                case MacroOperationType.SuperSourceV2BoxEnable:
+                case MacroOperationType.SuperSourceV2BoxInput:
+                case MacroOperationType.SuperSourceV2BoxMaskBottom:
+                case MacroOperationType.SuperSourceV2BoxMaskEnable:
+                case MacroOperationType.SuperSourceV2BoxMaskLeft:
+                case MacroOperationType.SuperSourceV2BoxMaskRight:
+                case MacroOperationType.SuperSourceV2BoxMaskTop:
+                case MacroOperationType.SuperSourceV2BoxSize:
+                case MacroOperationType.SuperSourceV2BoxXPosition:
+                case MacroOperationType.SuperSourceV2BoxYPosition:
+                case MacroOperationType.SuperSourceV2ShadowAltitude:
+                case MacroOperationType.SuperSourceV2ShadowDirection:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [XmlAttribute("symmetry")]
         public System.Double Symmetry
         {
@@ -1641,6 +1725,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DVEKeyMaskTop:
                 case MacroOperationType.KeyMaskTop:
                 case MacroOperationType.SuperSourceBoxMaskTop:
+                case MacroOperationType.SuperSourceV2BoxMaskTop:
                     return true;
                 default:
                     return false;
@@ -1769,6 +1854,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DVEAndFlyKeyXPosition:
                 case MacroOperationType.PatternKeyXPosition:
                 case MacroOperationType.SuperSourceBoxXPosition:
+                case MacroOperationType.SuperSourceV2BoxXPosition:
                 case MacroOperationType.TransitionWipeXPosition:
                     return true;
                 default:
@@ -1808,6 +1894,7 @@ namespace LibAtem.XmlState
                 case MacroOperationType.DVEAndFlyKeyYPosition:
                 case MacroOperationType.PatternKeyYPosition:
                 case MacroOperationType.SuperSourceBoxYPosition:
+                case MacroOperationType.SuperSourceV2BoxYPosition:
                 case MacroOperationType.TransitionWipeYPosition:
                     return true;
                 default:
@@ -1879,6 +1966,9 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMuteMacroOp":
                     var opAudioMixerMonitorOutMuteMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMuteMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutMute, Mute = opAudioMixerMonitorOutMuteMacroOp.Mute.ToAtemBool()};
+                case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutResetPeaksMacroOp":
+                    var opAudioMixerMonitorOutResetPeaksMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutResetPeaksMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutResetPeaks};
                 case "LibAtem.MacroOperations.Audio.AudioMixerMonitorOutSoloMacroOp":
                     var opAudioMixerMonitorOutSoloMacroOp = (LibAtem.MacroOperations.Audio.AudioMixerMonitorOutSoloMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.AudioMixerMonitorOutSolo, Solo = opAudioMixerMonitorOutSoloMacroOp.Solo.ToAtemBool()};
@@ -2278,6 +2368,96 @@ namespace LibAtem.XmlState
                 case "LibAtem.MacroOperations.SuperSource.SuperSourceShadowDirectionMacroOp":
                     var opSuperSourceShadowDirectionMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceShadowDirectionMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.SuperSourceShadowDirection, Direction = opSuperSourceShadowDirectionMacroOp.Direction};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtAboveMacroOp":
+                    var opSuperSourceV2ArtAboveMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtAboveMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2ArtAbove, SuperSourceArtAbove = opSuperSourceV2ArtAboveMacroOp.ArtAbove.ToAtemBool(), SuperSourceIndex = opSuperSourceV2ArtAboveMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtClipMacroOp":
+                    var opSuperSourceV2ArtClipMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtClipMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2ArtClip, Clip = opSuperSourceV2ArtClipMacroOp.Clip, SuperSourceIndex = opSuperSourceV2ArtClipMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtCutInputMacroOp":
+                    var opSuperSourceV2ArtCutInputMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtCutInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2ArtCutInput, Input = opSuperSourceV2ArtCutInputMacroOp.Source.ToMacroInput(), SuperSourceIndex = opSuperSourceV2ArtCutInputMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtFillInputMacroOp":
+                    var opSuperSourceV2ArtFillInputMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtFillInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2ArtFillInput, Input = opSuperSourceV2ArtFillInputMacroOp.Source.ToMacroInput(), SuperSourceIndex = opSuperSourceV2ArtFillInputMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtGainMacroOp":
+                    var opSuperSourceV2ArtGainMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtGainMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2ArtGain, Gain = opSuperSourceV2ArtGainMacroOp.Gain, SuperSourceIndex = opSuperSourceV2ArtGainMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtInvertMacroOp":
+                    var opSuperSourceV2ArtInvertMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtInvertMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2ArtInvert, Invert = opSuperSourceV2ArtInvertMacroOp.Invert.ToAtemBool(), SuperSourceIndex = opSuperSourceV2ArtInvertMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtPreMultiplyMacroOp":
+                    var opSuperSourceV2ArtPreMultiplyMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtPreMultiplyMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2ArtPreMultiply, PreMultiply = opSuperSourceV2ArtPreMultiplyMacroOp.PreMultiply.ToAtemBool(), SuperSourceIndex = opSuperSourceV2ArtPreMultiplyMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderBevelMacroOp":
+                    var opSuperSourceV2BorderBevelMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderBevelMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderBevel, Bevel = opSuperSourceV2BorderBevelMacroOp.Bevel, SuperSourceIndex = opSuperSourceV2BorderBevelMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderBevelPositionMacroOp":
+                    var opSuperSourceV2BorderBevelPositionMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderBevelPositionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderBevelPosition, BevelPosition = opSuperSourceV2BorderBevelPositionMacroOp.BevelPosition, SuperSourceIndex = opSuperSourceV2BorderBevelPositionMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderBevelSoftnessMacroOp":
+                    var opSuperSourceV2BorderBevelSoftnessMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderBevelSoftnessMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderBevelSoftness, BevelSoftness = opSuperSourceV2BorderBevelSoftnessMacroOp.BevelSoftness, SuperSourceIndex = opSuperSourceV2BorderBevelSoftnessMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderEnableMacroOp":
+                    var opSuperSourceV2BorderEnableMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderEnableMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderEnable, Enable = opSuperSourceV2BorderEnableMacroOp.Enable.ToAtemBool(), SuperSourceIndex = opSuperSourceV2BorderEnableMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderHueMacroOp":
+                    var opSuperSourceV2BorderHueMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderHueMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderHue, Hue = opSuperSourceV2BorderHueMacroOp.Hue, SuperSourceIndex = opSuperSourceV2BorderHueMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderInnerSoftnessMacroOp":
+                    var opSuperSourceV2BorderInnerSoftnessMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderInnerSoftnessMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderInnerSoftness, InnerSoftness = opSuperSourceV2BorderInnerSoftnessMacroOp.InnerSoftness, SuperSourceIndex = opSuperSourceV2BorderInnerSoftnessMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderInnerWidthMacroOp":
+                    var opSuperSourceV2BorderInnerWidthMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderInnerWidthMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderInnerWidth, InnerWidth = opSuperSourceV2BorderInnerWidthMacroOp.InnerWidth, SuperSourceIndex = opSuperSourceV2BorderInnerWidthMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderLuminescenceMacroOp":
+                    var opSuperSourceV2BorderLuminescenceMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderLuminescenceMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderLuminescence, Luma = opSuperSourceV2BorderLuminescenceMacroOp.Luma, SuperSourceIndex = opSuperSourceV2BorderLuminescenceMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderOuterSoftnessMacroOp":
+                    var opSuperSourceV2BorderOuterSoftnessMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderOuterSoftnessMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderOuterSoftness, OuterSoftness = opSuperSourceV2BorderOuterSoftnessMacroOp.OuterSoftness, SuperSourceIndex = opSuperSourceV2BorderOuterSoftnessMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderOuterWidthMacroOp":
+                    var opSuperSourceV2BorderOuterWidthMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderOuterWidthMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderOuterWidth, OuterWidth = opSuperSourceV2BorderOuterWidthMacroOp.OuterWidth, SuperSourceIndex = opSuperSourceV2BorderOuterWidthMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderSaturationMacroOp":
+                    var opSuperSourceV2BorderSaturationMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderSaturationMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BorderSaturation, Saturation = opSuperSourceV2BorderSaturationMacroOp.Saturation, SuperSourceIndex = opSuperSourceV2BorderSaturationMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxEnableMacroOp":
+                    var opSuperSourceV2BoxEnableMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxEnableMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxEnable, Enable = opSuperSourceV2BoxEnableMacroOp.Enable.ToAtemBool(), SuperSourceBoxIndex = opSuperSourceV2BoxEnableMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxEnableMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxInputMacroOp":
+                    var opSuperSourceV2BoxInputMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxInputMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxInput, Input = opSuperSourceV2BoxInputMacroOp.Source.ToMacroInput(), SuperSourceBoxIndex = opSuperSourceV2BoxInputMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxInputMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskBottomMacroOp":
+                    var opSuperSourceV2BoxMaskBottomMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskBottomMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxMaskBottom, Bottom = opSuperSourceV2BoxMaskBottomMacroOp.Bottom, SuperSourceBoxIndex = opSuperSourceV2BoxMaskBottomMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxMaskBottomMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskEnableMacroOp":
+                    var opSuperSourceV2BoxMaskEnableMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskEnableMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxMaskEnable, Enable = opSuperSourceV2BoxMaskEnableMacroOp.Enable.ToAtemBool(), SuperSourceBoxIndex = opSuperSourceV2BoxMaskEnableMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxMaskEnableMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskLeftMacroOp":
+                    var opSuperSourceV2BoxMaskLeftMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskLeftMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxMaskLeft, Left = opSuperSourceV2BoxMaskLeftMacroOp.Left, SuperSourceBoxIndex = opSuperSourceV2BoxMaskLeftMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxMaskLeftMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskRightMacroOp":
+                    var opSuperSourceV2BoxMaskRightMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskRightMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxMaskRight, Right = opSuperSourceV2BoxMaskRightMacroOp.Right, SuperSourceBoxIndex = opSuperSourceV2BoxMaskRightMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxMaskRightMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskTopMacroOp":
+                    var opSuperSourceV2BoxMaskTopMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskTopMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxMaskTop, Top = opSuperSourceV2BoxMaskTopMacroOp.Top, SuperSourceBoxIndex = opSuperSourceV2BoxMaskTopMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxMaskTopMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxSizeMacroOp":
+                    var opSuperSourceV2BoxSizeMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxSizeMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxSize, Size = opSuperSourceV2BoxSizeMacroOp.Size, SuperSourceBoxIndex = opSuperSourceV2BoxSizeMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxSizeMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxXPositionMacroOp":
+                    var opSuperSourceV2BoxXPositionMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxXPositionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxXPosition, PositionX = opSuperSourceV2BoxXPositionMacroOp.PositionX, SuperSourceBoxIndex = opSuperSourceV2BoxXPositionMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxXPositionMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxYPositionMacroOp":
+                    var opSuperSourceV2BoxYPositionMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxYPositionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2BoxYPosition, PositionY = opSuperSourceV2BoxYPositionMacroOp.PositionY, SuperSourceBoxIndex = opSuperSourceV2BoxYPositionMacroOp.BoxIndex, SuperSourceIndex = opSuperSourceV2BoxYPositionMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2ShadowAltitudeMacroOp":
+                    var opSuperSourceV2ShadowAltitudeMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2ShadowAltitudeMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2ShadowAltitude, Altitude = opSuperSourceV2ShadowAltitudeMacroOp.Altitude, SuperSourceIndex = opSuperSourceV2ShadowAltitudeMacroOp.SSrcId};
+                case "LibAtem.MacroOperations.SuperSource.SuperSourceV2ShadowDirectionMacroOp":
+                    var opSuperSourceV2ShadowDirectionMacroOp = (LibAtem.MacroOperations.SuperSource.SuperSourceV2ShadowDirectionMacroOp)op;
+                    return new MacroOperation{Id = MacroOperationType.SuperSourceV2ShadowDirection, Direction = opSuperSourceV2ShadowDirectionMacroOp.Direction, SuperSourceIndex = opSuperSourceV2ShadowDirectionMacroOp.SSrcId};
                 case "LibAtem.MacroOperations.MixEffects.Transition.Dip.TransitionDipInputMacroOp":
                     var opTransitionDipInputMacroOp = (LibAtem.MacroOperations.MixEffects.Transition.Dip.TransitionDipInputMacroOp)op;
                     return new MacroOperation{Id = MacroOperationType.TransitionDipInput, Input = opTransitionDipInputMacroOp.Input.ToMacroInput(), MixEffectBlockIndex = opTransitionDipInputMacroOp.Index};
@@ -2418,6 +2598,8 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutGainMacroOp{RawGain = mac.AudioGain};
                 case MacroOperationType.AudioMixerMonitorOutMute:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutMuteMacroOp{Mute = mac.Mute.Value()};
+                case MacroOperationType.AudioMixerMonitorOutResetPeaks:
+                    return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutResetPeaksMacroOp{};
                 case MacroOperationType.AudioMixerMonitorOutSolo:
                     return new LibAtem.MacroOperations.Audio.AudioMixerMonitorOutSoloMacroOp{Solo = mac.Solo.Value()};
                 case MacroOperationType.AudioMixerMonitorOutSoloInput:
@@ -2684,6 +2866,66 @@ namespace LibAtem.XmlState
                     return new LibAtem.MacroOperations.SuperSource.SuperSourceShadowAltitudeMacroOp{Altitude = mac.Altitude};
                 case MacroOperationType.SuperSourceShadowDirection:
                     return new LibAtem.MacroOperations.SuperSource.SuperSourceShadowDirectionMacroOp{Direction = mac.Direction};
+                case MacroOperationType.SuperSourceV2ArtAbove:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtAboveMacroOp{ArtAbove = mac.SuperSourceArtAbove.Value(), SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2ArtClip:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtClipMacroOp{Clip = mac.Clip, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2ArtCutInput:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtCutInputMacroOp{Source = mac.Input.ToVideoSource(), SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2ArtFillInput:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtFillInputMacroOp{Source = mac.Input.ToVideoSource(), SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2ArtGain:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtGainMacroOp{Gain = mac.Gain, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2ArtInvert:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtInvertMacroOp{Invert = mac.Invert.Value(), SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2ArtPreMultiply:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2ArtPreMultiplyMacroOp{PreMultiply = mac.PreMultiply.Value(), SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderBevel:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderBevelMacroOp{Bevel = mac.Bevel, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderBevelPosition:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderBevelPositionMacroOp{BevelPosition = mac.BevelPosition, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderBevelSoftness:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderBevelSoftnessMacroOp{BevelSoftness = mac.BevelSoftness, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderEnable:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderEnableMacroOp{Enable = mac.Enable.Value(), SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderHue:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderHueMacroOp{Hue = mac.Hue, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderInnerSoftness:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderInnerSoftnessMacroOp{InnerSoftness = mac.InnerSoftness, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderInnerWidth:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderInnerWidthMacroOp{InnerWidth = mac.InnerWidth, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderLuminescence:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderLuminescenceMacroOp{Luma = mac.Luma, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderOuterSoftness:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderOuterSoftnessMacroOp{OuterSoftness = mac.OuterSoftness, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderOuterWidth:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderOuterWidthMacroOp{OuterWidth = mac.OuterWidth, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BorderSaturation:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BorderSaturationMacroOp{Saturation = mac.Saturation, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxEnable:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxEnableMacroOp{Enable = mac.Enable.Value(), BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxInput:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxInputMacroOp{Source = mac.Input.ToVideoSource(), BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxMaskBottom:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskBottomMacroOp{Bottom = mac.Bottom, BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxMaskEnable:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskEnableMacroOp{Enable = mac.Enable.Value(), BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxMaskLeft:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskLeftMacroOp{Left = mac.Left, BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxMaskRight:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskRightMacroOp{Right = mac.Right, BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxMaskTop:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxMaskTopMacroOp{Top = mac.Top, BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxSize:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxSizeMacroOp{Size = mac.Size, BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxXPosition:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxXPositionMacroOp{PositionX = mac.PositionX, BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2BoxYPosition:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2BoxYPositionMacroOp{PositionY = mac.PositionY, BoxIndex = mac.SuperSourceBoxIndex, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2ShadowAltitude:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2ShadowAltitudeMacroOp{Altitude = mac.Altitude, SSrcId = mac.SuperSourceIndex};
+                case MacroOperationType.SuperSourceV2ShadowDirection:
+                    return new LibAtem.MacroOperations.SuperSource.SuperSourceV2ShadowDirectionMacroOp{Direction = mac.Direction, SSrcId = mac.SuperSourceIndex};
                 case MacroOperationType.TransitionDipInput:
                     return new LibAtem.MacroOperations.MixEffects.Transition.Dip.TransitionDipInputMacroOp{Input = mac.Input.ToVideoSource(), Index = mac.MixEffectBlockIndex};
                 case MacroOperationType.TransitionDipRate:

@@ -82,6 +82,12 @@
     <None Update="TestMacroFiles\macros1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestMacroFiles\ssrc-v2.macros">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestMacroFiles\ssrc-v2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestMacroFiles\ssrc.macros">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

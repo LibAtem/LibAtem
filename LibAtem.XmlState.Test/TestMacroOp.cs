@@ -40,9 +40,15 @@ namespace LibAtem.XmlState.Test
         }
 
         [Fact]
-        public void TestSupersource()
+        public void TestSuperSource()
         {
             RunForFile("TestMacroFiles/ssrc.macros", "TestMacroFiles/ssrc.xml");
+        }
+
+        [Fact]
+        public void TestSuperSourceV2()
+        {
+            RunForFile("TestMacroFiles/ssrc-v2.macros", "TestMacroFiles/ssrc-v2.xml");
         }
 
         [Fact]
@@ -133,7 +139,7 @@ namespace LibAtem.XmlState.Test
                             MacroOpBase op = macroXml.Operations[i].ToMacroOp();
                             if (!Equals(converted, op))
                             {
-                                output.WriteLine("Got:\n {0}Expected:\n {1}", ToString(converted), ToString(op));
+                                output.WriteLine("Line {2}\nGot:\n {0}Expected:\n {1}", ToString(converted), ToString(op), i);
                                 failed = true;
                             }
                         }
