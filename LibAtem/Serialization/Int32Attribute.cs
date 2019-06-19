@@ -83,7 +83,7 @@ namespace LibAtem.Serialization
 
         public override bool AreEqual(object val1, object val2)
         {
-            double tolerance = 1 / (2 * Scale);
+            double tolerance = Math.Max(1 / (2 * Scale), 0.0001);
             return Math.Abs((double)val1 - (double)val2) <= tolerance;
         }
     }

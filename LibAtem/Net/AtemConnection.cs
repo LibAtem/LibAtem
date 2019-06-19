@@ -86,18 +86,20 @@ namespace LibAtem.Net
 
         public void ResetConnStatsInfo()
         {
-            _lastReceivedTime = DateTime.Now;
-            _lastPacketId = 0;
-            _lastReceivedAck = 0;
-            _lastSentAck = 0;
-            _readyToAck = 0;
-            _protocolVersion = ProtocolVersion.Minimum;
-
             lock (_inFlight)
-                _inFlight.Clear();
-
-            lock (_messageQueue)
-                _messageQueue.Clear();
+            {
+                lock (_messageQueue)
+                {
+                    _lastReceivedTime = DateTime.Now;
+                    _lastPacketId = 0;
+                    _lastReceivedAck = 0;
+                    _lastSentAck = 0;
+                    _readyToAck = 0;
+                    _protocolVersion = ProtocolVersion.Minimum;
+                    _inFlight.Clear();
+                    _messageQueue.Clear();
+                }
+            }
         }
 
         public bool HasTimedOut => GetTimeBetween(_lastReceivedTime, DateTime.Now) > TimeOutMilliseonds;
