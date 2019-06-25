@@ -29,49 +29,5 @@ namespace LibAtem.Commands.MixEffects.Transition
         public uint TriggerPoint { get; set; }
         [Serialize(16), UInt16]
         public uint MixRate { get; set; }
-
-//        public void Serialize(ByteArrayBuilder cmd)
-//        {
-//            cmd.AddUInt8((int)Index);
-//            cmd.AddUInt8(1); // TODO
-//            cmd.AddBoolArray(PreMultipliedKey);
-//            cmd.Pad(1);
-//            cmd.AddUInt16(1000, Clip);
-//            cmd.AddUInt16(1000, Gain);
-//            cmd.AddBoolArray(Invert);
-//            cmd.Pad(1);
-//            cmd.AddUInt16(1, Preroll);
-//            cmd.AddUInt16(1, ClipDuration);
-//            cmd.AddUInt16(1, TriggerPoint);
-//            cmd.AddUInt16(1, MixRate);
-//            cmd.Pad(2);
-//            //            cmd.AddByte(0x00);
-//            //            cmd.AddByte(0x01);
-//            //            cmd.AddByte(0x01);
-//            //            cmd.AddByte(0x60);
-//            //            cmd.AddByte(0x01);
-//            //            cmd.AddByte(0xf4);
-//            //            cmd.AddByte(0x02);
-//            //            cmd.AddByte(0xbc);
-//            //            cmd.AddByte(0x00);
-//            //            cmd.AddByte(0x08);
-//            //            cmd.AddByte(0x00);
-//            //            cmd.AddByte(0x02);
-//            //            cmd.AddByte(0x00);
-//            //            cmd.AddByte(0x49);
-//            //            cmd.AddByte(0x00);
-//            //            cmd.AddByte(0x22);
-//            //            cmd.AddByte(0x00);
-//            //            cmd.AddByte(0x05);
-//            //            cmd.AddByte(0x6f);
-//            //            cmd.AddByte(0x72);
-//
-//        }
-//
-//        public void Deserialize(ParsedByteArray cmd)
-//        {
-//            //TODO
-//            cmd.Skip(20);
-//        }
     }
 }

@@ -136,6 +136,14 @@ namespace LibAtem
             }
         }
 
+        public void SetByte(int pos, byte[] bytes) {
+            int i;
+            for (i = 0; i < bytes.Length; i++)
+            {
+                _data[pos + i] = (byte)bytes[i];
+            }
+        }
+
         public void AddUInt16(int scale, double val)
         {
             AddUInt16((int)(val * scale));

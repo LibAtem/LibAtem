@@ -12,7 +12,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
-        [Serialize(2), UInt16D(9999, 0, 9999)]
+        [Serialize(2), UInt16D(10000, 0, 9999)]
         public double HandlePosition { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps()

@@ -6,7 +6,7 @@ namespace LibAtem.Commands.Media
     public class MediaPoolSetClipCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8]
-        public uint B0 { get; set; } = 3;
+        public uint B0 { get; } = 3;
 
         [CommandId]
         [Serialize(1), UInt8]
