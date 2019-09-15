@@ -55,4 +55,5 @@
   <VideoModes minimumSupported="SDISD" maximumSupported="SDI3G" downConvertAbove="SDI6G">
     <MaxFrames sd="0" _720="0" _1080="0" _4k="0" />
   </VideoModes>
+  <TalkbackOverSDI>1</TalkbackOverSDI>
 </DeviceProfile>

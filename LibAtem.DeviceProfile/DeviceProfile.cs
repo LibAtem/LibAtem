@@ -15,6 +15,8 @@ namespace LibAtem.DeviceProfile
 
         public List<DevicePort> Sources { get; set; }
 
+        public List<AudioSource> AudioSources { get; set; }
+
         public uint ColorGenerators { get; set; }
 
         public uint Auxiliaries { get; set; }
@@ -48,10 +50,15 @@ namespace LibAtem.DeviceProfile
         public bool AudioMonitor { get; set; }
 
         public VideoModeSet VideoModes { get; set; }
+
+        public bool TalkbackOverSDI { get; set; }
     }
 
     public class VideoModeSet
     {
+        public List<VideoMode> SupportedModes { get; set; }
+
+        /*
         [XmlAttribute("minimumSupported")]
         public VideoModeStandard MinimumSupported { get; set; }
         [XmlAttribute("maximumSupported")]
@@ -59,7 +66,8 @@ namespace LibAtem.DeviceProfile
 
         [XmlAttribute("downConvertAbove")]
         public VideoModeStandard DownConvertAbove { get; set; }
-        
+        */
+
         public MaxFramesSet MaxFrames { get; set; }
     }
 

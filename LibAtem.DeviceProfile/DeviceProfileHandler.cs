@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using LibAtem.Commands;
+using LibAtem.Commands.Audio;
 using LibAtem.Commands.DeviceProfile;
 using LibAtem.Commands.Settings;
 using LibAtem.Common;
+using LibAtem.Util;
 
 namespace LibAtem.DeviceProfile
 {
@@ -25,6 +29,8 @@ namespace LibAtem.DeviceProfile
                     StoreTopology(cmd as TopologyCommand);
                 if (cmd is InputPropertiesGetCommand)
                     StoreVideoSource(cmd as InputPropertiesGetCommand);
+                if (cmd is AudioMixerInputGetCommand)
+                    StoreAudioSource(cmd as AudioMixerInputGetCommand);
                 if (cmd is MixEffectBlockConfigCommand)
                     StoreMixEffectBlock(cmd as MixEffectBlockConfigCommand);
                 if (cmd is MediaPoolConfigCommand)
@@ -33,6 +39,8 @@ namespace LibAtem.DeviceProfile
                     StoreMacroPool(cmd as MacroPoolConfigCommand);
                 if (cmd is MultiviewerConfigCommand)
                     StoreMultiViewer(cmd as MultiviewerConfigCommand);
+                if (cmd is VideoMixerConfigCommand)
+                    StoreVideoMixerConfig(cmd as VideoMixerConfigCommand);
             }
         }
 
@@ -53,7 +61,8 @@ namespace LibAtem.DeviceProfile
             Profile.DVE = cmd.DVE;
             Profile.Stingers = cmd.Stingers;
             Profile.SuperSource = cmd.SuperSource;
-            
+            Profile.TalkbackOverSDI = cmd.TalkbackOverSDI > 0;
+
             // TODO
             // public uint DownstreamKeys { get; set; }
             // RoutableKeyMasks
@@ -70,9 +79,17 @@ namespace LibAtem.DeviceProfile
             Profile.Sources.Add(new DevicePort
             {
                 Id = cmd.Id,
-                Port = cmd.ExternalPorts,
+                Port = cmd.AvailableExternalPorts.ToExternalPortTypes().ToList(),
             });
             Profile.Sources.Sort((a, b) => a.Id.CompareTo(b.Id));
+        }
+
+        private void StoreAudioSource(AudioMixerInputGetCommand cmd)
+        {
+            Profile.AudioSources.RemoveAll(d => d == cmd.Index);
+
+            Profile.AudioSources.Add(cmd.Index);
+            Profile.AudioSources.Sort((a, b) => a.CompareTo(b));
         }
 
         private void StoreMixEffectBlock(MixEffectBlockConfigCommand cmd)
@@ -100,6 +117,13 @@ namespace LibAtem.DeviceProfile
             Profile.MultiView.CanToggleSafeArea = cmd.CanToggleSafeArea;
             Profile.MultiView.CanSwapPreviewProgram = cmd.CanSwapPreviewProgram;
             // TODO - other props
+        }
+
+        private void StoreVideoMixerConfig(VideoMixerConfigCommand cmd)
+        {
+            foreach (VideoMixerConfigCommand.Entry m in cmd.Modes) {
+                Profile.VideoModes.SupportedModes.Add(m.Mode);
+            }
         }
     }
 }

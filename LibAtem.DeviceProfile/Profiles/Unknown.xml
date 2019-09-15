@@ -29,6 +29,7 @@
       <Port>SDI</Port>
     </DevicePort>
   </Sources>
+  <AudioSources></AudioSources>
   <ColorGenerators>2</ColorGenerators>
   <Auxiliaries>1</Auxiliaries>
   <DownstreamKeys>2</DownstreamKeys>

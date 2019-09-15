@@ -10,6 +10,7 @@ namespace LibAtem.DeviceProfile
     {
         Auto,
         Atem1ME,
+        Atem2ME,
         Atem2ME4K,
         AtemTelevisionStudioHD,
     }
@@ -66,6 +67,8 @@ namespace LibAtem.DeviceProfile
                     return ParseTopology("Unknown");
                 case DeviceProfileType.Atem1ME:
                     return ParseTopology("Atem1MEProductionSwitcher");
+                case DeviceProfileType.Atem2ME:
+                    return ParseTopology("Atem2MEProductionSwitcher");
                 case DeviceProfileType.AtemTelevisionStudioHD:
                     return ParseTopology("AtemTelevisionStudioHD");
                 case DeviceProfileType.Atem2ME4K:

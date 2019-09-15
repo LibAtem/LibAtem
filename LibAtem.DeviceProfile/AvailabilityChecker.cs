@@ -95,11 +95,17 @@ namespace LibAtem.DeviceProfile
             if (!src.IsValid())
                 return false;
 
+            return profile.AudioSources.Contains(src);
+
+            /*
+            if (profile.AudioSources.Contains(src))
+                return true;
+
             VideoSource? videoSrc = src.GetVideoSource();
             if (videoSrc == null)
                 return false;
 
-            return videoSrc.Value.IsAvailable(profile);
+            return videoSrc.Value.IsAvailable(profile);*/
         }
 
         public static bool IsAvailable(this MediaPlayerId id, DeviceProfile profile)
@@ -134,7 +140,8 @@ namespace LibAtem.DeviceProfile
 
         public static bool IsAvailable(this VideoMode mode, DeviceProfile profile)
         {
-            return profile.GetStandards().Contains(mode.GetStandard());
+            return profile.VideoModes.SupportedModes.Contains(mode);
+            // return profile.GetStandards().Contains(mode.GetStandard());
         }
 
         public static bool IsAvailable(this TStyle style, DeviceProfile profile)

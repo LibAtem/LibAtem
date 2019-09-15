@@ -62,18 +62,32 @@ namespace LibAtem.DeviceProfile
             return orig.Where(p => p != ExternalPortType.Composite && p != ExternalPortType.SVideo).OrderBy(p => p);
         }
 
+        /*
         public static IEnumerable<VideoModeStandard> GetStandards(this DeviceProfile profile)
         {
             return Enum.GetValues(typeof(VideoModeStandard))
                 .OfType<VideoModeStandard>()
                 .Where(s => s >= profile.VideoModes.MinimumSupported && s <= profile.VideoModes.MaximumSupported);
         }
+        */
 
         public static Tuple<string, string> GetDefaultName(this VideoSource src, DeviceProfile profile)
         {
             switch (profile.Model)
             {
                 case ModelId.TwoME:
+                    switch (src)
+                    {
+                        case VideoSource.ME1Prev:
+                            return Tuple.Create("ME 1 PVW", "Pvw1");
+                        case VideoSource.ME1Prog:
+                            return Tuple.Create("ME 1 PGM", "M/E1");
+                        case VideoSource.ME2Prev:
+                            return Tuple.Create("ME 2 PVW", "Pvw2");
+                        case VideoSource.ME2Prog:
+                            return Tuple.Create("ME 2 PGM", "M/E2");
+                    }
+                    break;
                 case ModelId.TwoMe4K:
                 case ModelId.TwoMEBS4K:
                     switch (src)
