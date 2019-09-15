@@ -73,6 +73,10 @@ namespace LibAtem.DeviceProfile
 
         public static Tuple<string, string> GetDefaultName(this VideoSource src, DeviceProfile profile)
         {
+            if (src == VideoSource.SuperSource && profile.Model == ModelId.Constellation8K)
+            {
+                return Tuple.Create("SuperSource 1", "SS1");
+            }
             switch (profile.Model)
             {
                 case ModelId.TwoME:

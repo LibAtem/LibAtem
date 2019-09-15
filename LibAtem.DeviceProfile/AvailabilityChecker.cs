@@ -74,7 +74,19 @@ namespace LibAtem.DeviceProfile
                 case InternalPortType.External:
                     return props.Me1Index <= profile.Sources.Count;
                 case InternalPortType.MEOutput:
-                    return props.Me1Index <= profile.MixEffectBlocks;
+                    if (!(props.Me1Index <= profile.MixEffectBlocks))
+                    {
+                        return false;
+                    }
+
+                    // TODO - should cleanfeed be its own type?
+                    if (props.Me1Index == 0 && src >= VideoSource.CleanFeed1 && src < VideoSource.Auxilary1)
+                    {
+                        long cleanFeedId = src - VideoSource.CleanFeed1;
+                        return cleanFeedId < profile.DownstreamKeys;
+                    }
+
+                    return true;
                 case InternalPortType.Mask:
                     if (profile.MixEffectBlocks > 1)
                         return props.Me2Index <= profile.UpstreamKeys;
@@ -83,7 +95,8 @@ namespace LibAtem.DeviceProfile
                 case InternalPortType.MediaPlayerKey:
                     return props.Me1Index <= profile.MediaPlayers;
                 case InternalPortType.SuperSource:
-                    return props.Me1Index <= profile.SuperSource;
+                    long id = src - VideoSource.SuperSource;
+                    return props.Me1Index <= profile.SuperSource && id < profile.SuperSource;
                 default:
                     Debug.Fail(String.Format("Invalid source type:{0}", props.PortType));
                     return false;
