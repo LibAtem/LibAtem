@@ -3,44 +3,34 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPCE")]
-    public class MediaPlayerSourceGetCommand : ICommand
+    [CommandName("MPCE", 4)]
+    public class MediaPlayerSourceGetCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum8]
         public MediaPlayerId Index { get; set; }
+        [Serialize(1), Enum8]
         public MediaPlayerSource SourceType { get; set; }
+        [Serialize(2), UInt8]
         public uint SourceIndex { get; set; }
 
-        public void Serialize(ByteArrayBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
-            cmd.AddUInt8((int)Index);
-            cmd.AddUInt8((int)SourceType);
+            base.Serialize(cmd);
+
             if (SourceType == MediaPlayerSource.Still) // TODO - verify this is correct
             {
-                cmd.AddUInt8(SourceIndex);
-                cmd.AddUInt8(0);
-            }
-            else
-            {
-                cmd.AddUInt8(0);
-                cmd.AddUInt8(SourceIndex);
+                cmd.SetByte(2, new byte[]{ 0x00, (byte)SourceIndex });
             }
         }
 
-        public void Deserialize(ParsedByteArray cmd)
+        public override void Deserialize(ParsedByteArray cmd)
         {
-            Index = (MediaPlayerId) cmd.GetUInt8();
-            SourceType = (MediaPlayerSource) cmd.GetUInt8();
+            base.Deserialize(cmd);
+
             if (SourceType == MediaPlayerSource.Still) // TODO - verify this is correct
             {
-                SourceIndex = cmd.GetUInt8();
-                cmd.Skip();
-            }
-            else
-            {
-                cmd.Skip();
-                SourceIndex = cmd.GetUInt8();
+                SourceIndex = cmd.Body[3];
             }
         }
     }
