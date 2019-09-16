@@ -34,7 +34,7 @@ namespace LibAtem.Commands.DeviceProfile
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
                 if (obj.GetType() != this.GetType()) return false;
-                return Equals((Entry) obj);
+                return Equals((Entry)obj);
             }
 
             public override int GetHashCode()
@@ -60,7 +60,7 @@ namespace LibAtem.Commands.DeviceProfile
 
             foreach (Entry mode in Modes)
             {
-                cmd.AddUInt8((uint) mode.Mode);
+                cmd.AddUInt8((uint)mode.Mode);
                 cmd.Pad(3);
                 cmd.AddUInt32((uint)(1 << (int)mode.MultiviewMode)); // TODO - should be mask
                 cmd.AddUInt32((uint)(1 << (int)mode.SomeMode)); // TODO - should be mask
@@ -70,15 +70,16 @@ namespace LibAtem.Commands.DeviceProfile
         public void Deserialize(ParsedByteArray cmd)
         {
             var count = cmd.GetUInt16();
-            Modes = new List<Entry>((int) count);
+            Modes = new List<Entry>((int)count);
             cmd.Skip(2);
 
             for (int i = 0; i < count; i++)
             {
                 VideoMode mode = (VideoMode)cmd.GetUInt8();
                 cmd.Skip(3);
-                VideoMode mvMode = (VideoMode) Math.Floor(Math.Log(cmd.GetUInt32(), 2)); // TODO - should be mask
+                VideoMode mvMode = (VideoMode)Math.Floor(Math.Log(cmd.GetUInt32(), 2)); // TODO - should be mask
                 VideoMode someMode = (VideoMode)Math.Floor(Math.Log(cmd.GetUInt32(), 2)); // TODO - should be mask
+                cmd.Skip(1); // TODO is this 8.0+ specific?
                 Modes.Add(new Entry(mode, mvMode, someMode));
             }
         }

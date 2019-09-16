@@ -15,7 +15,7 @@ namespace LibAtem.Commands.Audio
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
 
-        [Serialize(1), Bool]
+        [Serialize(2), Bool]
         public bool MuteSDI { get; set; }
     }
 

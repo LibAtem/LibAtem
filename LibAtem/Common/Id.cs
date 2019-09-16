@@ -13,6 +13,9 @@ namespace LibAtem.Common
         TwoMe4K = 6,
         TwoMEBS4K = 7,
         TVStudioHD = 8,
+        // TVStudioProHD = 9,
+        // TVStudioPro4K = 10,
+        Constellation8K = 11,
     }
 
     public enum MixEffectBlockId
@@ -20,7 +23,11 @@ namespace LibAtem.Common
         [XmlEnum("0")]
         One = 0,
         [XmlEnum("1")]
-        Two = 1
+        Two = 1,
+        [XmlEnum("2")]
+        Three = 2,
+        [XmlEnum("3")]
+        Four = 3
     }
 
     public enum MediaPlayerId
@@ -117,5 +124,11 @@ namespace LibAtem.Common
         BottomLeft = 7,
         BottomCentre = 8,
         BottomRight = 9,
+    }
+
+    public enum TalkbackChannel
+    {
+        Production = 0,
+        Engineering = 1
     }
 }
