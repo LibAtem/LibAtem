@@ -15,7 +15,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(1), Bool]
         public bool PreviewTransition { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new TransitionPreviewMacroOp
             {

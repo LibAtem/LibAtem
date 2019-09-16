@@ -29,7 +29,6 @@ namespace LibAtem.MacroOperations.SuperSource
                 return new SuperSourceBoxSetCommand()
                 {
                     Mask = SuperSourceBoxSetCommand.MaskFlags.Cropped,
-                    SSrcId = SuperSourceId.One,
                     BoxIndex = BoxIndex,
                     Cropped = Enable,
                 };

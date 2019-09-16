@@ -36,7 +36,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(8), Bool]
         public bool Invert { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.PreMultiplied))
                 yield return new LumaKeyPreMultiplyMacroOp()

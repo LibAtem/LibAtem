@@ -27,7 +27,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(3), Enum8]
         public TransitionLayer Selection { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Style))
                 yield return new TransitionStyleMacroOp()

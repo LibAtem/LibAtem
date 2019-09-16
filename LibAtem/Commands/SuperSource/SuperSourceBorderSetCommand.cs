@@ -62,7 +62,7 @@ namespace LibAtem.Commands.SuperSource
         [Serialize(22), UInt8Range(0, 100)]
         public uint BorderLightSourceAltitude { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.BorderEnabled))
                 yield return new SuperSourceV2BorderEnableMacroOp() { SSrcId = SSrcId, Enable = BorderEnabled };

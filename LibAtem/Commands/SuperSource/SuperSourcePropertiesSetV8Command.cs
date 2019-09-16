@@ -44,7 +44,7 @@ namespace LibAtem.Commands.SuperSource
         [Serialize(12), Bool]
         public bool ArtInvertKey { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.ArtFillSource))
                 yield return new SuperSourceV2ArtFillInputMacroOp() { SSrcId = SSrcId, Source = ArtFillSource };

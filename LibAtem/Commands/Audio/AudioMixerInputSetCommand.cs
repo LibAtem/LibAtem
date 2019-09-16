@@ -13,9 +13,9 @@ namespace LibAtem.Commands.Audio
         [Flags]
         public enum MaskFlags
         {
-           MixOption = 1 << 0, 
-           Gain = 1 << 1,
-           Balance = 1 << 2,
+            MixOption = 1 << 0,
+            Gain = 1 << 1,
+            Balance = 1 << 2,
         }
 
         [Serialize(0), Enum8]
@@ -30,16 +30,16 @@ namespace LibAtem.Commands.Audio
         [Serialize(8), Int16D(200, -10000, 10000)]
         public double Balance { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.MixOption))
-                yield return new AudioMixerInputMixTypeMacroOp {Index = Index, MixOption = MixOption};
+                yield return new AudioMixerInputMixTypeMacroOp { Index = Index, MixOption = MixOption };
 
             if (Mask.HasFlag(MaskFlags.Gain))
-                yield return new AudioMixerInputGainMacroOp {Index = Index, Gain = Gain};
+                yield return new AudioMixerInputGainMacroOp { Index = Index, Gain = Gain };
 
             if (Mask.HasFlag(MaskFlags.Balance))
-                yield return new AudioMixerInputBalanceMacroOp {Index = Index, Balance = Balance};
+                yield return new AudioMixerInputBalanceMacroOp { Index = Index, Balance = Balance };
         }
     }
 }

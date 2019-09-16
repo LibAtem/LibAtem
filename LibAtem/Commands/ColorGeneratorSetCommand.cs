@@ -16,7 +16,7 @@ namespace LibAtem.Commands
             Saturation = 1 << 1,
             Luma = 1 << 2,
         }
-        
+
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
 
@@ -33,7 +33,7 @@ namespace LibAtem.Commands
         [Serialize(6), UInt16D(10, 0, 1000)]
         public double Luma { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Hue))
                 yield return new ColorGeneratorHueMacroOp { ColorGeneratorIndex = Index, Hue = Hue };

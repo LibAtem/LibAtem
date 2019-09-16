@@ -12,9 +12,9 @@ namespace LibAtem.Commands.Settings
         [Serialize(0), Enum8]
         public DownConvertMode DownConvertMode { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
-            yield return new DownConvertModeMacroOp {DownConvertMode = DownConvertMode};
+            yield return new DownConvertModeMacroOp { DownConvertMode = DownConvertMode };
         }
     }
 }

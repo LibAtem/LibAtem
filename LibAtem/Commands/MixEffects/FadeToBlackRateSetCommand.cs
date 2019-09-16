@@ -21,7 +21,7 @@ namespace LibAtem.Commands.MixEffects
             cmd.Set(0, 0x01); // Mask Flag
         }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new FadeToBlackRateMacroOp
             {

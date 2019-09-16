@@ -20,10 +20,10 @@ namespace LibAtem.Commands.Audio
         [Serialize(1), Bool]
         public bool AudioFollowVideo { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.AudioFollowVideo))
-                yield return new AudioMixerAfvFollowTransitionMacroOp {Enable = AudioFollowVideo};
+                yield return new AudioMixerAfvFollowTransitionMacroOp { Enable = AudioFollowVideo };
         }
     }
 }

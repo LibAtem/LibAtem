@@ -66,7 +66,7 @@ namespace LibAtem.Commands.SuperSource
         [Serialize(22), UInt16D(1000, 0, 32000)]
         public double CropRight { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Enabled))
                 yield return new SuperSourceV2BoxEnableMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Enable = Enabled };

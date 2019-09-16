@@ -15,7 +15,7 @@ namespace LibAtem.Commands.DownstreamKey
         [Serialize(1), Bool]
         public bool OnAir { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new DownstreamKeyOnAirMacroOp()
             {

@@ -30,12 +30,12 @@ namespace LibAtem.Commands.Media
         [Serialize(4), UInt8]
         public uint StillIndex { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.SourceType))
             {
                 if (SourceType == MediaPlayerSource.Clip)
-                    yield return new MediaPlayerSourceClipMacroOp() {Index = Index};
+                    yield return new MediaPlayerSourceClipMacroOp() { Index = Index };
                 else
                     yield return new MediaPlayerSourceStillMacroOp() { Index = Index };
             }
@@ -44,7 +44,7 @@ namespace LibAtem.Commands.Media
                 yield return new MediaPlayerSourceStillIndexMacroOp() { Index = Index, MediaIndex = StillIndex };
 
             if (Mask.HasFlag(MaskFlags.ClipIndex))
-                yield return new MediaPlayerSourceClipIndexMacroOp() {Index = Index, MediaIndex = ClipIndex};
+                yield return new MediaPlayerSourceClipIndexMacroOp() { Index = Index, MediaIndex = ClipIndex };
         }
     }
 }

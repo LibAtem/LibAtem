@@ -26,14 +26,14 @@ namespace LibAtem.Commands.Audio
         [Serialize(6), Bool]
         public bool FollowFadeToBlack { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Gain))
-                yield return new AudioMixerMasterOutGainMacroOp {Gain = Gain};
+                yield return new AudioMixerMasterOutGainMacroOp { Gain = Gain };
             if (Mask.HasFlag(MaskFlags.Balance))
-                yield return new AudioMixerMasterOutBalanceMacroOp {Balance = Balance};
+                yield return new AudioMixerMasterOutBalanceMacroOp { Balance = Balance };
             if (Mask.HasFlag(MaskFlags.FollowFadeToBlack))
-                yield return new AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp {Follow = FollowFadeToBlack };
+                yield return new AudioMixerMasterOutFollowFadeToBlackMixEffectBlock1MacroOp { Follow = FollowFadeToBlack };
         }
     }
 }

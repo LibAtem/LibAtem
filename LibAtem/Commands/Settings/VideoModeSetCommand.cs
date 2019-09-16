@@ -12,9 +12,9 @@ namespace LibAtem.Commands.Settings
         [Serialize(0), Enum8]
         public VideoMode VideoMode { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
-            yield return new VideoModeMacroOp {VideoMode = VideoMode};
+            yield return new VideoModeMacroOp { VideoMode = VideoMode };
         }
     }
 }
