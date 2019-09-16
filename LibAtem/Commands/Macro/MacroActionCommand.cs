@@ -31,10 +31,11 @@ namespace LibAtem.Commands.Macro
                     break;
                 default:
                     cmd.AddUInt16(0xFFFF);
+                    Index = 0xFFFF;
                     break;
             }
 
-            cmd.AddUInt8((int) Action);
+            cmd.AddUInt8((int)Action);
             cmd.Pad();
         }
     }

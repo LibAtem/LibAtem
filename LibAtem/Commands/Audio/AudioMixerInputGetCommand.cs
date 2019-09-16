@@ -11,7 +11,7 @@ namespace LibAtem.Commands.Audio
         public AudioSource Index { get; set; }
         [Serialize(2), Enum8]
         public AudioSourceType SourceType { get; set; }
-        [Serialize(7), Enum8]
+        [Serialize(7), Enum8] // TODO - this can't be 8 because the enum is larger than that?
         public AudioPortType PortType { get; set; }
         [Serialize(8), Enum8]
         public AudioMixOption MixOption { get; set; }
