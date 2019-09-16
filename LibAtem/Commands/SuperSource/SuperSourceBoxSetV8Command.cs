@@ -8,7 +8,7 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.SuperSource
 {
     [CommandName("CSBP", ProtocolVersion.V8_0, 24)]
-    public class SuperSourceBoxV8SetCommand : SerializableCommandBase
+    public class SuperSourceBoxSetV8Command : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -69,34 +69,34 @@ namespace LibAtem.Commands.SuperSource
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.Enabled))
-                yield return new SuperSourceBoxEnableMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Enable = Enabled };
+                yield return new SuperSourceV2BoxEnableMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Enable = Enabled };
 
             if (Mask.HasFlag(MaskFlags.Source))
-                yield return new SuperSourceBoxInputMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Source = Source };
+                yield return new SuperSourceV2BoxInputMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Source = Source };
 
             if (Mask.HasFlag(MaskFlags.PositionX))
-                yield return new SuperSourceBoxXPositionMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, PositionX = PositionX };
+                yield return new SuperSourceV2BoxXPositionMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, PositionX = PositionX };
 
             if (Mask.HasFlag(MaskFlags.PositionY))
-                yield return new SuperSourceBoxYPositionMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, PositionY = PositionY };
+                yield return new SuperSourceV2BoxYPositionMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, PositionY = PositionY };
 
             if (Mask.HasFlag(MaskFlags.Size))
-                yield return new SuperSourceBoxSizeMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Size = Size };
+                yield return new SuperSourceV2BoxSizeMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Size = Size };
 
             if (Mask.HasFlag(MaskFlags.Cropped))
-                yield return new SuperSourceBoxMaskEnableMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Enable = Cropped };
+                yield return new SuperSourceV2BoxMaskEnableMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Enable = Cropped };
 
             if (Mask.HasFlag(MaskFlags.CropTop))
-                yield return new SuperSourceBoxMaskTopMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Top = CropTop };
+                yield return new SuperSourceV2BoxMaskTopMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Top = CropTop };
 
             if (Mask.HasFlag(MaskFlags.CropBottom))
-                yield return new SuperSourceBoxMaskBottomMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Bottom = CropBottom };
+                yield return new SuperSourceV2BoxMaskBottomMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Bottom = CropBottom };
 
             if (Mask.HasFlag(MaskFlags.CropLeft))
-                yield return new SuperSourceBoxMaskLeftMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Left = CropLeft };
+                yield return new SuperSourceV2BoxMaskLeftMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Left = CropLeft };
 
             if (Mask.HasFlag(MaskFlags.CropRight))
-                yield return new SuperSourceBoxMaskRightMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Right = CropRight };
+                yield return new SuperSourceV2BoxMaskRightMacroOp() { SSrcId = SSrcId, BoxIndex = BoxIndex, Right = CropRight };
         }
     }
 }

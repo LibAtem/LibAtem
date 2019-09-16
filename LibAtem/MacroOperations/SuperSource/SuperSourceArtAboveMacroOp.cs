@@ -29,7 +29,6 @@ namespace LibAtem.MacroOperations.SuperSource
                 return new SuperSourcePropertiesSetCommand()
                 {
                     Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtOption,
-                    SSrcId = SuperSourceId.One,
                     ArtOption = ArtAbove ? SuperSourceArtOption.Foreground : SuperSourceArtOption.Background,
                 };
             }
@@ -48,7 +47,7 @@ namespace LibAtem.MacroOperations.SuperSource
             return new SuperSourcePropertiesSetV8Command()
             {
                 Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtOption,
-                SSrcId = SsrcId,
+                SSrcId = SSrcId,
                 ArtOption = ArtAbove ? SuperSourceArtOption.Foreground : SuperSourceArtOption.Background,
             };
         }

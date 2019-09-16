@@ -14,13 +14,26 @@ namespace LibAtem.MacroOperations.SuperSource
 
         public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourceBoxSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourceBoxSetCommand.MaskFlags.Cropped,
-                SSrcId = SuperSourceId.One,
-                BoxIndex = BoxIndex,
-                Cropped = Enable,
-            };
+                return new SuperSourceBoxSetV8Command()
+                {
+                    Mask = SuperSourceBoxSetV8Command.MaskFlags.Cropped,
+                    SSrcId = SuperSourceId.One,
+                    BoxIndex = BoxIndex,
+                    Cropped = Enable,
+                };
+            }
+            else
+            {
+                return new SuperSourceBoxSetCommand()
+                {
+                    Mask = SuperSourceBoxSetCommand.MaskFlags.Cropped,
+                    SSrcId = SuperSourceId.One,
+                    BoxIndex = BoxIndex,
+                    Cropped = Enable,
+                };
+            }
         }
     }
 
@@ -33,9 +46,9 @@ namespace LibAtem.MacroOperations.SuperSource
 
         public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourceBoxSetCommand()
+            return new SuperSourceBoxSetV8Command()
             {
-                Mask = SuperSourceBoxSetCommand.MaskFlags.Cropped,
+                Mask = SuperSourceBoxSetV8Command.MaskFlags.Cropped,
                 SSrcId = SSrcId,
                 BoxIndex = BoxIndex,
                 Cropped = Enable,

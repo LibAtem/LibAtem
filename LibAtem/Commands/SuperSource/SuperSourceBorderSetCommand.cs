@@ -65,43 +65,43 @@ namespace LibAtem.Commands.SuperSource
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.BorderEnabled))
-                yield return new SuperSourceBorderEnableMacroOp() { SSrcId = SSrcId, Enable = BorderEnabled };
+                yield return new SuperSourceV2BorderEnableMacroOp() { SSrcId = SSrcId, Enable = BorderEnabled };
 
             if (Mask.HasFlag(MaskFlags.BorderBevel))
-                yield return new SuperSourceBorderBevelMacroOp { SSrcId = SSrcId, Bevel = BorderBevel };
+                yield return new SuperSourceV2BorderBevelMacroOp { SSrcId = SSrcId, Bevel = BorderBevel };
 
             if (Mask.HasFlag(MaskFlags.BorderOuterWidth))
-                yield return new SuperSourceBorderOuterWidthMacroOp { SSrcId = SSrcId, OuterWidth = BorderOuterWidth };
+                yield return new SuperSourceV2BorderOuterWidthMacroOp { SSrcId = SSrcId, OuterWidth = BorderOuterWidth };
 
             if (Mask.HasFlag(MaskFlags.BorderInnerWidth))
-                yield return new SuperSourceBorderInnerWidthMacroOp { SSrcId = SSrcId, InnerWidth = BorderInnerWidth };
+                yield return new SuperSourceV2BorderInnerWidthMacroOp { SSrcId = SSrcId, InnerWidth = BorderInnerWidth };
 
             if (Mask.HasFlag(MaskFlags.BorderOuterSoftness))
-                yield return new SuperSourceBorderOuterSoftnessMacroOp { SSrcId = SSrcId, OuterSoftness = BorderOuterSoftness };
+                yield return new SuperSourceV2BorderOuterSoftnessMacroOp { SSrcId = SSrcId, OuterSoftness = BorderOuterSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderInnerSoftness))
-                yield return new SuperSourceBorderInnerSoftnessMacroOp { SSrcId = SSrcId, InnerSoftness = BorderInnerSoftness };
+                yield return new SuperSourceV2BorderInnerSoftnessMacroOp { SSrcId = SSrcId, InnerSoftness = BorderInnerSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderBevelSoftness))
-                yield return new SuperSourceBorderBevelSoftnessMacroOp { SSrcId = SSrcId, BevelSoftness = BorderBevelSoftness };
+                yield return new SuperSourceV2BorderBevelSoftnessMacroOp { SSrcId = SSrcId, BevelSoftness = BorderBevelSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderBevelPosition))
-                yield return new SuperSourceBorderBevelPositionMacroOp { SSrcId = SSrcId, BevelPosition = BorderBevelPosition };
+                yield return new SuperSourceV2BorderBevelPositionMacroOp { SSrcId = SSrcId, BevelPosition = BorderBevelPosition };
 
             if (Mask.HasFlag(MaskFlags.BorderHue))
-                yield return new SuperSourceBorderHueMacroOp { SSrcId = SSrcId, Hue = BorderHue };
+                yield return new SuperSourceV2BorderHueMacroOp { SSrcId = SSrcId, Hue = BorderHue };
 
             if (Mask.HasFlag(MaskFlags.BorderSaturation))
-                yield return new SuperSourceBorderSaturationMacroOp { SSrcId = SSrcId, Saturation = BorderSaturation };
+                yield return new SuperSourceV2BorderSaturationMacroOp { SSrcId = SSrcId, Saturation = BorderSaturation };
 
             if (Mask.HasFlag(MaskFlags.BorderLuma))
-                yield return new SuperSourceBorderLuminescenceMacroOp { SSrcId = SSrcId, Luma = BorderLuma };
+                yield return new SuperSourceV2BorderLuminescenceMacroOp { SSrcId = SSrcId, Luma = BorderLuma };
 
             if (Mask.HasFlag(MaskFlags.BorderLightSourceDirection))
-                yield return new SuperSourceShadowDirectionMacroOp { SSrcId = SSrcId, Direction = BorderLightSourceDirection };
+                yield return new SuperSourceV2ShadowDirectionMacroOp { SSrcId = SSrcId, Direction = BorderLightSourceDirection };
 
             if (Mask.HasFlag(MaskFlags.BorderLightSourceAltitude))
-                yield return new SuperSourceShadowAltitudeMacroOp { SSrcId = SSrcId, Altitude = BorderLightSourceAltitude };
+                yield return new SuperSourceV2ShadowAltitudeMacroOp { SSrcId = SSrcId, Altitude = BorderLightSourceAltitude };
         }
     }
 }

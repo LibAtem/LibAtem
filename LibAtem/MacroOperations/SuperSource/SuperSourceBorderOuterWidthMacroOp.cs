@@ -14,12 +14,23 @@ namespace LibAtem.MacroOperations.SuperSource
 
         public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourceBorderSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderOuterWidth,
-                SSrcId = SuperSourceId.One,
-                BorderOuterWidth = OuterWidth,
-            };
+                return new SuperSourceBorderSetCommand()
+                {
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderOuterWidth,
+                    SSrcId = SuperSourceId.One,
+                    BorderOuterWidth = OuterWidth,
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderOuterWidth,
+                    BorderOuterWidth = OuterWidth,
+                };
+            }
         }
     }
 

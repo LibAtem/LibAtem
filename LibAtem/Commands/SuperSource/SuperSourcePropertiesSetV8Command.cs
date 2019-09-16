@@ -47,25 +47,25 @@ namespace LibAtem.Commands.SuperSource
         public override IEnumerable<MacroOpBase> ToMacroOps()
         {
             if (Mask.HasFlag(MaskFlags.ArtFillSource))
-                yield return new SuperSourceArtFillInputMacroOp() { SSrcId = SSrcId, Source = ArtFillSource };
+                yield return new SuperSourceV2ArtFillInputMacroOp() { SSrcId = SSrcId, Source = ArtFillSource };
 
             if (Mask.HasFlag(MaskFlags.ArtCutSource))
-                yield return new SuperSourceArtCutInputMacroOp() { SSrcId = SSrcId, Source = ArtCutSource };
+                yield return new SuperSourceV2ArtCutInputMacroOp() { SSrcId = SSrcId, Source = ArtCutSource };
 
             if (Mask.HasFlag(MaskFlags.ArtOption))
-                yield return new SuperSourceArtAboveMacroOp() { SSrcId = SSrcId, ArtAbove = ArtOption == SuperSourceArtOption.Foreground };
+                yield return new SuperSourceV2ArtAboveMacroOp() { SSrcId = SSrcId, ArtAbove = ArtOption == SuperSourceArtOption.Foreground };
 
             if (Mask.HasFlag(MaskFlags.ArtPreMultiplied))
-                yield return new SuperSourceArtPreMultiplyMacroOp { SSrcId = SSrcId, PreMultiply = ArtPreMultiplied };
+                yield return new SuperSourceV2ArtPreMultiplyMacroOp { SSrcId = SSrcId, PreMultiply = ArtPreMultiplied };
 
             if (Mask.HasFlag(MaskFlags.ArtClip))
-                yield return new SuperSourceArtClipMacroOp { SSrcId = SSrcId, Clip = ArtClip };
+                yield return new SuperSourceV2ArtClipMacroOp { SSrcId = SSrcId, Clip = ArtClip };
 
             if (Mask.HasFlag(MaskFlags.ArtGain))
-                yield return new SuperSourceArtGainMacroOp { SSrcId = SSrcId, Gain = ArtGain };
+                yield return new SuperSourceV2ArtGainMacroOp { SSrcId = SSrcId, Gain = ArtGain };
 
             if (Mask.HasFlag(MaskFlags.ArtInvertKey))
-                yield return new SuperSourceArtInvertMacroOp { SSrcId = SSrcId, Invert = ArtInvertKey }; ;
+                yield return new SuperSourceV2ArtInvertMacroOp { SSrcId = SSrcId, Invert = ArtInvertKey };
         }
     }
 }
