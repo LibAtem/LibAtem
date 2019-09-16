@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
         [MacroField("Hue")]
         public double Hue { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectKeyDVESetCommand()
             {

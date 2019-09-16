@@ -17,7 +17,7 @@ namespace LibAtem.MacroOperations.Audio
         [MacroField("Balance")]
         public double Balance { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new AudioMixerInputSetCommand()
             {

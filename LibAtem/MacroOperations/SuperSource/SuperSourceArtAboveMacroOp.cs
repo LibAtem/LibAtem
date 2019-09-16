@@ -15,18 +15,13 @@ namespace LibAtem.MacroOperations.SuperSource
 
         public override ICommand ToCommand(ProtocolVersion version)
         {
-            return ToCommandHelper(version, SuperSourceId.One, ArtAbove);
-        }
-
-        public static ICommand ToCommandHelper(ProtocolVersion version, SuperSourceId ssrcId, bool artAbove)
-        {
             if (version >= ProtocolVersion.V8_0)
             {
                 return new SuperSourcePropertiesSetV8Command()
                 {
                     Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtOption,
-                    SSrcId = ssrcId,
-                    ArtOption = artAbove ? SuperSourceArtOption.Foreground : SuperSourceArtOption.Background,
+                    SSrcId = SuperSourceId.One,
+                    ArtOption = ArtAbove ? SuperSourceArtOption.Foreground : SuperSourceArtOption.Background,
                 };
             }
             else
@@ -34,8 +29,8 @@ namespace LibAtem.MacroOperations.SuperSource
                 return new SuperSourcePropertiesSetCommand()
                 {
                     Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtOption,
-                    SSrcId = ssrcId,
-                    ArtOption = artAbove ? SuperSourceArtOption.Foreground : SuperSourceArtOption.Background,
+                    SSrcId = SuperSourceId.One,
+                    ArtOption = ArtAbove ? SuperSourceArtOption.Foreground : SuperSourceArtOption.Background,
                 };
             }
         }
@@ -50,7 +45,12 @@ namespace LibAtem.MacroOperations.SuperSource
 
         public override ICommand ToCommand(ProtocolVersion version)
         {
-            return SuperSourceArtAboveMacroOp.ToCommandHelper(version, SSrcId, ArtAbove);
+            return new SuperSourcePropertiesSetV8Command()
+            {
+                Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtOption,
+                SSrcId = SsrcId,
+                ArtOption = ArtAbove ? SuperSourceArtOption.Foreground : SuperSourceArtOption.Background,
+            };
         }
     }
 }

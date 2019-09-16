@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
         [MacroField("KeyType", "type")]
         public MixEffectKeyType KeyType { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectKeyTypeSetCommand()
             {

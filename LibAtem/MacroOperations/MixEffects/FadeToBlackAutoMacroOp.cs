@@ -7,7 +7,7 @@ namespace LibAtem.MacroOperations.MixEffects
     [MacroOperation(MacroOperationType.FadeToBlackAuto, 8)]
     public class FadeToBlackAutoMacroOp : MixEffectMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new FadeToBlackAutoCommand()
             {

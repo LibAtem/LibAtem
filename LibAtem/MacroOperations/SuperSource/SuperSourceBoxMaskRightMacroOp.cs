@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Right")]
         public double Right { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new SuperSourceBoxSetCommand()
             {
@@ -31,7 +31,7 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Right")]
         public double Right { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new SuperSourceBoxSetCommand()
             {

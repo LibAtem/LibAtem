@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.Stinger
         [MacroField("MediaPlayer")]
         public StingerSource Source { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionStingerSetCommand
             {

@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
         [MacroField("Bottom")]
         public double Bottom { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new DownstreamKeyMaskSetCommand()
             {

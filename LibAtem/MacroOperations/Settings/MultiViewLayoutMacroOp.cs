@@ -16,7 +16,7 @@ namespace LibAtem.MacroOperations.Settings
         [MacroField("Layout")]
         public MultiViewLayout Layout { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MultiviewPropertiesSetCommand
             {

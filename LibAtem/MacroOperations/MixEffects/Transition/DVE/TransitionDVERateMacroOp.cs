@@ -7,7 +7,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.DVE
     [MacroOperation(MacroOperationType.TransitionDVERate, 8)]
     public class TransitionDVERateMacroOp : TransitionRateMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionDVESetCommand()
             {

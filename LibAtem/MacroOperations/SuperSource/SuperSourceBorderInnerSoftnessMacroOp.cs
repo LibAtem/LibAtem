@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("InnerSoftness")]
         public uint InnerSoftness { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new SuperSourceBorderSetCommand()
             {
@@ -30,7 +30,7 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("InnerSoftness")]
         public uint InnerSoftness { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new SuperSourceBorderSetCommand()
             {

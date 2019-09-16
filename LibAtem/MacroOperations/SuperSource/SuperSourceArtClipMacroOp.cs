@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Clip")]
         public double Clip { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new SuperSourcePropertiesSetCommand()
             {
@@ -30,11 +30,11 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Clip")]
         public double Clip { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            return new SuperSourcePropertiesSetV8Command()
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtClip,
+                Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtClip,
                 SSrcId = SSrcId,
                 ArtClip = Clip,
             };

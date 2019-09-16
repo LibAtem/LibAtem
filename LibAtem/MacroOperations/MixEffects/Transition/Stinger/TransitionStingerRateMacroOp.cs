@@ -6,7 +6,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.Stinger
     [MacroOperation(MacroOperationType.TransitionStingerRate, 8)]
     public class TransitionStingerRateMacroOp : TransitionRateMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null; // TODO - no Rate prop on command currently
 //            return new TransitionStingerSetCommand()

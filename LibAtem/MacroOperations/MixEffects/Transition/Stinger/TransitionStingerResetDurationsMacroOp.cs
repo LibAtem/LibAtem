@@ -6,7 +6,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.Stinger
     [MacroOperation(MacroOperationType.TransitionStingerResetDurations, 8)]
     public class TransitionStingerResetDurationsMacroOp : MixEffectMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null; // TODO should this do anything?
 //            return new TransitionStingerSetCommand

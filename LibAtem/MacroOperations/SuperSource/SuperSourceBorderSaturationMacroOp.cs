@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Saturation")]
         public double Saturation { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new SuperSourceBorderSetCommand()
             {
@@ -30,7 +30,7 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Saturation")]
         public double Saturation { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new SuperSourceBorderSetCommand()
             {

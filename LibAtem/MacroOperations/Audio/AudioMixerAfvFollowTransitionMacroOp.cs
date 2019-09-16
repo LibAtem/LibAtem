@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.Audio
         [MacroField("Enable")]
         public bool Enable { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new AudioMixerPropertiesSetCommand
             {

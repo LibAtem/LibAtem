@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.Audio
         [MacroField("Input")]
         public AudioSource Input { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new AudioMixerMonitorSetCommand
             {
