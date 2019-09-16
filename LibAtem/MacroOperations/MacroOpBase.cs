@@ -36,7 +36,7 @@ namespace LibAtem.MacroOperations
         public MacroOperationType Id => GetAttribute().Operation;
 
         // TODO cache this!
-        private MacroOperationAttribute GetAttribute() => GetType().GetTypeInfo().GetCustomAttribute<MacroOperationAttribute>();
+        private MacroOperationAttribute GetAttribute() => MacroOperationAttribute.GetForType(GetType());
 
         public abstract ICommand ToCommand(ProtocolVersion version);
     }
@@ -52,6 +52,11 @@ namespace LibAtem.MacroOperations
         public MacroOperationAttribute(MacroOperationType op, ProtocolVersion minimumVersion, int length) : base(length)
         {
             Operation = op;
+        }
+
+        public static MacroOperationAttribute GetForType(Type t)
+        {
+            return t.GetTypeInfo().GetCustomAttribute<MacroOperationAttribute>();
         }
     }
 
@@ -75,11 +80,11 @@ namespace LibAtem.MacroOperations
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(MacroOpManager));
 
-        private static IReadOnlyDictionary<MacroOperationType, Type> macroOpTypes;
+        private static IReadOnlyDictionary<MacroOperationType, Tuple<ProtocolVersion, Type>> macroOpTypes;
 
-        private static IReadOnlyDictionary<MacroOperationType, Type> FindAllTypes()
+        private static IReadOnlyDictionary<MacroOperationType, Tuple<ProtocolVersion, Type>> FindAllTypes()
         {
-            var result = new Dictionary<MacroOperationType, Type>();
+            var result = new Dictionary<MacroOperationType, Tuple<ProtocolVersion, Type>>();
             var assembly = typeof(MacroOperationAttribute).GetTypeInfo().Assembly;
             foreach (Type type in assembly.GetTypes())
             {
@@ -90,21 +95,21 @@ namespace LibAtem.MacroOperations
                 if (attribute == null)
                     continue;
 
-                result.Add(attribute.Operation, type);
+                result.Add(attribute.Operation, Tuple.Create(attribute.MinimumVersion, type));
             }
 
             return result;
         }
 
-        public static Type FindForType(MacroOperationType opId)
+        public static Tuple<ProtocolVersion, Type> FindForType(MacroOperationType opId)
         {
             if (macroOpTypes == null)
                 macroOpTypes = FindAllTypes();
 
-            return macroOpTypes.TryGetValue(opId, out Type res) ? res : null;
+            return macroOpTypes.TryGetValue(opId, out Tuple<ProtocolVersion, Type> res) ? res : null;
         }
 
-        public static IReadOnlyDictionary<MacroOperationType, Type> FindAll()
+        public static IReadOnlyDictionary<MacroOperationType, Tuple<ProtocolVersion, Type>> FindAll()
         {
             return macroOpTypes ?? (macroOpTypes = FindAllTypes());
         }
@@ -120,11 +125,11 @@ namespace LibAtem.MacroOperations
 
                 var parsed = new ParsedByteArray(arr, false);
 
-                Type type = FindForType(macroOp);
+                var type = FindForType(macroOp);
                 if (type == null)
                     throw new SerializationException("FTDa", "Failed to find MacroOperationType: {0}", macroOp);
 
-                MacroOpBase cmd = (MacroOpBase)Activator.CreateInstance(type);
+                MacroOpBase cmd = (MacroOpBase)Activator.CreateInstance(type.Item2);
 
                 if (!safe)
                 {

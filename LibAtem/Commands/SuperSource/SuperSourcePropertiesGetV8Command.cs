@@ -6,6 +6,7 @@ namespace LibAtem.Commands.SuperSource
     [CommandName("SSrc", ProtocolVersion.V8_0, 16)]
     public class SuperSourcePropertiesGetV8Command : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public SuperSourceId SSrcId { get; set; }
 

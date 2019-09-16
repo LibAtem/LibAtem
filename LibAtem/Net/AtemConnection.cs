@@ -66,7 +66,7 @@ namespace LibAtem.Net
         static AtemConnection()
         {
             AutoSerializeBase.CompilePropertySpecForTypes(CommandManager.GetAllTypes().SelectMany(g => g.Value.Select(t => t.Item2)));
-            AutoSerializeBase.CompilePropertySpecForTypes(MacroOpManager.FindAll().Values);
+            AutoSerializeBase.CompilePropertySpecForTypes(MacroOpManager.FindAll().Select(m => m.Value.Item2));
         }
 
         protected AtemConnection(EndPoint endpoint, int sessionId)
