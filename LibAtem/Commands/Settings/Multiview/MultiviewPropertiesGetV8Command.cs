@@ -4,10 +4,10 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.Settings.Multiview
 {
     [CommandName("MvPr", 4)]
-    public class MultiviewPropertiesGetCommand : SerializableCommandBase
+    public class MultiviewPropertiesGetV8Command : SerializableCommandBase
     {
         [CommandId]
-        [Serialize(0), UInt8Range(0, 1)]
+        [Serialize(0), UInt8Range(0, 3)]
         public uint MultiviewIndex { get; set; }
         [Serialize(1), Enum8]
         public MultiViewLayout Layout { get; set; }

@@ -1,3 +1,4 @@
+using System;
 using LibAtem.Commands;
 using LibAtem.Commands.Settings.Multiview;
 using LibAtem.Common;
@@ -11,19 +12,34 @@ namespace LibAtem.MacroOperations.Settings
         [Serialize(4), UInt8]
         [MacroField("MultiViewIndex")]
         public uint MultiViewIndex { get; set; }
-        
+
         [Serialize(5), Enum8]
         [MacroField("Layout")]
         public MultiViewLayout Layout { get; set; }
 
         public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new MultiviewPropertiesSetCommand
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = MultiviewPropertiesSetCommand.MaskFlags.Layout,
-                MultiviewIndex = MultiViewIndex,
-                Layout = Layout,
-            };
+                if (!Enum.TryParse(Layout.ToString(), true, out MultiViewLayoutV8 layout))
+                    layout = 0;
+
+                return new MultiviewPropertiesSetV8Command
+                {
+                    Mask = MultiviewPropertiesSetV8Command.MaskFlags.Layout,
+                    MultiviewIndex = MultiViewIndex,
+                    Layout = layout,
+                };
+            }
+            else
+            {
+                return new MultiviewPropertiesSetCommand
+                {
+                    Mask = MultiviewPropertiesSetCommand.MaskFlags.Layout,
+                    MultiviewIndex = MultiViewIndex,
+                    Layout = Layout,
+                };
+            }
         }
     }
 }
