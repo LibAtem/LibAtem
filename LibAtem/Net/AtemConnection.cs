@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using log4net;
 using LibAtem.Commands;
+using LibAtem.Commands.DeviceProfile;
 using LibAtem.MacroOperations;
 using LibAtem.Serialization;
 using LibAtem.Util;
@@ -36,6 +37,8 @@ namespace LibAtem.Net
 
         private bool _isOpen;
 
+        private ProtocolVersion _protocolVersion;
+
         private readonly Queue<OutboundMessage> _messageQueue;
         private readonly List<InFlightMessage> _inFlight;
         private readonly BlockingCollection<ReceivedPacket> _processQueue;
@@ -62,7 +65,7 @@ namespace LibAtem.Net
 
         static AtemConnection()
         {
-            AutoSerializeBase.CompilePropertySpecForTypes(CommandManager.GetAllTypes().Values);
+            AutoSerializeBase.CompilePropertySpecForTypes(CommandManager.GetAllTypes().SelectMany(g => g.Value.Select(t => t.Item2)));
             AutoSerializeBase.CompilePropertySpecForTypes(MacroOpManager.FindAll().Values);
         }
 
@@ -76,8 +79,10 @@ namespace LibAtem.Net
             _inFlight = new List<InFlightMessage>();
             _processQueue = new BlockingCollection<ReceivedPacket>(new ConcurrentQueue<ReceivedPacket>());
         }
-        
+
         public bool IsOpened => _isOpen;
+
+        public ProtocolVersion ProtocolVersion => _protocolVersion;
 
         public void ResetConnStatsInfo()
         {
@@ -86,11 +91,12 @@ namespace LibAtem.Net
             _lastReceivedAck = 0;
             _lastSentAck = 0;
             _readyToAck = 0;
+            _protocolVersion = ProtocolVersion.Minimum;
 
             lock (_inFlight)
                 _inFlight.Clear();
 
-            lock(_messageQueue)
+            lock (_messageQueue)
                 _messageQueue.Clear();
         }
 
@@ -158,7 +164,7 @@ namespace LibAtem.Net
                     QueueOrSendAck(socket, packet.PacketId);
                 }
 
-                Log.DebugFormat("{0} - Command {1}, Length {2}, Session {3:X}, Acked {4}, Packet {5}", Endpoint, 
+                Log.DebugFormat("{0} - Command {1}, Length {2}, Session {3:X}, Acked {4}, Packet {5}", Endpoint,
                     packet.CommandCode, packet.PayloadLength, packet.SessionId, packet.AckedId, packet.PacketId);
 
                 if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckReply))
@@ -171,7 +177,7 @@ namespace LibAtem.Net
                 if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.AckRequest))
                 {
                     Log.DebugFormat("{0} - Parsed {1} commands with length {2}", Endpoint, packet.Commands.Count, packet.PayloadLength);
-                        
+
                     _processQueue.Add(packet);
                     OnReceivePacket?.Invoke(this, packet);
                 }
@@ -197,7 +203,14 @@ namespace LibAtem.Net
                     string payloadStr = rawCmd.BodyLength > 100 ? "of " + rawCmd.BodyLength + " bytes" : BitConverter.ToString(rawCmd.Body);
                     Log.DebugFormat("{0} - Received command {1} with content {2}", Endpoint, rawCmd.Name, payloadStr);
 
-                    result.AddIfNotNull(CommandParser.Parse(rawCmd));
+                    var cmd = CommandParser.Parse(_protocolVersion, rawCmd);
+                    if (cmd is VersionCommand verCmd)
+                    {
+                        _protocolVersion = verCmd.ProtocolVersion;
+                        // TODO - ensure version is ok
+                        // TODO - log version info
+                    }
+                    result.AddIfNotNull(cmd);
                 }
 
                 return result;
@@ -209,7 +222,7 @@ namespace LibAtem.Net
             }
         }
 
-        protected internal void SendAckNow(Socket socket, bool forcePacketZero=false)
+        protected internal void SendAckNow(Socket socket, bool forcePacketZero = false)
         {
             uint packetId;
             lock (_lastSentAckLock)
@@ -280,15 +293,15 @@ namespace LibAtem.Net
             TimeSpan diff = before - since;
             return diff.Seconds * 1000 + diff.Milliseconds;
         }
-        
+
         private static bool IdIsLessThanEqualOther(uint id, uint other)
         {
             const int tol = 1 << 8;
-            return id <= other && id > ((int) other - tol) || id <= other + MaxPacketId && id > other + MaxPacketId - tol || id <= (int) other - MaxPacketId+ tol && id > (int) other - MaxPacketId;
+            return id <= other && id > ((int)other - tol) || id <= other + MaxPacketId && id > other + MaxPacketId - tol || id <= (int)other - MaxPacketId + tol && id > (int)other - MaxPacketId;
         }
 
         private List<InFlightMessage> ChooseMsg()
-        { 
+        {
             lock (_inFlight)
             {
                 _inFlight.RemoveAll(m => IdIsLessThanEqualOther(m.Message.PacketId, _lastReceivedAck));
@@ -333,12 +346,12 @@ namespace LibAtem.Net
 
                 var newMsg = new InFlightMessage(obMsg.WithPacketId(NextPacketId), ackId);
                 _inFlight.Add(newMsg);
-                return new List<InFlightMessage> {newMsg};
+                return new List<InFlightMessage> { newMsg };
             }
         }
 
         protected abstract OutboundMessage CompileNextMessage();
-        
+
         private void SendMessage(Socket socket, InFlightMessage msg)
         {
             byte[] body = CompileMessage(msg);
@@ -357,33 +370,33 @@ namespace LibAtem.Net
                 OnDisconnect?.Invoke(this);
             }
         }
-        
+
         private byte CompileOpcode(OutboundMessage.OutboundMessageType messageType, bool retry)
         {
             byte res = 0x00;
             switch (messageType)
             {
                 case OutboundMessage.OutboundMessageType.Ack:
-                    res = (byte) ReceivedPacket.CommandCodeFlags.AckReply;
+                    res = (byte)ReceivedPacket.CommandCodeFlags.AckReply;
                     break;
                 case OutboundMessage.OutboundMessageType.Ping:
                 case OutboundMessage.OutboundMessageType.Command:
                 case OutboundMessage.OutboundMessageType.Response:
-                    res = (byte) ReceivedPacket.CommandCodeFlags.AckRequest;
+                    res = (byte)ReceivedPacket.CommandCodeFlags.AckRequest;
                     break;
             }
 
             if (retry)
-                res |= (byte) ReceivedPacket.CommandCodeFlags.Retransmission;
+                res |= (byte)ReceivedPacket.CommandCodeFlags.Retransmission;
 
             return res;
         }
-        
+
         private byte[] CompileMessage(InFlightMessage msg)
         {
             byte opcode = CompileOpcode(msg.Message.Type, msg.LastSent != DateTime.MinValue);
             if (msg.AckId > 0)
-                opcode |= (byte) ReceivedPacket.CommandCodeFlags.AckReply;
+                opcode |= (byte)ReceivedPacket.CommandCodeFlags.AckReply;
 
             byte len1 = (byte)((ReceivedPacket.HeaderLength + msg.Message.Payload.Length) / 256 | opcode << 3); // opcode 0x08 + length
             byte len2 = (byte)((ReceivedPacket.HeaderLength + msg.Message.Payload.Length) % 256);

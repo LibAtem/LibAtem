@@ -18,20 +18,26 @@ namespace LibAtem.Commands
 
     public class CommandNameAttribute : LengthAttribute
     {
-        public CommandNameAttribute(string name, int length = -1) : base(length)
+        public CommandNameAttribute(string name, int length = -1) : this(name, ProtocolVersion.Minimum, length)
+        {
+        }
+        public CommandNameAttribute(string name, ProtocolVersion minimumVersion, int length = -1) : base(length)
         {
             Name = name;
+            MinimumVersion = minimumVersion;
         }
 
         public string Name { get; }
 
-        public static string GetName(Type type)
+        public ProtocolVersion MinimumVersion { get; }
+
+        public static Tuple<string, ProtocolVersion> GetNameAndVersion(Type type)
         {
             CommandNameAttribute attribute = type.GetTypeInfo().GetCustomAttributes(typeof(CommandNameAttribute), true).OfType<CommandNameAttribute>().FirstOrDefault();
             if (attribute == null)
                 throw new Exception(string.Format("Missing CommandNameAttribute on type: {0}", type.Name));
 
-            return attribute.Name;
+            return Tuple.Create(attribute.Name, attribute.MinimumVersion);
         }
     }
 
@@ -52,7 +58,7 @@ namespace LibAtem.Commands
     {
         public static byte[] ToByteArray(this ICommand cmd)
         {
-            var builder = new CommandBuilder(CommandManager.FindNameForType(cmd));
+            var builder = new CommandBuilder(CommandNameAttribute.GetNameAndVersion(cmd.GetType()).Item1);
             cmd.Serialize(builder);
             return builder.ToByteArray();
         }
@@ -62,15 +68,15 @@ namespace LibAtem.Commands
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(CommandManager));
 
-        private static IReadOnlyDictionary<string, Type> commandTypes;
-        private static IReadOnlyDictionary<Type, string> commandNames;
+        private static IReadOnlyDictionary<string, List<Tuple<ProtocolVersion, Type>>> commandTypes;
+        private static IReadOnlyDictionary<Type, Tuple<string, ProtocolVersion>> commandNames;
 
         private static void GenerateDictionaries()
         {
             try
             {
-                var resultTypes = new Dictionary<string, Type>();
-                var resultNames = new Dictionary<Type, string>();
+                var resultTypes = new Dictionary<string, List<Tuple<ProtocolVersion, Type>>>();
+                var resultNames = new Dictionary<Type, Tuple<string, ProtocolVersion>>();
                 var assembly = typeof(CommandNameAttribute).GetTypeInfo().Assembly;
                 foreach (Type type in assembly.GetTypes())
                 {
@@ -81,11 +87,16 @@ namespace LibAtem.Commands
                     if (!typeof(ICommand).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
                         continue;
 
-                    if (resultTypes.ContainsKey(attribute.Name))
-                        Log.FatalFormat("Duplicate definition for {0}", attribute.Name);
+                    if (!resultTypes.TryGetValue(attribute.Name, out var resultTypesForName))
+                        resultTypesForName = new List<Tuple<ProtocolVersion, Type>>();
 
-                    resultTypes[attribute.Name] = type;
-                    resultNames[type] = attribute.Name;
+                    if (resultTypesForName.Count(t => t.Item1 == attribute.MinimumVersion) > 0)
+                        Log.FatalFormat("Duplicate definition for {0} for version {1}", attribute.Name, attribute.MinimumVersion);
+
+                    resultTypesForName.Add(Tuple.Create(attribute.MinimumVersion, type));
+
+                    resultTypes[attribute.Name] = resultTypesForName;
+                    resultNames[type] = Tuple.Create(attribute.Name, attribute.MinimumVersion);
                 }
 
                 commandTypes = resultTypes;
@@ -98,7 +109,7 @@ namespace LibAtem.Commands
             }
         }
 
-        public static IReadOnlyDictionary<string, Type> GetAllTypes()
+        public static IReadOnlyDictionary<string, List<Tuple<ProtocolVersion, Type>>> GetAllTypes()
         {
             if (commandTypes == null)
                 GenerateDictionaries();
@@ -106,7 +117,7 @@ namespace LibAtem.Commands
             return commandTypes;
         }
 
-        public static IReadOnlyDictionary<Type, string> GetAllNames()
+        public static IReadOnlyDictionary<Type, Tuple<string, ProtocolVersion>> GetAllNames()
         {
             if (commandNames == null)
                 GenerateDictionaries();
@@ -114,14 +125,24 @@ namespace LibAtem.Commands
             return commandNames;
         }
 
-        public static Type FindForName(string name)
+        public static Type FindForName(string name, ProtocolVersion protocolVersion)
         {
-            return GetAllTypes().TryGetValue(name, out Type res) ? res : null;
+            if (GetAllTypes().TryGetValue(name, out List<Tuple<ProtocolVersion, Type>> options))
+            {
+                var validOption = options.Where(o => o.Item1 <= protocolVersion).OrderByDescending(o => o.Item1).Take(1).ToArray();
+                if (validOption.Length > 0)
+                {
+                    return validOption[0].Item2;
+                }
+            }
+
+            return null;
+            // return GetAllTypes().TryGetValue(name, out var options) ? res : null;
         }
 
-        public static string FindNameForType(ICommand cmd)
+        public static Tuple<string, ProtocolVersion> FindNameAndVersionForType(ICommand cmd)
         {
-            return GetAllNames().TryGetValue(cmd.GetType(), out string res) ? res : null;
+            return GetAllNames().TryGetValue(cmd.GetType(), out var res) ? res : null;
         }
     }
 }

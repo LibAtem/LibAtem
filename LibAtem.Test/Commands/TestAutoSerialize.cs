@@ -17,7 +17,7 @@ namespace LibAtem.Test.Commands
         {
             this.output = output;
         }
-        
+
         [Fact]
         public void TestAutoPropertySerialization()
         {
@@ -49,21 +49,22 @@ namespace LibAtem.Test.Commands
         {
             for (int i = 0; i < rounds; i++)
             {
-                ICommand raw =(ICommand) RandomPropertyGenerator.Create(t);
-                ICommand cmd = DeserializeSingle(raw.ToByteArray());
+                ICommand raw = (ICommand)RandomPropertyGenerator.Create(t);
+                var nameAndVersion = CommandManager.FindNameAndVersionForType(raw);
+                ICommand cmd = DeserializeSingle(nameAndVersion.Item2, raw.ToByteArray());
                 if (!t.GetTypeInfo().IsAssignableFrom(cmd.GetType()))
                     throw new Exception("Deserialized command of wrong type");
 
                 RandomPropertyGenerator.AssertAreTheSame(raw, cmd);
             }
         }
-        
-        private static ICommand DeserializeSingle(byte[] arr)
+
+        private static ICommand DeserializeSingle(ProtocolVersion version, byte[] arr)
         {
             Assert.True(ParsedCommand.ReadNextCommand(arr, 0, out ParsedCommand parsed));
             Assert.NotNull(parsed);
 
-            Type type = CommandManager.FindForName(parsed.Name);
+            Type type = CommandManager.FindForName(parsed.Name, version);
             if (type == null)
                 throw new Exception("Failed to find command during deserialize");
 

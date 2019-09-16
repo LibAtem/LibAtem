@@ -7,13 +7,10 @@ namespace LibAtem.Commands.DeviceProfile
     {
         public VersionCommand()
         {
-            ApiMajor = Version.ApiMajor;
-            ApiMinor = Version.ApiMinor;
+            ProtocolVersion = ProtocolVersion.Latest;
         }
 
-        [Serialize(0), UInt16]
-        public uint ApiMajor { get; protected set; }
-        [Serialize(2), UInt16]
-        public uint ApiMinor { get; protected set; }
+        [Serialize(0), Enum32]
+        public ProtocolVersion ProtocolVersion { get; protected set; }
     }
 }
