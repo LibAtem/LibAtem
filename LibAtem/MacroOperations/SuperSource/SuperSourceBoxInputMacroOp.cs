@@ -17,7 +17,27 @@ namespace LibAtem.MacroOperations.SuperSource
             return new SuperSourceBoxSetCommand()
             {
                 Mask = SuperSourceBoxSetCommand.MaskFlags.Source,
-                Index = BoxIndex,
+                SSrcId = SuperSourceId.One,
+                BoxIndex = BoxIndex,
+                Source = Source,
+            };
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BoxInput, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2BoxInputMacroOp : SuperSourceV2BoxMacroOpBase
+    {
+        [Serialize(8), Enum16]
+        [MacroField("Input")]
+        public VideoSource Source { get; set; }
+
+        public override ICommand ToCommand()
+        {
+            return new SuperSourceBoxSetCommand()
+            {
+                Mask = SuperSourceBoxSetCommand.MaskFlags.Source,
+                SSrcId = SSrcId,
+                BoxIndex = BoxIndex,
                 Source = Source,
             };
         }

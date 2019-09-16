@@ -14,9 +14,28 @@ namespace LibAtem.MacroOperations.SuperSource
 
         public override ICommand ToCommand()
         {
-            return new SuperSourcePropertiesSetCommand()
+            return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderSaturation,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderSaturation,
+                SSrcId = SuperSourceId.One,
+                BorderSaturation = Saturation,
+            };
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BorderSaturation, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2BorderSaturationMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(8), UInt32DScale(65536)]
+        [MacroField("Saturation")]
+        public double Saturation { get; set; }
+
+        public override ICommand ToCommand()
+        {
+            return new SuperSourceBorderSetCommand()
+            {
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderSaturation,
+                SSrcId = SSrcId,
                 BorderSaturation = Saturation,
             };
         }

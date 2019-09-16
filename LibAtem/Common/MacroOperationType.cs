@@ -60,7 +60,7 @@ namespace LibAtem.Common
 
         LumaKeyClip = 0x0029,
         LumaKeyGain = 0x002a,
-        
+
         KeyFlyEnable,
 
         LumaKeyInvert = 0x002c,
@@ -73,7 +73,7 @@ namespace LibAtem.Common
         KeyMaskBottom = 0x0031,
         KeyMaskLeft = 0x0032,
         KeyMaskRight = 0x0033,
-          
+
         TransitionDVEPattern = 0x0034,
         DVEKeyMaskEnable = 0x0035,
         DVEKeyMaskTop = 0x0036,
@@ -232,7 +232,7 @@ namespace LibAtem.Common
         SuperSourceBoxMaskBottom = 0x00c3,
         SuperSourceBoxMaskLeft = 0x00c4,
         SuperSourceBoxMaskRight = 0x00c5,
-        
+
         AudioMixerInputMixType = 0x00c6,
         AudioMixerInputGain = 0x00c7,
         AudioMixerInputBalance = 0x00c8,
@@ -349,5 +349,36 @@ namespace LibAtem.Common
 
         MixMinusSetAudioMode,
         AudioMixerAfvFollowTransition = 0x012b,
+
+        SuperSourceV2ArtCutInput = 0x018c,
+        SuperSourceV2ArtFillInput = 0x018d,
+        SuperSourceV2ArtAbove = 0x018e,
+        SuperSourceV2ArtPreMultiply = 0x018f,
+        SuperSourceV2ArtClip = 0x0190,
+        SuperSourceV2ArtGain = 0x0191,
+        SuperSourceV2ArtInvert = 0x0192,
+        SuperSourceV2BorderEnable = 0x0193,
+        SuperSourceV2BorderHue = 0x0194,
+        SuperSourceV2BorderSaturation = 0x0195,
+        SuperSourceV2BorderLuminescence = 0x0196,
+        SuperSourceV2BorderBevel = 0x0197,
+        SuperSourceV2BorderOuterWidth = 0x0198,
+        SuperSourceV2BorderInnerWidth = 0x0199,
+        SuperSourceV2BorderOuterSoftness = 0x019a,
+        SuperSourceV2BorderInnerSoftness = 0x019b,
+        SuperSourceV2BorderBevelPosition = 0x019c,
+        SuperSourceV2BorderBevelSoftness = 0x019d,
+        SuperSourceV2ShadowDirection = 0x019e,
+        SuperSourceV2ShadowAltitude = 0x019f,
+        SuperSourceV2BoxEnable = 0x01a0,
+        SuperSourceV2BoxInput = 0x01a1,
+        SuperSourceV2BoxXPosition = 0x01a2,
+        SuperSourceV2BoxYPosition = 0x01a3,
+        SuperSourceV2BoxSize = 0x01a4,
+        SuperSourceV2BoxMaskEnable = 0x01a5,
+        SuperSourceV2BoxMaskTop = 0x01a6,
+        SuperSourceV2BoxMaskBottom = 0x01a7,
+        SuperSourceV2BoxMaskLeft = 0x01a8,
+        SuperSourceV2BoxMaskRight = 0x01a9,
     }
 }

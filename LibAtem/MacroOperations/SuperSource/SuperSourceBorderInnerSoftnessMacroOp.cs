@@ -14,9 +14,28 @@ namespace LibAtem.MacroOperations.SuperSource
 
         public override ICommand ToCommand()
         {
-            return new SuperSourcePropertiesSetCommand()
+            return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderInnerSoftness,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderInnerSoftness,
+                SSrcId = SuperSourceId.One,
+                BorderInnerSoftness = InnerSoftness,
+            };
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BorderInnerSoftness, ProtocolVersion.V8_0, 8)]
+    public class SuperSourceV2BorderInnerSoftnessMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(6), UInt8Range(0, 100)]
+        [MacroField("InnerSoftness")]
+        public uint InnerSoftness { get; set; }
+
+        public override ICommand ToCommand()
+        {
+            return new SuperSourceBorderSetCommand()
+            {
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderInnerSoftness,
+                SSrcId = SSrcId,
                 BorderInnerSoftness = InnerSoftness,
             };
         }

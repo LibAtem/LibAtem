@@ -4,14 +4,14 @@ namespace LibAtem.Common
 {
     public enum ModelId
     {
-        Unknown    = 0,
-        TVStudio   = 1,
-        OneME      = 2,
-        TwoME      = 3,
-        PS4K       = 4,
-        OneME4K    = 5,
-        TwoMe4K    = 6,
-        TwoMEBS4K  = 7,
+        Unknown = 0,
+        TVStudio = 1,
+        OneME = 2,
+        TwoME = 3,
+        PS4K = 4,
+        OneME4K = 5,
+        TwoMe4K = 6,
+        TwoMEBS4K = 7,
         TVStudioHD = 8,
     }
 
@@ -55,6 +55,12 @@ namespace LibAtem.Common
         Four = 3,
     }
 
+    public enum SuperSourceId
+    {
+        One = 0,
+        Two = 1,
+    }
+
     public enum SuperSourceBoxId
     {
         [XmlEnum("0")]
@@ -66,7 +72,7 @@ namespace LibAtem.Common
         [XmlEnum("3")]
         Four = 3,
     }
-    
+
     public enum AuxiliaryId
     {
         [XmlEnum("0")]
@@ -101,15 +107,15 @@ namespace LibAtem.Common
 
     public enum FlyKeyLocation
     {
-        CentreOfKey  = 0,
-        TopLeft      = 1,
-        TopCentre    = 2,
-        TopRight     = 3,
-        MiddleLeft   = 4,
+        CentreOfKey = 0,
+        TopLeft = 1,
+        TopCentre = 2,
+        TopRight = 3,
+        MiddleLeft = 4,
         MiddleCentre = 5,
-        MiddleRight  = 6,
-        BottomLeft   = 7,
+        MiddleRight = 6,
+        BottomLeft = 7,
         BottomCentre = 8,
-        BottomRight  = 9,
+        BottomRight = 9,
     }
 }

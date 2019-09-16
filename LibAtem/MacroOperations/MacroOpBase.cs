@@ -30,7 +30,7 @@ namespace LibAtem.MacroOperations
     public abstract class MacroOpBase : AutoSerializeBase, IMacroOp
     {
         [Serialize(0), UInt8]
-        public uint Length => (uint) GetAttribute().Length;
+        public uint Length => (uint)GetAttribute().Length;
 
         [Serialize(2), Enum16]
         public MacroOperationType Id => GetAttribute().Operation;
@@ -38,14 +38,18 @@ namespace LibAtem.MacroOperations
         // TODO cache this!
         private MacroOperationAttribute GetAttribute() => GetType().GetTypeInfo().GetCustomAttribute<MacroOperationAttribute>();
 
-        public abstract ICommand ToCommand();
+        public abstract ICommand ToCommand(ProtocolVersion version);
     }
 
     public class MacroOperationAttribute : LengthAttribute
     {
         public MacroOperationType Operation { get; }
+        public ProtocolVersion MinimumVersion { get; }
 
-        public MacroOperationAttribute(MacroOperationType op, int length) : base(length)
+        public MacroOperationAttribute(MacroOperationType op, int length) : this(op, ProtocolVersion.Minimum, length)
+        {
+        }
+        public MacroOperationAttribute(MacroOperationType op, ProtocolVersion minimumVersion, int length) : base(length)
         {
             Operation = op;
         }
@@ -85,7 +89,7 @@ namespace LibAtem.MacroOperations
                 MacroOperationAttribute attribute = type.GetTypeInfo().GetCustomAttributes<MacroOperationAttribute>().FirstOrDefault();
                 if (attribute == null)
                     continue;
-                
+
                 result.Add(attribute.Operation, type);
             }
 
@@ -113,7 +117,7 @@ namespace LibAtem.MacroOperations
             {
                 if (!macroOp.IsValid())
                     throw new SerializationException("FTDa", "Invalid MacroOperationType: {0}", opId);
-                
+
                 var parsed = new ParsedByteArray(arr, false);
 
                 Type type = FindForType(macroOp);
@@ -133,7 +137,7 @@ namespace LibAtem.MacroOperations
                     int attrLength = info.Length;
                     if (attrLength != -1 && attrLength != parsed.BodyLength)
                         Log.WarnFormat("{0}: Auto deserialize length mismatch", cmd.GetType().Name);
-                    
+
                     foreach (AutoSerializeBase.PropertySpec prop in info.Properties)
                     {
                         try

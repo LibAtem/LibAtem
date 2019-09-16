@@ -17,7 +17,27 @@ namespace LibAtem.MacroOperations.SuperSource
             return new SuperSourceBoxSetCommand()
             {
                 Mask = SuperSourceBoxSetCommand.MaskFlags.CropLeft,
-                Index = BoxIndex,
+                SSrcId = SuperSourceId.One,
+                BoxIndex = BoxIndex,
+                CropLeft = Left,
+            };
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BoxMaskLeft, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2BoxMaskLeftMacroOp : SuperSourceV2BoxMacroOpBase
+    {
+        [Serialize(8), Int32D(65536, 0, 32 * 65536)]
+        [MacroField("Left")]
+        public double Left { get; set; }
+
+        public override ICommand ToCommand()
+        {
+            return new SuperSourceBoxSetCommand()
+            {
+                Mask = SuperSourceBoxSetCommand.MaskFlags.CropLeft,
+                SSrcId = SSrcId,
+                BoxIndex = BoxIndex,
                 CropLeft = Left,
             };
         }

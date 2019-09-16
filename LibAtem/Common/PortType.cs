@@ -60,8 +60,10 @@ namespace LibAtem.Common
         AESEBU = 64,
         RCA = 128,
         TSJack = 256, // TODO - check value
+        MADI = 512,
+        TRS = 1024,
     }
-    
+
     public enum MacroPortType
     {
         SDI = 0, // TODO Check this

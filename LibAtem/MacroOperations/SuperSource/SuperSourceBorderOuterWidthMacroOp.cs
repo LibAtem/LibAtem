@@ -14,9 +14,28 @@ namespace LibAtem.MacroOperations.SuperSource
 
         public override ICommand ToCommand()
         {
-            return new SuperSourcePropertiesSetCommand()
+            return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderOuterWidth,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderOuterWidth,
+                SSrcId = SuperSourceId.One,
+                BorderOuterWidth = OuterWidth,
+            };
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BorderOuterWidth, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2BorderOuterWidthMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(8), UInt32D(65536, 0, 16 * 65536)]
+        [MacroField("OuterWidth")]
+        public double OuterWidth { get; set; }
+
+        public override ICommand ToCommand()
+        {
+            return new SuperSourceBorderSetCommand()
+            {
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderOuterWidth,
+                SSrcId = SSrcId,
                 BorderOuterWidth = OuterWidth,
             };
         }

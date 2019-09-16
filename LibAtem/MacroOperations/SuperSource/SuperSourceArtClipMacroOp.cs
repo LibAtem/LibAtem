@@ -17,6 +17,25 @@ namespace LibAtem.MacroOperations.SuperSource
             return new SuperSourcePropertiesSetCommand()
             {
                 Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtClip,
+                SSrcId = SuperSourceId.One,
+                ArtClip = Clip,
+            };
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2ArtClip, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2ArtClipMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(8), UInt16D(65536, 0, 65536)]
+        [MacroField("Clip")]
+        public double Clip { get; set; }
+
+        public override ICommand ToCommand()
+        {
+            return new SuperSourcePropertiesSetCommand()
+            {
+                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtClip,
+                SSrcId = SSrcId,
                 ArtClip = Clip,
             };
         }
