@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using Makaretu.Dns;
 
-namespace LibAtem.Discovery.Simple
+namespace LibAtem.Discovery
 {
     public class AtemDiscoveryService
     {
