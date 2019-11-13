@@ -1,0 +1,3 @@
+[submodule "FatAntelope"]
+	path = FatAntelope
+	url = https://github.com/Julusian/FatAntelope.git
