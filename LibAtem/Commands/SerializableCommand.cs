@@ -6,6 +6,6 @@ namespace LibAtem.Commands
 {
     public abstract class SerializableCommandBase : AutoSerializeBase, ICommand
     {
-        public virtual IEnumerable<MacroOpBase> ToMacroOps() => null;
+        public virtual IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version) => null;
     }
 }

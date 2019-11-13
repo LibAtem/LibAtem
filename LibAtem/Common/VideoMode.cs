@@ -12,6 +12,7 @@ namespace LibAtem.Common
         SDI3G,
         SDI6G,
         SDI12G,
+        SDI24G,
     }
 
     public enum VideoModeResolution
@@ -26,6 +27,8 @@ namespace LibAtem.Common
         _1080,
         [Size(3840, 2160)]
         _4K,
+        [Size(7680, 4260)]
+        _8K,
     }
 
     public enum VideoMode
@@ -106,7 +109,7 @@ namespace LibAtem.Common
         [VideoModeResolution(VideoModeResolution._4K)]
         [XmlEnum("4KHDp2997")]
         N4KHDp2997 = 17,
-        
+
         [VideoModeRate(50), VideoModeStandard(VideoModeStandard.SDI12G), VideoModeMultiviewerMode(P1080i50)]
         [VideoModeResolution(VideoModeResolution._4K)]
         [XmlEnum("4KHDp50")]
@@ -115,6 +118,36 @@ namespace LibAtem.Common
         [VideoModeResolution(VideoModeResolution._4K)]
         [XmlEnum("4KHDp5994")]
         N4KHDp5994 = 19,
+
+        [VideoModeRate(23.98), VideoModeStandard(VideoModeStandard.SDI24G)]
+        [VideoModeResolution(VideoModeResolution._8K)]
+        [XmlEnum("8KHDp2398")]
+        N8KHDp2398 = 20, // TODO - verify
+
+        [VideoModeRate(24), VideoModeStandard(VideoModeStandard.SDI24G)]
+        [VideoModeResolution(VideoModeResolution._8K)]
+        [XmlEnum("8KHDp24")]
+        N8KHDp24 = 21, // TODO - verify
+
+        [VideoModeRate(25), VideoModeStandard(VideoModeStandard.SDI24G)]
+        [VideoModeResolution(VideoModeResolution._8K)]
+        [XmlEnum("8KHDp25")]
+        P8KHDp25 = 22, // TODO - verify
+
+        [VideoModeRate(29.97), VideoModeStandard(VideoModeStandard.SDI24G)]
+        [VideoModeResolution(VideoModeResolution._8K)]
+        [XmlEnum("8KHDp2997")]
+        N8KHDp2997 = 23, // TODO - verify
+
+        [VideoModeRate(50), VideoModeStandard(VideoModeStandard.SDI24G)]
+        [VideoModeResolution(VideoModeResolution._8K)]
+        [XmlEnum("8KHDp50")]
+        P8KHDp50 = 24, // TODO - verify
+
+        [VideoModeRate(59.94), VideoModeStandard(VideoModeStandard.SDI24G)]
+        [VideoModeResolution(VideoModeResolution._8K)]
+        [XmlEnum("8KHDp5994")]
+        N8KHDp5994 = 25, // TODO - verify
     }
 
     public class VideoModeRateAttribute : Attribute
@@ -193,7 +226,7 @@ namespace LibAtem.Common
         public static int GetByteCount(this VideoModeResolution res)
         {
             var size = res.GetAttribute<VideoModeResolution, SizeAttribute>().Size;
-            return (int) (size.Item1 * size.Item2 * 4);
+            return (int)(size.Item1 * size.Item2 * 4);
         }
 
         public static VideoModeStandard GetStandard(this VideoMode mode)

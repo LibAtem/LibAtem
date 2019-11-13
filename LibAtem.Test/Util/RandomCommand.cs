@@ -11,8 +11,13 @@ namespace LibAtem.Test.Util
     public class RandomPropertyGenerator
     {
         public static readonly Random random = new Random();
-        
+
         public static object Create(Type t)
+        {
+            return Create(t, (o) => true);
+        }
+
+        public static object Create(Type t, Func<object, bool> enumIsValid)
         {
             object cmd = Activator.CreateInstance(t);
             foreach (PropertyInfo prop in t.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
@@ -35,7 +40,7 @@ namespace LibAtem.Test.Util
                 // If prop is an enum, then take a random value
                 if (prop.PropertyType.GetTypeInfo().IsEnum)
                 {
-                    Array values = Enum.GetValues(prop.PropertyType);
+                    object[] values = Enum.GetValues(prop.PropertyType).OfType<object>().Where(enumIsValid).ToArray();
                     prop.SetValue(cmd, values.GetValue(random.Next(values.Length)));
                     continue;
                 }

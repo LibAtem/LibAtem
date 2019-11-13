@@ -30,7 +30,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(4), Bool]
         public bool FlyEnabled { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.KeyType))
                 yield return new KeyTypeMacroOp()

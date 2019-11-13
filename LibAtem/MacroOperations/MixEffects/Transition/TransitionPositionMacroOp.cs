@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition
         [MacroField("Position")]
         public double Position { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionPositionSetCommand()
             {

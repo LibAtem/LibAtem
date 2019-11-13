@@ -34,7 +34,7 @@ namespace LibAtem.Commands.Audio
         [Serialize(5), Bool]
         public bool Monitor => Mask.HasFlag(MaskFlags.Monitor);
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Input))
                 yield return new AudioMixerInputResetPeaksMacroOp { Input = Input };

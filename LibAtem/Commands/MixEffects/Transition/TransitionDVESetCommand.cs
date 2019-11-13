@@ -14,18 +14,18 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Flags]
         public enum MaskFlags
         {
-            Rate          = 1 << 0,
-            LogoRate      = 1 << 1,
-            Style         = 1 << 2,
-            FillSource    = 1 << 3,
-            KeySource     = 1 << 4,
-            EnableKey     = 1 << 5,
+            Rate = 1 << 0,
+            LogoRate = 1 << 1,
+            Style = 1 << 2,
+            FillSource = 1 << 3,
+            KeySource = 1 << 4,
+            EnableKey = 1 << 5,
             PreMultiplied = 1 << 6,
-            Clip          = 1 << 7,
-            Gain          = 1 << 8,
-            InvertKey     = 1 << 9,
-            Reverse       = 1 << 10,
-            FlipFlop      = 1 << 11,
+            Clip = 1 << 7,
+            Gain = 1 << 8,
+            InvertKey = 1 << 9,
+            Reverse = 1 << 10,
+            FlipFlop = 1 << 11,
         }
 
         [Serialize(0), Enum16]
@@ -60,23 +60,23 @@ namespace LibAtem.Commands.MixEffects.Transition
         public bool Reverse { get; set; }
         [Serialize(18), Bool]
         public bool FlipFlop { get; set; }
-        
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Rate))
-                yield return new TransitionDVERateMacroOp {Index = Index, Rate = Rate};
+                yield return new TransitionDVERateMacroOp { Index = Index, Rate = Rate };
             if (Mask.HasFlag(MaskFlags.LogoRate))
                 yield return null;
             if (Mask.HasFlag(MaskFlags.Style))
-                yield return new TransitionDVEPatternMacroOp {Index = Index, Pattern = Style};
+                yield return new TransitionDVEPatternMacroOp { Index = Index, Pattern = Style };
 
             if (Mask.HasFlag(MaskFlags.FillSource))
-                yield return new TransitionDVEFillInputMacroOp {Index = Index, Input = FillSource};
+                yield return new TransitionDVEFillInputMacroOp { Index = Index, Input = FillSource };
             if (Mask.HasFlag(MaskFlags.KeySource))
-                yield return new TransitionDVECutInputMacroOp {Index = Index, Input = KeySource};
+                yield return new TransitionDVECutInputMacroOp { Index = Index, Input = KeySource };
 
             if (Mask.HasFlag(MaskFlags.EnableKey))
-                yield return new TransitionDVECutInputEnableMacroOp {Index = Index, Enable = EnableKey};
+                yield return new TransitionDVECutInputEnableMacroOp { Index = Index, Enable = EnableKey };
             if (Mask.HasFlag(MaskFlags.PreMultiplied))
                 yield return null;
             if (Mask.HasFlag(MaskFlags.Clip))

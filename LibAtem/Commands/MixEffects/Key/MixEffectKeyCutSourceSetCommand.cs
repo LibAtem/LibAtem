@@ -18,7 +18,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(2), Enum16]
         public VideoSource CutSource { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new KeyCutInputMacroOp()
             {

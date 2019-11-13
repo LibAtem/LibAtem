@@ -33,16 +33,16 @@ namespace LibAtem.Commands.DownstreamKey
         [Serialize(8), Bool]
         public bool Invert { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.PreMultiply))
-                yield return new DownstreamKeyPreMultiplyMacroOp {KeyIndex = Index, PreMultiply = PreMultiply};
+                yield return new DownstreamKeyPreMultiplyMacroOp { KeyIndex = Index, PreMultiply = PreMultiply };
             if (Mask.HasFlag(MaskFlags.Clip))
-                yield return new DownstreamKeyClipMacroOp {KeyIndex = Index, Clip = Clip};
+                yield return new DownstreamKeyClipMacroOp { KeyIndex = Index, Clip = Clip };
             if (Mask.HasFlag(MaskFlags.Gain))
-                yield return new DownstreamKeyGainMacroOp {KeyIndex = Index, Gain = Gain};
+                yield return new DownstreamKeyGainMacroOp { KeyIndex = Index, Gain = Gain };
             if (Mask.HasFlag(MaskFlags.Invert))
-                yield return new DownstreamKeyInvertMacroOp {KeyIndex = Index, Invert = Invert};
+                yield return new DownstreamKeyInvertMacroOp { KeyIndex = Index, Invert = Invert };
         }
     }
 }

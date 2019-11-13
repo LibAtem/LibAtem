@@ -45,10 +45,10 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(14), Bool]
         public bool Inverse { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Pattern))
-                yield return new PatternKeyPatternMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Pattern = Pattern};
+                yield return new PatternKeyPatternMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Pattern = Pattern };
             if (Mask.HasFlag(MaskFlags.Size))
                 yield return new PatternKeySizeMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Size = Size };
             if (Mask.HasFlag(MaskFlags.Symmetry))
@@ -59,7 +59,7 @@ namespace LibAtem.Commands.MixEffects.Key
             if (Mask.HasFlag(MaskFlags.XPosition))
                 yield return new PatternKeyXPositionMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, XPosition = XPosition };
             if (Mask.HasFlag(MaskFlags.YPosition))
-                yield return new PatternKeyYPositionMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, YPosition = YPosition};
+                yield return new PatternKeyYPositionMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, YPosition = YPosition };
 
             // Inverse
 

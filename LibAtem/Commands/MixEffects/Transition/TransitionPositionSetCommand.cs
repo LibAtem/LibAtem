@@ -15,7 +15,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(2), UInt16D(10000, 0, 9999)]
         public double HandlePosition { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new TransitionPositionMacroOp
             {

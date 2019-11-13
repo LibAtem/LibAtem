@@ -41,7 +41,9 @@ namespace LibAtem.Net
 
         public DataTransferManager DataTransfer { get; }
 
-        public AtemClient(string address, bool autoConnect=true)
+        public ProtocolVersion ProtocolVersion => _connection.ProtocolVersion;
+
+        public AtemClient(string address, bool autoConnect = true)
         {
             _remoteEp = new IPEndPoint(IPAddress.Parse(address), 9910);
             _client = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
@@ -88,7 +90,7 @@ namespace LibAtem.Net
 
             return true;
         }
-        
+
         private void StartTimeoutTimer()
         {
             _timeoutTimer = new Timer(o =>
@@ -133,7 +135,7 @@ namespace LibAtem.Net
                 {
                     List<ICommand> cmds = _connection.GetNextCommands();
                     int rawCount = cmds.Count;
-                    
+
                     cmds = cmds.Where(c => !DataTransfer.HandleCommand(c)).ToList();
                     Log.DebugFormat("Recieved {0} commands. {1} to be handle by user code", rawCount, cmds.Count);
 
@@ -188,7 +190,7 @@ namespace LibAtem.Net
                         // TODO - should this only be allowed once?
                         if (_connection.SessionId != packet.SessionId)
                         {
-                            _connection.SessionId = (int) packet.SessionId;
+                            _connection.SessionId = (int)packet.SessionId;
                             Log.InfoFormat("Got new session id: {0}", packet.SessionId);
                         }
 
@@ -214,7 +216,7 @@ namespace LibAtem.Net
             // TODO
 
             DataTransfer?.Dispose();
-            
+
             _timeoutTimer?.Dispose();
         }
 

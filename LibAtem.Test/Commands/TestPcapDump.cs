@@ -17,21 +17,21 @@ namespace LibAtem.Test.Commands
             this.output = output;
         }
 
-        [Fact(Skip ="Command parsing not complete")]
+        [Fact(Skip = "Command parsing not complete")]
         public void Test2ME4KWithHyperdeck()
         {
-            RunForFile("TestFiles/Pcap/7.2-2me4k-hyperdeck.pcapng");
+            RunForFile(ProtocolVersion.V7_2, "TestFiles/Pcap/7.2-2me4k-hyperdeck.pcapng");
         }
 
         [Fact(Skip = "Command parsing not complete")]
         public void TestPS4K()
         {
-            RunForFile("TestFiles/Pcap/7.2-ps4k.pcapng");
+            RunForFile(ProtocolVersion.V7_2, "TestFiles/Pcap/7.2-ps4k.pcapng");
         }
 
         #region Helpers
 
-        private void RunForFile(string filename)
+        private void RunForFile(ProtocolVersion version, string filename)
         {
             bool failed = false;
 
@@ -39,14 +39,14 @@ namespace LibAtem.Test.Commands
             {
                 foreach (var readBlock in reader.EnhancedPacketBlocks)
                 {
-                    failed |= ParseEnhancedBlock(readBlock as EnhancedPacketBlock);
+                    failed |= ParseEnhancedBlock(version, readBlock as EnhancedPacketBlock);
                 }
             }
 
             Assert.False(failed);
         }
 
-        private bool ParseEnhancedBlock(EnhancedPacketBlock block)
+        private bool ParseEnhancedBlock(ProtocolVersion version, EnhancedPacketBlock block)
         {
             byte[] data = block.Data;
 
@@ -63,12 +63,12 @@ namespace LibAtem.Test.Commands
 
             bool failed = false;
 
-            foreach(ParsedCommand cmd in packet.Commands)
+            foreach (ParsedCommand cmd in packet.Commands)
             {
                 try
                 {
                     // Try and parse, just to ensure it was successful
-                    CommandParser.ParseUnsafe(cmd);
+                    CommandParser.ParseUnsafe(version, cmd);
                 }
                 catch (Exception e)
                 {

@@ -12,11 +12,41 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Enable")]
         public bool Enable { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderEnabled,
+                return new SuperSourceBorderSetCommand()
+                {
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderEnabled,
+                    SSrcId = SuperSourceId.One,
+                    BorderEnabled = Enable,
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderEnabled,
+                    BorderEnabled = Enable,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BorderEnable, ProtocolVersion.V8_0, 8)]
+    public class SuperSourceV2BorderEnableMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(6), Bool]
+        [MacroField("Enable")]
+        public bool Enable { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourceBorderSetCommand()
+            {
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderEnabled,
+                SSrcId = SSrcId,
                 BorderEnabled = Enable,
             };
         }

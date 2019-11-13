@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.Audio
         [MacroField("Solo")]
         public bool Solo { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new AudioMixerMonitorSetCommand
             {

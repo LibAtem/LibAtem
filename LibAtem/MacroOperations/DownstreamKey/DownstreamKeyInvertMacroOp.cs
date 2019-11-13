@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
         [MacroField("Invert")]
         public bool Invert { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new DownstreamKeyGeneralSetCommand()
             {

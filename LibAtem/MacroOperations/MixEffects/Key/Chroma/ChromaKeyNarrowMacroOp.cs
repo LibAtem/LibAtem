@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.Chroma
         [MacroField("Narrow")]
         public bool Narrow { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectKeyChromaSetCommand()
             {

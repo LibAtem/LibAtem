@@ -12,11 +12,41 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Input")]
         public VideoSource Source { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtCutSource,
+                return new SuperSourcePropertiesSetV8Command()
+                {
+                    Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtCutSource,
+                    SSrcId = SuperSourceId.One,
+                    ArtCutSource = Source
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtCutSource,
+                    ArtCutSource = Source,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2ArtCutInput, ProtocolVersion.V8_0, 8)]
+    public class SuperSourceV2ArtCutInputMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(6), Enum16]
+        [MacroField("Input")]
+        public VideoSource Source { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourcePropertiesSetV8Command()
+            {
+                Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtCutSource,
+                SSrcId = SSrcId,
                 ArtCutSource = Source,
             };
         }

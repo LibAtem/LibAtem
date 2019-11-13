@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.Media
         [MacroField("Index")]
         public uint MediaIndex { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MediaPlayerSourceSetCommand()
             {

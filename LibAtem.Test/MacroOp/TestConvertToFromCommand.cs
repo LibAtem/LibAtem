@@ -19,13 +19,13 @@ namespace LibAtem.Test.MacroOp
             this.output = output;
         }
 
-        private readonly IReadOnlyList<Type> expectedNullCommand = new List<Type>() {typeof(MacroSleepMacroOp)};
+        private readonly IReadOnlyList<Type> expectedNullCommand = new List<Type>() { typeof(MacroSleepMacroOp) };
 
         [Fact]
         public void TestStartingWithMacroOperation()
         {
             var failures = new List<string>();
-            
+
             Assembly assembly = typeof(MacroOpBase).GetTypeInfo().Assembly;
             IEnumerable<Type> types = assembly.GetTypes().Where(t => typeof(MacroOpBase).GetTypeInfo().IsAssignableFrom(t));
             foreach (Type type in types)
@@ -53,8 +53,10 @@ namespace LibAtem.Test.MacroOp
             for (int i = 0; i < rounds; i++)
             {
                 MacroOpBase raw = (MacroOpBase)RandomPropertyGenerator.Create(t);
+                ProtocolVersion minimumVersion = MacroOpManager.FindForType(raw.Id).Item1;
+                // TODO - what about newer versions of the op?
 
-                ICommand cmd = raw.ToCommand();
+                ICommand cmd = raw.ToCommand(minimumVersion);
                 bool nullCommand = cmd == null;
                 bool shouldBeNull = expectedNullCommand.Contains(t);
                 //Assert.Equal(shouldBeNull, nullCommand); // TODO - reenable this once possible
@@ -64,7 +66,7 @@ namespace LibAtem.Test.MacroOp
                 var serCmd = cmd as SerializableCommandBase; // TODO - this shouldnt be needed once all Commands have appropriate macro stuff set
                 Assert.NotNull(serCmd);
 
-                MacroOpBase entry = serCmd.ToMacroOps().Single();
+                MacroOpBase entry = serCmd.ToMacroOps(minimumVersion).Single();
                 if (entry == null)
                     throw new Exception("Deserialized not implemented");
                 if (!t.GetTypeInfo().IsAssignableFrom(entry.GetType()))

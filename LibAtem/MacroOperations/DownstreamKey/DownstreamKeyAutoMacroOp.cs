@@ -7,7 +7,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
     [MacroOperation(MacroOperationType.DownstreamKeyAuto, 8)]
     public class DownstreamKeyAutoMacroOp : DownstreamKeyMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new DownstreamKeyAutoCommand()
             {

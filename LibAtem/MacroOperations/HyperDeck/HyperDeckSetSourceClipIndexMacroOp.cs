@@ -11,7 +11,7 @@ namespace LibAtem.MacroOperations.HyperDeck
         [MacroField("HyperDeckClipIndex", "clipIndex")]
         public uint ClipIndex { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null;// TODO
         }

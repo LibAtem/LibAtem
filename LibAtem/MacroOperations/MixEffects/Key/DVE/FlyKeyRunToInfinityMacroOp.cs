@@ -11,7 +11,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
         [MacroField("Location")]
         public FlyKeyLocation Location { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null;
             //            return new MixEffectKeyFlyKeyframeSetCommand()

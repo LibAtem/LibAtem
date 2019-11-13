@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.Luma
         [MacroField("PreMultiply")]
         public bool PreMultiply { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectKeyLumaSetCommand()
             {

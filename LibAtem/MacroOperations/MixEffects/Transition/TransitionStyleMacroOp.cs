@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition
         [MacroField("TransitionStyle", "style")]
         public TStyle Style { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionPropertiesSetCommand()
             {

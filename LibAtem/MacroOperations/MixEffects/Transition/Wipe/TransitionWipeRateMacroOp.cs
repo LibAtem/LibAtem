@@ -7,7 +7,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.Wipe
     [MacroOperation(MacroOperationType.TransitionWipeRate, 8)]
     public class TransitionWipeRateMacroOp : TransitionRateMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionWipeSetCommand()
             {

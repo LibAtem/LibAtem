@@ -15,7 +15,7 @@ namespace LibAtem.Commands.MixEffects
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new ProgramInputMacroOp()
             {

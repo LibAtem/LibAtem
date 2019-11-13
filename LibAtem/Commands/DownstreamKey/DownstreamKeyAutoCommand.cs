@@ -13,9 +13,9 @@ namespace LibAtem.Commands.DownstreamKey
         [Serialize(0), Enum8]
         public DownstreamKeyId Index { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
-            yield return new DownstreamKeyAutoMacroOp {KeyIndex = Index};
+            yield return new DownstreamKeyAutoMacroOp { KeyIndex = Index };
         }
     }
 }

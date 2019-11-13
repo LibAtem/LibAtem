@@ -7,9 +7,9 @@ namespace LibAtem.Commands
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(CommandParser));
 
-        public static ICommand Parse(ParsedCommand rawCmd)
+        public static ICommand Parse(ProtocolVersion protocolVersion, ParsedCommand rawCmd)
         {
-            Type commandType = CommandManager.FindForName(rawCmd.Name);
+            Type commandType = CommandManager.FindForName(rawCmd.Name, protocolVersion);
             if (commandType == null)
             {
                 Log.WarnFormat("Unknown command {0} with content {1}", rawCmd.Name, BitConverter.ToString(rawCmd.Body));
@@ -27,9 +27,9 @@ namespace LibAtem.Commands
             }
         }
 
-        public static ICommand ParseUnsafe(ParsedCommand rawCmd)
+        public static ICommand ParseUnsafe(ProtocolVersion protocolVersion, ParsedCommand rawCmd)
         {
-            Type commandType = CommandManager.FindForName(rawCmd.Name);
+            Type commandType = CommandManager.FindForName(rawCmd.Name, protocolVersion);
             if (commandType == null)
                 throw new ArgumentOutOfRangeException(string.Format("Unknown command {0}", rawCmd.Name));
 

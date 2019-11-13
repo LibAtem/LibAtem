@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition
         [MacroField("TransitionSource", "source")]
         public TransitionLayer Source { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionPropertiesSetCommand()
             {

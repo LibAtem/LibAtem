@@ -11,7 +11,7 @@ namespace LibAtem.MacroOperations.HyperDeck
         [MacroField("HyperDeckLoopEnabled", "loopEnabled")]
         public bool Loop { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null;// TODO
         }

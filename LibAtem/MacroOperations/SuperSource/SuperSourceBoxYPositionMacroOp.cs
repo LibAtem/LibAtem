@@ -12,12 +12,44 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("PositionY", "yPosition")]
         public double PositionY { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourceBoxSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourceBoxSetCommand.MaskFlags.PositionY,
-                Index = BoxIndex,
+                return new SuperSourceBoxSetV8Command()
+                {
+                    Mask = SuperSourceBoxSetV8Command.MaskFlags.PositionY,
+                    SSrcId = SuperSourceId.One,
+                    BoxIndex = BoxIndex,
+                    PositionY = PositionY,
+                };
+            }
+            else
+            {
+                return new SuperSourceBoxSetCommand()
+                {
+                    Mask = SuperSourceBoxSetCommand.MaskFlags.PositionY,
+                    BoxIndex = BoxIndex,
+                    PositionY = PositionY,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BoxYPosition, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2BoxYPositionMacroOp : SuperSourceV2BoxMacroOpBase
+    {
+        [Serialize(8), Int32D(65536, -48 * 65536, 48 * 65536)]
+        [MacroField("PositionY", "yPosition")]
+        public double PositionY { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourceBoxSetV8Command()
+            {
+                Mask = SuperSourceBoxSetV8Command.MaskFlags.PositionY,
+                SSrcId = SSrcId,
+                BoxIndex = BoxIndex,
                 PositionY = PositionY,
             };
         }

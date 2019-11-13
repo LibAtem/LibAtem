@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition
         [MacroField("Preview")]
         public bool Preview { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionPreviewSetCommand
             {

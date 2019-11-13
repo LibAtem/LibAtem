@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.Pattern
         [MacroField("PositionX", "xPosition")]
         public double XPosition { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectKeyPatternSetCommand()
             {

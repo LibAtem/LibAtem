@@ -12,11 +12,41 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Direction")]
         public double Direction { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderLightSourceDirection,
+                return new SuperSourceBorderSetCommand()
+                {
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderLightSourceDirection,
+                    SSrcId = SuperSourceId.One,
+                    BorderLightSourceDirection = Direction,
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderLightSourceDirection,
+                    BorderLightSourceDirection = Direction,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2ShadowDirection, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2ShadowDirectionMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(8), UInt32D(65536, 0, 65536 * 360)]
+        [MacroField("Direction")]
+        public double Direction { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourceBorderSetCommand()
+            {
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderLightSourceDirection,
+                SSrcId = SSrcId,
                 BorderLightSourceDirection = Direction,
             };
         }

@@ -36,10 +36,10 @@ namespace LibAtem.Commands.DownstreamKey
         [Serialize(10), Int16D(1000, -16000, 16000)]
         public double MaskRight { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.MaskEnabled))
-                yield return new DownstreamKeyMaskEnableMacroOp() {KeyIndex = Index, Enable = MaskEnabled };
+                yield return new DownstreamKeyMaskEnableMacroOp() { KeyIndex = Index, Enable = MaskEnabled };
 
             if (Mask.HasFlag(MaskFlags.MaskTop))
                 yield return new DownstreamKeyMaskTopMacroOp() { KeyIndex = Index, Top = MaskTop };

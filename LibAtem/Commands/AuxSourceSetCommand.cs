@@ -14,11 +14,11 @@ namespace LibAtem.Commands
         [CommandId]
         [Serialize(1), Enum8]
         public AuxiliaryId Id { get; set; }
-        
+
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new AuxiliaryInputMacroOp()
             {

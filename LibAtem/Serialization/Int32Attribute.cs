@@ -72,7 +72,7 @@ namespace LibAtem.Serialization
 
         public override object GetRandom(Random random)
         {
-            int range = ScaledMax - ScaledMin;
+            double range = (double)ScaledMax - (double)ScaledMin;
             return (random.NextDouble() * range + ScaledMin) / Scale;
         }
 
@@ -83,7 +83,7 @@ namespace LibAtem.Serialization
 
         public override bool AreEqual(object val1, object val2)
         {
-            double tolerance = 1 / (2 * Scale);
+            double tolerance = Math.Max(1 / (2 * Scale), 0.0001);
             return Math.Abs((double)val1 - (double)val2) <= tolerance;
         }
     }
@@ -174,7 +174,7 @@ namespace LibAtem.Serialization
 
     public class UInt32DScaleAttribute : UInt32DAttribute
     {
-        public UInt32DScaleAttribute(double max = 1) : base(uint.MaxValue / max, 0, (uint) (uint.MaxValue / max))
+        public UInt32DScaleAttribute(double max = 1) : base(uint.MaxValue / max, 0, (uint)(uint.MaxValue / max))
         {
         }
     }

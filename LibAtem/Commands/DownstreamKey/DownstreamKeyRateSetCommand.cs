@@ -15,7 +15,7 @@ namespace LibAtem.Commands.DownstreamKey
         [Serialize(1), UInt8Range(0, 250)]
         public uint Rate { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new DownstreamKeyRateMacroOp
             {

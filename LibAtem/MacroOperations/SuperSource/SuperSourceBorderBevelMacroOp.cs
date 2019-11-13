@@ -12,11 +12,41 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Bevel")]
         public BorderBevel Bevel { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderBevel,
+                return new SuperSourceBorderSetCommand()
+                {
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderBevel,
+                    SSrcId = SuperSourceId.One,
+                    BorderBevel = Bevel,
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderBevel,
+                    BorderBevel = Bevel,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BorderBevel, ProtocolVersion.V8_0, 8)]
+    public class SuperSourceV2BorderBevelMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(6), Enum8]
+        [MacroField("Bevel")]
+        public BorderBevel Bevel { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourceBorderSetCommand()
+            {
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderBevel,
+                SSrcId = SSrcId,
                 BorderBevel = Bevel,
             };
         }

@@ -7,7 +7,7 @@ namespace LibAtem.MacroOperations.Audio
     [MacroOperation(MacroOperationType.AudioMixerMasterOutResetPeaks, 4), NoMacroFields]
     public class AudioMixerMasterOutResetPeaksMacroOp : MacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new AudioMixerResetPeaksCommand
             {

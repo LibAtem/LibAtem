@@ -12,11 +12,41 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Altitude")]
         public uint Altitude { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderLightSourceAltitude,
+                return new SuperSourceBorderSetCommand()
+                {
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderLightSourceAltitude,
+                    SSrcId = SuperSourceId.One,
+                    BorderLightSourceAltitude = Altitude,
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderLightSourceAltitude,
+                    BorderLightSourceAltitude = Altitude,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2ShadowAltitude, ProtocolVersion.V8_0, 8)]
+    public class SuperSourceV2ShadowAltitudeMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(6), UInt16Range(10, 100)]
+        [MacroField("Altitude")]
+        public uint Altitude { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourceBorderSetCommand()
+            {
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderLightSourceAltitude,
+                SSrcId = SSrcId,
                 BorderLightSourceAltitude = Altitude,
             };
         }
