@@ -9,7 +9,7 @@ namespace LibAtem.DeviceProfile
 {
     public static class AvailabilityChecker
     {
-        public static object GetMaxForProperty(DeviceProfile profile, string propName)
+        public static object GetMaxForMacroProperty(DeviceProfile profile, string propName)
         {
             switch (propName)
             {
@@ -19,6 +19,14 @@ namespace LibAtem.DeviceProfile
                     return profile.MediaPoolStills - 1;
                 case "MacroSleep.Frames":
                     return (uint) 500; // TODO
+                default:
+                    return null;
+            }
+        }
+        public static object GetMaxForCommandProperty(DeviceProfile profile, string propName)
+        {
+            switch (propName)
+            {
                 default:
                     return null;
             }
