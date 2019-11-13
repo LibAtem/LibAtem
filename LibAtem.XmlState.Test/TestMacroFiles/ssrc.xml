@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile majorVersion="1" minorVersion="4" product="ATEM 2 M/E Production Studio 4K">
+    <MacroPool>
+        <Macro index="18" name="ssrc" description="">
+            <Op id="SuperSourceBoxEnable" boxIndex="0" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="0" xPosition="-5.33"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="0" yPosition="0"/>
+            <Op id="SuperSourceBoxSize" boxIndex="0" size="0.686005"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="0" enable="True"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="0" left="8.22501"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="0" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="0" right="8.22501"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="0" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="1" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="1" xPosition="8"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="1" yPosition="4.25"/>
+            <Op id="SuperSourceBoxSize" boxIndex="1" size="0.395004"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="1" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="1" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="1" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="1" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="1" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="2" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="2" xPosition="8"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="2" yPosition="-4.25002"/>
+            <Op id="SuperSourceBoxSize" boxIndex="2" size="0.395004"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="2" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="2" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="2" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="2" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="2" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="3" enable="False"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="3" xPosition="0"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="3" yPosition="0"/>
+            <Op id="SuperSourceBoxSize" boxIndex="3" size="1"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="3" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="3" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="3" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="3" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="3" bottom="0"/>
+            <Op id="MacroSleep" frames="25"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="0" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="0" xPosition="-6.32001"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="0" yPosition="3.5"/>
+            <Op id="SuperSourceBoxSize" boxIndex="0" size="0.5"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="0" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="0" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="0" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="0" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="0" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="1" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="1" xPosition="6.32001"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="1" yPosition="-3.50002"/>
+            <Op id="SuperSourceBoxSize" boxIndex="1" size="0.5"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="1" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="1" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="1" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="1" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="1" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="2" enable="False"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="2" xPosition="0"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="2" yPosition="0"/>
+            <Op id="SuperSourceBoxSize" boxIndex="2" size="1"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="2" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="2" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="2" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="2" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="2" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="3" enable="False"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="3" xPosition="0"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="3" yPosition="0"/>
+            <Op id="SuperSourceBoxSize" boxIndex="3" size="1"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="3" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="3" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="3" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="3" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="3" bottom="0"/>
+            <Op id="MacroSleep" frames="25"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="0" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="0" xPosition="-7.16"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="0" yPosition="4"/>
+            <Op id="SuperSourceBoxSize" boxIndex="0" size="0.444"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="0" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="0" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="0" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="0" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="0" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="1" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="1" xPosition="7.16"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="1" yPosition="-4.00002"/>
+            <Op id="SuperSourceBoxSize" boxIndex="1" size="0.444"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="1" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="1" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="1" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="1" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="1" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="2" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="2" xPosition="7.16"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="2" yPosition="4"/>
+            <Op id="SuperSourceBoxSize" boxIndex="2" size="0.300003"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="2" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="2" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="2" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="2" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="2" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="3" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="3" xPosition="-7.16"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="3" yPosition="-4.00002"/>
+            <Op id="SuperSourceBoxSize" boxIndex="3" size="0.300003"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="3" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="3" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="3" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="3" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="3" bottom="0"/>
+            <Op id="MacroSleep" frames="25"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="0" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="0" xPosition="-7.58"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="0" yPosition="4.25"/>
+            <Op id="SuperSourceBoxSize" boxIndex="0" size="0.417007"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="0" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="0" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="0" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="0" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="0" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="1" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="1" xPosition="7.58"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="1" yPosition="4.25"/>
+            <Op id="SuperSourceBoxSize" boxIndex="1" size="0.417007"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="1" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="1" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="1" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="1" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="1" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="2" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="2" xPosition="-7.58"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="2" yPosition="-4.25002"/>
+            <Op id="SuperSourceBoxSize" boxIndex="2" size="0.417007"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="2" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="2" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="2" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="2" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="2" bottom="0"/>
+            <Op id="SuperSourceBoxEnable" boxIndex="3" enable="True"/>
+            <Op id="SuperSourceBoxXPosition" boxIndex="3" xPosition="7.58"/>
+            <Op id="SuperSourceBoxYPosition" boxIndex="3" yPosition="-4.25002"/>
+            <Op id="SuperSourceBoxSize" boxIndex="3" size="0.417007"/>
+            <Op id="SuperSourceBoxMaskEnable" boxIndex="3" enable="False"/>
+            <Op id="SuperSourceBoxMaskLeft" boxIndex="3" left="0"/>
+            <Op id="SuperSourceBoxMaskTop" boxIndex="3" top="0"/>
+            <Op id="SuperSourceBoxMaskRight" boxIndex="3" right="0"/>
+            <Op id="SuperSourceBoxMaskBottom" boxIndex="3" bottom="0"/>
+            <Op id="MacroSleep" frames="25"/>
+            <Op id="SuperSourceBorderBevel" bevel="In"/>
+            <Op id="SuperSourceBorderHue" hue="144"/>
+            <Op id="SuperSourceBorderSaturation" saturation="0.328003"/>
+            <Op id="SuperSourceBorderLuminescence" luminescence="0.522003"/>
+            <Op id="SuperSourceBorderInnerWidth" innerWidth="10.83"/>
+            <Op id="SuperSourceBorderOuterWidth" outerWidth="4.66"/>
+            <Op id="SuperSourceBorderInnerSoftness" innerSoftness="56"/>
+            <Op id="SuperSourceBorderOuterSoftness" outerSoftness="19"/>
+            <Op id="SuperSourceBorderBevelPosition" bevelPosition="51"/>
+            <Op id="SuperSourceBorderBevelSoftness" bevelSoftness="41"/>
+            <Op id="SuperSourceShadowDirection" direction="304.4"/>
+            <Op id="SuperSourceShadowAltitude" altitude="23"/>
+            <Op id="MacroSleep" frames="25"/>
+            <Op id="SuperSourceBorderEnable" enable="False"/>
+            <Op id="SuperSourceArtFillInput" input="Camera12"/>
+            <Op id="MacroSleep" frames="25"/>
+            <Op id="SuperSourceArtAbove" artAbove="True"/>
+            <Op id="SuperSourceArtCutInput" input="Camera6"/>
+            <Op id="SuperSourceArtClip" clip="0.766006"/>
+            <Op id="SuperSourceArtGain" gain="0.119995"/>
+            <Op id="SuperSourceArtInvert" invert="False"/>
+            <Op id="MacroSleep" frames="25"/>
+            <Op id="SuperSourceArtPreMultiply" preMultiply="True"/>
+        </Macro>
+    </MacroPool>
+</Profile>
