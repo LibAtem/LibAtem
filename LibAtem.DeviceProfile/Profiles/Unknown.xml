@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DeviceProfile>
+  <Model>Unknown</Model>
+  <Product>Unknown ATEM Switcher</Product>
+  <MixEffectBlocks>1</MixEffectBlocks>
+  <Sources>
+    <DevicePort id="1">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="2">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="3">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="4">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="5">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="6">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="7">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="8">
+      <Port>SDI</Port>
+    </DevicePort>
+  </Sources>
+  <ColorGenerators>2</ColorGenerators>
+  <Auxiliaries>1</Auxiliaries>
+  <DownstreamKeys>2</DownstreamKeys>
+  <UpstreamKeys>2</UpstreamKeys>
+  <RoutableKeyMasks>false</RoutableKeyMasks>
+  <Stingers>1</Stingers>
+  <HyperDecks>4</HyperDecks>
+  <DVE>1</DVE>
+  <SuperSource>0</SuperSource>
+  <MediaPlayers>2</MediaPlayers>
+  <MediaPoolStills>20</MediaPoolStills>
+  <MediaPoolClips>2</MediaPoolClips>
+  <MacroCount>100</MacroCount>
+  <MultiView>
+    <Count>1</Count>
+    <VuMeters>false</VuMeters>
+    <CanSwapPreviewProgram>false</CanSwapPreviewProgram>
+    <CanRouteInputs>false</CanRouteInputs>
+    <CanToggleSafeArea>false</CanToggleSafeArea>
+  </MultiView>
+  <SerialPort>0</SerialPort>
+  <AudioMonitor>false</AudioMonitor>
+  <VideoModes minimumSupported="SDISD" maximumSupported="SDI6G" downConvertAbove="SDI6G">
+    <MaxFrames sd="0" _720="0" _1080="0" _4k="0" />
+  </VideoModes>
+</DeviceProfile>

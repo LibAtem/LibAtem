@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DeviceProfile>
+  <Model>TVStudioHD</Model>
+  <Product>ATEM Television Studio HD</Product>
+  <MixEffectBlocks>1</MixEffectBlocks>
+  <Sources>
+    <DevicePort id="1">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="2">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="3">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="4">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="5">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="6">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="7">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="8">
+      <Port>SDI</Port>
+    </DevicePort>
+  </Sources>
+  <ColorGenerators>2</ColorGenerators>
+  <Auxiliaries>1</Auxiliaries>
+  <DownstreamKeys>2</DownstreamKeys>
+  <UpstreamKeys>1</UpstreamKeys>
+  <RoutableKeyMasks>true</RoutableKeyMasks>
+  <Stingers>0</Stingers>
+  <HyperDecks>4</HyperDecks>
+  <DVE>1</DVE>
+  <SuperSource>0</SuperSource>
+  <MediaPlayers>2</MediaPlayers>
+  <MediaPoolStills>20</MediaPoolStills>
+  <MediaPoolClips>0</MediaPoolClips>
+  <MacroCount>100</MacroCount>
+  <MultiView>
+    <Count>1</Count>
+    <VuMeters>true</VuMeters>
+    <CanSwapPreviewProgram>true</CanSwapPreviewProgram>
+    <Supports1080p>true</Supports1080p>
+    <CanRouteInputs>true</CanRouteInputs>
+    <CanToggleSafeArea>true</CanToggleSafeArea>
+  </MultiView>
+  <SerialPort>1</SerialPort>
+  <AudioMonitor>false</AudioMonitor>
+  <VideoModes minimumSupported="SDISD" maximumSupported="SDI3G" downConvertAbove="SDI6G">
+    <MaxFrames sd="0" _720="0" _1080="0" _4k="0" />
+  </VideoModes>
+</DeviceProfile>
