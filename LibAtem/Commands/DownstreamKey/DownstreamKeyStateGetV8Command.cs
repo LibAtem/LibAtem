@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.DownstreamKey
 {
     [CommandName("DskS", ProtocolVersion.V8_0, 8)]
-    public class DownstreamKeyStateGetCommand : SerializableCommandBase
+    public class DownstreamKeyStateGetV8Command : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum8]
