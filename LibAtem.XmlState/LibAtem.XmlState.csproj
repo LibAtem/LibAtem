@@ -5,12 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LibAtem\LibAtem\LibAtem.csproj" />
+    <ProjectReference Include="..\LibAtem\LibAtem.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="System.Xml.XmlSerializer">
-      <HintPath>..\..\..\..\Users\Julus\.nuget\packages\system.xml.xmlserializer\4.3.0\ref\netstandard1.3\System.Xml.XmlSerializer.dll</HintPath>
     </Reference>
   </ItemGroup>
 

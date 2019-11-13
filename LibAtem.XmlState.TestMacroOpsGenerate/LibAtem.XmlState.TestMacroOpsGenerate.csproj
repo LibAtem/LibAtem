@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LibAtem\LibAtem\LibAtem.csproj" />
+    <ProjectReference Include="..\LibAtem\LibAtem.csproj" />
   </ItemGroup>
 
 </Project>
