@@ -20,5 +20,5 @@ jobs:
     - name: Run tests
       run: dotnet test
     - name: Build with dotnet
-      run: dotnet publish -o "$(pwd)/build" -c Release LibAtem
+      run: dotnet publish -o "$(pwd)/build" -c Release
 
