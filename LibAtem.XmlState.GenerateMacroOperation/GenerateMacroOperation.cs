@@ -47,11 +47,11 @@ namespace LibAtem.XmlState.GenerateMacroOperation
             var operations = new List<Operation>();
             var fields = new List<Field>();
 
-            IReadOnlyDictionary<MacroOperationType, Type> types = MacroOpManager.FindAll();
+            IReadOnlyDictionary<MacroOperationType, Tuple<ProtocolVersion,Type>> types = MacroOpManager.FindAll();
             foreach (var t in types)
             {
                 MacroOperationType id = t.Key;
-                Type type = t.Value;
+                Type type = t.Value.Item2;
                 
                 IEnumerable<PropertyInfo> props = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(prop => prop.GetCustomAttribute<NoSerializeAttribute>() == null);
 

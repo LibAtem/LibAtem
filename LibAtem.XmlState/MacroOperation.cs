@@ -812,7 +812,7 @@ namespace LibAtem.XmlState
             get => (LibAtem.Common.DownstreamKeyId)KeyIndexInt ; set => KeyIndexInt = (int)value ; }
 
         [XmlAttribute("layout")]
-        public LibAtem.Common.MultiViewLayoutOld Layout
+        public LibAtem.Common.MultiViewLayout Layout
         {
             get;
             set;
