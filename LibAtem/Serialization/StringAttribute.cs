@@ -69,6 +69,8 @@ namespace LibAtem.Serialization
         {
             _maxlength = maxlength;
         }
+        
+        public uint MaxLength => _maxlength;
 
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
@@ -112,6 +114,8 @@ namespace LibAtem.Serialization
         {
             _maxlength = maxlength;
         }
+
+        public uint MaxLength => _maxlength;
 
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
