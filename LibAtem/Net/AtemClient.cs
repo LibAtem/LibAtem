@@ -41,7 +41,7 @@ namespace LibAtem.Net
 
         public DataTransferManager DataTransfer { get; }
 
-        public ProtocolVersion ProtocolVersion => _connection.ProtocolVersion;
+        public ProtocolVersion? ConnectionVersion => _connection.ConnectionVersion;
 
         public AtemClient(string address, bool autoConnect = true)
         {

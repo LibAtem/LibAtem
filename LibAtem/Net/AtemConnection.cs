@@ -37,7 +37,7 @@ namespace LibAtem.Net
 
         private bool _isOpen;
 
-        private ProtocolVersion _protocolVersion;
+        private ProtocolVersion? _protocolVersion;
 
         private readonly Queue<OutboundMessage> _messageQueue;
         private readonly List<InFlightMessage> _inFlight;
@@ -82,7 +82,7 @@ namespace LibAtem.Net
 
         public bool IsOpened => _isOpen;
 
-        public ProtocolVersion ProtocolVersion => _protocolVersion;
+        public ProtocolVersion? ConnectionVersion => _protocolVersion;
 
         public void ResetConnStatsInfo()
         {
@@ -95,7 +95,7 @@ namespace LibAtem.Net
                     _lastReceivedAck = 0;
                     _lastSentAck = 0;
                     _readyToAck = 0;
-                    _protocolVersion = ProtocolVersion.Minimum;
+                    _protocolVersion = null;
                     _inFlight.Clear();
                     _messageQueue.Clear();
                 }
@@ -205,7 +205,7 @@ namespace LibAtem.Net
                     string payloadStr = rawCmd.BodyLength > 100 ? "of " + rawCmd.BodyLength + " bytes" : BitConverter.ToString(rawCmd.Body);
                     Log.DebugFormat("{0} - Received command {1} with content {2}", Endpoint, rawCmd.Name, payloadStr);
 
-                    var cmd = CommandParser.Parse(_protocolVersion, rawCmd);
+                    var cmd = CommandParser.Parse(_protocolVersion ?? ProtocolVersion.Minimum, rawCmd);
                     if (cmd is VersionCommand verCmd)
                     {
                         _protocolVersion = verCmd.ProtocolVersion;
