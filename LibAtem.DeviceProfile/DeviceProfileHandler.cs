@@ -27,6 +27,8 @@ namespace LibAtem.DeviceProfile
                     StoreIdentifier(cmd as ProductIdentifierCommand);
                 if (cmd is TopologyCommand)
                     StoreTopology(cmd as TopologyCommand);
+                if (cmd is TopologyV8Command topCmd8)
+                    StoreTopologyV8(topCmd8);
                 if (cmd is InputPropertiesGetCommand)
                     StoreVideoSource(cmd as InputPropertiesGetCommand);
                 if (cmd is AudioMixerInputGetCommand)
@@ -51,6 +53,25 @@ namespace LibAtem.DeviceProfile
         }
 
         private void StoreTopology(TopologyCommand cmd)
+        {
+            Profile.MixEffectBlocks = cmd.MixEffectBlocks;
+            Profile.ColorGenerators = cmd.ColorGenerators;
+            Profile.Auxiliaries = cmd.Auxiliaries;
+            Profile.MediaPlayers = cmd.MediaPlayers;
+            Profile.SerialPort = cmd.SerialPort;
+            Profile.HyperDecks = cmd.HyperDecks;
+            Profile.DVE = cmd.DVE;
+            Profile.Stingers = cmd.Stingers;
+            Profile.SuperSource = cmd.SuperSource;
+            Profile.TalkbackOverSDI = cmd.TalkbackOverSDI > 0;
+
+            // TODO
+            // public uint DownstreamKeys { get; set; }
+            // RoutableKeyMasks
+            // AudioMonitor
+        }
+        
+        private void StoreTopologyV8(TopologyV8Command cmd)
         {
             Profile.MixEffectBlocks = cmd.MixEffectBlocks;
             Profile.ColorGenerators = cmd.ColorGenerators;
