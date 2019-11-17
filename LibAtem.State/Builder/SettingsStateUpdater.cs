@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using LibAtem.Commands;
@@ -23,7 +24,41 @@ namespace LibAtem.State.Builder
                 result.SetSuccess($"Settings.VideoMode");
             }
 
+            UpdateInputs(state, result, command);
             UpdateMultiViewers(state, result, command);
+        }
+
+        private static void UpdateInputs(AtemState state, UpdateResultImpl result, ICommand command)
+        {
+            if (command is InputPropertiesGetCommand propsCmd)
+            {
+                if (!state.Settings.Inputs.ContainsKey(propsCmd.Id))
+                    state.Settings.Inputs[propsCmd.Id] = new InputState();
+                InputState props = state.Settings.Inputs[propsCmd.Id];
+            
+                props.Properties.LongName = propsCmd.LongName;
+                props.Properties.ShortName = propsCmd.ShortName;
+
+                // Tuple<string, string> defaultName = propsCmd.Id.GetDefaultName(profile);
+                // props.AreNamesDefault = propsCmd.LongName == defaultName.Item1 && propsCmd.ShortName == defaultName.Item2;
+
+                //props.IsExternal = cmd.IsExternal;
+                props.Properties.AvailableExternalPortTypes = propsCmd.AvailableExternalPorts;
+                props.Properties.CurrentExternalPortType = propsCmd.ExternalPortType;
+                //props.InternalPortType = cmd.InternalPortType;
+                //props.SourceAvailability = cmd.SourceAvailability;
+                //props.MeAvailability = cmd.MeAvailability;
+                result.SetSuccess($"Settings.Inputs.{propsCmd.Id}.Properties");
+            }
+            else if (command is TallyBySourceCommand tallyCmd)
+            {
+                foreach (KeyValuePair<VideoSource, Tuple<bool, bool>> inp in tallyCmd.Tally)
+                {
+                    state.Settings.Inputs[inp.Key].Tally.ProgramTally = inp.Value.Item1;
+                    state.Settings.Inputs[inp.Key].Tally.PreviewTally = inp.Value.Item2;
+                    result.SetSuccess($"Settings.Inputs.{inp.Key}.Tally");
+                }
+            }
         }
 
         private static void UpdateMultiViewers(AtemState state, UpdateResultImpl result, ICommand command)

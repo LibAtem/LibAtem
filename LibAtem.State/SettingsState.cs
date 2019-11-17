@@ -9,9 +9,35 @@ namespace LibAtem.State
     public class SettingsState
     {
         public IReadOnlyList<MultiViewerState> MultiViewers { get; set; } = new List<MultiViewerState>();
+        public Dictionary<VideoSource, InputState> Inputs { get; set; } = new Dictionary<VideoSource, InputState>();
 
         public VideoMode VideoMode { get; set; }
         public SerialMode SerialMode { get; set; }
+    }
+
+    [Serializable]
+    public class InputState
+    {
+        public PropertiesState Properties = new PropertiesState();
+        public TallyState Tally = new TallyState();
+        
+        [Serializable]
+        public class PropertiesState
+        {
+            public string ShortName { get; set; }
+            public string LongName { get; set; }
+            // public bool AreNamesDefault { get; set; }
+            
+            public ExternalPortTypeFlags AvailableExternalPortTypes { get; set; }
+            public ExternalPortTypeFlags CurrentExternalPortType { get; set; }
+        }
+
+        [Serializable]
+        public class TallyState
+        {
+            public bool ProgramTally { get; set; }
+            public bool PreviewTally { get; set; }
+        }
     }
     
     [Serializable]
