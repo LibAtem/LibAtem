@@ -11,6 +11,6 @@ namespace LibAtem.Commands.DeviceProfile
         }
 
         [Serialize(0), Enum32]
-        public ProtocolVersion ProtocolVersion { get; protected set; }
+        public ProtocolVersion ProtocolVersion { get; set; }
     }
 }

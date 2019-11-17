@@ -127,7 +127,8 @@ namespace LibAtem.Serialization
 
             int attrLength = info.Length;
             if (attrLength != -1 && attrLength != cmd.BodyLength)
-                throw new SerializationException(GetType().Name, "Auto deserialize length mismatch");
+                throw new SerializationException(GetType().Name,
+                    $"Auto deserialize length mismatch {cmd.BodyLength}vs{attrLength}");
 
             foreach (PropertySpec prop in info.Properties)
                 prop.Setter?.DynamicInvoke(this, prop.SerAttr.Deserialize(cmd.ReverseBytes, cmd.Body, prop.Attr.StartByte, prop.PropInfo));

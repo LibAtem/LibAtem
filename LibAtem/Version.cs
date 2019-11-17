@@ -7,6 +7,7 @@ namespace LibAtem
         Minimum = V7_2,
         [ProtocolVersionNameAttribute("v7.2")]
         V7_2 = 0x00020016, // 2.22
+        V7_X = 0x00020019, // 2.25
         [ProtocolVersionNameAttribute("v8.0")]
         V8_0 = 0x0002001C, // 2.28
         [ProtocolVersionNameAttribute("v8.0.1")]
