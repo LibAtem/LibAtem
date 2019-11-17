@@ -11,9 +11,7 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.ColorGenerators, (int)colCmd.Index, col =>
                 {
-                    col.Hue = colCmd.Hue;
-                    col.Luma = colCmd.Luma;
-                    col.Saturation = colCmd.Saturation;
+                    UpdaterUtil.CopyAllProperties(colCmd, col, new []{"Index"});
                     result.SetSuccess($"ColorGenerators.{colCmd.Index}");
                 });
             }

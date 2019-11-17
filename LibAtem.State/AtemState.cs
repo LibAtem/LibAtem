@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using LibAtem.Common;
 
 namespace LibAtem.State
 {
@@ -12,8 +10,13 @@ namespace LibAtem.State
     {
         public IReadOnlyList<AuxState> Auxiliaries { get; set; } = new List<AuxState>();
         public IReadOnlyList<ColorState> ColorGenerators { get; set; } = new List<ColorState>();
+        public IReadOnlyList<DownstreamKeyerState> DownstreamKeyers { get; set; } = new List<DownstreamKeyerState>();
+        public IReadOnlyList<MediaPlayerState> MediaPlayers { get; set; } = new List<MediaPlayerState>();
         public IReadOnlyList<MixEffectState> MixEffects { get; set; } = new List<MixEffectState>();
-        
+        public IReadOnlyList<SuperSourceState> SuperSources { get; set; } = new List<SuperSourceState>();
+
+        public MacroState Macros { get; } = new MacroState();
+
         #region Clone
         public AtemState Clone()
         {
@@ -22,31 +25,17 @@ namespace LibAtem.State
         
         private static AtemState CloneObj(AtemState obj)
         {
-            MemoryStream ms = null;
-            AtemState clonedObj = null;
-            try
+            using (var ms = new MemoryStream())
             {
                 // Serialize
                 BinaryFormatter serializer = new BinaryFormatter();
-                ms = new MemoryStream();
                 serializer.Serialize(ms, obj);
                 
                 // Deserialize
                 ms.Position = 0;
-                var obj2 = serializer.Deserialize(ms);
-                if (obj2 is AtemState obj3)
-                    clonedObj = obj3;
+                return (AtemState) serializer.Deserialize(ms);
             }
-            catch (Exception unexpected)
-            {
-                Trace.Fail(unexpected.Message);
-                throw;
-            }
-            {
-                ms?.Close();
-            }
-            return clonedObj;
         }
-#endregion Clone
+        #endregion Clone
     }
 }
