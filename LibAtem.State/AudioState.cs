@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using LibAtem.Common;
+using LibAtem.State.Tolerance;
 
 namespace LibAtem.State
 {
@@ -17,13 +18,19 @@ namespace LibAtem.State
         [Serializable]
         public class ProgramOutState
         {
+            [DecibelTolerance(5)]
             public double Gain { get; set; }
+            [Tolerance(0.01)]
             public double Balance { get; set; }
             public bool FollowFadeToBlack { get; set; }
 
+            [DecibelTolerance(5)]
             public double LevelLeft { get; set; } = double.NegativeInfinity;
+            [DecibelTolerance(5)]
             public double LevelRight { get; set; } = double.NegativeInfinity;
+            [DecibelTolerance(5)]
             public double PeakLeft { get; set; } = double.NegativeInfinity;
+            [DecibelTolerance(5)]
             public double PeakRight { get; set; } = double.NegativeInfinity;
         }
 
@@ -38,6 +45,7 @@ namespace LibAtem.State
         public class MonitorOutputState
         {
             public bool Enabled { get; set; }
+            [DecibelTolerance(5)]
             public double Gain { get; set; }
 
             public bool Mute { get; set; }
@@ -53,13 +61,19 @@ namespace LibAtem.State
         {
             public ExternalPortTypeFlags ExternalPortType { get; set; }
             public AudioMixOption MixOption { get; set; }
+            [DecibelTolerance(5)]
             public double Gain { get; set; }
+            [Tolerance(0.01)]
             public double Balance { get; set; }
             public bool IsMixedIn { get; set; }
 
+            [DecibelTolerance(5)]
             public double LevelLeft { get; set; } = double.NegativeInfinity;
+            [DecibelTolerance(5)]
             public double LevelRight { get; set; } = double.NegativeInfinity;
+            [DecibelTolerance(5)]
             public double PeakLeft { get; set; } = double.NegativeInfinity;
+            [DecibelTolerance(5)]
             public double PeakRight { get; set; } = double.NegativeInfinity;
         }
     }

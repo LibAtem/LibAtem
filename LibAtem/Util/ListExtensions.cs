@@ -29,6 +29,11 @@ namespace LibAtem.Util
             foreach (T elm in list)
                 func(elm);
         }
+        public static void ForEach<T>(this IReadOnlyList<T> list, Action<int, T> func)
+        {
+            for (int i = 0; i < list.Count; i++)
+                func(i, list[i]);
+        }
 
         public static void SetToLength<T>(this List<T> list, uint target, Func<int, T> generator)
         {

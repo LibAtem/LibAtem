@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LibAtem.Common;
+using LibAtem.State.Tolerance;
 
 namespace LibAtem.State
 {
@@ -44,7 +45,8 @@ namespace LibAtem.State
     public class MultiViewerState
     {
         public bool SupportsVuMeters { get; set; }
-        
+
+        [Tolerance(1)]
         public double VuMeterOpacity { get; set; }
         public PropertiesState Properties { get; } = new PropertiesState();
 

@@ -1,5 +1,6 @@
 using System;
 using LibAtem.Common;
+using LibAtem.State.Tolerance;
 
 namespace LibAtem.State
 {
@@ -25,14 +26,20 @@ namespace LibAtem.State
         public uint Rate { get; set; }
 
         public bool PreMultipliedKey { get; set; }
+        [Tolerance(0.01)]
         public double Clip { get; set; }
+        [Tolerance(0.01)]
         public double Gain { get; set; }
         public bool Invert { get; set; }
 
         public bool MaskEnabled { get; set; }
+        [Tolerance(0.01)]
         public double MaskTop { get; set; }
+        [Tolerance(0.01)]
         public double MaskBottom { get; set; }
+        [Tolerance(0.01)]
         public double MaskLeft { get; set; }
+        [Tolerance(0.01)]
         public double MaskRight { get; set; }
     }
 
