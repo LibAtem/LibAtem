@@ -18,9 +18,9 @@ namespace LibAtem.MacroOperations.SuperSource
             {
                 return new SuperSourceBorderSetCommand()
                 {
-                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderEnabled,
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.Enabled,
                     SSrcId = SuperSourceId.One,
-                    BorderEnabled = Enable,
+                    Enabled = Enable,
                 };
             }
             else
@@ -45,9 +45,9 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderEnabled,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.Enabled,
                 SSrcId = SSrcId,
-                BorderEnabled = Enable,
+                Enabled = Enable,
             };
         }
     }

@@ -11,30 +11,30 @@ namespace LibAtem.Commands.SuperSource
         public SuperSourceId SSrcId { get; set; }
 
         [Serialize(1), Bool]
-        public bool BorderEnabled { get; set; }
+        public bool Enabled { get; set; }
         [Serialize(2), Enum8]
-        public BorderBevel BorderBevel { get; set; }
+        public BorderBevel Bevel { get; set; }
         [Serialize(4), UInt16D(100, 0, 1600)]
-        public double BorderWidthOut { get; set; }
+        public double OuterWidth { get; set; }
         [Serialize(6), UInt16D(100, 0, 1600)]
-        public double BorderWidthIn { get; set; }
+        public double InnerWidth { get; set; }
         [Serialize(8), UInt8Range(0, 100)]
-        public uint BorderSoftnessOut { get; set; }
+        public uint OuterSoftness { get; set; }
         [Serialize(9), UInt8Range(0, 100)]
-        public uint BorderSoftnessIn { get; set; }
+        public uint InnerSoftness { get; set; }
         [Serialize(10), UInt8Range(0, 100)]
-        public uint BorderBevelSoftness { get; set; }
+        public uint BevelSoftness { get; set; }
         [Serialize(11), UInt8Range(0, 100)]
-        public uint BorderBevelPosition { get; set; }
+        public uint BevelPosition { get; set; }
         [Serialize(12), UInt16D(10, 0, 3599)]
-        public double BorderHue { get; set; }
+        public double Hue { get; set; }
         [Serialize(14), UInt16D(10, 0, 1000)]
-        public double BorderSaturation { get; set; }
+        public double Saturation { get; set; }
         [Serialize(16), UInt16D(10, 0, 1000)]
-        public double BorderLuma { get; set; }
+        public double Luma { get; set; }
         [Serialize(18), UInt16D(10, 0, 3599)]
-        public double BorderLightSourceDirection { get; set; }
+        public double LightSourceDirection { get; set; }
         [Serialize(20), UInt8D(1, 0, 100)]
-        public double BorderLightSourceAltitude { get; set; }
+        public double LightSourceAltitude { get; set; }
     }
 }

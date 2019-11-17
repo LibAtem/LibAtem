@@ -18,9 +18,9 @@ namespace LibAtem.MacroOperations.SuperSource
             {
                 return new SuperSourceBorderSetCommand()
                 {
-                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderHue,
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.Hue,
                     SSrcId = SuperSourceId.One,
-                    BorderHue = Hue,
+                    Hue = Hue,
                 };
             }
             else
@@ -45,9 +45,9 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderHue,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.Hue,
                 SSrcId = SSrcId,
-                BorderHue = Hue,
+                Hue = Hue,
             };
         }
     }

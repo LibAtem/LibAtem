@@ -13,19 +13,19 @@ namespace LibAtem.Commands.SuperSource
         [Flags]
         public enum MaskFlags
         {
-            BorderEnabled = 1 << 0,
-            BorderBevel = 1 << 1,
-            BorderOuterWidth = 1 << 2,
-            BorderInnerWidth = 1 << 3,
-            BorderOuterSoftness = 1 << 4,
-            BorderInnerSoftness = 1 << 5,
-            BorderBevelSoftness = 1 << 6,
-            BorderBevelPosition = 1 << 7,
-            BorderHue = 1 << 8,
-            BorderSaturation = 1 << 9,
-            BorderLuma = 1 << 10,
-            BorderLightSourceDirection = 1 << 11,
-            BorderLightSourceAltitude = 1 << 12,
+            Enabled = 1 << 0,
+            Bevel = 1 << 1,
+            OuterWidth = 1 << 2,
+            InnerWidth = 1 << 3,
+            OuterSoftness = 1 << 4,
+            InnerSoftness = 1 << 5,
+            BevelSoftness = 1 << 6,
+            BevelPosition = 1 << 7,
+            Hue = 1 << 8,
+            Saturation = 1 << 9,
+            Luma = 1 << 10,
+            LightSourceDirection = 1 << 11,
+            LightSourceAltitude = 1 << 12,
         }
 
         [Serialize(0), Enum16]
@@ -36,72 +36,72 @@ namespace LibAtem.Commands.SuperSource
         public SuperSourceId SSrcId { get; set; }
 
         [Serialize(3), Bool]
-        public bool BorderEnabled { get; set; }
+        public bool Enabled { get; set; }
         [Serialize(4), Enum8]
-        public BorderBevel BorderBevel { get; set; }
+        public BorderBevel Bevel { get; set; }
         [Serialize(6), UInt16D(100, 0, 1600)]
-        public double BorderOuterWidth { get; set; }
+        public double OuterWidth { get; set; }
         [Serialize(8), UInt16D(100, 0, 1600)]
-        public double BorderInnerWidth { get; set; }
+        public double InnerWidth { get; set; }
         [Serialize(10), UInt8Range(0, 100)]
-        public uint BorderOuterSoftness { get; set; }
+        public uint OuterSoftness { get; set; }
         [Serialize(11), UInt8Range(0, 100)]
-        public uint BorderInnerSoftness { get; set; }
+        public uint InnerSoftness { get; set; }
         [Serialize(12), UInt8Range(0, 100)]
-        public uint BorderBevelSoftness { get; set; }
+        public uint BevelSoftness { get; set; }
         [Serialize(13), UInt8Range(0, 100)]
-        public uint BorderBevelPosition { get; set; }
+        public uint BevelPosition { get; set; }
         [Serialize(14), UInt16D(10, 0, 3599)]
-        public double BorderHue { get; set; }
+        public double Hue { get; set; }
         [Serialize(16), UInt16D(10, 0, 1000)]
-        public double BorderSaturation { get; set; }
+        public double Saturation { get; set; }
         [Serialize(18), UInt16D(10, 0, 1000)]
-        public double BorderLuma { get; set; }
+        public double Luma { get; set; }
         [Serialize(20), UInt16D(10, 0, 3599)]
-        public double BorderLightSourceDirection { get; set; }
+        public double LightSourceDirection { get; set; }
         [Serialize(22), UInt8Range(0, 100)]
-        public uint BorderLightSourceAltitude { get; set; }
+        public uint LightSourceAltitude { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
-            if (Mask.HasFlag(MaskFlags.BorderEnabled))
-                yield return new SuperSourceV2BorderEnableMacroOp() { SSrcId = SSrcId, Enable = BorderEnabled };
+            if (Mask.HasFlag(MaskFlags.Enabled))
+                yield return new SuperSourceV2BorderEnableMacroOp() { SSrcId = SSrcId, Enable = Enabled };
 
-            if (Mask.HasFlag(MaskFlags.BorderBevel))
-                yield return new SuperSourceV2BorderBevelMacroOp { SSrcId = SSrcId, Bevel = BorderBevel };
+            if (Mask.HasFlag(MaskFlags.Bevel))
+                yield return new SuperSourceV2BorderBevelMacroOp { SSrcId = SSrcId, Bevel = Bevel };
 
-            if (Mask.HasFlag(MaskFlags.BorderOuterWidth))
-                yield return new SuperSourceV2BorderOuterWidthMacroOp { SSrcId = SSrcId, OuterWidth = BorderOuterWidth };
+            if (Mask.HasFlag(MaskFlags.OuterWidth))
+                yield return new SuperSourceV2BorderOuterWidthMacroOp { SSrcId = SSrcId, OuterWidth = OuterWidth };
 
-            if (Mask.HasFlag(MaskFlags.BorderInnerWidth))
-                yield return new SuperSourceV2BorderInnerWidthMacroOp { SSrcId = SSrcId, InnerWidth = BorderInnerWidth };
+            if (Mask.HasFlag(MaskFlags.InnerWidth))
+                yield return new SuperSourceV2BorderInnerWidthMacroOp { SSrcId = SSrcId, InnerWidth = InnerWidth };
 
-            if (Mask.HasFlag(MaskFlags.BorderOuterSoftness))
-                yield return new SuperSourceV2BorderOuterSoftnessMacroOp { SSrcId = SSrcId, OuterSoftness = BorderOuterSoftness };
+            if (Mask.HasFlag(MaskFlags.OuterSoftness))
+                yield return new SuperSourceV2BorderOuterSoftnessMacroOp { SSrcId = SSrcId, OuterSoftness = OuterSoftness };
 
-            if (Mask.HasFlag(MaskFlags.BorderInnerSoftness))
-                yield return new SuperSourceV2BorderInnerSoftnessMacroOp { SSrcId = SSrcId, InnerSoftness = BorderInnerSoftness };
+            if (Mask.HasFlag(MaskFlags.InnerSoftness))
+                yield return new SuperSourceV2BorderInnerSoftnessMacroOp { SSrcId = SSrcId, InnerSoftness = InnerSoftness };
 
-            if (Mask.HasFlag(MaskFlags.BorderBevelSoftness))
-                yield return new SuperSourceV2BorderBevelSoftnessMacroOp { SSrcId = SSrcId, BevelSoftness = BorderBevelSoftness };
+            if (Mask.HasFlag(MaskFlags.BevelSoftness))
+                yield return new SuperSourceV2BorderBevelSoftnessMacroOp { SSrcId = SSrcId, BevelSoftness = BevelSoftness };
 
-            if (Mask.HasFlag(MaskFlags.BorderBevelPosition))
-                yield return new SuperSourceV2BorderBevelPositionMacroOp { SSrcId = SSrcId, BevelPosition = BorderBevelPosition };
+            if (Mask.HasFlag(MaskFlags.BevelPosition))
+                yield return new SuperSourceV2BorderBevelPositionMacroOp { SSrcId = SSrcId, BevelPosition = BevelPosition };
 
-            if (Mask.HasFlag(MaskFlags.BorderHue))
-                yield return new SuperSourceV2BorderHueMacroOp { SSrcId = SSrcId, Hue = BorderHue };
+            if (Mask.HasFlag(MaskFlags.Hue))
+                yield return new SuperSourceV2BorderHueMacroOp { SSrcId = SSrcId, Hue = Hue };
 
-            if (Mask.HasFlag(MaskFlags.BorderSaturation))
-                yield return new SuperSourceV2BorderSaturationMacroOp { SSrcId = SSrcId, Saturation = BorderSaturation };
+            if (Mask.HasFlag(MaskFlags.Saturation))
+                yield return new SuperSourceV2BorderSaturationMacroOp { SSrcId = SSrcId, Saturation = Saturation };
 
-            if (Mask.HasFlag(MaskFlags.BorderLuma))
-                yield return new SuperSourceV2BorderLuminescenceMacroOp { SSrcId = SSrcId, Luma = BorderLuma };
+            if (Mask.HasFlag(MaskFlags.Luma))
+                yield return new SuperSourceV2BorderLuminescenceMacroOp { SSrcId = SSrcId, Luma = Luma };
 
-            if (Mask.HasFlag(MaskFlags.BorderLightSourceDirection))
-                yield return new SuperSourceV2ShadowDirectionMacroOp { SSrcId = SSrcId, Direction = BorderLightSourceDirection };
+            if (Mask.HasFlag(MaskFlags.LightSourceDirection))
+                yield return new SuperSourceV2ShadowDirectionMacroOp { SSrcId = SSrcId, Direction = LightSourceDirection };
 
-            if (Mask.HasFlag(MaskFlags.BorderLightSourceAltitude))
-                yield return new SuperSourceV2ShadowAltitudeMacroOp { SSrcId = SSrcId, Altitude = BorderLightSourceAltitude };
+            if (Mask.HasFlag(MaskFlags.LightSourceAltitude))
+                yield return new SuperSourceV2ShadowAltitudeMacroOp { SSrcId = SSrcId, Altitude = LightSourceAltitude };
         }
     }
 }

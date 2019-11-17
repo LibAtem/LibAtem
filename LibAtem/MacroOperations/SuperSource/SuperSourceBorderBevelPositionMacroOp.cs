@@ -18,9 +18,9 @@ namespace LibAtem.MacroOperations.SuperSource
             {
                 return new SuperSourceBorderSetCommand()
                 {
-                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderBevelPosition,
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.BevelPosition,
                     SSrcId = SuperSourceId.One,
-                    BorderBevelPosition = BevelPosition,
+                    BevelPosition = BevelPosition,
                 };
             }
             else
@@ -45,9 +45,9 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderBevelPosition,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.BevelPosition,
                 SSrcId = SSrcId,
-                BorderBevelPosition = BevelPosition,
+                BevelPosition = BevelPosition,
             };
         }
     }

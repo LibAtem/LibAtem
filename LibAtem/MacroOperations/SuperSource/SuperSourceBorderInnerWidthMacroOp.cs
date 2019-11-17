@@ -18,9 +18,9 @@ namespace LibAtem.MacroOperations.SuperSource
             {
                 return new SuperSourceBorderSetCommand()
                 {
-                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderInnerWidth,
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.InnerWidth,
                     SSrcId = SuperSourceId.One,
-                    BorderInnerWidth = InnerWidth,
+                    InnerWidth = InnerWidth,
                 };
             }
             else
@@ -45,9 +45,9 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderInnerWidth,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.InnerWidth,
                 SSrcId = SSrcId,
-                BorderInnerWidth = InnerWidth,
+                InnerWidth = InnerWidth,
             };
         }
     }

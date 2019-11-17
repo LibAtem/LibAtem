@@ -18,9 +18,9 @@ namespace LibAtem.MacroOperations.SuperSource
             {
                 return new SuperSourceBorderSetCommand()
                 {
-                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderLightSourceAltitude,
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.LightSourceAltitude,
                     SSrcId = SuperSourceId.One,
-                    BorderLightSourceAltitude = Altitude,
+                    LightSourceAltitude = Altitude,
                 };
             }
             else
@@ -45,9 +45,9 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderLightSourceAltitude,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.LightSourceAltitude,
                 SSrcId = SSrcId,
-                BorderLightSourceAltitude = Altitude,
+                LightSourceAltitude = Altitude,
             };
         }
     }

@@ -18,9 +18,9 @@ namespace LibAtem.MacroOperations.SuperSource
             {
                 return new SuperSourceBorderSetCommand()
                 {
-                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderSaturation,
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.Saturation,
                     SSrcId = SuperSourceId.One,
-                    BorderSaturation = Saturation,
+                    Saturation = Saturation,
                 };
             }
             else
@@ -45,9 +45,9 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderSaturation,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.Saturation,
                 SSrcId = SSrcId,
-                BorderSaturation = Saturation,
+                Saturation = Saturation,
             };
         }
     }

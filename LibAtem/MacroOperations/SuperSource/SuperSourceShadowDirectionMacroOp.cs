@@ -18,9 +18,9 @@ namespace LibAtem.MacroOperations.SuperSource
             {
                 return new SuperSourceBorderSetCommand()
                 {
-                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderLightSourceDirection,
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.LightSourceDirection,
                     SSrcId = SuperSourceId.One,
-                    BorderLightSourceDirection = Direction,
+                    LightSourceDirection = Direction,
                 };
             }
             else
@@ -45,9 +45,9 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderLightSourceDirection,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.LightSourceDirection,
                 SSrcId = SSrcId,
-                BorderLightSourceDirection = Direction,
+                LightSourceDirection = Direction,
             };
         }
     }

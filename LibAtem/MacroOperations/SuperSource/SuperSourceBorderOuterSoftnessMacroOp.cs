@@ -18,9 +18,9 @@ namespace LibAtem.MacroOperations.SuperSource
             {
                 return new SuperSourceBorderSetCommand()
                 {
-                    Mask = SuperSourceBorderSetCommand.MaskFlags.BorderOuterSoftness,
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.OuterSoftness,
                     SSrcId = SuperSourceId.One,
-                    BorderOuterSoftness = OuterSoftness,
+                    OuterSoftness = OuterSoftness,
                 };
             }
             else
@@ -45,9 +45,9 @@ namespace LibAtem.MacroOperations.SuperSource
         {
             return new SuperSourceBorderSetCommand()
             {
-                Mask = SuperSourceBorderSetCommand.MaskFlags.BorderOuterSoftness,
+                Mask = SuperSourceBorderSetCommand.MaskFlags.OuterSoftness,
                 SSrcId = SSrcId,
-                BorderOuterSoftness = OuterSoftness,
+                OuterSoftness = OuterSoftness,
             };
         }
     }
