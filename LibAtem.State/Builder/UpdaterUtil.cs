@@ -19,6 +19,17 @@ namespace LibAtem.State.Builder
                 result.AddError($"Update for unknown {typeof(T).Name}: {index}");
             }
         }
+        public static void TryForKey<TK, TV>(UpdateResultImpl result, IDictionary<TK, TV> dict, TK key, Action<TV> func)
+        {
+            if (dict.TryGetValue(key, out TV obj))
+            {
+                func(obj);
+            }
+            else
+            {
+                result.AddError($"Update for unknown {typeof(TV).Name}: {key}");
+            }
+        }
 
         public static IReadOnlyList<T> CreateList<T>(uint count, Func<int, T> func)
         {

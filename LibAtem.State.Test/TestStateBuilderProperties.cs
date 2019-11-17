@@ -83,6 +83,11 @@ namespace LibAtem.State.Test
                 ClipCount = 2,
                 StillCount = 10
             });
+            AtemStateBuilder.Update(state, new AudioMixerConfigCommand
+            {
+                Monitors = 1,
+                Inputs = 10
+            });
             
             AtemStateBuilder.Update(state, raw);
         }

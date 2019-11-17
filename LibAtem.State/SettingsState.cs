@@ -24,6 +24,7 @@ namespace LibAtem.State
 
         public IReadOnlyList<WindowState> Windows { get; set; } = new List<WindowState>();
 
+        [Serializable]
         public class PropertiesState
         {
             public MultiViewLayout Layout { get; set; }

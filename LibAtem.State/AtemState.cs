@@ -15,6 +15,7 @@ namespace LibAtem.State
         public IReadOnlyList<MixEffectState> MixEffects { get; set; } = new List<MixEffectState>();
         public IReadOnlyList<SuperSourceState> SuperSources { get; set; } = new List<SuperSourceState>();
 
+        public AudioState Audio { get; } = new AudioState();
         public MacroState Macros { get; } = new MacroState();
         public MediaPoolState MediaPool { get; } = new MediaPoolState();
         public SettingsState Settings { get; } = new SettingsState();

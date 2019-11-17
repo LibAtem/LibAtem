@@ -12,6 +12,7 @@ namespace LibAtem.State.Builder
             var result = new UpdateResultImpl();
 
             UpdateInternal(state, result, command);
+            AudioStateUpdater.Update(state, result, command);
             AuxStateUpdater.Update(state, result, command);
             ColorStateUpdater.Update(state, result, command);
             DownstreamKeyerStateUpdater.Update(state, result, command);
