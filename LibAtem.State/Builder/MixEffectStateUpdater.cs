@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using LibAtem.Commands;
+using LibAtem.Commands.DeviceProfile;
 using LibAtem.Commands.MixEffects;
+using LibAtem.Commands.MixEffects.Key;
 using LibAtem.Commands.MixEffects.Transition;
 
 namespace LibAtem.State.Builder
@@ -24,6 +27,117 @@ namespace LibAtem.State.Builder
             }
 
             UpdateTransition(state, result, command);
+            UpdateKeyers(state, result, command);
+        }
+
+
+        private static void UpdateKeyers(AtemState state, UpdateResultImpl result, ICommand command)
+        {
+            if (command is MixEffectBlockConfigCommand confCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int) confCmd.Index, me =>
+                {
+                    me.Keyers = UpdaterUtil.CreateList(confCmd.KeyCount, i => new MixEffectState.KeyerState());
+                    result.SetSuccess($"MixEffects.{confCmd.Index}.Keyers");
+                });
+            }
+            else if (command is MixEffectKeyOnAirGetCommand onAirCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int) onAirCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int) onAirCmd.KeyerIndex, keyer =>
+                    {
+                        keyer.OnAir = onAirCmd.OnAir;
+                        result.SetSuccess($"MixEffects.{onAirCmd.MixEffectIndex}.Keyers.{onAirCmd.KeyerIndex}.OnAir");
+                    });
+                });
+            }
+            else if (command is MixEffectKeyPropertiesGetCommand propsCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int) propsCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int) propsCmd.KeyerIndex, keyer =>
+                    {
+                        UpdaterUtil.CopyAllProperties(propsCmd, keyer.Properties, new []{"MixEffectIndex", "KeyerIndex"});
+                        result.SetSuccess($"MixEffects.{propsCmd.MixEffectIndex}.Keyers.{propsCmd.KeyerIndex}.Properties");
+                    });
+                });
+            }
+            else if (command is MixEffectKeyLumaGetCommand lumaCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int) lumaCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int) lumaCmd.KeyerIndex, keyer =>
+                    {
+                        if (keyer.Luma == null) keyer.Luma = new MixEffectState.KeyerLumaState();
+                        
+                        UpdaterUtil.CopyAllProperties(lumaCmd, keyer.Luma, new []{"MixEffectIndex", "KeyerIndex"});
+                        result.SetSuccess($"MixEffects.{lumaCmd.MixEffectIndex}.Keyers.{lumaCmd.KeyerIndex}.Luma");
+                    });
+                });
+            }
+            else if (command is MixEffectKeyChromaGetCommand chromaCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int) chromaCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int) chromaCmd.KeyerIndex, keyer =>
+                    {
+                        if (keyer.Chroma == null) keyer.Chroma = new MixEffectState.KeyerChromaState();
+                        
+                        UpdaterUtil.CopyAllProperties(chromaCmd, keyer.Chroma, new []{"MixEffectIndex", "KeyerIndex"});
+                        result.SetSuccess($"MixEffects.{chromaCmd.MixEffectIndex}.Keyers.{chromaCmd.KeyerIndex}.Chroma");
+                    });
+                });
+            }
+            else if (command is MixEffectKeyPatternGetCommand patternCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int) patternCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int) patternCmd.KeyerIndex, keyer =>
+                    {
+                        if (keyer.Pattern == null) keyer.Pattern = new MixEffectState.KeyerPatternState();
+                        
+                        UpdaterUtil.CopyAllProperties(patternCmd, keyer.Pattern, new []{"MixEffectIndex", "KeyerIndex"});
+                        result.SetSuccess($"MixEffects.{patternCmd.MixEffectIndex}.Keyers.{patternCmd.KeyerIndex}.Pattern");
+                    });
+                });
+            }
+            else if (command is MixEffectKeyDVEGetCommand dveCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int) dveCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int) dveCmd.KeyerIndex, keyer =>
+                    {
+                        if (keyer.DVE == null) keyer.DVE = new MixEffectState.KeyerDVEState();
+                        
+                        UpdaterUtil.CopyAllProperties(dveCmd, keyer.DVE, new []{"MixEffectIndex", "KeyerIndex"});
+                        result.SetSuccess($"MixEffects.{dveCmd.MixEffectIndex}.Keyers.{dveCmd.KeyerIndex}.DVE");
+                    });
+                });
+            }
+            else if (command is MixEffectKeyFlyKeyframeGetCommand flyFrameCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int) flyFrameCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int) flyFrameCmd.KeyerIndex, keyer =>
+                    {
+                        if (keyer.FlyFrames == null)
+                        {
+                            keyer.FlyFrames = new[]
+                            {
+                                new MixEffectState.KeyerFlyFrameState(),
+                                new MixEffectState.KeyerFlyFrameState()
+                            };
+                        }
+
+                        UpdaterUtil.TryForIndex(result, keyer.FlyFrames, (int) flyFrameCmd.KeyFrame, frame =>
+                        {
+                            UpdaterUtil.CopyAllProperties(flyFrameCmd, frame, new[] {"MixEffectIndex", "KeyerIndex", "KeyFrame"});
+                            result.SetSuccess($"MixEffects.{flyFrameCmd.MixEffectIndex}.Keyers.{flyFrameCmd.KeyerIndex}.FlyFrames.{flyFrameCmd.KeyFrame}");
+                        });
+                    });
+                });
+            }
         }
 
         private static void UpdateTransition(AtemState state, UpdateResultImpl result, ICommand command)

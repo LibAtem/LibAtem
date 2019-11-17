@@ -18,6 +18,14 @@ namespace LibAtem.State.Test
         {
             this._output = output;
         }
+
+        [Fact]
+        public void TestClone()
+        {
+            var state = new AtemState();
+            // Simply ensure it can be cloned, as it relies on all classes having an attribute
+            state.Clone();
+        }
         
         [Fact]
         public void TestStateUpdaterProperties()
@@ -64,6 +72,16 @@ namespace LibAtem.State.Test
             {
                 SSrcId = 0,
                 Boxes = 4
+            });
+            AtemStateBuilder.Update(state, new MixEffectBlockConfigCommand
+            {
+                Index = 0,
+                KeyCount = 2,
+            });
+            AtemStateBuilder.Update(state, new MediaPoolConfigCommand
+            {
+                ClipCount = 2,
+                StillCount = 10
             });
             
             AtemStateBuilder.Update(state, raw);

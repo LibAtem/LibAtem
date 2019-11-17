@@ -22,10 +22,7 @@ namespace LibAtem.State.Builder
 
         public static IReadOnlyList<T> CreateList<T>(uint count, Func<int, T> func)
         {
-            var res = new List<T>();
-            for (int i = 0; i < count; i++)
-                res.Add(func(i));
-            return res;
+            return Enumerable.Range(0, (int) count).Select(func).ToList();
         }
         
         public static void CopyAllProperties<TSrc, TDest>(TSrc src, TDest dest, IEnumerable<string> skip = null, IEnumerable<string> ignore = null)

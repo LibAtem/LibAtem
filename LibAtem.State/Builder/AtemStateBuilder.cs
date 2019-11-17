@@ -17,7 +17,9 @@ namespace LibAtem.State.Builder
             DownstreamKeyerStateUpdater.Update(state, result, command);
             MacroStateUpdater.Update(state, result, command);
             MediaPlayerStateUpdater.Update(state, result, command);
+            MediaPoolStateUpdater.Update(state, result, command);
             MixEffectStateUpdater.Update(state, result, command);
+            SettingsStateUpdater.Update(state, result, command);
             SuperSourceStateUpdater.Update(state, result, command);
 
             return result;

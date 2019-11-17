@@ -16,6 +16,8 @@ namespace LibAtem.State
         public IReadOnlyList<SuperSourceState> SuperSources { get; set; } = new List<SuperSourceState>();
 
         public MacroState Macros { get; } = new MacroState();
+        public MediaPoolState MediaPool { get; } = new MediaPoolState();
+        public SettingsState Settings { get; } = new SettingsState();
 
         #region Clone
         public AtemState Clone()

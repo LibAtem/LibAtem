@@ -10,10 +10,10 @@ namespace LibAtem.Commands.MixEffects.Key
         [Flags]
         public enum MaskFlags
         {
-            XSize = 1 << 0,
-            YSize = 1 << 1,
-            XPosition = 1 << 2,
-            YPosition = 1 << 3,
+            SizeX = 1 << 0,
+            SizeY = 1 << 1,
+            PositionX = 1 << 2,
+            PositionY = 1 << 3,
             Rotation = 1 << 4,
             BorderOuterWidth = 1 << 5,
             BorderInnerWidth = 1 << 6,
@@ -47,14 +47,14 @@ namespace LibAtem.Commands.MixEffects.Key
         public FlyKeyKeyFrameId KeyFrame { get; set; }
 
         [Serialize(8), UInt32D(1000, 0, (32768 * 1000) - 1)]
-        public double XSize { get; set; }
+        public double SizeX { get; set; }
         [Serialize(12), UInt32D(1000, 0, (32768 * 1000) - 1)]
-        public double YSize { get; set; }
+        public double SizeY { get; set; }
 
         [Serialize(16), Int32D(1000, -32768 * 1000, 32768 * 1000)]
-        public double XPosition { get; set; }
+        public double PositionX { get; set; }
         [Serialize(20), Int32D(1000, -32768 * 1000, 32768 * 1000)]
-        public double YPosition { get; set; }
+        public double PositionY { get; set; }
 
         [Serialize(24), Int32D(10, -327680, 327680)]
         public double Rotation { get; set; }
