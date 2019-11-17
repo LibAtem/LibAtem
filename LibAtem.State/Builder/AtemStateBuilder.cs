@@ -5,9 +5,14 @@ using LibAtem.Commands.DeviceProfile;
 
 namespace LibAtem.State.Builder
 {
+    public class AtemStateBuilderSettings
+    {
+        public bool TrackMediaClipFrames { get; set; }
+    }
+
     public static class AtemStateBuilder
     {
-        public static IUpdateResult Update(AtemState state, ICommand command)
+        public static IUpdateResult Update(AtemState state, ICommand command, AtemStateBuilderSettings settings = null)
         {
             var result = new UpdateResultImpl();
 
@@ -17,7 +22,7 @@ namespace LibAtem.State.Builder
             ColorStateUpdater.Update(state, result, command);
             DownstreamKeyerStateUpdater.Update(state, result, command);
             MacroStateUpdater.Update(state, result, command);
-            MediaPlayerStateUpdater.Update(state, result, command);
+            MediaPlayerStateUpdater.Update(state, result, command, settings);
             MediaPoolStateUpdater.Update(state, result, command);
             MixEffectStateUpdater.Update(state, result, command);
             SettingsStateUpdater.Update(state, result, command);

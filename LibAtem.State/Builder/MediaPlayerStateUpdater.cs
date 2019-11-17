@@ -5,7 +5,7 @@ namespace LibAtem.State.Builder
 {
     internal static class MediaPlayerStateUpdater
     {
-        public static void Update(AtemState state, UpdateResultImpl result, ICommand command)
+        public static void Update(AtemState state, UpdateResultImpl result, ICommand command, AtemStateBuilderSettings updateSettings)
         {
             if (command is MediaPlayerSourceGetCommand sourceCmd)
             {
@@ -19,6 +19,13 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.MediaPlayers, (int) statusCmd.Index, mp =>
                 {
+                    if (!updateSettings.TrackMediaClipFrames)
+                    {
+                        // TODO - this is bad
+                        statusCmd.AtBeginning = mp.Status.AtBeginning;
+                        statusCmd.ClipFrame = mp.Status.ClipFrame;
+                    }
+
                     UpdaterUtil.CopyAllProperties(statusCmd, mp.Status, new []{"Index"});
                     result.SetSuccess($"MediaPlayers.{statusCmd.Index}.Status");
                 });

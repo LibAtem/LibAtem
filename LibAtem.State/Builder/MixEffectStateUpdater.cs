@@ -130,10 +130,10 @@ namespace LibAtem.State.Builder
                             };
                         }
 
-                        UpdaterUtil.TryForIndex(result, keyer.FlyFrames, (int) flyFrameCmd.KeyFrame, frame =>
+                        UpdaterUtil.TryForIndex(result, keyer.FlyFrames, (int) flyFrameCmd.KeyFrame - 1, frame =>
                         {
                             UpdaterUtil.CopyAllProperties(flyFrameCmd, frame, new[] {"MixEffectIndex", "KeyerIndex", "KeyFrame"});
-                            result.SetSuccess($"MixEffects.{flyFrameCmd.MixEffectIndex}.Keyers.{flyFrameCmd.KeyerIndex}.FlyFrames.{flyFrameCmd.KeyFrame}");
+                            result.SetSuccess($"MixEffects.{flyFrameCmd.MixEffectIndex}.Keyers.{flyFrameCmd.KeyerIndex - 1}.FlyFrames.{flyFrameCmd.KeyFrame}");
                         });
                     });
                 });

@@ -23,11 +23,19 @@ namespace LibAtem.State.Builder
                     result.SetSuccess($"DownstreamKeyers.{sourceCmd.Index}.Sources");
                 });
             }
+            else if (command is DownstreamKeyStateGetV8Command state8Cmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.DownstreamKeyers, (int)state8Cmd.Index, dsk =>
+                {
+                    UpdaterUtil.CopyAllProperties(state8Cmd, dsk.State, new[] { "Index" });
+                    result.SetSuccess($"DownstreamKeyers.{state8Cmd.Index}.State");
+                });
+            }
             else if (command is DownstreamKeyStateGetCommand stateCmd)
             {
                 UpdaterUtil.TryForIndex(result, state.DownstreamKeyers, (int) stateCmd.Index, dsk =>
                 {
-                    UpdaterUtil.CopyAllProperties(stateCmd, dsk.State, new []{"Index"});
+                    UpdaterUtil.CopyAllProperties(stateCmd, dsk.State, new[] { "Index" }, new[] { "IsTowardsOnAir" });
                     result.SetSuccess($"DownstreamKeyers.{stateCmd.Index}.State");
                 });
             }

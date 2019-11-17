@@ -63,13 +63,25 @@ namespace LibAtem.State.Builder
 
         private static void UpdateMultiViewers(AtemState state, UpdateResultImpl result, ICommand command)
         {
-            if (command is MultiviewerConfigCommand multiviewCmd)
+            if (command is MultiviewerConfigV8Command multiview8Cmd)
+            {
+                state.Settings.MultiViewers = UpdaterUtil.CreateList(multiview8Cmd.Count, i => new MultiViewerState
+                {
+                    Windows = UpdaterUtil.CreateList(multiview8Cmd.WindowCount,
+                        w => new MultiViewerState.WindowState()),
+                    SupportsVuMeters = multiview8Cmd.SupportsVuMeters,
+                    SupportsProgramPreviewSwapped = multiview8Cmd.CanSwapPreviewProgram
+                });
+                result.SetSuccess($"Settings.MultiViewers");
+            }
+            else if (command is MultiviewerConfigCommand multiviewCmd)
             {
                 state.Settings.MultiViewers = UpdaterUtil.CreateList(multiviewCmd.Count, i => new MultiViewerState
                 {
                     Windows = UpdaterUtil.CreateList(multiviewCmd.WindowCount,
                         w => new MultiViewerState.WindowState()),
-                    SupportsVuMeters = multiviewCmd.SupportsVuMeters
+                    SupportsVuMeters = multiviewCmd.SupportsVuMeters,
+                    SupportsProgramPreviewSwapped = multiviewCmd.CanSwapPreviewProgram
                 });
                 result.SetSuccess($"Settings.MultiViewers");
             }
@@ -86,7 +98,10 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)props8Cmd.MultiviewIndex, mv =>
                 {
                     mv.Properties.Layout = props8Cmd.Layout;
-                    mv.Properties.ProgramPreviewSwapped = props8Cmd.ProgramPreviewSwapped;
+                    if (mv.SupportsProgramPreviewSwapped)
+                    {
+                        mv.Properties.ProgramPreviewSwapped = props8Cmd.ProgramPreviewSwapped;
+                    }
 
                     // Enforce some legacy behaviour
                     if (mv.Windows.Count == 10) // TODO - perhaps this check can be done better?
@@ -109,7 +124,10 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)propsCmd.MultiviewIndex, mv =>
                 {
-                    mv.Properties.Layout = propsCmd.Layout;
+                    if (!Enum.TryParse(propsCmd.Layout.ToString(), true, out MultiViewLayoutV8 layout))
+                        layout = 0;
+                    mv.Properties.Layout = layout;
+
                     mv.Properties.ProgramPreviewSwapped = propsCmd.ProgramPreviewSwapped;
 
                     // Enforce some legacy behaviour

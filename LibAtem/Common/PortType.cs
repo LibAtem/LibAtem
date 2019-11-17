@@ -17,7 +17,9 @@ namespace LibAtem.Common
         XLR = 32,
         AESEBU = 64,
         RCA = 128,
-        TSJack, // TODO - check value
+        TSJack = 256, // TODO - check value
+        MADI = 512,
+        TRS = 1024,
     }
 
     [Flags]

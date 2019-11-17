@@ -10,7 +10,7 @@ namespace LibAtem.Commands.Settings.Multiview
         [Serialize(0), UInt8Range(0, 3)]
         public uint MultiviewIndex { get; set; }
         [Serialize(1), Enum8]
-        public MultiViewLayout Layout { get; set; }
+        public MultiViewLayoutV8 Layout { get; set; }
         [Serialize(2), Bool]
         public bool SafeAreaEnabled { get; set; }
         [Serialize(3), Bool]

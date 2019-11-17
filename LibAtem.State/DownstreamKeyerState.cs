@@ -49,6 +49,7 @@ namespace LibAtem.State
         public bool OnAir { get; set; }
         public bool InTransition { get; set; }
         public bool IsAuto { get; set; }
+        public bool IsTowardsOnAir { get; set; }
         public uint RemainingFrames { get; set; }
     }
 }

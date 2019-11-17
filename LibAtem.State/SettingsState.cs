@@ -45,6 +45,7 @@ namespace LibAtem.State
     public class MultiViewerState
     {
         public bool SupportsVuMeters { get; set; }
+        public bool SupportsProgramPreviewSwapped { get; set; }
 
         [Tolerance(1)]
         public double VuMeterOpacity { get; set; }
@@ -55,7 +56,7 @@ namespace LibAtem.State
         [Serializable]
         public class PropertiesState
         {
-            public MultiViewLayout Layout { get; set; }
+            public MultiViewLayoutV8 Layout { get; set; }
             public bool ProgramPreviewSwapped { get; set; }
         }
         
