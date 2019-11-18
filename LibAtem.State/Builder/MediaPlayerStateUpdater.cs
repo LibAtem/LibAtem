@@ -19,7 +19,7 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.MediaPlayers, (int) statusCmd.Index, mp =>
                 {
-                    if (!updateSettings.TrackMediaClipFrames)
+                    if (updateSettings != null && !updateSettings.TrackMediaClipFrames)
                     {
                         // TODO - this is bad
                         statusCmd.AtBeginning = mp.Status.AtBeginning;
