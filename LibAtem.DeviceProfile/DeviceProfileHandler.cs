@@ -33,6 +33,8 @@ namespace LibAtem.DeviceProfile
                     StoreVideoSource(cmd as InputPropertiesGetCommand);
                 if (cmd is AudioMixerInputGetCommand)
                     StoreAudioSource(cmd as AudioMixerInputGetCommand);
+                if (cmd is AudioMixerInputGetV8Command amip8Cmd)
+                    StoreAudioSource(amip8Cmd);
                 if (cmd is MixEffectBlockConfigCommand)
                     StoreMixEffectBlock(cmd as MixEffectBlockConfigCommand);
                 if (cmd is MediaPoolConfigCommand)
@@ -41,6 +43,8 @@ namespace LibAtem.DeviceProfile
                     StoreMacroPool(cmd as MacroPoolConfigCommand);
                 if (cmd is MultiviewerConfigCommand)
                     StoreMultiViewer(cmd as MultiviewerConfigCommand);
+                if (cmd is MultiviewerConfigV8Command mvc8Cmd)
+                    StoreMultiViewer(mvc8Cmd);
                 if (cmd is VideoMixerConfigCommand)
                     StoreVideoMixerConfig(cmd as VideoMixerConfigCommand);
             }
@@ -112,6 +116,13 @@ namespace LibAtem.DeviceProfile
             Profile.AudioSources.Add(cmd.Index);
             Profile.AudioSources.Sort((a, b) => a.CompareTo(b));
         }
+        private void StoreAudioSource(AudioMixerInputGetV8Command cmd)
+        {
+            Profile.AudioSources.RemoveAll(d => d == cmd.Index);
+
+            Profile.AudioSources.Add(cmd.Index);
+            Profile.AudioSources.Sort((a, b) => a.CompareTo(b));
+        }
 
         private void StoreMixEffectBlock(MixEffectBlockConfigCommand cmd)
         {
@@ -131,6 +142,15 @@ namespace LibAtem.DeviceProfile
         }
 
         private void StoreMultiViewer(MultiviewerConfigCommand cmd)
+        {
+            Profile.MultiView.Count = cmd.Count;
+            Profile.MultiView.CanRouteInputs = cmd.CanRouteInputs;
+            Profile.MultiView.VuMeters = cmd.SupportsVuMeters;
+            Profile.MultiView.CanToggleSafeArea = cmd.CanToggleSafeArea;
+            Profile.MultiView.CanSwapPreviewProgram = cmd.CanSwapPreviewProgram;
+            // TODO - other props
+        }
+        private void StoreMultiViewer(MultiviewerConfigV8Command cmd)
         {
             Profile.MultiView.Count = cmd.Count;
             Profile.MultiView.CanRouteInputs = cmd.CanRouteInputs;

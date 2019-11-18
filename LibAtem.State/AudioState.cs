@@ -59,22 +59,35 @@ namespace LibAtem.State
         [Serializable]
         public class InputState
         {
-            public ExternalPortTypeFlags ExternalPortType { get; set; }
-            public AudioMixOption MixOption { get; set; }
-            [DecibelTolerance(5)]
-            public double Gain { get; set; }
-            [Tolerance(0.01)]
-            public double Balance { get; set; }
             public bool IsMixedIn { get; set; }
 
-            [DecibelTolerance(5)]
-            public double LevelLeft { get; set; } = double.NegativeInfinity;
-            [DecibelTolerance(5)]
-            public double LevelRight { get; set; } = double.NegativeInfinity;
-            [DecibelTolerance(5)]
-            public double PeakLeft { get; set; } = double.NegativeInfinity;
-            [DecibelTolerance(5)]
-            public double PeakRight { get; set; } = double.NegativeInfinity;
+            public PropertiesState Properties { get; } = new PropertiesState();
+            public LevelsState Levels { get; } = new LevelsState();
+
+            [Serializable]
+            public class PropertiesState
+            {
+                public AudioSourceType SourceType { get; set; }
+                public AudioPortType PortType { get; set; }
+                public AudioMixOption MixOption { get; set; }
+                [DecibelTolerance(5)]
+                public double Gain { get; set; }
+                [Tolerance(0.01)]
+                public double Balance { get; set; }
+            }
+
+            [Serializable]
+            public class LevelsState
+            {
+                [DecibelTolerance(5)]
+                public double LevelLeft { get; set; } = double.NegativeInfinity;
+                [DecibelTolerance(5)]
+                public double LevelRight { get; set; } = double.NegativeInfinity;
+                [DecibelTolerance(5)]
+                public double PeakLeft { get; set; } = double.NegativeInfinity;
+                [DecibelTolerance(5)]
+                public double PeakRight { get; set; } = double.NegativeInfinity;
+            }
         }
     }
 }

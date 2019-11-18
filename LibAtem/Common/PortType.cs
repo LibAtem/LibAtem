@@ -162,11 +162,13 @@ namespace LibAtem.Common
             return res;
         }
 
-        /*
+        
         public static AudioPortType ToAudioPortType(this ExternalPortTypeFlags type)
         {
-
-        }*/
+            if (type >= ExternalPortTypeFlags.XLR) return (AudioPortType)((int)type >> 1);
+            if (type == ExternalPortTypeFlags.Internal) return AudioPortType.Internal;
+            return (AudioPortType)type;
+        }
 
         public static ExternalPortTypeFlags ToExternalPortType(this AudioPortType type)
         {

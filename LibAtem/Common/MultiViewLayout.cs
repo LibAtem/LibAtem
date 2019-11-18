@@ -10,7 +10,7 @@ namespace LibAtem.Common
 
     public enum MultiViewLayoutV8
     {
-        //Default = 0, // TODO - means all large (2x2)
+        Default = 0,
         TopLeftSmall = 1,
         TopRightSmall = 2,
         ProgramBottom = TopLeftSmall | TopRightSmall,

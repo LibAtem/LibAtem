@@ -2,6 +2,7 @@ using System;
 using LibAtem.Commands;
 using LibAtem.Commands.Audio;
 using LibAtem.Commands.DeviceProfile;
+using LibAtem.Common;
 
 namespace LibAtem.State.Builder
 {
@@ -36,15 +37,25 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.CopyAllProperties(talkbackCmd, state.Audio.Talkback, null, new[] {"Inputs"});
                 result.SetSuccess("Audio.Talkback");
             }
+            else if (command is AudioMixerInputGetV8Command input8Cmd)
+            {
+                if (!state.Audio.Inputs.ContainsKey((int)input8Cmd.Index)) state.Audio.Inputs[(int)input8Cmd.Index] = new AudioState.InputState();
+
+                UpdaterUtil.TryForKey(result, state.Audio.Inputs, (long)input8Cmd.Index, input =>
+                {
+                    UpdaterUtil.CopyAllProperties(input8Cmd, input.Properties, new[] { "Index" });
+                    result.SetSuccess($"Audio.Inputs.{input8Cmd.Index:D}.Properties");
+                });
+            }
             else if (command is AudioMixerInputGetCommand inputCmd)
             {
-                /* TODO - verify/test this
-                UpdaterUtil.TryForKey(result, state.Audio.Inputs, (long) inputCmd.Index, input =>
+                if (!state.Audio.Inputs.ContainsKey((int)inputCmd.Index)) state.Audio.Inputs[(int)inputCmd.Index] = new AudioState.InputState();
+
+                UpdaterUtil.TryForKey(result, state.Audio.Inputs, (long)inputCmd.Index, input =>
                 {
-                    UpdaterUtil.CopyAllProperties(inputCmd, input);
-                    result.SetSuccess($"Audio.Inputs.{inputCmd.Index:D}");
+                    UpdaterUtil.CopyAllProperties(inputCmd, input.Properties, new[] { "Index" });
+                    result.SetSuccess($"Audio.Inputs.{inputCmd.Index:D}.Properties");
                 });
-                */
             }
         }
     }
