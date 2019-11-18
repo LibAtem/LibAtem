@@ -16,9 +16,9 @@ namespace LibAtem.MacroOperations.DownStreamKey
         {
             return new DownstreamKeyGeneralSetCommand()
             {
-                Mask = DownstreamKeyGeneralSetCommand.MaskFlags.PreMultiply,
+                Mask = DownstreamKeyGeneralSetCommand.MaskFlags.PreMultipliedKey,
                 Index = KeyIndex,
-                PreMultiply = PreMultiply,
+                PreMultipliedKey = PreMultiply,
             };
         }
     }

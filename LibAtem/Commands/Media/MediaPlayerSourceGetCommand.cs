@@ -18,7 +18,7 @@ namespace LibAtem.Commands.Media
         {
             base.Serialize(cmd);
 
-            if (SourceType == MediaPlayerSource.Still) // TODO - verify this is correct
+            if (SourceType == MediaPlayerSource.Clip)
             {
                 cmd.SetByte(2, new byte[]{ 0x00, (byte)SourceIndex });
             }
@@ -28,7 +28,7 @@ namespace LibAtem.Commands.Media
         {
             base.Deserialize(cmd);
 
-            if (SourceType == MediaPlayerSource.Still) // TODO - verify this is correct
+            if (SourceType == MediaPlayerSource.Clip)
             {
                 SourceIndex = cmd.Body[3];
             }

@@ -133,7 +133,7 @@ namespace LibAtem.State.Builder
                         UpdaterUtil.TryForIndex(result, keyer.FlyFrames, (int) flyFrameCmd.KeyFrame - 1, frame =>
                         {
                             UpdaterUtil.CopyAllProperties(flyFrameCmd, frame, new[] {"MixEffectIndex", "KeyerIndex", "KeyFrame"});
-                            result.SetSuccess($"MixEffects.{flyFrameCmd.MixEffectIndex:D}.Keyers.{(flyFrameCmd.KeyerIndex - 1):D}.FlyFrames.{flyFrameCmd.KeyFrame:D}");
+                            result.SetSuccess($"MixEffects.{flyFrameCmd.MixEffectIndex:D}.Keyers.{flyFrameCmd.KeyerIndex:D}.FlyFrames.{(flyFrameCmd.KeyFrame - 1):D}");
                         });
                     });
                 });
