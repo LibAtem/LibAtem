@@ -48,15 +48,19 @@ namespace LibAtem.State.Builder
                 //props.InternalPortType = cmd.InternalPortType;
                 //props.SourceAvailability = cmd.SourceAvailability;
                 //props.MeAvailability = cmd.MeAvailability;
-                result.SetSuccess($"Settings.Inputs.{propsCmd.Id}.Properties");
+                result.SetSuccess($"Settings.Inputs.{propsCmd.Id:D}.Properties");
             }
             else if (command is TallyBySourceCommand tallyCmd)
             {
                 foreach (KeyValuePair<VideoSource, Tuple<bool, bool>> inp in tallyCmd.Tally)
                 {
-                    state.Settings.Inputs[inp.Key].Tally.ProgramTally = inp.Value.Item1;
-                    state.Settings.Inputs[inp.Key].Tally.PreviewTally = inp.Value.Item2;
-                    result.SetSuccess($"Settings.Inputs.{inp.Key}.Tally");
+                    var inputTally = state.Settings.Inputs[inp.Key].Tally;
+                    if (inputTally.ProgramTally != inp.Value.Item1 || inputTally.PreviewTally != inp.Value.Item2)
+                    {
+                        inputTally.ProgramTally = inp.Value.Item1;
+                        inputTally.PreviewTally = inp.Value.Item2;
+                        result.SetSuccess($"Settings.Inputs.{inp.Key:D}.Tally");
+                    }
                 }
             }
         }
@@ -90,7 +94,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)vuOpacityCmd.MultiviewIndex, mv =>
                 {
                     mv.VuMeterOpacity = vuOpacityCmd.Opacity;
-                    result.SetSuccess($"Settings.MultiViewers.{vuOpacityCmd.MultiviewIndex}.VuMeterOpacity");
+                    result.SetSuccess($"Settings.MultiViewers.{vuOpacityCmd.MultiviewIndex:D}.VuMeterOpacity");
                 });
             }
             else if (command is MultiviewPropertiesGetV8Command props8Cmd)
@@ -111,13 +115,13 @@ namespace LibAtem.State.Builder
                             mv.Windows[0].SupportsVuMeter = props8Cmd.ProgramPreviewSwapped;
                             mv.Windows[1].SupportsVuMeter = !props8Cmd.ProgramPreviewSwapped;
                             
-                            result.SetSuccess($"Settings.MultiViewers.{props8Cmd.MultiviewIndex}.Windows.0");
-                            result.SetSuccess($"Settings.MultiViewers.{props8Cmd.MultiviewIndex}.Windows.1");
+                            result.SetSuccess($"Settings.MultiViewers.{props8Cmd.MultiviewIndex:D}.Windows.0");
+                            result.SetSuccess($"Settings.MultiViewers.{props8Cmd.MultiviewIndex:D}.Windows.1");
                         }
                         
                     }
 
-                    result.SetSuccess($"Settings.MultiViewers.{props8Cmd.MultiviewIndex}.Properties");
+                    result.SetSuccess($"Settings.MultiViewers.{props8Cmd.MultiviewIndex:D}.Properties");
                 });
             }
             else if (command is MultiviewPropertiesGetCommand propsCmd)
@@ -142,11 +146,11 @@ namespace LibAtem.State.Builder
                             mv.Windows[1].SupportsVuMeter = !propsCmd.ProgramPreviewSwapped;
                         }
                         
-                        result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex}.Windows.0");
-                        result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex}.Windows.1");
+                        result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex:D}.Windows.0");
+                        result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex:D}.Windows.1");
                     }
 
-                    result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex}.Properties");
+                    result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex:D}.Properties");
                 });
             }
             else if (command is MultiviewWindowInputGetCommand winCmd)
@@ -171,7 +175,7 @@ namespace LibAtem.State.Builder
                             win.SupportsVuMeter = false;
                         }
 
-                        result.SetSuccess($"Settings.MultiViewers.{winCmd.MultiviewIndex}.Windows.{winCmd.WindowIndex}");
+                        result.SetSuccess($"Settings.MultiViewers.{winCmd.MultiviewIndex:D}.Windows.{winCmd.WindowIndex:D}");
                     });
                 });
             }
@@ -182,7 +186,7 @@ namespace LibAtem.State.Builder
                     UpdaterUtil.TryForIndex(result, mv.Windows, (int) vuMeterCmd.WindowIndex, win =>
                     {
                         win.VuMeter = vuMeterCmd.VuEnabled;
-                        result.SetSuccess($"Settings.MultiViewers.{vuMeterCmd.MultiviewIndex}.Windows.{vuMeterCmd.WindowIndex}");
+                        result.SetSuccess($"Settings.MultiViewers.{vuMeterCmd.MultiviewIndex:D}.Windows.{vuMeterCmd.WindowIndex:D}");
                     });
                 });
             }

@@ -15,14 +15,14 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.MixEffects, (int) progCmd.Index, me => { 
                     me.Sources.Program = progCmd.Source;
-                    result.SetSuccess($"MixEffects.{progCmd.Index}.Sources");
+                    result.SetSuccess($"MixEffects.{progCmd.Index:D}.Sources");
                 });
             }
             else if (command is PreviewInputGetCommand prevCmd)
             {
                 UpdaterUtil.TryForIndex(result, state.MixEffects, (int) prevCmd.Index, me => { 
                     me.Sources.Preview = prevCmd.Source;
-                    result.SetSuccess($"MixEffects.{prevCmd.Index}.Sources");
+                    result.SetSuccess($"MixEffects.{prevCmd.Index:D}.Sources");
                 });
             }
 
@@ -38,7 +38,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.MixEffects, (int) confCmd.Index, me =>
                 {
                     me.Keyers = UpdaterUtil.CreateList(confCmd.KeyCount, i => new MixEffectState.KeyerState());
-                    result.SetSuccess($"MixEffects.{confCmd.Index}.Keyers");
+                    result.SetSuccess($"MixEffects.{confCmd.Index:D}.Keyers");
                 });
             }
             else if (command is MixEffectKeyOnAirGetCommand onAirCmd)
@@ -48,7 +48,7 @@ namespace LibAtem.State.Builder
                     UpdaterUtil.TryForIndex(result, me.Keyers, (int) onAirCmd.KeyerIndex, keyer =>
                     {
                         keyer.OnAir = onAirCmd.OnAir;
-                        result.SetSuccess($"MixEffects.{onAirCmd.MixEffectIndex}.Keyers.{onAirCmd.KeyerIndex}.OnAir");
+                        result.SetSuccess($"MixEffects.{onAirCmd.MixEffectIndex:D}.Keyers.{onAirCmd.KeyerIndex:D}.OnAir");
                     });
                 });
             }
@@ -59,7 +59,7 @@ namespace LibAtem.State.Builder
                     UpdaterUtil.TryForIndex(result, me.Keyers, (int) propsCmd.KeyerIndex, keyer =>
                     {
                         UpdaterUtil.CopyAllProperties(propsCmd, keyer.Properties, new []{"MixEffectIndex", "KeyerIndex"});
-                        result.SetSuccess($"MixEffects.{propsCmd.MixEffectIndex}.Keyers.{propsCmd.KeyerIndex}.Properties");
+                        result.SetSuccess($"MixEffects.{propsCmd.MixEffectIndex:D}.Keyers.{propsCmd.KeyerIndex:D}.Properties");
                     });
                 });
             }
@@ -72,7 +72,7 @@ namespace LibAtem.State.Builder
                         if (keyer.Luma == null) keyer.Luma = new MixEffectState.KeyerLumaState();
                         
                         UpdaterUtil.CopyAllProperties(lumaCmd, keyer.Luma, new []{"MixEffectIndex", "KeyerIndex"});
-                        result.SetSuccess($"MixEffects.{lumaCmd.MixEffectIndex}.Keyers.{lumaCmd.KeyerIndex}.Luma");
+                        result.SetSuccess($"MixEffects.{lumaCmd.MixEffectIndex:D}.Keyers.{lumaCmd.KeyerIndex:D}.Luma");
                     });
                 });
             }
@@ -85,7 +85,7 @@ namespace LibAtem.State.Builder
                         if (keyer.Chroma == null) keyer.Chroma = new MixEffectState.KeyerChromaState();
                         
                         UpdaterUtil.CopyAllProperties(chromaCmd, keyer.Chroma, new []{"MixEffectIndex", "KeyerIndex"});
-                        result.SetSuccess($"MixEffects.{chromaCmd.MixEffectIndex}.Keyers.{chromaCmd.KeyerIndex}.Chroma");
+                        result.SetSuccess($"MixEffects.{chromaCmd.MixEffectIndex:D}.Keyers.{chromaCmd.KeyerIndex:D}.Chroma");
                     });
                 });
             }
@@ -98,7 +98,7 @@ namespace LibAtem.State.Builder
                         if (keyer.Pattern == null) keyer.Pattern = new MixEffectState.KeyerPatternState();
                         
                         UpdaterUtil.CopyAllProperties(patternCmd, keyer.Pattern, new []{"MixEffectIndex", "KeyerIndex"});
-                        result.SetSuccess($"MixEffects.{patternCmd.MixEffectIndex}.Keyers.{patternCmd.KeyerIndex}.Pattern");
+                        result.SetSuccess($"MixEffects.{patternCmd.MixEffectIndex:D}.Keyers.{patternCmd.KeyerIndex:D}.Pattern");
                     });
                 });
             }
@@ -111,7 +111,7 @@ namespace LibAtem.State.Builder
                         if (keyer.DVE == null) keyer.DVE = new MixEffectState.KeyerDVEState();
                         
                         UpdaterUtil.CopyAllProperties(dveCmd, keyer.DVE, new []{"MixEffectIndex", "KeyerIndex"});
-                        result.SetSuccess($"MixEffects.{dveCmd.MixEffectIndex}.Keyers.{dveCmd.KeyerIndex}.DVE");
+                        result.SetSuccess($"MixEffects.{dveCmd.MixEffectIndex:D}.Keyers.{dveCmd.KeyerIndex:D}.DVE");
                     });
                 });
             }
@@ -133,7 +133,7 @@ namespace LibAtem.State.Builder
                         UpdaterUtil.TryForIndex(result, keyer.FlyFrames, (int) flyFrameCmd.KeyFrame - 1, frame =>
                         {
                             UpdaterUtil.CopyAllProperties(flyFrameCmd, frame, new[] {"MixEffectIndex", "KeyerIndex", "KeyFrame"});
-                            result.SetSuccess($"MixEffects.{flyFrameCmd.MixEffectIndex}.Keyers.{flyFrameCmd.KeyerIndex - 1}.FlyFrames.{flyFrameCmd.KeyFrame}");
+                            result.SetSuccess($"MixEffects.{flyFrameCmd.MixEffectIndex:D}.Keyers.{(flyFrameCmd.KeyerIndex - 1):D}.FlyFrames.{flyFrameCmd.KeyFrame:D}");
                         });
                     });
                 });
@@ -147,7 +147,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.MixEffects, (int) transCmd.Index, me =>
                 {
                     UpdaterUtil.CopyAllProperties(transCmd, me.Transition.Properties, new []{"Index"});
-                    result.SetSuccess($"MixEffects.{transCmd.Index}.Transition.Properties");
+                    result.SetSuccess($"MixEffects.{transCmd.Index:D}.Transition.Properties");
                 });
             }
             else if (command is TransitionMixGetCommand mixCmd)
@@ -157,7 +157,7 @@ namespace LibAtem.State.Builder
                     if (me.Transition.Mix == null) me.Transition.Mix = new MixEffectState.TransitionMixState();
 
                     me.Transition.Mix.Rate = mixCmd.Rate;
-                    result.SetSuccess($"MixEffects.{mixCmd.Index}.Transition.Mix");
+                    result.SetSuccess($"MixEffects.{mixCmd.Index:D}.Transition.Mix");
                 });
             }
             else if (command is TransitionDipGetCommand dipCmd)
@@ -167,7 +167,7 @@ namespace LibAtem.State.Builder
                     if (me.Transition.Dip == null) me.Transition.Dip = new MixEffectState.TransitionDipState();
 
                     UpdaterUtil.CopyAllProperties(dipCmd, me.Transition.Dip, new []{"Index"});
-                    result.SetSuccess($"MixEffects.{dipCmd.Index}.Transition.Dip");
+                    result.SetSuccess($"MixEffects.{dipCmd.Index:D}.Transition.Dip");
                 });
             }
             else if (command is TransitionWipeGetCommand wipeCmd)
@@ -177,7 +177,7 @@ namespace LibAtem.State.Builder
                     if (me.Transition.Wipe == null) me.Transition.Wipe = new MixEffectState.TransitionWipeState();
 
                     UpdaterUtil.CopyAllProperties(wipeCmd, me.Transition.Wipe, new []{"Index"});
-                    result.SetSuccess($"MixEffects.{wipeCmd.Index}.Transition.Wipe");
+                    result.SetSuccess($"MixEffects.{wipeCmd.Index:D}.Transition.Wipe");
                 });
             }
             else if (command is TransitionStingerGetCommand stingerCmd)
@@ -187,7 +187,7 @@ namespace LibAtem.State.Builder
                     if (me.Transition.Stinger == null) me.Transition.Stinger = new MixEffectState.TransitionStingerState();
 
                     UpdaterUtil.CopyAllProperties(stingerCmd, me.Transition.Stinger, new []{"Index"});
-                    result.SetSuccess($"MixEffects.{stingerCmd.Index}.Transition.Stinger");
+                    result.SetSuccess($"MixEffects.{stingerCmd.Index:D}.Transition.Stinger");
                 });
             }
             else if (command is TransitionDVEGetCommand dveCmd)
@@ -197,7 +197,7 @@ namespace LibAtem.State.Builder
                     if (me.Transition.DVE == null) me.Transition.DVE = new MixEffectState.TransitionDVEState();
 
                     UpdaterUtil.CopyAllProperties(dveCmd, me.Transition.DVE, new []{"Index"});
-                    result.SetSuccess($"MixEffects.{dveCmd.Index}.Transition.DVE");
+                    result.SetSuccess($"MixEffects.{dveCmd.Index:D}.Transition.DVE");
                 });
             }
         }

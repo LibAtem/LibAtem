@@ -12,7 +12,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.ColorGenerators, (int)colCmd.Index, col =>
                 {
                     UpdaterUtil.CopyAllProperties(colCmd, col, new []{"Index"});
-                    result.SetSuccess($"ColorGenerators.{colCmd.Index}");
+                    result.SetSuccess($"ColorGenerators.{colCmd.Index:D}");
                 });
             }
         }

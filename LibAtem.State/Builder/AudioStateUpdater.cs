@@ -42,7 +42,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForKey(result, state.Audio.Inputs, (long) inputCmd.Index, input =>
                 {
                     UpdaterUtil.CopyAllProperties(inputCmd, input);
-                    result.SetSuccess($"Audio.Inputs.{inputCmd.Index}");
+                    result.SetSuccess($"Audio.Inputs.{inputCmd.Index:D}");
                 });
                 */
             }

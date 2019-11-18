@@ -18,7 +18,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.Macros.Pool, (int)propsCmd.Index, item =>
                 {
                     UpdaterUtil.CopyAllProperties(propsCmd, item, new []{"Index"});
-                    result.SetSuccess($"Macros.Pool.{propsCmd.Index}");
+                    result.SetSuccess($"Macros.Pool.{propsCmd.Index:D}");
                 });
             }
             else if (command is MacroRunStatusGetCommand runCmd)

@@ -13,7 +13,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.SuperSources, (int) conf8Cmd.SSrcId, ssrc =>
                 {
                     ssrc.Boxes = UpdaterUtil.CreateList(conf8Cmd.Boxes, (i) => new SuperSourceState.BoxState());
-                    result.SetSuccess($"SuperSources.{conf8Cmd.SSrcId}.Boxes");
+                    result.SetSuccess($"SuperSources.{conf8Cmd.SSrcId:D}.Boxes");
                 });
             }
             else if (command is SuperSourceConfigCommand confCmd)
@@ -31,7 +31,7 @@ namespace LibAtem.State.Builder
                     UpdaterUtil.TryForIndex(result, ssrc.Boxes, (int) box8Cmd.BoxIndex, box =>
                     {
                         UpdaterUtil.CopyAllProperties(box8Cmd, box, new []{"SSrcId", "BoxIndex"});
-                        result.SetSuccess($"SuperSources.{box8Cmd.SSrcId}.Boxes.{box8Cmd.BoxIndex}");
+                        result.SetSuccess($"SuperSources.{box8Cmd.SSrcId:D}.Boxes.{box8Cmd.BoxIndex:D}");
                     });
                 });
             }
@@ -42,7 +42,7 @@ namespace LibAtem.State.Builder
                     UpdaterUtil.TryForIndex(result, ssrc.Boxes, (int) boxCmd.Index, box =>
                     {
                         UpdaterUtil.CopyAllProperties(boxCmd, box, new []{"Index"});
-                        result.SetSuccess($"SuperSources.0.Boxes.{boxCmd.Index}");
+                        result.SetSuccess($"SuperSources.0.Boxes.{boxCmd.Index:D}");
                     });
                 });
             }
@@ -51,7 +51,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.SuperSources, (int) prop8Cmd.SSrcId, ssrc =>
                 {
                     UpdaterUtil.CopyAllProperties(prop8Cmd, ssrc.Properties, new []{"SSrcId"});
-                    result.SetSuccess($"SuperSources.0.Boxes.{prop8Cmd.SSrcId}.Properties");
+                    result.SetSuccess($"SuperSources.{prop8Cmd.SSrcId:D}.Properties");
                 });
             }
             else if (command is SuperSourceBorderGetCommand borderCmd)
@@ -59,7 +59,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.SuperSources, (int) borderCmd.SSrcId, ssrc =>
                 {
                     UpdaterUtil.CopyAllProperties(borderCmd, ssrc.Border, new []{"SSrcId"});
-                    result.SetSuccess($"SuperSources.0.Boxes.{borderCmd.SSrcId}.Border");
+                    result.SetSuccess($"SuperSources.{borderCmd.SSrcId:D}.Border");
                 });
             }
             else if (command is SuperSourcePropertiesGetCommand propCmd)
@@ -97,8 +97,8 @@ namespace LibAtem.State.Builder
                     ssrc.Border.LightSourceDirection = propCmd.BorderLightSourceDirection;
                     ssrc.Border.LightSourceAltitude = propCmd.BorderLightSourceDirection;
 
-                    result.SetSuccess($"SuperSources.0.Boxes.0.Properties");
-                    result.SetSuccess($"SuperSources.0.Boxes.0.Border");
+                    result.SetSuccess($"SuperSources.0.Properties");
+                    result.SetSuccess($"SuperSources.0.Border");
                 });
             }
         }

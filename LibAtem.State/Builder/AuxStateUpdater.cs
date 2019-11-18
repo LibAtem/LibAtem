@@ -12,7 +12,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.Auxiliaries, (int) sourceCmd.Id, aux =>
                 {
                     aux.Source = sourceCmd.Source;
-                    result.SetSuccess($"Auxiliaries.{sourceCmd.Id}");
+                    result.SetSuccess($"Auxiliaries.{sourceCmd.Id:D}");
                 });
             }
         }

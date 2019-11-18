@@ -12,7 +12,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.DownstreamKeyers, (int) propsCmd.Index, dsk =>
                 {
                     UpdaterUtil.CopyAllProperties(propsCmd, dsk.Properties, new []{"Index"});
-                    result.SetSuccess($"DownstreamKeyers.{propsCmd.Index}.Properties");
+                    result.SetSuccess($"DownstreamKeyers.{propsCmd.Index:D}.Properties");
                 });
             }
             else if (command is DownstreamKeySourceGetCommand sourceCmd)
@@ -20,7 +20,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.DownstreamKeyers, (int) sourceCmd.Index, dsk =>
                 {
                     UpdaterUtil.CopyAllProperties(sourceCmd, dsk.Sources, new []{"Index"});
-                    result.SetSuccess($"DownstreamKeyers.{sourceCmd.Index}.Sources");
+                    result.SetSuccess($"DownstreamKeyers.{sourceCmd.Index:D}.Sources");
                 });
             }
             else if (command is DownstreamKeyStateGetV8Command state8Cmd)
@@ -28,7 +28,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.DownstreamKeyers, (int)state8Cmd.Index, dsk =>
                 {
                     UpdaterUtil.CopyAllProperties(state8Cmd, dsk.State, new[] { "Index" });
-                    result.SetSuccess($"DownstreamKeyers.{state8Cmd.Index}.State");
+                    result.SetSuccess($"DownstreamKeyers.{state8Cmd.Index:D}.State");
                 });
             }
             else if (command is DownstreamKeyStateGetCommand stateCmd)
@@ -36,7 +36,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.DownstreamKeyers, (int) stateCmd.Index, dsk =>
                 {
                     UpdaterUtil.CopyAllProperties(stateCmd, dsk.State, new[] { "Index" }, new[] { "IsTowardsOnAir" });
-                    result.SetSuccess($"DownstreamKeyers.{stateCmd.Index}.State");
+                    result.SetSuccess($"DownstreamKeyers.{stateCmd.Index:D}.State");
                 });
             }
         }

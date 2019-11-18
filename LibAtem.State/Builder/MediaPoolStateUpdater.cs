@@ -23,7 +23,7 @@ namespace LibAtem.State.Builder
                         UpdaterUtil.TryForIndex(result, state.MediaPool.Stills, (int) frameCmd.Index, still =>
                         {
                             UpdaterUtil.CopyAllProperties(frameCmd, still, new[] {"Index", "Bank"});
-                            result.SetSuccess($"MediaPlayers.Stills.{frameCmd.Index}");
+                            result.SetSuccess($"MediaPlayers.Stills.{frameCmd.Index:D}");
                         });
                         break;
                     case MediaPoolFileType.Clip1:
@@ -35,7 +35,7 @@ namespace LibAtem.State.Builder
                             UpdaterUtil.TryForIndex(result, clip.Frames, (int) frameCmd.Index, frame =>
                             {
                                 UpdaterUtil.CopyAllProperties(frameCmd, frame, new[] {"Index", "Bank", "Hash"});
-                                result.SetSuccess($"MediaPlayers.Clips.{bankId}.Frames.{frameCmd.Index}");
+                                result.SetSuccess($"MediaPlayers.Clips.{bankId:D}.Frames.{frameCmd.Index:D}");
                             });
                         });
                         */

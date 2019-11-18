@@ -12,7 +12,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.MediaPlayers, (int) sourceCmd.Index, mp =>
                 {
                     UpdaterUtil.CopyAllProperties(sourceCmd, mp.Source, new []{"Index"});
-                    result.SetSuccess($"MediaPlayers.{sourceCmd.Index}.Source");
+                    result.SetSuccess($"MediaPlayers.{sourceCmd.Index:D}.Source");
                 });
             }
             else if (command is MediaPlayerClipStatusGetCommand statusCmd)
@@ -27,7 +27,7 @@ namespace LibAtem.State.Builder
                     }
 
                     UpdaterUtil.CopyAllProperties(statusCmd, mp.Status, new []{"Index"});
-                    result.SetSuccess($"MediaPlayers.{statusCmd.Index}.Status");
+                    result.SetSuccess($"MediaPlayers.{statusCmd.Index:D}.Status");
                 });
             }
         }
