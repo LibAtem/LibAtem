@@ -26,6 +26,11 @@ namespace LibAtem.XmlState.Test
         {
             RunForFile("TestMacroFiles/macros1.macros", "TestMacroFiles/macros1.xml");
         }
+        [Fact]
+        public void TestMacros1v8()
+        {
+            RunForFile("TestMacroFiles/macros1-v8.macros", "TestMacroFiles/macros1.xml");
+        }
 
         [Fact]
         public void TestFlyKey()

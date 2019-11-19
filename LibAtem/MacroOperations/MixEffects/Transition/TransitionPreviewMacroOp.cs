@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition
     [MacroOperation(MacroOperationType.TransitionPreview, 8)]
     public class TransitionPreviewMacroOp : MixEffectMacroOpBase
     {
-        [Serialize(6), Bool]
+        [Serialize(5), Bool]
         [MacroField("Preview")]
         public bool Preview { get; set; }
 

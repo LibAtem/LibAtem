@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.Stinger
     [MacroOperation(MacroOperationType.TransitionStingerDVEInvert, 8)]
     public class TransitionStingerDVEInvertMacroOp : MixEffectMacroOpBase
     {
-        [Serialize(6), Bool]
+        [Serialize(5), Bool]
         [MacroField("Invert")]
         public bool Invert { get; set; }
 
