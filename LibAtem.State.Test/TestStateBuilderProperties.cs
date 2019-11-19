@@ -55,12 +55,24 @@ namespace LibAtem.State.Test
             _output.WriteLine(string.Join("\n", failures));
             Assert.Empty(failures);
         }
+
+        private void DoUpdate(AtemState state, ICommand cmd)
+        {
+            var res = AtemStateBuilder.Update(state, cmd);
+
+            if (res.Errors.Count > 0)
+            {
+                _output.WriteLine("Failed: {0} {1}\n", cmd.GetType().FullName, string.Join('\n', res.Errors));
+            }
+            Assert.Equal(0, res.Errors.Count);
+            Assert.True(res.Success);
+        }
         
-        private static void TestSingle(Type t)
+        private void TestSingle(Type t)
         {
             ICommand raw = (ICommand)Activator.CreateInstance(t);
             var state = new AtemState();
-            AtemStateBuilder.Update(state, new TopologyV8Command()
+            DoUpdate(state, new TopologyV8Command()
             {
                 MediaPlayers = 2,
                 MixEffectBlocks = 2,
@@ -68,27 +80,38 @@ namespace LibAtem.State.Test
                 Auxiliaries = 2,
                 SuperSource = 2,
             });
-            AtemStateBuilder.Update(state, new SuperSourceConfigV8Command
+            DoUpdate(state, new SuperSourceConfigV8Command
             {
                 SSrcId = 0,
                 Boxes = 4
             });
-            AtemStateBuilder.Update(state, new MixEffectBlockConfigCommand
+            DoUpdate(state, new MixEffectBlockConfigCommand
             {
                 Index = 0,
                 KeyCount = 2,
             });
-            AtemStateBuilder.Update(state, new MediaPoolConfigCommand
+            DoUpdate(state, new MediaPoolConfigCommand
             {
                 ClipCount = 2,
                 StillCount = 10
             });
-            AtemStateBuilder.Update(state, new AudioMixerConfigCommand
+            DoUpdate(state, new AudioMixerConfigCommand
             {
                 Monitors = 1,
                 Inputs = 10
             });
-            
+            DoUpdate(state, new MultiviewerConfigV8Command
+            {
+                Count = 1,
+                WindowCount = 10
+            });
+            DoUpdate(state, new MacroPoolConfigCommand
+            {
+                MacroCount = 10
+            });
+
+            // TODO - this should be done to provide a strict test that everything gets applied to the state correctly
+            //DoUpdate(state, raw);
             AtemStateBuilder.Update(state, raw);
         }
     }
