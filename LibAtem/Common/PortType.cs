@@ -55,15 +55,14 @@ namespace LibAtem.Common
 
     public enum AudioPortType
     {
-        Internal = 0,
+        Unknown = 0,
         SDI = 1,
         HDMI = 2,
         XLR = 32,
         AESEBU = 64,
         RCA = 128,
-        TSJack = 256, // TODO - check value
-        MADI = 512,
-        TRS = 1024,
+        Internal = 256,
+        Headset = 512
     }
 
     public enum MacroPortType

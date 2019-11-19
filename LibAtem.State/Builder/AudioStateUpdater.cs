@@ -43,7 +43,7 @@ namespace LibAtem.State.Builder
 
                 UpdaterUtil.TryForKey(result, state.Audio.Inputs, (long)input8Cmd.Index, input =>
                 {
-                    UpdaterUtil.CopyAllProperties(input8Cmd, input.Properties, new[] { "Index" });
+                    UpdaterUtil.CopyAllProperties(input8Cmd, input.Properties, new[] { "Index", "IndexOfSourceType" });
                     result.SetSuccess($"Audio.Inputs.{input8Cmd.Index:D}.Properties");
                 });
             }
@@ -53,7 +53,7 @@ namespace LibAtem.State.Builder
 
                 UpdaterUtil.TryForKey(result, state.Audio.Inputs, (long)inputCmd.Index, input =>
                 {
-                    UpdaterUtil.CopyAllProperties(inputCmd, input.Properties, new[] { "Index" });
+                    UpdaterUtil.CopyAllProperties(inputCmd, input.Properties, new[] { "Index", "IndexOfSourceType" });
                     result.SetSuccess($"Audio.Inputs.{inputCmd.Index:D}.Properties");
                 });
             }

@@ -13,11 +13,9 @@ namespace LibAtem.Commands.Audio
         public AudioSourceType SourceType { get; set; }
 
         [Serialize(4), UInt16]
-        protected uint IndexOfSourceType { get; set; } // Looks like it
-        [Serialize(6), Bool]
-        protected bool FromMediaPlayer { get; set; }
-
-        [Serialize(7), Enum8] // TODO - this can't be 8 because the enum is larger than that?
+        public uint IndexOfSourceType { get; set; } // Looks like it
+        
+        [Serialize(6), Enum16]
         public AudioPortType PortType { get; set; }
         [Serialize(8), Enum8]
         public AudioMixOption MixOption { get; set; }
