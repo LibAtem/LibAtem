@@ -41,6 +41,10 @@ namespace LibAtem.State.Test
                 if (type == typeof(SerializableCommandBase))
                     continue;
 
+                var attr = type.GetCustomAttribute<CommandNameAttribute>();
+                if (attr == null || attr.Direction == CommandDirection.ToServer)
+                    continue;
+
                 try
                 {
                     // output.WriteLine("Testing: {0}", type.Name);
@@ -52,7 +56,7 @@ namespace LibAtem.State.Test
                 }
             }
 
-            _output.WriteLine(string.Join("\n", failures));
+            _output.WriteLine(string.Join("\n\n", failures));
             Assert.Empty(failures);
         }
 
@@ -65,7 +69,9 @@ namespace LibAtem.State.Test
                 _output.WriteLine("Failed: {0} {1}\n", cmd.GetType().FullName, string.Join('\n', res.Errors));
             }
             Assert.Equal(0, res.Errors.Count);
-            Assert.True(res.Success);
+
+            if (!res.Success)
+                throw new Exception("State update was not successful");
         }
         
         private void TestSingle(Type t)
@@ -79,6 +85,7 @@ namespace LibAtem.State.Test
                 ColorGenerators = 2,
                 Auxiliaries = 2,
                 SuperSource = 2,
+                HyperDecks = 2,
             });
             DoUpdate(state, new SuperSourceConfigV8Command
             {
@@ -111,7 +118,7 @@ namespace LibAtem.State.Test
             });
 
             // TODO - this should be done to provide a strict test that everything gets applied to the state correctly
-            //DoUpdate(state, raw);
+            DoUpdate(state, raw);
             AtemStateBuilder.Update(state, raw);
         }
     }

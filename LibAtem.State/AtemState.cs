@@ -20,6 +20,8 @@ namespace LibAtem.State
         public MediaPoolState MediaPool { get; } = new MediaPoolState();
         public SettingsState Settings { get; } = new SettingsState();
 
+        public InfoState Info { get; } = new InfoState();
+
         #region Clone
         public AtemState Clone()
         {

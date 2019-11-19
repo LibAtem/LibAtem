@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using LibAtem.Commands;
+using LibAtem.Commands.DataTransfer;
 using LibAtem.Commands.DeviceProfile;
 
 namespace LibAtem.State.Builder
@@ -12,6 +14,22 @@ namespace LibAtem.State.Builder
 
     public static class AtemStateBuilder
     {
+        private static readonly IReadOnlyList<Type> IgnoredCommands;
+
+        static AtemStateBuilder()
+        {
+            IgnoredCommands = new List<Type>
+            {
+                typeof(LastStateChangeTimeCodeCommand),
+                typeof(WarningCommand),
+                typeof(DataTransferAckCommand),
+                typeof(DataTransferCompleteCommand),
+                typeof(DataTransferDownloadRequestCommand),
+                typeof(DataTransferErrorCommand),
+                typeof(DataTransferFileDescriptionCommand)
+            };
+        }
+
         public static IUpdateResult Update(AtemState state, ICommand command, AtemStateBuilderSettings settings = null)
         {
             var result = new UpdateResultImpl();
@@ -21,6 +39,7 @@ namespace LibAtem.State.Builder
             AuxStateUpdater.Update(state, result, command);
             ColorStateUpdater.Update(state, result, command);
             DownstreamKeyerStateUpdater.Update(state, result, command);
+            InfoStateUpdater.Update(state, result, command);
             MacroStateUpdater.Update(state, result, command);
             MediaPlayerStateUpdater.Update(state, result, command, settings);
             MediaPoolStateUpdater.Update(state, result, command);
@@ -33,7 +52,11 @@ namespace LibAtem.State.Builder
 
         private static void UpdateInternal(AtemState state, UpdateResultImpl result, ICommand command)
         {
-            if (command is TopologyCommand topCmd)
+            if (IgnoredCommands.Contains(command.GetType()))
+            {
+                result.SetSuccess(new string[0]);
+            }
+            else if (command is TopologyCommand topCmd)
             {
                 HandleTopologyCommand(state, result, new TopologyV8Command
                 {
@@ -66,10 +89,12 @@ namespace LibAtem.State.Builder
             state.MixEffects = UpdaterUtil.CreateList(cmd.MixEffectBlocks, (i) => new MixEffectState());
             state.SuperSources = UpdaterUtil.CreateList(cmd.SuperSource, (i) => new SuperSourceState());
 
+            state.Settings.Hyperdecks = UpdaterUtil.CreateList(cmd.HyperDecks, i => new SettingsState.HyperdeckState());
+
             // Everything has changed
             result.SetSuccess("");
         }
-
+        
         public static bool IsDebug()
         {
 #if DEBUG

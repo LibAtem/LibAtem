@@ -12,8 +12,21 @@ namespace LibAtem.State
         public IReadOnlyList<MultiViewerState> MultiViewers { get; set; } = new List<MultiViewerState>();
         public Dictionary<VideoSource, InputState> Inputs { get; set; } = new Dictionary<VideoSource, InputState>();
 
+        public IReadOnlyList<HyperdeckState> Hyperdecks { get; set; } = new List<HyperdeckState>();
+
         public VideoMode VideoMode { get; set; }
         public SerialMode SerialMode { get; set; }
+
+        public SDI3GOutputLevel SDI3GLevel { get; set; }
+
+        [Serializable]
+        public class HyperdeckState
+        {
+            public string NetworkAddress { get; set; }
+            public VideoSource Input { get; set; }
+            public bool AutoRoll { get; set; }
+            public uint AutoRollFrameDelay { get; set; }
+        }
     }
 
     [Serializable]

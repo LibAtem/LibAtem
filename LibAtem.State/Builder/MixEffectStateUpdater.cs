@@ -25,6 +25,22 @@ namespace LibAtem.State.Builder
                     result.SetSuccess($"MixEffects.{prevCmd.Index:D}.Sources");
                 });
             }
+            else if (command is FadeToBlackPropertiesGetCommand ftbPropCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int)ftbPropCmd.Index, me =>
+                {
+                    UpdaterUtil.CopyAllProperties(ftbPropCmd, me.FadeToBlack.Properties, new[] {"Index"});
+                    result.SetSuccess($"MixEffects.{ftbPropCmd.Index:D}.FadeToBlack.Properties");
+                });
+            }
+            else if (command is FadeToBlackStateCommand ftbCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int)ftbCmd.Index, me =>
+                {
+                    UpdaterUtil.CopyAllProperties(ftbCmd, me.FadeToBlack.Status, new[] { "Index" });
+                    result.SetSuccess($"MixEffects.{ftbCmd.Index:D}.FadeToBlack.Status");
+                });
+            }
 
             UpdateTransition(state, result, command);
             UpdateKeyers(state, result, command);

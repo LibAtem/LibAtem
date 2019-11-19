@@ -11,8 +11,11 @@ namespace LibAtem.State
         public IReadOnlyList<KeyerState> Keyers { get; set; } = new List<KeyerState>();
         
         public TransitionState Transition { get; } = new TransitionState();
+
         public SourcesState Sources { get; } = new SourcesState();
-        
+
+        public FadeToBlackState FadeToBlack { get; } = new FadeToBlackState();
+
         [Serializable]
         public class SourcesState
         {
@@ -297,8 +300,33 @@ namespace LibAtem.State
             [Tolerance(0.01)]
             public double MaskRight { get; set; }
         }
-        
+
         #endregion Keyer
-        
+
+        #region FadeToBlack
+
+        [Serializable]
+        public class FadeToBlackState
+        {
+            public FadeToBlackStatusState Status { get; } = new FadeToBlackStatusState();
+            public FadeToBlackPropertiesState Properties { get; } = new FadeToBlackPropertiesState();
+        }
+
+        [Serializable]
+        public class FadeToBlackPropertiesState
+        {
+            public uint Rate { get; set; }
+        }
+
+        [Serializable]
+        public class FadeToBlackStatusState
+        {
+            public bool IsFullyBlack { get; set; }
+            public bool InTransition { get; set; }
+            public uint RemainingFrames { get; set; }
+        }
+
+        #endregion FadeToBlack
+
     }
 }
