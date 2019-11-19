@@ -8,7 +8,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTDv", 20)]
+    [CommandName("CTDv", CommandDirection.ToServer, 20)]
     public class TransitionDVESetCommand : SerializableCommandBase
     {
         [Flags]

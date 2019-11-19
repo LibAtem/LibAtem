@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("CSBP", 24)]
+    [CommandName("CSBP", CommandDirection.ToServer, 24)]
     public class SuperSourceBoxSetCommand : SerializableCommandBase
     {
         [Flags]

@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKeC", 4)]
+    [CommandName("CKeC", CommandDirection.ToServer, 4)]
     public class MixEffectKeyCutSourceSetCommand : SerializableCommandBase
     {
         [CommandId]

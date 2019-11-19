@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKLm", 12)]
+    [CommandName("CKLm", CommandDirection.ToServer, 12)]
     public class MixEffectKeyLumaSetCommand : SerializableCommandBase
     {
         [Flags]

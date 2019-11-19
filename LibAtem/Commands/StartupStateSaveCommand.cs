@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
-    [CommandName("SRsv", 4), NoCommandId]
+    [CommandName("SRsv", CommandDirection.ToServer, 4), NoCommandId]
     public class StartupStateSaveCommand : SerializableCommandBase
     {
         [Serialize(0), ByteArray(4)]

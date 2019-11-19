@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_mpl", 4), NoCommandId]
+    [CommandName("_mpl", CommandDirection.ToClient, 4), NoCommandId]
     public class MediaPoolConfigCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8]

@@ -4,7 +4,7 @@ using LibAtem.Common;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_VMC"), NoCommandId]
+    [CommandName("_VMC", CommandDirection.ToClient), NoCommandId]
     public class VideoMixerConfigCommand : ICommand
     {
         public class Entry : IEquatable<Entry>

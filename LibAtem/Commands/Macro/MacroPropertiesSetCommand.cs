@@ -4,7 +4,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("CMPr")]
+    [CommandName("CMPr", CommandDirection.ToServer)]
     public class MacroPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]

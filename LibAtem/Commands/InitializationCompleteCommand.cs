@@ -1,6 +1,6 @@
 ﻿namespace LibAtem.Commands
 {
-    [CommandName("InCm"), NoCommandId]
+    [CommandName("InCm", CommandDirection.ToClient), NoCommandId]
     public class InitializationCompleteCommand : ICommand
     {
         public void Serialize(ByteArrayBuilder cmd)

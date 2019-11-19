@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("SPtM", 4), NoCommandId]
+    [CommandName("SPtM", CommandDirection.Both, 4), NoCommandId]
     public class SerialPortModeCommand : SerializableCommandBase
     {
         [Serialize(0), Enum8]

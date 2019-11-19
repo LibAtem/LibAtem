@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TStP", 20)]
+    [CommandName("TStP", CommandDirection.ToClient, 20)]
     public class TransitionStingerGetCommand : SerializableCommandBase
     {
         [CommandId]

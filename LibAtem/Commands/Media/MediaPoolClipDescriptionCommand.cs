@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPCS", 68)]
+    [CommandName("MPCS", CommandDirection.ToServer, 68)]
     public class MediaPoolClipDescriptionCommand : SerializableCommandBase
     {
         [CommandId]

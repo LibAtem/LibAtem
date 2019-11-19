@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("CMvP", ProtocolVersion.V8_0, 4)]
+    [CommandName("CMvP", CommandDirection.ToServer, ProtocolVersion.V8_0, 4)]
     public class MultiviewPropertiesSetV8Command : SerializableCommandBase
     {
         [Flags]

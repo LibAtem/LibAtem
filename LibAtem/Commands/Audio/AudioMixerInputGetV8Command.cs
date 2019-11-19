@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("AMIP", ProtocolVersion.V8_0, 16)]
+    [CommandName("AMIP", CommandDirection.ToClient, ProtocolVersion.V8_0, 16)]
     public class AudioMixerInputGetV8Command : SerializableCommandBase
     {
         [CommandId]

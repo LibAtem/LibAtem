@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.HyperDeck
 {
-    [CommandName("RXSS")]
+    [CommandName("RXSS", CommandDirection.ToClient)]
     public class HyperDeckRXSSCommand : ICommand
     {
         [CommandId]

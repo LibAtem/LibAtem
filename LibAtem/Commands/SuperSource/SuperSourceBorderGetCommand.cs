@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("SSBd", ProtocolVersion.V8_0, 24)]
+    [CommandName("SSBd", CommandDirection.ToClient, ProtocolVersion.V8_0, 24)]
     public class SuperSourceBorderGetCommand : SerializableCommandBase
     {
         [CommandId]

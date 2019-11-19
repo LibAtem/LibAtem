@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_pin", 44), NoCommandId]
+    [CommandName("_pin", CommandDirection.ToClient, 44), NoCommandId]
     public class ProductIdentifierCommand : SerializableCommandBase
     {
         [Serialize(0), String(40)]

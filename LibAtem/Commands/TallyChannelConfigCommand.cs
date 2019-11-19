@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands
 {
-    [CommandName("_TlC", 8), NoCommandId]
+    [CommandName("_TlC", CommandDirection.ToClient, 8), NoCommandId]
     public class TallyChannelConfigCommand : SerializableCommandBase
     {
         [Serialize(0), ByteArray]

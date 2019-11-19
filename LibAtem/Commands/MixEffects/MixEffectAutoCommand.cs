@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("DAut", 4)]
+    [CommandName("DAut", CommandDirection.ToServer, 4)]
     public class MixEffectAutoCommand : SerializableCommandBase
     {
         [CommandId]

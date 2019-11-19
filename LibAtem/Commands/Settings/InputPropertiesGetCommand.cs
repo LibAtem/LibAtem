@@ -5,7 +5,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("InPr")]
+    [CommandName("InPr", CommandDirection.ToClient)]
     public class InputPropertiesGetCommand : ICommand
     {
         [CommandId]

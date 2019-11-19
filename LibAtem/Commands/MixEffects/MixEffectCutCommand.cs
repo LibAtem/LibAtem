@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("DCut", 4)]
+    [CommandName("DCut", CommandDirection.ToServer, 4)]
     public class MixEffectCutCommand : SerializableCommandBase
     {
         [CommandId]

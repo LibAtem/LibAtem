@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsF", 4)]
+    [CommandName("CDsF", CommandDirection.ToServer, 4)]
     public class DownstreamKeyFillSourceSetCommand : SerializableCommandBase
     {
         [CommandId]

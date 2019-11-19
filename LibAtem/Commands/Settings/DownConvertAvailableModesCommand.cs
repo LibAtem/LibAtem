@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("DHVm", 4), NoCommandId]
+    [CommandName("DHVm", CommandDirection.ToClient, 4), NoCommandId]
     public class DownConvertAvailableModesCommand : SerializableCommandBase
     {
         [Serialize(0), Enum8]

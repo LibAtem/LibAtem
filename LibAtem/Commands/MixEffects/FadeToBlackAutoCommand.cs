@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("FtbA", 4)]
+    [CommandName("FtbA", CommandDirection.ToServer, 4)]
     public class FadeToBlackAutoCommand : SerializableCommandBase
     {
         [CommandId]

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKMs", 12)]
+    [CommandName("CKMs", CommandDirection.ToServer, 12)]
     public class MixEffectKeyMaskSetCommand : SerializableCommandBase
     {
         [Flags]

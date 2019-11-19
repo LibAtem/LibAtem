@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPSS", 8)]
+    [CommandName("MPSS", CommandDirection.ToServer, 8)]
     public class MediaPlayerSourceSetCommand : SerializableCommandBase
     {
         [Flags]

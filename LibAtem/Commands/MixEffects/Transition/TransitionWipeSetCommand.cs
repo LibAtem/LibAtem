@@ -7,7 +7,7 @@ using LibAtem.MacroOperations.MixEffects.Transition.Wipe;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTWp", 20)]
+    [CommandName("CTWp", CommandDirection.ToServer, 20)]
     public class TransitionWipeSetCommand : SerializableCommandBase
     {
         [Flags]

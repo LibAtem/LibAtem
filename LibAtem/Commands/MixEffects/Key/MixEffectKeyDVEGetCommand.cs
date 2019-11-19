@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("KeDV", 60)]
+    [CommandName("KeDV", CommandDirection.ToClient, 60)]
     public class MixEffectKeyDVEGetCommand : SerializableCommandBase
     {
         [CommandId]

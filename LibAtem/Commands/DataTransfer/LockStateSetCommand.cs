@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("LOCK", 4)]
+    [CommandName("LOCK", CommandDirection.ToServer, 4)]
     public class LockStateSetCommand : SerializableCommandBase
     {
         [CommandId]

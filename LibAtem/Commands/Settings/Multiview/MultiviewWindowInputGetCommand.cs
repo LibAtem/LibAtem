@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("MvIn", 8)]
+    [CommandName("MvIn", CommandDirection.ToClient, 8)]
     public class MultiviewWindowInputGetCommand : SerializableCommandBase
     {
         [CommandId]

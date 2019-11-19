@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TDpP", 4)]
+    [CommandName("TDpP", CommandDirection.ToClient, 4)]
     public class TransitionDipGetCommand : SerializableCommandBase
     {
         [CommandId]

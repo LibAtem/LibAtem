@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPSp"), NoCommandId]
+    [CommandName("MPSp", CommandDirection.ToClient), NoCommandId]
     public class MediaPoolSettingsGetCommand : ICommand
     {
         public List<uint> MaxFrames { get; set; }

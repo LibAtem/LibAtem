@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("RAMP", 8), NoCommandId]
+    [CommandName("RAMP", CommandDirection.ToServer, 8), NoCommandId]
     public class AudioMixerResetPeaksCommand : SerializableCommandBase
     {
         [Flags]

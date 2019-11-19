@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("CSSc", ProtocolVersion.V8_0, 16)]
+    [CommandName("CSSc", CommandDirection.ToServer, ProtocolVersion.V8_0, 16)]
     public class SuperSourcePropertiesSetV8Command : SerializableCommandBase
     {
         [Flags]

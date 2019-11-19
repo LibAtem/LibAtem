@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("CMPS"), NoCommandId]
+    [CommandName("CMPS", CommandDirection.ToServer), NoCommandId]
     public class MediaPoolSettingsSetCommand : ICommand
     {
         public List<uint> MaxFrames { get; set; }

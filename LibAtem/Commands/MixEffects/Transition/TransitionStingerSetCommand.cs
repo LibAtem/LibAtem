@@ -7,7 +7,7 @@ using LibAtem.MacroOperations.MixEffects.Transition.Stinger;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTSt", 20)]
+    [CommandName("CTSt", CommandDirection.ToServer, 20)]
     public class TransitionStingerSetCommand : SerializableCommandBase
     {
         [Flags]

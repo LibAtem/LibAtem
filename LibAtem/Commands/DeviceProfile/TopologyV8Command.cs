@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_top", ProtocolVersion.V8_0, 24), NoCommandId]
+    [CommandName("_top", CommandDirection.ToClient, ProtocolVersion.V8_0, 24), NoCommandId]
     public class TopologyV8Command : SerializableCommandBase
     {
         [Serialize(0), UInt8]

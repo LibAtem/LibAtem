@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("SSBP", 20)]
+    [CommandName("SSBP", CommandDirection.ToClient, 20)]
     public class SuperSourceBoxGetCommand : SerializableCommandBase
     {
         [CommandId]

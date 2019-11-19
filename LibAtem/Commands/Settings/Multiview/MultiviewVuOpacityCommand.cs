@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("VuMo", 4)]
+    [CommandName("VuMo", CommandDirection.Both, 4)] // TODO - verify direction
     public class MultiviewVuOpacityCommand : SerializableCommandBase
     {
         [CommandId]

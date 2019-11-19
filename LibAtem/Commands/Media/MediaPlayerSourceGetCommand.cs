@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPCE", 4)]
+    [CommandName("MPCE", CommandDirection.ToClient, 4)]
     public class MediaPlayerSourceGetCommand : SerializableCommandBase
     {
         [CommandId]

@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
-    [CommandName("Time", 8), NoCommandId]
+    [CommandName("Time", CommandDirection.ToClient, 8), NoCommandId]
     public class LastStateChangeTimeCodeCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8Range(0, 23)]

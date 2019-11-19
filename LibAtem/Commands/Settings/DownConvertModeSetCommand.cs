@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("CDcO", 4), NoCommandId]
+    [CommandName("CDcO", CommandDirection.ToServer, 4), NoCommandId]
     public class DownConvertModeSetCommand : SerializableCommandBase
     {
         [Serialize(0), Enum8]

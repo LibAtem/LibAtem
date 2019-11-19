@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("CAMm", 12), NoCommandId]
+    [CommandName("CAMm", CommandDirection.ToServer, 12), NoCommandId]
     public class AudioMixerMonitorSetCommand : SerializableCommandBase
     {
         [Flags]

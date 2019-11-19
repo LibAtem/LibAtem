@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("VuMS", 4)]
+    [CommandName("VuMS", CommandDirection.ToServer, 4)]
     public class MultiviewWindowVuMeterSetCommand : SerializableCommandBase
     {
         [CommandId]

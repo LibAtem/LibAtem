@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("MAct", 4)]
+    [CommandName("MAct", CommandDirection.ToServer, 4)]
     public class MacroActionCommand : SerializableCommandBase
     {
         public enum MacroAction

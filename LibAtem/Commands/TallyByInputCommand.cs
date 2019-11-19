@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands
 {
-    [CommandName("TlIn"), NoCommandId]
+    [CommandName("TlIn", CommandDirection.ToClient), NoCommandId]
     public class TallyByInputCommand : ICommand
     {
         public List<Tuple<bool, bool>> Tally { get; set; }

@@ -4,7 +4,7 @@ using System;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKFP", 56)]
+    [CommandName("CKFP", CommandDirection.ToServer, 56)]
     public class MixEffectKeyFlyKeyframeSetCommand : SerializableCommandBase
     {
         [Flags]

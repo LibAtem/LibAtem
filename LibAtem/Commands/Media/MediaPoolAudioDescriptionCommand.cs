@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPAS", 84)]
+    [CommandName("MPAS", CommandDirection.ToClient, 84)]
     public class MediaPoolAudioDescriptionCommand : SerializableCommandBase
     {
         [CommandId]

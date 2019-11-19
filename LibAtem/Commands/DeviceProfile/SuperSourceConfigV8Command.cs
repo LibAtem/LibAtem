@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_SSC", ProtocolVersion.V8_0, 4), NoCommandId]
+    [CommandName("_SSC", CommandDirection.ToClient, ProtocolVersion.V8_0, 4), NoCommandId]
     public class SuperSourceConfigV8Command : SerializableCommandBase
     {
         [Serialize(0), Enum8]

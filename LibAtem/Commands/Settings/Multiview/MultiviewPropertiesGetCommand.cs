@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("MvPr", 4)]
+    [CommandName("MvPr", CommandDirection.ToClient, 4)]
     public class MultiviewPropertiesGetCommand : SerializableCommandBase
     {
         [CommandId]

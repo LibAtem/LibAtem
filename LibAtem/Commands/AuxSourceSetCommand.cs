@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands
 {
-    [CommandName("CAuS", 4)]
+    [CommandName("CAuS", CommandDirection.ToServer, 4)]
     public class AuxSourceSetCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8]

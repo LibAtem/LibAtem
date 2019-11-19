@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("SCPS", 8)]
+    [CommandName("SCPS", CommandDirection.ToServer, 8)]
     public class MediaPlayerClipStatusSetCommand : SerializableCommandBase
     {
         [Flags]

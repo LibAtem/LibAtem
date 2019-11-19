@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
-    [CommandName("CClV", 8)]
+    [CommandName("CClV", CommandDirection.ToServer, 8)]
     public class ColorGeneratorSetCommand : SerializableCommandBase
     {
         [Flags]

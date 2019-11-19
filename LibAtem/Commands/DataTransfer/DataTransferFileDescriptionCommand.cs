@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTFD", 212)]
+    [CommandName("FTFD", CommandDirection.Both, 212)]
     public class DataTransferFileDescriptionCommand : SerializableCommandBase
     {
         [CommandId]

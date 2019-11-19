@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKeF", 4)]
+    [CommandName("CKeF", CommandDirection.ToServer, 4)]
     public class MixEffectKeyFillSourceSetCommand : SerializableCommandBase
     {
         [CommandId]

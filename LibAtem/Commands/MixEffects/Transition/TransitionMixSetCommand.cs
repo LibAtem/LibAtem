@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTMx", 4)]
+    [CommandName("CTMx", CommandDirection.ToServer, 4)]
     public class TransitionMixSetCommand : SerializableCommandBase
     {
         [CommandId]

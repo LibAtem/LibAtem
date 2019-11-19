@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsM", 12)]
+    [CommandName("CDsM", CommandDirection.ToServer, 12)]
     public class DownstreamKeyMaskSetCommand : SerializableCommandBase
     {
         [Flags]

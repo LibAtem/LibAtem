@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("SSrc", ProtocolVersion.V8_0, 16)]
+    [CommandName("SSrc", CommandDirection.ToClient, ProtocolVersion.V8_0, 16)]
     public class SuperSourcePropertiesGetV8Command : SerializableCommandBase
     {
         [CommandId]

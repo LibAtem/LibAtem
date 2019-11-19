@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsG", 12)]
+    [CommandName("CDsG", CommandDirection.ToServer, 12)]
     public class DownstreamKeyGeneralSetCommand : SerializableCommandBase
     {
         [Flags]

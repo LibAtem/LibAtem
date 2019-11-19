@@ -7,6 +7,13 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
+    public enum CommandDirection
+    {
+        Both,
+        ToServer,
+        ToClient
+    }
+
     public interface ICommand
     {
         void Serialize(ByteArrayBuilder cmd);
@@ -18,17 +25,18 @@ namespace LibAtem.Commands
 
     public class CommandNameAttribute : LengthAttribute
     {
-        public CommandNameAttribute(string name, int length = -1) : this(name, ProtocolVersion.Minimum, length)
+        public CommandNameAttribute(string name, CommandDirection direction, int length = -1) : this(name, direction, ProtocolVersion.Minimum, length)
         {
         }
-        public CommandNameAttribute(string name, ProtocolVersion minimumVersion, int length = -1) : base(length)
+        public CommandNameAttribute(string name, CommandDirection direction, ProtocolVersion minimumVersion, int length = -1) : base(length)
         {
             Name = name;
+            Direction = direction;
             MinimumVersion = minimumVersion;
         }
 
         public string Name { get; }
-
+        public CommandDirection Direction { get; }
         public ProtocolVersion MinimumVersion { get; }
 
         public static Tuple<string, ProtocolVersion> GetNameAndVersion(Type type)

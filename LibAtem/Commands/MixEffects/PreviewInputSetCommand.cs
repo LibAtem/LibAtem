@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("CPvI", 4)]
+    [CommandName("CPvI", CommandDirection.ToServer, 4)]
     public class PreviewInputSetCommand : SerializableCommandBase
     {
         [CommandId]

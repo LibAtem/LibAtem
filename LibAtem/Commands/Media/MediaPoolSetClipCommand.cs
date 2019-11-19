@@ -2,11 +2,11 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("SMPC", 68)]
+    [CommandName("SMPC", CommandDirection.ToServer, 68)]
     public class MediaPoolSetClipCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8]
-        public uint B0 { get; } = 3;
+        public uint B0 { get; } = 3; // TODO - is this a bitmask?
 
         [CommandId]
         [Serialize(1), UInt8]

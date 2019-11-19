@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTDp", 8)]
+    [CommandName("CTDp", CommandDirection.ToServer, 8)]
     public class TransitionDipSetCommand : SerializableCommandBase
     {
         [Flags]

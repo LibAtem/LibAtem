@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("CMPA", 4)]
+    [CommandName("CMPA", CommandDirection.ToServer, 4)]
     public class MediaPoolClearAudioCommand : SerializableCommandBase
     {
         [CommandId]

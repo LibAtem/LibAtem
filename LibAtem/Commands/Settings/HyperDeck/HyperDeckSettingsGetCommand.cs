@@ -5,7 +5,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Commands.Settings.HyperDeck
 {
-    [CommandName("RXMS", 20)]
+    [CommandName("RXMS", CommandDirection.ToClient, 20)]
     public class HyperDeckSettingsGetCommand : SerializableCommandBase
     {
         [CommandId]

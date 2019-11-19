@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("FtbC", 4)]
+    [CommandName("FtbC", CommandDirection.ToServer, 4)]
     public class FadeToBlackRateSetCommand : SerializableCommandBase
     {
         [CommandId]

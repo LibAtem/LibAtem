@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TrPs", 8)]
+    [CommandName("TrPs", CommandDirection.ToClient, 8)]
     public class TransitionPositionGetCommand : SerializableCommandBase
     {
         [CommandId]

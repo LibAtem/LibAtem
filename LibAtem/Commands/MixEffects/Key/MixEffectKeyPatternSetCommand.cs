@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKPt", 16)]
+    [CommandName("CKPt", CommandDirection.ToServer, 16)]
     public class MixEffectKeyPatternSetCommand : SerializableCommandBase
     {
         [Flags]

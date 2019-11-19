@@ -5,7 +5,7 @@ using System;
 namespace LibAtem.Commands.Audio
 {
     // Note: likely worked since v7.4, but no way to test
-    [CommandName("CTIP", ProtocolVersion.V8_0, 8)]
+    [CommandName("CTIP", CommandDirection.ToServer, ProtocolVersion.V8_0, 8)]
     public class TalkbackMixerInputPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]

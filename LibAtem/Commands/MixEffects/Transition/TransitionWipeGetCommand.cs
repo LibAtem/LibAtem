@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TWpP", 20)]
+    [CommandName("TWpP", CommandDirection.ToClient, 20)]
     public class TransitionWipeGetCommand : SerializableCommandBase
     {
         [CommandId]

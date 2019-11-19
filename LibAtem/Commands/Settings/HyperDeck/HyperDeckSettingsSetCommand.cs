@@ -5,7 +5,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Commands.Settings.HyperDeck
 {
-    [CommandName("CXMS", 16)]
+    [CommandName("CXMS", CommandDirection.ToServer, 16)]
     public class HyperDeckSettingsSetCommand : SerializableCommandBase
     {
         [Flags]

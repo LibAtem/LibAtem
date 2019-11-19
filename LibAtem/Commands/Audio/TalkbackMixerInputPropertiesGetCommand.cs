@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.Audio
 {
     // Note: likely worked since v7.4, but no way to test
-    [CommandName("TMIP", ProtocolVersion.V8_0, 8)]
+    [CommandName("TMIP", CommandDirection.ToClient, ProtocolVersion.V8_0, 8)]
     public class TalkbackMixerInputPropertiesGetCommand : SerializableCommandBase
     {
         [CommandId]

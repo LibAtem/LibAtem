@@ -1,6 +1,6 @@
 namespace LibAtem.Commands.CameraControl
 {
-    [CommandName("CCst"), NoCommandId]
+    [CommandName("CCst", CommandDirection.ToClient), NoCommandId]
     public class CCstCommand : ICommand
     {
         public void Serialize(ByteArrayBuilder cmd)

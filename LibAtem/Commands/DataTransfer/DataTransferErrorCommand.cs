@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTDE", 4)]
+    [CommandName("FTDE", CommandDirection.ToClient, 4)]
     public class DataTransferErrorCommand : SerializableCommandBase
     {
         [CommandId]

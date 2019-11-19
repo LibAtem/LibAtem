@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKDV", 64)]
+    [CommandName("CKDV", CommandDirection.ToServer, 64)]
     public class MixEffectKeyDVESetCommand : SerializableCommandBase
     {
         [Flags]

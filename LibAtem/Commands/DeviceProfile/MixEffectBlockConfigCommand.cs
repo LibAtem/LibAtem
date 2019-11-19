@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_MeC", 4)]
+    [CommandName("_MeC", CommandDirection.ToClient, 4)]
     public class MixEffectBlockConfigCommand : SerializableCommandBase
     {
         [CommandId]

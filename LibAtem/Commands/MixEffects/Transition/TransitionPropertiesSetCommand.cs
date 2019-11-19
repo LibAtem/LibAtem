@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTTp", 4)]
+    [CommandName("CTTp", CommandDirection.ToServer, 4)]
     public class TransitionPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]

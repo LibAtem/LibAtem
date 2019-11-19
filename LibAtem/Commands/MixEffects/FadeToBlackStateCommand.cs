@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("FtbS", 4)]
+    [CommandName("FtbS", CommandDirection.ToClient, 4)]
     public class FadeToBlackStateCommand : SerializableCommandBase
     {
         [CommandId]

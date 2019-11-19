@@ -3,7 +3,7 @@ using System;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("CAMT", 4), NoCommandId]
+    [CommandName("CAMT", CommandDirection.ToServer, 4), NoCommandId]
     public class AudioMixerTalkbackPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]

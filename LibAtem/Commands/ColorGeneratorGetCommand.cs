@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
-    [CommandName("ColV", 8)]
+    [CommandName("ColV", CommandDirection.ToClient, 8)]
     public class ColorGeneratorGetCommand : SerializableCommandBase
     {
         [CommandId]

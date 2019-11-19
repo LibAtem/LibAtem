@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTDa")]
+    [CommandName("FTDa", CommandDirection.Both)]
     public class DataTransferDataCommand : ICommand
     {
         [CommandId]
