@@ -10,18 +10,28 @@ namespace LibAtem.Commands.DeviceProfile
         [Serialize(1), UInt8]
         public uint WindowCount { get; set; }
 
-        // TODO - order of these is incorrect
-        [Serialize(2), Bool]
-        public bool CanRouteInputs { get; set; }
+        // [Serialize(2), UInt8]
+        // public uint Tmp2 { get; set; }
+        
         [Serialize(3), Bool]
-        public bool Unknown { get; set; }
+        public bool CanRouteInputs { get; set; }
 
-        // TODO - order of these is incorrect
-        [Serialize(5), Bool]
-        public bool SupportsVuMeters { get; set; }
-        [Serialize(6), Bool]
-        public bool CanToggleSafeArea { get; set; }
+        // [Serialize(4), UInt8]
+        // public uint Tmp4 { get; set; }
+
+        // [Serialize(5), UInt8]
+        // public uint Tmp5 { get; set; }
+        
+        // [Serialize(6), UInt8]
+        // public uint Tmp6 { get; set; }
+
         [Serialize(7), Bool]
+        public bool CanToggleSafeArea { get; set; }
+        [Serialize(8), Bool]
         public bool CanSwapPreviewProgram { get; set; }
+
+        // [Serialize(9), UInt8]
+        // public uint Tmp9 { get; set; }
+
     }
 }
