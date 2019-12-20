@@ -389,7 +389,7 @@ namespace LibAtem.Net
             }
 
             if (retry)
-                res |= (byte)ReceivedPacket.CommandCodeFlags.Retransmission;
+                res |= (byte)ReceivedPacket.CommandCodeFlags.IsRetransmit;
 
             return res;
         }
