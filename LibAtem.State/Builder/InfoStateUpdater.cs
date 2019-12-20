@@ -12,10 +12,22 @@ namespace LibAtem.State.Builder
                 state.Info.Version = verCmd.ProtocolVersion;
                 result.SetSuccess("Info.Version");
             }
-            else if (command is TimecodeLockedCommand timecodeCmd)
+            else if (command is TimecodeLockedCommand lockedCmd)
             {
-                state.Info.TimecodeLocked = timecodeCmd.Locked;
+                state.Info.TimecodeLocked = lockedCmd.Locked;
                 result.SetSuccess("Info.TimecodeLocked");
+            }
+            else if (command is TimeCodeCommand timecodeCmd)
+            {
+                state.Info.LastTimecode = new Timecode
+                {
+                    Hour = timecodeCmd.Hour,
+                    Minute = timecodeCmd.Minute,
+                    Second = timecodeCmd.Second,
+                    Frame = timecodeCmd.Frame,
+                    DropFrame = timecodeCmd.IsDropFrame,
+                };
+                result.SetSuccess("Info.LastTimecode");
             }
             else if (command is ProductIdentifierCommand pidCmd)
             {

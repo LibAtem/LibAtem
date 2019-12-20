@@ -20,7 +20,6 @@ namespace LibAtem.State.Builder
         {
             IgnoredCommands = new List<Type>
             {
-                typeof(LastStateChangeTimeCodeCommand),
                 typeof(WarningCommand),
                 typeof(DataTransferAckCommand),
                 typeof(DataTransferCompleteCommand),
