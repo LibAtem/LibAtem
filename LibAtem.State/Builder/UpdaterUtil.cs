@@ -36,10 +36,10 @@ namespace LibAtem.State.Builder
             return Enumerable.Range(0, (int) count).Select(func).ToList();
         }
         
-        public static void CopyAllProperties<TSrc, TDest>(TSrc src, TDest dest, IEnumerable<string> skip = null, IEnumerable<string> ignore = null)
+        public static void CopyAllProperties<TSrc, TDest>(TSrc src, TDest dest, IEnumerable<string> skipSrc = null, IEnumerable<string> ignoreDest = null)
         {
-            Dictionary<string, PropertyInfo> srcPropMap = typeof(TSrc).GetProperties().Where(p => skip == null || !skip.Contains(p.Name)).ToDictionary(p => p.Name);
-            Dictionary<string, PropertyInfo> destPropMap = typeof(TDest).GetProperties().Where(p => ignore == null || !ignore.Contains(p.Name)).ToDictionary(p => p.Name);
+            Dictionary<string, PropertyInfo> srcPropMap = typeof(TSrc).GetProperties().Where(p => skipSrc == null || !skipSrc.Contains(p.Name)).ToDictionary(p => p.Name);
+            Dictionary<string, PropertyInfo> destPropMap = typeof(TDest).GetProperties().Where(p => ignoreDest == null || !ignoreDest.Contains(p.Name)).ToDictionary(p => p.Name);
             
             // Do the copy and and ensure types are good
             foreach (KeyValuePair<string, PropertyInfo> srcProp in srcPropMap)

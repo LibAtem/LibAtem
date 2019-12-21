@@ -35,6 +35,7 @@ namespace LibAtem.State.Builder
 
             UpdateInternal(state, result, command);
             AudioStateUpdater.Update(state, result, command);
+            FairlightStateUpdater.Update(state, result, command);
             AuxStateUpdater.Update(state, result, command);
             ColorStateUpdater.Update(state, result, command);
             DownstreamKeyerStateUpdater.Update(state, result, command);
