@@ -296,6 +296,12 @@ namespace LibAtem.Common
         [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1 | MeAvailability.Me2 | MeAvailability.Me3)]
         [XmlEnum("10041")]
         ME4Prev = 10041,
+        
+        [VideoSourceType(InternalPortType.External, 1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary, MeAvailability.None)]
+        [VideoSourceDefaults("Camera 1 Direct", "DIR")]
+        [XmlEnum("11001")]
+        Input1Direct = 11001,
     }
 
     public static class VideoSourceLists

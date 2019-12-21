@@ -119,6 +119,40 @@ namespace LibAtem.Serialization
             return true; // TODO 
         }
     }
+    
+    public class UInt32RangeAttribute : UInt32Attribute
+    {
+        public int Min { get; }
+        public int Max { get; }
+
+        public UInt32RangeAttribute(int min, int max)
+        {
+            Min = min;
+            Max = max;
+        }
+
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
+        {
+            uint val = (uint)base.Deserialize(reverseBytes, data, start, prop);
+
+            if (val < Min)
+                return (uint)Min;
+            if (val > Max)
+                return (uint)Max;
+
+            return val;
+        }
+
+        public override object GetRandom(Random random)
+        {
+            return (uint)random.Next(Min, Max);
+        }
+
+        public override bool IsValid(PropertyInfo prop, object obj)
+        {
+            return (uint)obj >= Min && (uint)obj <= Max;
+        }
+    }
 
     public class UInt32DAttribute : UInt32Attribute
     {
