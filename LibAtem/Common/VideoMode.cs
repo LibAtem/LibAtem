@@ -9,6 +9,7 @@ namespace LibAtem.Common
         SDISD,
         SDIHD,
         SDIHDProgressive,
+        HDMI,
         SDI3G,
         SDI6G,
         SDI12G,
@@ -148,6 +149,15 @@ namespace LibAtem.Common
         [VideoModeResolution(VideoModeResolution._8K)]
         [XmlEnum("8KHDp5994")]
         N8KHDp5994 = 25, // TODO - verify
+
+        [VideoModeRate(30), VideoModeStandard(VideoModeStandard.HDMI), VideoModeMultiviewerMode(N1080p30)]
+        [VideoModeResolution(VideoModeResolution._1080)]
+        [XmlEnum("1080p2997")]
+        N1080p30= 26, // TODO - verify
+        [VideoModeRate(60), VideoModeStandard(VideoModeStandard.HDMI), VideoModeMultiviewerMode(N1080p60)]
+        [VideoModeResolution(VideoModeResolution._1080)]
+        [XmlEnum("1080p5994")]
+        N1080p60 = 27, // TODO - verify
     }
 
     public class VideoModeRateAttribute : Attribute

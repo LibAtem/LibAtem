@@ -1,3 +1,5 @@
+using System;
+
 namespace LibAtem.Common
 {
     public enum MultiViewLayout
@@ -8,6 +10,7 @@ namespace LibAtem.Common
         ProgramRight = 3,
     }
 
+    [Flags]
     public enum MultiViewLayoutV8
     {
         Default = 0,
