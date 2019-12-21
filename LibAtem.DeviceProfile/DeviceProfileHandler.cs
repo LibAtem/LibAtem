@@ -59,7 +59,7 @@ namespace LibAtem.DeviceProfile
         private void StoreTopology(TopologyCommand cmd)
         {
             Profile.MixEffectBlocks = cmd.MixEffectBlocks;
-            Profile.ColorGenerators = cmd.ColorGenerators;
+            Profile.DownstreamKeys = cmd.DownstreamKeyers;
             Profile.Auxiliaries = cmd.Auxiliaries;
             Profile.MediaPlayers = cmd.MediaPlayers;
             Profile.SerialPort = cmd.SerialPort;
@@ -67,7 +67,7 @@ namespace LibAtem.DeviceProfile
             Profile.DVE = cmd.DVE;
             Profile.Stingers = cmd.Stingers;
             Profile.SuperSource = cmd.SuperSource;
-            Profile.TalkbackOverSDI = cmd.TalkbackOverSDI > 0;
+            Profile.MixMinusOutputs = cmd.MixMinusOutputs;
 
             // TODO
             // public uint DownstreamKeys { get; set; }
@@ -78,7 +78,7 @@ namespace LibAtem.DeviceProfile
         private void StoreTopologyV8(TopologyV8Command cmd)
         {
             Profile.MixEffectBlocks = cmd.MixEffectBlocks;
-            Profile.ColorGenerators = cmd.ColorGenerators;
+            Profile.DownstreamKeys = cmd.DownstreamKeyers;
             Profile.Auxiliaries = cmd.Auxiliaries;
             Profile.MediaPlayers = cmd.MediaPlayers;
             Profile.SerialPort = cmd.SerialPort;
@@ -86,7 +86,7 @@ namespace LibAtem.DeviceProfile
             Profile.DVE = cmd.DVE;
             Profile.Stingers = cmd.Stingers;
             Profile.SuperSource = cmd.SuperSource;
-            Profile.TalkbackOverSDI = cmd.TalkbackOverSDI > 0;
+            Profile.MixMinusOutputs = cmd.MixMinusOutputs;
 
             // TODO
             // public uint DownstreamKeys { get; set; }
@@ -145,7 +145,7 @@ namespace LibAtem.DeviceProfile
         {
             Profile.MultiView.Count = cmd.Count;
             Profile.MultiView.CanRouteInputs = cmd.CanRouteInputs;
-            Profile.MultiView.VuMeters = cmd.SupportsVuMeters;
+            // Profile.MultiView.VuMeters = cmd.SupportsVuMeters;
             Profile.MultiView.CanToggleSafeArea = cmd.CanToggleSafeArea;
             Profile.MultiView.CanSwapPreviewProgram = cmd.CanSwapPreviewProgram;
             // TODO - other props
@@ -153,7 +153,7 @@ namespace LibAtem.DeviceProfile
         private void StoreMultiViewer(MultiviewerConfigV8Command cmd)
         {
             Profile.MultiView.Count = cmd.Count;
-            Profile.MultiView.CanRouteInputs = cmd.CanRouteInputs;
+            // Profile.MultiView.CanRouteInputs = cmd.CanRouteInputs;
             Profile.MultiView.VuMeters = cmd.SupportsVuMeters;
             Profile.MultiView.CanToggleSafeArea = cmd.CanToggleSafeArea;
             Profile.MultiView.CanSwapPreviewProgram = cmd.CanSwapPreviewProgram;

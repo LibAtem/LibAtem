@@ -14,7 +14,7 @@ namespace LibAtem.Commands.DeviceProfile
         [Serialize(3), UInt8]
         public uint Auxiliaries { get; set; }
         [Serialize(4), UInt8]
-        public uint TalkbackOutputs { get; set; }
+        public uint MixMinusOutputs { get; set; }
         [Serialize(5), UInt8]
         public uint MediaPlayers { get; set; }
         [Serialize(6), UInt8]

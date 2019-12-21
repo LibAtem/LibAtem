@@ -97,7 +97,7 @@ namespace LibAtem.State.Builder
                 {
                     Windows = UpdaterUtil.CreateList(multiviewCmd.WindowCount,
                         w => new MultiViewerState.WindowState()),
-                    SupportsVuMeters = multiviewCmd.SupportsVuMeters,
+                    // SupportsVuMeters = multiviewCmd.SupportsVuMeters,
                     SupportsProgramPreviewSwapped = multiviewCmd.CanSwapPreviewProgram
                 });
                 result.SetSuccess($"Settings.MultiViewers");

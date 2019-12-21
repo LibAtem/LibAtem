@@ -61,16 +61,15 @@ namespace LibAtem.State.Builder
                 {
                     MixEffectBlocks = topCmd.MixEffectBlocks,
                     VideoSources = topCmd.VideoSources,
-                    ColorGenerators = topCmd.ColorGenerators,
+                    DownstreamKeyers = topCmd.DownstreamKeyers,
                     Auxiliaries = topCmd.Auxiliaries,
-                    TalkbackOutputs = topCmd.TalkbackOutputs,
+                    MixMinusOutputs = topCmd.MixMinusOutputs,
                     MediaPlayers = topCmd.MediaPlayers,
                     SerialPort = topCmd.SerialPort,
                     HyperDecks = topCmd.HyperDecks,
                     DVE = topCmd.DVE,
                     Stingers = topCmd.Stingers,
                     SuperSource = topCmd.SuperSource,
-                    TalkbackOverSDI = topCmd.TalkbackOverSDI,
                 });
             }
             else if (command is TopologyV8Command topCmd8)
@@ -82,8 +81,8 @@ namespace LibAtem.State.Builder
         private static void HandleTopologyCommand(AtemState state, UpdateResultImpl result, TopologyV8Command cmd)
         {
             state.Auxiliaries = UpdaterUtil.CreateList(cmd.Auxiliaries, (i) => new AuxState());
-            state.ColorGenerators = UpdaterUtil.CreateList(cmd.ColorGenerators, (i) => new ColorState());
-            state.DownstreamKeyers = UpdaterUtil.CreateList(2, (i) => new DownstreamKeyerState()); // TODO - isnt this known?
+            state.ColorGenerators = UpdaterUtil.CreateList(2, (i) => new ColorState());
+            state.DownstreamKeyers = UpdaterUtil.CreateList(cmd.DownstreamKeyers, (i) => new DownstreamKeyerState());
             state.MediaPlayers = UpdaterUtil.CreateList(cmd.MediaPlayers, (i) => new MediaPlayerState());
             state.MixEffects = UpdaterUtil.CreateList(cmd.MixEffectBlocks, (i) => new MixEffectState());
             state.SuperSources = UpdaterUtil.CreateList(cmd.SuperSource, (i) => new SuperSourceState());

@@ -17,7 +17,7 @@ namespace LibAtem.DeviceProfile
 
         public List<AudioSource> AudioSources { get; set; }
 
-        public uint ColorGenerators { get; set; }
+        // public uint ColorGenerators { get; set; }
 
         public uint Auxiliaries { get; set; }
 
@@ -51,7 +51,7 @@ namespace LibAtem.DeviceProfile
 
         public VideoModeSet VideoModes { get; set; }
 
-        public bool TalkbackOverSDI { get; set; }
+        public uint MixMinusOutputs { get; set; }
     }
 
     public class VideoModeSet

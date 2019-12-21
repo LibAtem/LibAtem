@@ -78,7 +78,7 @@ namespace LibAtem.DeviceProfile
                 case InternalPortType.ColorBars:
                     return true;
                 case InternalPortType.ColorGenerator:
-                    return props.Me1Index <= profile.ColorGenerators;
+                    return props.Me1Index <= 2; // profile.ColorGenerators; TODO - should this be dynamic?
                 case InternalPortType.External:
                     return props.Me1Index <= profile.Sources.Count;
                 case InternalPortType.MEOutput:

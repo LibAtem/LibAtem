@@ -82,10 +82,11 @@ namespace LibAtem.State.Test
             {
                 MediaPlayers = 2,
                 MixEffectBlocks = 2,
-                ColorGenerators = 2,
+                DownstreamKeyers = 2,
                 Auxiliaries = 2,
                 SuperSource = 2,
                 HyperDecks = 2,
+                MixMinusOutputs = 24,
             });
             DoUpdate(state, new SuperSourceConfigV8Command
             {
