@@ -154,6 +154,32 @@ namespace LibAtem.State.Builder
                     });
                 });
             }
+            else if (command is MixEffectKeyAdvancedChromaPropertiesGetCommand advChromaPropCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int)advChromaPropCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int)advChromaPropCmd.KeyerIndex, keyer =>
+                    {
+                        if (keyer.AdvancedChroma == null) keyer.AdvancedChroma = new MixEffectState.KeyerAdvancedChromaState();
+
+                        UpdaterUtil.CopyAllProperties(advChromaPropCmd, keyer.AdvancedChroma.Properties, new[] { "MixEffectIndex", "KeyerIndex" });
+                        result.SetSuccess($"MixEffects.{advChromaPropCmd.MixEffectIndex:D}.Keyers.{advChromaPropCmd.KeyerIndex:D}.AdvancedChroma.Properties");
+                    });
+                });
+            }
+            else if (command is MixEffectKeyAdvancedChromaSampleGetCommand advChromaSampleCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int)advChromaSampleCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int)advChromaSampleCmd.KeyerIndex, keyer =>
+                    {
+                        if (keyer.AdvancedChroma == null) keyer.AdvancedChroma = new MixEffectState.KeyerAdvancedChromaState();
+
+                        UpdaterUtil.CopyAllProperties(advChromaSampleCmd, keyer.AdvancedChroma.Sample, new[] { "MixEffectIndex", "KeyerIndex" });
+                        result.SetSuccess($"MixEffects.{advChromaSampleCmd.MixEffectIndex:D}.Keyers.{advChromaSampleCmd.KeyerIndex:D}.AdvancedChroma.Sample");
+                    });
+                });
+            }
         }
 
         private static void UpdateTransition(AtemState state, UpdateResultImpl result, ICommand command)

@@ -128,6 +128,7 @@ namespace LibAtem.State
         {
             public KeyerLumaState Luma { get; set; }
             public KeyerChromaState Chroma { get; set; }
+            public KeyerAdvancedChromaState AdvancedChroma { get; set; }
             public KeyerPatternState Pattern { get; set; }
             public KeyerDVEState DVE { get; set; }
             public IReadOnlyList<KeyerFlyFrameState> FlyFrames { get; set; }
@@ -181,6 +182,62 @@ namespace LibAtem.State
             [Tolerance(0.01)]
             public double Lift { get; set; }
             public bool Narrow { get; set; }
+        }
+
+        [Serializable]
+        public class KeyerAdvancedChromaState
+        {
+            public KeyerAdvancedChromaSampleState Sample { get; } = new KeyerAdvancedChromaSampleState();
+            public KeyerAdvancedChromaPropertiesState Properties { get; } = new KeyerAdvancedChromaPropertiesState();
+        }
+
+        [Serializable]
+        public class KeyerAdvancedChromaSampleState
+        {
+            public bool EnableCursor { get; set; }
+            public bool Preview { get; set; }
+            [Tolerance(0.001)]
+            public double CursorX { get; set; }
+            [Tolerance(0.001)]
+            public double CursorY { get; set; }
+            [Tolerance(0.01)]
+            public double CursorSize { get; set; }
+
+            [Tolerance(0.0001)]
+            public double SampledY { get; set; }
+            [Tolerance(0.0001)]
+            public double SampledCb { get; set; }
+            [Tolerance(0.0001)]
+            public double SampledCr { get; set; }
+        }
+
+        [Serializable]
+        public class KeyerAdvancedChromaPropertiesState
+        {
+            [Tolerance(0.1)]
+            public double ForegroundLevel { get; set; }
+            [Tolerance(0.1)]
+            public double BackgroundLevel { get; set; }
+            [Tolerance(0.1)]
+            public double KeyEdge { get; set; }
+
+            [Tolerance(0.1)]
+            public double SpillSuppression { get; set; }
+            [Tolerance(0.1)]
+            public double FlareSuppression { get; set; }
+
+            [Tolerance(0.1)]
+            public double Brightness { get; set; }
+            [Tolerance(0.1)]
+            public double Contrast { get; set; }
+            [Tolerance(0.1)]
+            public double Saturation { get; set; }
+            [Tolerance(0.1)]
+            public double Red { get; set; }
+            [Tolerance(0.1)]
+            public double Green { get; set; }
+            [Tolerance(0.1)]
+            public double Blue { get; set; }
         }
 
         [Serializable]
