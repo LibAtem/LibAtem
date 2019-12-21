@@ -22,9 +22,33 @@ namespace LibAtem.State.Builder
             {
                 if (command is FairlightMixerMasterGetCommand masterCmd)
                 {
-                    UpdaterUtil.CopyAllProperties(masterCmd, state.Fairlight.ProgramOut,
-                        new[] {"EqualizerGain", "EqualizerEnabled", "MakeUpGain"});
-                    result.SetSuccess("Fairlight.ProgramOut");
+                    var pgmState = state.Fairlight.ProgramOut;
+                    UpdaterUtil.CopyAllProperties(masterCmd, pgmState,
+                        new[] {"EqualizerGain", "EqualizerEnabled", "MakeUpGain"}, new []{"Dynamics"});
+
+                    pgmState.Dynamics.MakeUpGain = masterCmd.MakeUpGain;
+
+                    result.SetSuccess(new[]
+                    {
+                        "Fairlight.ProgramOut",
+                        "Fairlight.ProgramOut.Dynamics.MakeUpGain"
+                    });
+                }
+                else if (command is FairlightMixerMasterLimiterGetCommand masterLimCmd)
+                {
+                    var pgmDynamics = state.Fairlight.ProgramOut.Dynamics;
+                    if (pgmDynamics.Limiter == null) pgmDynamics.Limiter = new FairlightAudioState.LimiterState();
+
+                    UpdaterUtil.CopyAllProperties(masterLimCmd, pgmDynamics.Limiter);
+                    result.SetSuccess("Fairlight.ProgramOut.Dynamics.Limiter");
+                }
+                else if (command is FairlightMixerMasterCompressorGetCommand masterCompCmd)
+                {
+                    var pgmDynamics = state.Fairlight.ProgramOut.Dynamics;
+                    if (pgmDynamics.Compressor == null) pgmDynamics.Compressor = new FairlightAudioState.CompressorState();
+
+                    UpdaterUtil.CopyAllProperties(masterCompCmd, pgmDynamics.Compressor);
+                    result.SetSuccess("Fairlight.ProgramOut.Dynamics.Compressor");
                 }
                 // TODO
             }

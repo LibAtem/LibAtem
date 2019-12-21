@@ -23,15 +23,25 @@ namespace LibAtem.Commands
 
     public struct CommandQueueKey : IEquatable<CommandQueueKey>
     {
-        public string Name { get; }
-        public int Mask { get; }
-        public long Id { get; }
+        public string Name { get; private set; }
+        public int Mask { get; private set; }
+        public long Id { get; private set; }
 
         public CommandQueueKey(ICommand cmd)
         {
             Name = cmd.GetType().Name;
             Mask = GetMask(cmd);
             Id = GetId(cmd);
+        }
+
+        public static CommandQueueKey ForGetter<TGet>(ICommand cmd) where TGet : ICommand
+        {
+            return new CommandQueueKey
+            {
+                Name = typeof(TGet).Name,
+                Mask = 0,
+                Id = GetId(cmd)
+            };
         }
 
         private static int GetMask(ICommand cmd)

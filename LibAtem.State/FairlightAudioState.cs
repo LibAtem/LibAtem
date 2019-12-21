@@ -16,6 +16,8 @@ namespace LibAtem.State
         {
             public double Gain { get; set; }
             public bool FollowFadeToBlack { get; set; }
+
+            public DynamicsState Dynamics { get; } = new DynamicsState();
         }
 
         [Serializable]
@@ -28,5 +30,36 @@ namespace LibAtem.State
         public class InputState
         {
         }
+
+        [Serializable]
+        public class DynamicsState
+        {
+            public double MakeUpGain { get; set; }
+
+            public LimiterState Limiter { get; set; }
+            public CompressorState Compressor { get; set; }
+        }
+
+        [Serializable]
+        public class LimiterState
+        {
+            public bool LimiterEnabled { get; set; }
+            public double Threshold { get; set; }
+            public double Attack { get; set; }
+            public double Hold{ get; set; }
+            public double Release { get; set; }
+        }
+
+        [Serializable]
+        public class CompressorState
+        {
+            public bool CompressorEnabled { get; set; }
+            public double Threshold { get; set; }
+            public double Ratio { get; set; }
+            public double Attack { get; set; }
+            public double Hold { get; set; }
+            public double Release { get; set; }
+        }
+
     }
 }
