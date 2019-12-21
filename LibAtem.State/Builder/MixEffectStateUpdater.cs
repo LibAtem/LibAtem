@@ -200,10 +200,11 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.MixEffects, (int) stingerCmd.Index, me =>
                 {
-                    if (me.Transition.Stinger == null) me.Transition.Stinger = new MixEffectState.TransitionStingerState();
-
-                    UpdaterUtil.CopyAllProperties(stingerCmd, me.Transition.Stinger, new []{"Index"});
-                    result.SetSuccess($"MixEffects.{stingerCmd.Index:D}.Transition.Stinger");
+                    if (me.Transition.Stinger != null)
+                    {
+                        UpdaterUtil.CopyAllProperties(stingerCmd, me.Transition.Stinger, new[] {"Index"});
+                        result.SetSuccess($"MixEffects.{stingerCmd.Index:D}.Transition.Stinger");
+                    }
                 });
             }
             else if (command is TransitionDVEGetCommand dveCmd)

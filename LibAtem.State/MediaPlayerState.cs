@@ -7,10 +7,10 @@ namespace LibAtem.State
     public class MediaPlayerState
     {
         public SourceState Source { get; } = new SourceState();
-        public StatusState Status { get; } = new StatusState();
+        public ClipStatusState ClipStatus { get; set; }
 
         [Serializable]
-        public class StatusState
+        public class ClipStatusState
         {
             public bool Playing { get; set; }
             public bool Loop { get; set; }

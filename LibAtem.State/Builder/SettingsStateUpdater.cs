@@ -87,7 +87,8 @@ namespace LibAtem.State.Builder
                     Windows = UpdaterUtil.CreateList(multiview8Cmd.WindowCount,
                         w => new MultiViewerState.WindowState()),
                     SupportsVuMeters = multiview8Cmd.SupportsVuMeters,
-                    SupportsProgramPreviewSwapped = multiview8Cmd.CanSwapPreviewProgram
+                    SupportsProgramPreviewSwapped = multiview8Cmd.CanSwapPreviewProgram,
+                    SupportsQuadrantLayout = multiview8Cmd.SupportsQuadrants
                 });
                 result.SetSuccess($"Settings.MultiViewers");
             }
@@ -179,10 +180,13 @@ namespace LibAtem.State.Builder
                             win.SupportsVuMeter = winCmd.Source.SupportsVuMeter();
 
                             // Preview never supports it
-                            if (winCmd.WindowIndex == 0)
-                                win.SupportsVuMeter = mv.Properties.ProgramPreviewSwapped;
-                            if (winCmd.WindowIndex == 1)
-                                win.SupportsVuMeter = !mv.Properties.ProgramPreviewSwapped;
+                            if (mv.SupportsProgramPreviewSwapped && !mv.SupportsQuadrantLayout)
+                            {
+                                if (winCmd.WindowIndex == 0)
+                                    win.SupportsVuMeter = mv.Properties.ProgramPreviewSwapped;
+                                if (winCmd.WindowIndex == 1)
+                                    win.SupportsVuMeter = !mv.Properties.ProgramPreviewSwapped;
+                            }
                         } else
                         {
                             win.SupportsVuMeter = false;
@@ -200,6 +204,17 @@ namespace LibAtem.State.Builder
                     {
                         win.VuMeter = vuMeterCmd.VuEnabled;
                         result.SetSuccess($"Settings.MultiViewers.{vuMeterCmd.MultiviewIndex:D}.Windows.{vuMeterCmd.WindowIndex:D}");
+                    });
+                });
+            }
+            else if (command is MultiviewWindowSafeAreaCommand safeAreaCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)safeAreaCmd.MultiviewIndex, mv =>
+                {
+                    UpdaterUtil.TryForIndex(result, mv.Windows, (int)safeAreaCmd.WindowIndex, win =>
+                    {
+                        //win.SafeAreaEnabled = safeAreaCmd.SafeAreaEnabled;
+                        //result.SetSuccess($"Settings.MultiViewers.{safeAreaCmd.MultiviewIndex:D}.SafeAreaEnabled");
                     });
                 });
             }

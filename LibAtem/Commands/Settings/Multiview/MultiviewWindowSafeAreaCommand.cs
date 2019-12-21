@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("SaMw", CommandDirection.ToServer, ProtocolVersion.V8_0, 4)] // TODO verify direction
+    [CommandName("SaMw", CommandDirection.Both, ProtocolVersion.V8_0, 4)] // TODO verify direction
     public class MultiviewWindowSafeAreaCommand : SerializableCommandBase
     {
         [CommandId]

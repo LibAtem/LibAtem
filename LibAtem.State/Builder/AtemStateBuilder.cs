@@ -84,8 +84,16 @@ namespace LibAtem.State.Builder
             state.ColorGenerators = UpdaterUtil.CreateList(2, (i) => new ColorState());
             state.DownstreamKeyers = UpdaterUtil.CreateList(cmd.DownstreamKeyers, (i) => new DownstreamKeyerState());
             state.MediaPlayers = UpdaterUtil.CreateList(cmd.MediaPlayers, (i) => new MediaPlayerState());
-            state.MixEffects = UpdaterUtil.CreateList(cmd.MixEffectBlocks, (i) => new MixEffectState());
             state.SuperSources = UpdaterUtil.CreateList(cmd.SuperSource, (i) => new SuperSourceState());
+
+            state.MixEffects = UpdaterUtil.CreateList(cmd.MixEffectBlocks, (i) =>
+            {
+                var me = new MixEffectState();
+                if (cmd.Stingers > 0) me.Transition.Stinger = new MixEffectState.TransitionStingerState();
+                if (cmd.DVE > 0) me.Transition.DVE = new MixEffectState.TransitionDVEState();
+
+                return me;
+            });
 
             state.Settings.Hyperdecks = UpdaterUtil.CreateList(cmd.HyperDecks, i => new SettingsState.HyperdeckState());
 

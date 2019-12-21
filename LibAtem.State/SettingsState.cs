@@ -59,6 +59,7 @@ namespace LibAtem.State
     {
         public bool SupportsVuMeters { get; set; }
         public bool SupportsProgramPreviewSwapped { get; set; }
+        public bool SupportsQuadrantLayout { get; set; }
 
         [Tolerance(1)]
         public double VuMeterOpacity { get; set; }
@@ -81,6 +82,7 @@ namespace LibAtem.State
             public VideoSource Source { get; set; }
             
             public bool SafeAreaEnabled { get; set; }
+            public bool SupportsSafeArea { get; set; }
         }
     }
 }

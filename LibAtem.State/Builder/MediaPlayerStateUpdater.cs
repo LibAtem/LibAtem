@@ -17,18 +17,23 @@ namespace LibAtem.State.Builder
             }
             else if (command is MediaPlayerClipStatusGetCommand statusCmd)
             {
-                UpdaterUtil.TryForIndex(result, state.MediaPlayers, (int) statusCmd.Index, mp =>
+                if (state.MediaPool.Clips.Count > 0)
                 {
-                    if (updateSettings != null && !updateSettings.TrackMediaClipFrames)
+                    UpdaterUtil.TryForIndex(result, state.MediaPlayers, (int) statusCmd.Index, mp =>
                     {
-                        // TODO - this is bad
-                        statusCmd.AtBeginning = mp.Status.AtBeginning;
-                        statusCmd.ClipFrame = mp.Status.ClipFrame;
-                    }
+                        if (mp.ClipStatus == null) mp.ClipStatus = new MediaPlayerState.ClipStatusState();
 
-                    UpdaterUtil.CopyAllProperties(statusCmd, mp.Status, new []{"Index"});
-                    result.SetSuccess($"MediaPlayers.{statusCmd.Index:D}.Status");
-                });
+                        if (updateSettings != null && !updateSettings.TrackMediaClipFrames)
+                        {
+                            // TODO - this is bad
+                            statusCmd.AtBeginning = mp.ClipStatus.AtBeginning;
+                            statusCmd.ClipFrame = mp.ClipStatus.ClipFrame;
+                        }
+
+                        UpdaterUtil.CopyAllProperties(statusCmd, mp.ClipStatus, new[] {"Index"});
+                        result.SetSuccess($"MediaPlayers.{statusCmd.Index:D}.ClipStatus");
+                    });
+                }
             }
         }
     }
