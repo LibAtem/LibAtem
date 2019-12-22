@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio.Fairlight
 {
-    [CommandName("CMCP", CommandDirection.ToServer, 24)]
+    [CommandName("CMCP", CommandDirection.ToServer, 24), NoCommandId]
     public class FairlightMixerMasterCompressorSetCommand : SerializableCommandBase
     {
         [Flags]
