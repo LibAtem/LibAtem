@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using LibAtem.Commands;
 using LibAtem.Commands.Audio.Fairlight;
 using LibAtem.Commands.DeviceProfile;
+using LibAtem.Common;
 
 namespace LibAtem.State.Builder
 {
@@ -13,7 +15,8 @@ namespace LibAtem.State.Builder
                 state.Fairlight = new FairlightAudioState
                 {
                     Monitors = UpdaterUtil.CreateList(confCmd.Monitors,
-                        i => new FairlightAudioState.MonitorOutputState())
+                        i => new FairlightAudioState.MonitorOutputState()),
+                    // Inputs = UpdaterUtil.CreateList(confCmd.Inputs, i => new FairlightAudioState.InputState()),
                 };
                 // TODO - inputs?
                 // TODO - more props?
@@ -24,14 +27,17 @@ namespace LibAtem.State.Builder
                 {
                     var pgmState = state.Fairlight.ProgramOut;
                     UpdaterUtil.CopyAllProperties(masterCmd, pgmState,
-                        new[] {"EqualizerGain", "EqualizerEnabled", "MakeUpGain"}, new []{"Dynamics"});
+                        new[] {"EqualizerGain", "EqualizerEnabled", "MakeUpGain"}, new []{"Dynamics", "Equalizer"});
 
                     pgmState.Dynamics.MakeUpGain = masterCmd.MakeUpGain;
+                    pgmState.Equalizer.Enabled = masterCmd.EqualizerEnabled;
+                    pgmState.Equalizer.Gain = masterCmd.EqualizerGain;
 
                     result.SetSuccess(new[]
                     {
                         "Fairlight.ProgramOut",
-                        "Fairlight.ProgramOut.Dynamics.MakeUpGain"
+                        "Fairlight.ProgramOut.Dynamics",
+                        "Fairlight.ProgramOut.Equalizer"
                     });
                 }
                 else if (command is FairlightMixerMasterLimiterGetCommand masterLimCmd)
@@ -49,6 +55,43 @@ namespace LibAtem.State.Builder
 
                     UpdaterUtil.CopyAllProperties(masterCompCmd, pgmDynamics.Compressor);
                     result.SetSuccess("Fairlight.ProgramOut.Dynamics.Compressor");
+                }
+                else if (command is FairlightMixerInputGetCommand inpCmd)
+                {
+                    if (!state.Fairlight.Inputs.TryGetValue((long) inpCmd.Index, out var inputState))
+                        inputState = state.Fairlight.Inputs[(long) inpCmd.Index] = new FairlightAudioState.InputState();
+
+                    var changes = new List<string>
+                    {
+                        $"Fairlight.Inputs.{inpCmd.Index:D}.ExternalPortType",
+                        $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration"
+                    };
+
+                    if (inpCmd.ActiveConfiguration != inputState.ActiveConfiguration)
+                    {
+                        inputState.Sources.Clear();
+                        changes.Add($"Fairlight.Inputs.{inpCmd.Index:D}.Sources");
+                    }
+
+                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] {"Index"}, new[] {"Sources"});
+                    result.SetSuccess(changes);
+                }
+                else if (command is FairlightMixerSourceGetCommand srcCmd)
+                {
+                    /*
+                    UpdaterUtil.TryForIndex(result, state.Fairlight.Inputs, (int)srcCmd.Index, inputState =>
+                    {
+                        /*
+
+                        UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] {"Index"}, new[] {"Sources"});
+                        result.SetSuccess(new[]
+                        {
+                            $"Fairlight.Inputs.{inpCmd.Index:D}.ExternalPortType",
+                            $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration"
+                        });
+                        *\/
+                    });
+                    */
                 }
                 // TODO
             }

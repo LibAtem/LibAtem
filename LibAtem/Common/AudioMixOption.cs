@@ -37,4 +37,19 @@
         MidHigh = 1 << 2,
         High = 1 << 3,
     }
+
+    public enum FairlightInputType
+    {
+        EmbeddedWithVideo = 0,
+        MediaPlayer = 1,
+        AudioIn = 2,
+        MADI = 4,
+    }
+
+    public enum FairlightInputConfiguration
+    {
+        Mono = 1 << 0,
+        Stereo = 1 << 1,
+        DualMono = 1 << 2,
+    }
 }

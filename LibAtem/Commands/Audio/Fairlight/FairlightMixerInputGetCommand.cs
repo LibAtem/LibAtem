@@ -8,20 +8,17 @@ namespace LibAtem.Commands.Audio.Fairlight
     {
         [CommandId]
         [Serialize(0), Enum16]
-        public AudioSource Index { get; set; } // TODO - ensure the mics are valid
+        public AudioSource Index { get; set; }
         
-        [Serialize(2), UInt8]
-        public uint InputType { get; set; }
+        [Serialize(2), Enum8]
+        public FairlightInputType InputType { get; set; }
         
-        [Serialize(4), UInt16]
-        public uint Rank { get; set; }
+        [Serialize(6), Enum16]
+        public ExternalPortType ExternalPortType { get; set; }
         
-        [Serialize(6), UInt16]
-        public uint ExternalType { get; set; }
-        
-        [Serialize(11), UInt8]
-        public uint AvailableConfigs { get; set; }
-        [Serialize(12), UInt8]
-        public uint ActiveConfig { get; set; }
+        [Serialize(11), Enum8]
+        public FairlightInputConfiguration SupportedConfigurations { get; set; }
+        [Serialize(12), Enum8]
+        public FairlightInputConfiguration ActiveConfiguration { get; set; }
     }
 }
