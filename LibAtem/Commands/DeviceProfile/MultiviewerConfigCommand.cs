@@ -19,19 +19,14 @@ namespace LibAtem.Commands.DeviceProfile
         // [Serialize(4), UInt8]
         // public uint Tmp4 { get; set; }
 
-        // [Serialize(5), UInt8]
-        // public uint Tmp5 { get; set; }
-        
         // [Serialize(6), UInt8]
         // public uint Tmp6 { get; set; }
 
-        [Serialize(7), Bool]
-        public bool CanToggleSafeArea { get; set; }
-        [Serialize(8), Bool]
+        [Serialize(5), Bool]
         public bool CanSwapPreviewProgram { get; set; }
 
-        // [Serialize(9), UInt8]
-        // public uint Tmp9 { get; set; }
+        [Serialize(7), Bool]
+        public bool CanToggleSafeArea { get; set; }
 
     }
 }

@@ -83,7 +83,7 @@ namespace LibAtem.Test.Commands
 
                     Type propType = prop.PropertyType;
 
-                    bool isValid = typeof(uint) == propType || propType.GetTypeInfo().IsEnum;
+                    bool isValid = typeof(uint) == propType || typeof(long) == propType || propType.GetTypeInfo().IsEnum;
                     if (!isValid)
                         badTypes.Add(string.Format("{0}: {1} has invalid type {2}", type.Name, prop.Name, propType.Name));
                 }
