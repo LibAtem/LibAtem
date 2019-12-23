@@ -90,8 +90,13 @@ namespace LibAtem.State.Builder
                             inputState.Sources.Add(srcState);
                         }
 
+                        srcState.Dynamics.MakeUpGain = srcCmd.MakeUpGain;
+                        srcState.Equalizer.Enabled = srcCmd.EqualizerEnabled;
+                        srcState.Equalizer.Gain = srcCmd.EqualizerGain;
+
                         UpdaterUtil.CopyAllProperties(srcCmd, srcState,
-                            new[] {"Index", "EqualizerEnabled", "EqualizerGain", "MakeUpGain"});
+                            new[] {"Index", "EqualizerEnabled", "EqualizerGain", "MakeUpGain"},
+                            new[] {"MaxFramesDelay", "SourceType", "Dynamics", "Equalizer" });
                         result.SetSuccess($"Fairlight.Inputs.{srcCmd.Index:D}.Sources.{srcCmd.SourceId:D}");
                     });
                 }
@@ -101,6 +106,51 @@ namespace LibAtem.State.Builder
                     {
                         inputState.Sources.RemoveAll(src => src.SourceId == delCmd.SourceId);
                         result.SetSuccess($"Fairlight.Inputs.{delCmd.Index:D}.Sources.{delCmd.SourceId:D}");
+                    });
+                }
+                else if (command is FairlightMixerSourceCompressorGetCommand compCmd)
+                {
+                    UpdaterUtil.TryForKey(result, state.Fairlight.Inputs, (long)compCmd.Index, inputState =>
+                    {
+                        FairlightAudioState.InputSourceState srcState = inputState.Sources.FirstOrDefault(s => s.SourceId == compCmd.SourceId);
+                        if (srcState != null)
+                        {
+                            if (srcState.Dynamics.Compressor == null)
+                                srcState.Dynamics.Compressor = new FairlightAudioState.CompressorState();
+
+                            UpdaterUtil.CopyAllProperties(compCmd, srcState.Dynamics.Compressor, new[] { "Index", "SourceId" });
+                            result.SetSuccess($"Fairlight.Inputs.{compCmd.Index:D}.Sources.{compCmd.SourceId:D}.Dynamics.Compressor");
+                        }
+                    });
+                }
+                else if (command is FairlightMixerSourceLimiterGetCommand limCmd)
+                {
+                    UpdaterUtil.TryForKey(result, state.Fairlight.Inputs, (long)limCmd.Index, inputState =>
+                    {
+                        FairlightAudioState.InputSourceState srcState = inputState.Sources.FirstOrDefault(s => s.SourceId == limCmd.SourceId);
+                        if (srcState != null)
+                        {
+                            if (srcState.Dynamics.Limiter == null)
+                                srcState.Dynamics.Limiter = new FairlightAudioState.LimiterState();
+
+                            UpdaterUtil.CopyAllProperties(limCmd, srcState.Dynamics.Limiter, new[] { "Index", "SourceId" });
+                            result.SetSuccess($"Fairlight.Inputs.{limCmd.Index:D}.Sources.{limCmd.SourceId:D}.Dynamics.Limiter");
+                        }
+                    });
+                }
+                else if (command is FairlightMixerSourceExpanderGetCommand expandCmd)
+                {
+                    UpdaterUtil.TryForKey(result, state.Fairlight.Inputs, (long)expandCmd.Index, inputState =>
+                    {
+                        FairlightAudioState.InputSourceState srcState = inputState.Sources.FirstOrDefault(s => s.SourceId == expandCmd.SourceId);
+                        if (srcState != null)
+                        {
+                            if (srcState.Dynamics.Expander == null)
+                                srcState.Dynamics.Expander = new FairlightAudioState.ExpanderState();
+
+                            UpdaterUtil.CopyAllProperties(expandCmd, srcState.Dynamics.Expander, new[] { "Index", "SourceId" });
+                            result.SetSuccess($"Fairlight.Inputs.{expandCmd.Index:D}.Sources.{expandCmd.SourceId:D}.Dynamics.Expander");
+                        }
                     });
                 }
                 // TODO

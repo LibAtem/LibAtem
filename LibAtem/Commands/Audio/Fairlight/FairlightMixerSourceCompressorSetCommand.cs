@@ -5,7 +5,7 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.Audio.Fairlight
 {
     [CommandName("CICP", CommandDirection.ToServer, 40)]
-    public class FairlightMixerCompressorSetCommand : SerializableCommandBase
+    public class FairlightMixerSourceCompressorSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -23,7 +23,10 @@ namespace LibAtem.Commands.Audio.Fairlight
         [CommandId]
         [Serialize(2), Enum16]
         public AudioSource Index { get; set; }
-        
+        [CommandId]
+        [Serialize(8), Int64]
+        public long SourceId { get; set; }
+
         [Serialize(16), Bool]
         public bool CompressorEnabled { get; set; }
         [Serialize(20), Int32D(100, -5000, 0)]

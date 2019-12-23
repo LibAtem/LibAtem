@@ -53,4 +53,10 @@
         DualMono = 1 << 2,
     }
 
+    public enum FairlightAudioSourceType
+    {
+        Mono = 1 << 0,
+        Stereo = 1 << 1,
+    }
+
 }

@@ -25,8 +25,9 @@ namespace LibAtem.Commands.Audio.Fairlight
         public MaskFlags Mask { get; set; }
         [CommandId]
         [Serialize(2), Enum16]
-        public AudioSource Index { get; set; } // TODO - ensure the mics are valid
+        public AudioSource Index { get; set; }
 
+        [CommandId]
         [Serialize(8), Int64]
         public long SourceId { get; set; }
 
@@ -48,17 +49,5 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Serialize(44), Enum8]
         public FairlightAudioMixOption MixOption { get; set; }
 
-        /*
-        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
-        {
-            if (Mask.HasFlag(MaskFlags.MixOption))
-                yield return new AudioMixerInputMixTypeMacroOp { Index = Index, MixOption = MixOption };
-
-            if (Mask.HasFlag(MaskFlags.Gain))
-                yield return new AudioMixerInputGainMacroOp { Index = Index, Gain = Gain };
-
-            if (Mask.HasFlag(MaskFlags.Balance))
-                yield return new AudioMixerInputBalanceMacroOp { Index = Index, Balance = Balance };
-        }*/
     }
 }

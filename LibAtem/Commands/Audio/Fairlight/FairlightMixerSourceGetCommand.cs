@@ -27,6 +27,9 @@ namespace LibAtem.Commands.Audio.Fairlight
         public double Balance { get; set; }
         [Serialize(44), Int32D(100.0, -12041, 1000)] // TODO - thats an odd minimum..
         public double FaderGain { get; set; }
+
+        [Serialize(48), Enum8]
+        public FairlightAudioMixOption SupportedMixOptions { get; set; }
         [Serialize(49), Enum8]
         public FairlightAudioMixOption MixOption { get; set; }
     }

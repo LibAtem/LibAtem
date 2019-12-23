@@ -4,12 +4,15 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.Audio.Fairlight
 {
     [CommandName("AILP", CommandDirection.ToClient, 36)]
-    public class FairlightMixerLimiterGetCommand : SerializableCommandBase
+    public class FairlightMixerSourceLimiterGetCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum16]
         public AudioSource Index { get; set; }
-        
+        [CommandId]
+        [Serialize(8), Int64]
+        public long SourceId { get; set; }
+
         [Serialize(16), Bool]
         public bool LimiterEnabled { get; set; }
         [Serialize(20), Int32D(100, -3000, 0)]

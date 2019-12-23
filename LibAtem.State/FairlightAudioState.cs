@@ -44,12 +44,19 @@ namespace LibAtem.State
         public class InputSourceState
         {
             public long SourceId { get; set; }
+            public FairlightAudioSourceType SourceType { get; set; }
 
             public double Gain { get; set; }
             public double Balance { get; set; }
             public double FaderGain { get; set; }
-            public FairlightAudioMixOption MixOption { get; set; }
 
+            public FairlightAudioMixOption SupportedMixOptions { get; set; }
+            public FairlightAudioMixOption MixOption { get; set; }
+            
+            public uint MaxFramesDelay { get; set; }
+
+            public DynamicsState Dynamics { get; } = new DynamicsState();
+            public EqualizerState Equalizer { get; } = new EqualizerState();
         }
 
         [Serializable]
@@ -59,6 +66,7 @@ namespace LibAtem.State
 
             public LimiterState Limiter { get; set; }
             public CompressorState Compressor { get; set; }
+            public ExpanderState Expander { get; set; }
         }
 
         [Serializable]
@@ -76,6 +84,19 @@ namespace LibAtem.State
         {
             public bool CompressorEnabled { get; set; }
             public double Threshold { get; set; }
+            public double Ratio { get; set; }
+            public double Attack { get; set; }
+            public double Hold { get; set; }
+            public double Release { get; set; }
+        }
+
+        [Serializable]
+        public class ExpanderState
+        {
+            public bool ExpanderEnabled { get; set; }
+            public bool GateEnabled { get; set; }
+            public double Threshold { get; set; }
+            public double Range { get; set; }
             public double Ratio { get; set; }
             public double Attack { get; set; }
             public double Hold { get; set; }

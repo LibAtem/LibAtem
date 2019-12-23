@@ -4,12 +4,15 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.Audio.Fairlight
 {
     [CommandName("AEBP", CommandDirection.ToClient, 36)]
-    public class FairlightMixerEqualizerBandGetCommand : SerializableCommandBase
+    public class FairlightMixerSourceEqualizerBandGetCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum16]
         public AudioSource Index { get; set; }
-        
+        [CommandId]
+        [Serialize(8), Int64]
+        public long SourceId { get; set; }
+
         [CommandId]
         [Serialize(16), UInt8Range(0, 5)]
         public uint Band { get; set; }

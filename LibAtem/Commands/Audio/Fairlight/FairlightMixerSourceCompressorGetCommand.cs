@@ -4,12 +4,15 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.Audio.Fairlight
 {
     [CommandName("AICP", CommandDirection.ToClient, 40)]
-    public class FairlightMixerCompressorGetCommand : SerializableCommandBase
+    public class FairlightMixerSourceCompressorGetCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum16]
         public AudioSource Index { get; set; }
-        
+        [CommandId]
+        [Serialize(8), Int64]
+        public long SourceId { get; set; }
+
         [Serialize(16), Bool]
         public bool CompressorEnabled { get; set; }
         [Serialize(20), Int32D(100, -5000, 0)]

@@ -5,7 +5,7 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.Audio.Fairlight
 {
     [CommandName("CEBP", CommandDirection.ToServer, 32)]
-    public class FairlightMixerEqualizerBandSetCommand : SerializableCommandBase
+    public class FairlightMixerSourceEqualizerBandSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -23,7 +23,10 @@ namespace LibAtem.Commands.Audio.Fairlight
         [CommandId]
         [Serialize(2), Enum16]
         public AudioSource Index { get; set; }
-        
+        [CommandId]
+        [Serialize(8), Int64]
+        public long SourceId { get; set; }
+
         [CommandId]
         [Serialize(16), UInt8Range(0, 5)]
         public uint Band { get; set; }

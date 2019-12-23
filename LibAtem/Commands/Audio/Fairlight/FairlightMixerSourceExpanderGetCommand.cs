@@ -1,31 +1,18 @@
-using System;
 using LibAtem.Common;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio.Fairlight
 {
-    [CommandName("CIXP", CommandDirection.ToServer, 40)]
-    public class FairlightMixerExpanderSetCommand : SerializableCommandBase
+    [CommandName("AIXP", CommandDirection.ToClient, 40)]
+    public class FairlightMixerSourceExpanderGetCommand : SerializableCommandBase
     {
-        [Flags]
-        public enum MaskFlags
-        {
-            ExpanderEnabled = 1 << 0,
-            GateEnabled = 1 << 1,
-            Threshold = 1 << 2,
-            Range = 1 << 3,
-            Ratio = 1 << 4,
-            Attack = 1 << 5,
-            Hold = 1 << 6,
-            Release = 1 << 7,
-        }
-
-        [Serialize(0), Enum8]
-        public MaskFlags Mask { get; set; }
         [CommandId]
-        [Serialize(2), Enum16]
+        [Serialize(0), Enum16]
         public AudioSource Index { get; set; }
-        
+        [CommandId]
+        [Serialize(8), Int64]
+        public long SourceId { get; set; }
+
         [Serialize(16), Bool]
         public bool ExpanderEnabled { get; set; }
         [Serialize(17), Bool]
