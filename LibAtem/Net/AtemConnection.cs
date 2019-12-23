@@ -82,7 +82,7 @@ namespace LibAtem.Net
 
         public bool IsOpened => _isOpen;
 
-        public ProtocolVersion? ConnectionVersion => _protocolVersion;
+        public virtual ProtocolVersion? ConnectionVersion => _protocolVersion;
 
         public void ResetConnStatsInfo()
         {

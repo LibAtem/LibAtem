@@ -46,7 +46,7 @@ namespace LibAtem.Net
             Commands = ParseCommands(Payload);
         }
 
-        private static List<ParsedCommand> ParseCommands(byte[] payload)
+        public static List<ParsedCommand> ParseCommands(byte[] payload)
         {
             var res = new List<ParsedCommand>();
 
