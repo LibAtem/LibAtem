@@ -11,7 +11,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         public enum MaskFlags
         {
             // ?? = 1 << 0,
-            ActiveConfig = 1 << 1,
+            ActiveConfiguration = 1 << 1,
         }
 
         [Serialize(0), Enum8]
@@ -20,7 +20,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Serialize(2), Enum16]
         public AudioSource Index { get; set; }
         
-        [Serialize(5), UInt8]
-        public uint ActiveConfig { get; set; }
+        [Serialize(5), Enum8]
+        public FairlightInputConfiguration ActiveConfiguration { get; set; }
     }
 }

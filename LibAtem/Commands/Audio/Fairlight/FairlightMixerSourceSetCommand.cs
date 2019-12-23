@@ -26,9 +26,12 @@ namespace LibAtem.Commands.Audio.Fairlight
         [CommandId]
         [Serialize(2), Enum16]
         public AudioSource Index { get; set; } // TODO - ensure the mics are valid
-        
+
+        [Serialize(8), Int64]
+        public long SourceId { get; set; }
+
         // TODO - mono vs stereo
-        
+
         [Serialize(20), Int32D(100, -12041, 600)]
         public double Gain { get; set; }
         
@@ -43,7 +46,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Serialize(40), Int32D(100.0, -12041, 1000)] // TODO - thats an odd minimum..
         public double FaderGain { get; set; }
         [Serialize(44), Enum8]
-        public FairlightMixOption MixOption { get; set; }
+        public FairlightAudioMixOption MixOption { get; set; }
 
         /*
         public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)

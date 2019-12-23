@@ -8,11 +8,15 @@ namespace LibAtem.Commands.Audio.Fairlight
     {
         [CommandId]
         [Serialize(0), Enum16]
-        public AudioSource Index { get; set; } // TODO - ensure the mics are valid
+        public AudioSource Index { get; set; }
         
+        [CommandId]
+        [Serialize(8), Int64]
+        public long SourceId { get; set; }
+
         [Serialize(20), Int32D(100, -12041, 600)]
         public double Gain { get; set; }
-        
+
         [Serialize(29), Bool]
         public bool EqualizerEnabled { get; set; }
         [Serialize(32), Int32D(100, -2000, 2000)]
@@ -24,6 +28,6 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Serialize(44), Int32D(100.0, -12041, 1000)] // TODO - thats an odd minimum..
         public double FaderGain { get; set; }
         [Serialize(49), Enum8]
-        public FairlightMixOption MixOption { get; set; }
+        public FairlightAudioMixOption MixOption { get; set; }
     }
 }

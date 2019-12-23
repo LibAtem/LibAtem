@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.Audio.Fairlight;
 using LibAtem.Commands.DeviceProfile;
@@ -67,31 +68,40 @@ namespace LibAtem.State.Builder
                         $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration"
                     };
 
+                    /*
                     if (inpCmd.ActiveConfiguration != inputState.ActiveConfiguration)
                     {
                         inputState.Sources.Clear();
                         changes.Add($"Fairlight.Inputs.{inpCmd.Index:D}.Sources");
                     }
-
+                    */
+                    
                     UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] {"Index"}, new[] {"Sources"});
                     result.SetSuccess(changes);
                 }
                 else if (command is FairlightMixerSourceGetCommand srcCmd)
                 {
-                    /*
-                    UpdaterUtil.TryForIndex(result, state.Fairlight.Inputs, (int)srcCmd.Index, inputState =>
+                    UpdaterUtil.TryForKey(result, state.Fairlight.Inputs, (long)srcCmd.Index, inputState =>
                     {
-                        /*
-
-                        UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] {"Index"}, new[] {"Sources"});
-                        result.SetSuccess(new[]
+                        FairlightAudioState.InputSourceState srcState = inputState.Sources.FirstOrDefault(s => s.SourceId == srcCmd.SourceId);
+                        if (srcState == null)
                         {
-                            $"Fairlight.Inputs.{inpCmd.Index:D}.ExternalPortType",
-                            $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration"
-                        });
-                        *\/
+                            srcState = new FairlightAudioState.InputSourceState();
+                            inputState.Sources.Add(srcState);
+                        }
+
+                        UpdaterUtil.CopyAllProperties(srcCmd, srcState,
+                            new[] {"Index", "EqualizerEnabled", "EqualizerGain", "MakeUpGain"});
+                        result.SetSuccess($"Fairlight.Inputs.{srcCmd.Index:D}.Sources.{srcCmd.SourceId:D}");
                     });
-                    */
+                }
+                else if (command is FairlightMixerSourceDeleteCommand delCmd)
+                {
+                    UpdaterUtil.TryForKey(result, state.Fairlight.Inputs, (long) delCmd.Index, inputState =>
+                    {
+                        inputState.Sources.RemoveAll(src => src.SourceId == delCmd.SourceId);
+                        result.SetSuccess($"Fairlight.Inputs.{delCmd.Index:D}.Sources.{delCmd.SourceId:D}");
+                    });
                 }
                 // TODO
             }

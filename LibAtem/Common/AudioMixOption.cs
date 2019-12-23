@@ -7,7 +7,7 @@
         AudioFollowVideo = 2
     }
     
-    public enum FairlightMixOption
+    public enum FairlightAudioMixOption
     {
         Off = 1,
         On = 2,
@@ -52,4 +52,5 @@
         Stereo = 1 << 1,
         DualMono = 1 << 2,
     }
+
 }

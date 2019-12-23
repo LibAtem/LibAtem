@@ -43,8 +43,12 @@ namespace LibAtem.State
         [Serializable]
         public class InputSourceState
         {
-            public long Id { get; set; }
-            public bool IsActive { get; set; }
+            public long SourceId { get; set; }
+
+            public double Gain { get; set; }
+            public double Balance { get; set; }
+            public double FaderGain { get; set; }
+            public FairlightAudioMixOption MixOption { get; set; }
 
         }
 

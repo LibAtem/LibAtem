@@ -82,7 +82,11 @@ namespace LibAtem.Common
         [XmlEnum("1301")]
         [AudioSourceType(AudioSourceType.ExternalAudio)]
         [AudioPortType(ExternalPortType.Internal)]
-        Unknown = 1301, // TODO - introduced by tv studio hd. headset mic?
+        Mic1 = 1301,
+        [XmlEnum("1302")]
+        [AudioSourceType(AudioSourceType.ExternalAudio)]
+        [AudioPortType(ExternalPortType.Internal)]
+        Mic2 = 1302,
 
         [XmlEnum("2001")]
         [AudioSourceType(AudioSourceType.MediaPlayer)]
