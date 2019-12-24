@@ -13,12 +13,6 @@
         On = 2,
         AudioFollowVideo = 4
     }
-
-    public enum FairlightAnalogSourceType
-    {
-        Microphone = 1,
-        ConsumerLine = 2
-    }
     
     public enum FairlightEqualizerBandShape
     {
@@ -59,4 +53,9 @@
         Stereo = 1 << 1,
     }
 
+    public enum FairlightAnalogInputLevel
+    {
+        Microphone = 1,
+        ConsumerLine = 2
+    }
 }

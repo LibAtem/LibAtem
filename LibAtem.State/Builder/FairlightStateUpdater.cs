@@ -76,7 +76,7 @@ namespace LibAtem.State.Builder
                     }
                     */
                     
-                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] {"Index"}, new[] {"Sources"});
+                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] {"Index"}, new[] {"Sources", "Analog"});
                     result.SetSuccess(changes);
                 }
                 else if (command is FairlightMixerSourceGetCommand srcCmd)
@@ -153,7 +153,17 @@ namespace LibAtem.State.Builder
                         }
                     });
                 }
-                // TODO
+                else if (command is FairlightMixerAnalogAudioGetCommand analogCmd)
+                {
+                    UpdaterUtil.TryForKey(result, state.Fairlight.Inputs, (long)analogCmd.Index, inputState =>
+                    {
+                        if (inputState.Analog == null) inputState.Analog = new FairlightAudioState.AnalogState();
+
+                        UpdaterUtil.CopyAllProperties(analogCmd, inputState.Analog, new[] { "Index" });
+                        result.SetSuccess($"Fairlight.Inputs.{analogCmd.Index:D}.Analog");
+                    });
+                }
+
             }
         }
     }

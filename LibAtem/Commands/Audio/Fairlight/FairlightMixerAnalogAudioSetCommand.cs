@@ -11,6 +11,6 @@ namespace LibAtem.Commands.Audio.Fairlight
         public AudioSource Index { get; set; }
         
         [Serialize(2), Enum8]
-        public FairlightAnalogSourceType Type { get; set; }
+        public FairlightAnalogInputLevel InputLevel { get; set; }
     }
 }

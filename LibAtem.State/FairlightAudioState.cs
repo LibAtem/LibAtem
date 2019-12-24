@@ -37,7 +37,16 @@ namespace LibAtem.State
             public ExternalPortType ExternalPortType { get; set; }
             public FairlightInputConfiguration ActiveConfiguration { get; set; }
 
+            public AnalogState Analog { get; set; }
+
             public List<InputSourceState> Sources { get; } = new List<InputSourceState>();
+        }
+
+        [Serializable]
+        public class AnalogState
+        {
+            public FairlightAnalogInputLevel SupportedInputLevel { get; set; }
+            public FairlightAnalogInputLevel InputLevel { get; set; }
         }
 
         [Serializable]
