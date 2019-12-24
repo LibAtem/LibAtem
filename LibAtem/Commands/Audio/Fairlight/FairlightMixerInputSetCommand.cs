@@ -10,7 +10,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Flags]
         public enum MaskFlags
         {
-            // ?? = 1 << 0,
+            RcaToXlrEnabled = 1 << 0,
             ActiveConfiguration = 1 << 1,
         }
 
@@ -19,7 +19,10 @@ namespace LibAtem.Commands.Audio.Fairlight
         [CommandId]
         [Serialize(2), Enum16]
         public AudioSource Index { get; set; }
-        
+
+        [Serialize(4), Bool]
+        public bool RcaToXlrEnabled { get; set; }
+
         [Serialize(5), Enum8]
         public FairlightInputConfiguration ActiveConfiguration { get; set; }
     }

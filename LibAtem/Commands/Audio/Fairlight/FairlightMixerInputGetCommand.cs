@@ -12,9 +12,14 @@ namespace LibAtem.Commands.Audio.Fairlight
         
         [Serialize(2), Enum8]
         public FairlightInputType InputType { get; set; }
-        
+
         [Serialize(6), Enum16]
         public ExternalPortType ExternalPortType { get; set; }
+
+        [Serialize(8), Bool]
+        public bool SupportsRcaToXlr { get; set; }
+        [Serialize(9), Bool]
+        public bool RcaToXlrEnabled { get; set; }
         
         [Serialize(11), Enum8]
         public FairlightInputConfiguration SupportedConfigurations { get; set; }

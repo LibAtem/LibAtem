@@ -25,7 +25,10 @@ namespace LibAtem.State
         [Serializable]
         public class MonitorOutputState
         {
-            // TODO
+            public double Gain { get; set; }
+            public double InputMasterGain { get; set; }
+            public double InputTalkbackGain { get; set; }
+            public double InputSidetoneGain { get; set; }
         }
 
         [Serializable]
@@ -36,6 +39,9 @@ namespace LibAtem.State
 
             public ExternalPortType ExternalPortType { get; set; }
             public FairlightInputConfiguration ActiveConfiguration { get; set; }
+
+            public bool SupportsRcaToXlr { get; set; }
+            public bool RcaToXlrEnabled { get; set; }
 
             public AnalogState Analog { get; set; }
 

@@ -62,22 +62,13 @@ namespace LibAtem.State.Builder
                     if (!state.Fairlight.Inputs.TryGetValue((long) inpCmd.Index, out var inputState))
                         inputState = state.Fairlight.Inputs[(long) inpCmd.Index] = new FairlightAudioState.InputState();
 
-                    var changes = new List<string>
+                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] {"Index"},
+                        new[] {"Sources", "Analog", "Xlr"});
+                    result.SetSuccess(new[]
                     {
                         $"Fairlight.Inputs.{inpCmd.Index:D}.ExternalPortType",
                         $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration"
-                    };
-
-                    /*
-                    if (inpCmd.ActiveConfiguration != inputState.ActiveConfiguration)
-                    {
-                        inputState.Sources.Clear();
-                        changes.Add($"Fairlight.Inputs.{inpCmd.Index:D}.Sources");
-                    }
-                    */
-                    
-                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] {"Index"}, new[] {"Sources", "Analog"});
-                    result.SetSuccess(changes);
+                    });
                 }
                 else if (command is FairlightMixerSourceGetCommand srcCmd)
                 {
@@ -163,7 +154,14 @@ namespace LibAtem.State.Builder
                         result.SetSuccess($"Fairlight.Inputs.{analogCmd.Index:D}.Analog");
                     });
                 }
-
+                else if (command is FairlightMixerMonitorGetCommand monCmd)
+                {
+                    UpdaterUtil.TryForIndex(result, state.Fairlight.Monitors, 0, monState =>
+                    {
+                        UpdaterUtil.CopyAllProperties(monCmd, monState, new[] { "Index" });
+                        result.SetSuccess($"Fairlight.Monitors.{0:D}");
+                    });
+                }
             }
         }
     }
