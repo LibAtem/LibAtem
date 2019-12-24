@@ -10,7 +10,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Flags]
         public enum MaskFlags
         {
-            // ?? = 1 << 0,
+            FramesDelay = 1 << 0,
             Gain = 1 << 1,
             // ?? = 1 << 2,
             EqualizerEnabled = 1 << 3,
@@ -31,9 +31,12 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Serialize(8), Int64]
         public long SourceId { get; set; }
 
+        [Serialize(16), UInt8]
+        public uint FramesDelay { get; set; }
+
         // TODO - mono vs stereo
 
-        [Serialize(20), Int32D(100, -12041, 600)]
+        [Serialize(20), Int32D(100, -10000, 600, true)]
         public double Gain { get; set; }
         
         [Serialize(26), Bool]
@@ -44,7 +47,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         public double MakeUpGain { get; set; }
         [Serialize(36), Int16D(100, -10000, 10000)]
         public double Balance { get; set; }
-        [Serialize(40), Int32D(100.0, -12041, 1000)] // TODO - thats an odd minimum..
+        [Serialize(40), Int32D(100.0, -10000, 1000, true)]
         public double FaderGain { get; set; }
         [Serialize(44), Enum8]
         public FairlightAudioMixOption MixOption { get; set; }

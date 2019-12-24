@@ -18,7 +18,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
 
-        [Serialize(4), Int32D(100, -12141, 600)]
+        [Serialize(4), Int32D(100, -10000, 600, true)]
         public double Gain { get; set; }
 
         [Serialize(8), Int32D(100, -6000, 600)]

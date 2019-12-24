@@ -17,6 +17,7 @@ namespace LibAtem.State
         {
             public double Gain { get; set; }
             public bool FollowFadeToBlack { get; set; }
+            public bool AudioFollowVideoCrossfadeTransitionEnabled { get; set; }
 
             public DynamicsState Dynamics { get; } = new DynamicsState();
             public EqualizerState Equalizer { get; } = new EqualizerState();
@@ -69,6 +70,7 @@ namespace LibAtem.State
             public FairlightAudioMixOption MixOption { get; set; }
             
             public uint MaxFramesDelay { get; set; }
+            public uint FramesDelay { get; set; }
 
             public DynamicsState Dynamics { get; } = new DynamicsState();
             public EqualizerState Equalizer { get; } = new EqualizerState();

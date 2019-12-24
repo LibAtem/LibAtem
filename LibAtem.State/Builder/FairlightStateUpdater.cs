@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.Audio.Fairlight;
 using LibAtem.Commands.DeviceProfile;
-using LibAtem.Common;
 
 namespace LibAtem.State.Builder
 {
@@ -17,10 +15,7 @@ namespace LibAtem.State.Builder
                 {
                     Monitors = UpdaterUtil.CreateList(confCmd.Monitors,
                         i => new FairlightAudioState.MonitorOutputState()),
-                    // Inputs = UpdaterUtil.CreateList(confCmd.Inputs, i => new FairlightAudioState.InputState()),
                 };
-                // TODO - inputs?
-                // TODO - more props?
                 result.SetSuccess("Fairlight.Monitors");
             } else if (state.Fairlight != null)
             {
@@ -28,7 +23,8 @@ namespace LibAtem.State.Builder
                 {
                     var pgmState = state.Fairlight.ProgramOut;
                     UpdaterUtil.CopyAllProperties(masterCmd, pgmState,
-                        new[] {"EqualizerGain", "EqualizerEnabled", "MakeUpGain"}, new []{"Dynamics", "Equalizer"});
+                        new[] {"EqualizerGain", "EqualizerEnabled", "MakeUpGain"},
+                        new[] {"Dynamics", "Equalizer", "AudioFollowVideoCrossfadeTransitionEnabled"});
 
                     pgmState.Dynamics.MakeUpGain = masterCmd.MakeUpGain;
                     pgmState.Equalizer.Enabled = masterCmd.EqualizerEnabled;
@@ -87,7 +83,7 @@ namespace LibAtem.State.Builder
 
                         UpdaterUtil.CopyAllProperties(srcCmd, srcState,
                             new[] {"Index", "EqualizerEnabled", "EqualizerGain", "MakeUpGain"},
-                            new[] {"MaxFramesDelay", "SourceType", "Dynamics", "Equalizer" });
+                            new[] {"SourceType", "Dynamics", "Equalizer" });
                         result.SetSuccess($"Fairlight.Inputs.{srcCmd.Index:D}.Sources.{srcCmd.SourceId:D}");
                     });
                 }
@@ -161,6 +157,12 @@ namespace LibAtem.State.Builder
                         UpdaterUtil.CopyAllProperties(monCmd, monState, new[] { "Index" });
                         result.SetSuccess($"Fairlight.Monitors.{0:D}");
                     });
+                }
+                else if (command is FairlightMixerMasterPropertiesGetCommand master2Cmd)
+                {
+                    state.Fairlight.ProgramOut.AudioFollowVideoCrossfadeTransitionEnabled =
+                        master2Cmd.AudioFollowVideoCrossfadeTransitionEnabled;
+                    result.SetSuccess($"Fairlight.ProgramOut");
                 }
             }
         }

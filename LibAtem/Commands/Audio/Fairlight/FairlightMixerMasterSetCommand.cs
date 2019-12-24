@@ -25,7 +25,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         public double EqualizerGain { get; set; }
         [Serialize(8), Int32D(100, 0, 2000)]
         public double MakeUpGain { get; set; }
-        [Serialize(12), Int32D(100, -12041, 600)]
+        [Serialize(12), Int32D(100, -10000, 600, true)]
         public double Gain { get; set; }
         [Serialize(16), Bool]
         public bool FollowFadeToBlack { get; set; }

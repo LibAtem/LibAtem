@@ -14,7 +14,12 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Serialize(8), Int64]
         public long SourceId { get; set; }
 
-        [Serialize(20), Int32D(100, -12041, 600)]
+        [Serialize(17), UInt8]
+        public uint MaxFramesDelay { get; set; }
+        [Serialize(18), UInt8]
+        public uint FramesDelay { get; set; }
+
+        [Serialize(20), Int32D(100, -10000, 600, true)]
         public double Gain { get; set; }
 
         [Serialize(29), Bool]
@@ -25,7 +30,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         public double MakeUpGain { get; set; }
         [Serialize(40), Int16D(100, -10000, 10000)]
         public double Balance { get; set; }
-        [Serialize(44), Int32D(100.0, -12041, 1000)] // TODO - thats an odd minimum..
+        [Serialize(44), Int32D(100, -10000, 1000, true)]
         public double FaderGain { get; set; }
 
         [Serialize(48), Enum8]

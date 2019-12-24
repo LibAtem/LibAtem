@@ -41,12 +41,14 @@ namespace LibAtem.Serialization
         public double Scale { get; }
         public int ScaledMin { get; }
         public int ScaledMax { get; }
+        public bool NegativeInfinity { get; }
 
-        public Int32DAttribute(double scale, int scaledMin, int scaledMax)
+        public Int32DAttribute(double scale, int scaledMin, int scaledMax, bool negativeInfinity = false)
         {
             Scale = scale;
             ScaledMin = scaledMin;
             ScaledMax = scaledMax;
+            NegativeInfinity = negativeInfinity;
 
             if (scaledMin >= scaledMax)
                 throw new ArgumentException("Min must be less than Max");
@@ -55,6 +57,9 @@ namespace LibAtem.Serialization
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             int value = (int)Math.Round((double)val * Scale);
+            if (double.IsNegativeInfinity((double) val))
+                value = ScaledMin - 1;
+
             base.Serialize(reverseBytes, data, start, value);
         }
 
@@ -62,9 +67,9 @@ namespace LibAtem.Serialization
         {
             int val = (int)base.Deserialize(reverseBytes, data, start, prop);
 
-            if (val < ScaledMin)
-                return ScaledMin / Scale;
-            if (val > ScaledMax)
+            if (val <= ScaledMin)
+                return NegativeInfinity ? double.NegativeInfinity : ScaledMin / Scale;
+            if (val >= ScaledMax)
                 return ScaledMax / Scale;
 
             return val / Scale;
