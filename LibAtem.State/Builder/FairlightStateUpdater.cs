@@ -83,7 +83,7 @@ namespace LibAtem.State.Builder
 
                         UpdaterUtil.CopyAllProperties(srcCmd, srcState,
                             new[] {"Index", "EqualizerEnabled", "EqualizerGain", "MakeUpGain"},
-                            new[] {"SourceType", "Dynamics", "Equalizer" });
+                            new[] {"Dynamics", "Equalizer" });
                         result.SetSuccess($"Fairlight.Inputs.{srcCmd.Index:D}.Sources.{srcCmd.SourceId:D}");
                     });
                 }

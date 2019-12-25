@@ -14,6 +14,9 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Serialize(8), Int64]
         public long SourceId { get; set; }
 
+        [Serialize(16), Enum8]
+        public FairlightAudioSourceType SourceType { get; set; }
+
         [Serialize(17), UInt8]
         public uint MaxFramesDelay { get; set; }
         [Serialize(18), UInt8]

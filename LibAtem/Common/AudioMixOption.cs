@@ -49,8 +49,8 @@
 
     public enum FairlightAudioSourceType
     {
-        Mono = 1 << 0,
-        Stereo = 1 << 1,
+        Mono = 0,
+        Stereo = 1,
     }
 
     public enum FairlightAnalogInputLevel
