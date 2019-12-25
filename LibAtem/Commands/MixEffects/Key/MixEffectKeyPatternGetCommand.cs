@@ -13,7 +13,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(1), Enum8]
         public UpstreamKeyId KeyerIndex { get; set; }
         [Serialize(2), Enum8]
-        public Pattern Style { get; set; }
+        public Pattern Pattern { get; set; }
         [Serialize(4), UInt16D(100, 0, 10000)]
         public double Size { get; set; }
         [Serialize(6), UInt16D(100, 0, 10000)]

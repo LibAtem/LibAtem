@@ -243,7 +243,7 @@ namespace LibAtem.State
         [Serializable]
         public class KeyerPatternState
         {
-            public Pattern Style { get; set; }
+            public Pattern Pattern { get; set; }
             [Tolerance(0.01)]
             public double Size { get; set; }
             [Tolerance(0.01)]
