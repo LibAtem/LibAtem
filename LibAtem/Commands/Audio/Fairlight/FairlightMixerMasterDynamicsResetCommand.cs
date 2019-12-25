@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands.Audio.Fairlight
 {
-    [CommandName("RMOD", CommandDirection.ToServer, 4)]
+    [CommandName("RMOD", CommandDirection.ToServer, 4), NoCommandId]
     public class FairlightMixerMasterDynamicsResetCommand : SerializableCommandBase
     {
         [Serialize(1), Bool(0)]

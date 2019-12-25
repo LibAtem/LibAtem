@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio.Fairlight
 {
-    [CommandName("CFIP", CommandDirection.ToClient, 8)]
+    [CommandName("CFIP", CommandDirection.ToServer, 8)]
     public class FairlightMixerInputSetCommand : SerializableCommandBase
     {
         [Flags]
