@@ -90,6 +90,9 @@ namespace LibAtem.State
             public uint MaxFramesDelay { get; set; }
             public uint FramesDelay { get; set; }
 
+            public bool HasStereoSimulation { get; set; }
+            public double StereoSimulation { get; set; }
+
             public DynamicsState Dynamics { get; } = new DynamicsState();
             public EqualizerState Equalizer { get; } = new EqualizerState();
 

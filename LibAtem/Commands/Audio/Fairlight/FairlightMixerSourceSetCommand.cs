@@ -12,7 +12,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         {
             FramesDelay = 1 << 0,
             Gain = 1 << 1,
-            // ?? = 1 << 2,
+            StereoSimulation = 1 << 2,
             EqualizerEnabled = 1 << 3,
             EqualizerGain = 1 << 4,
             MakeUpGain = 1 << 5,
@@ -38,6 +38,9 @@ namespace LibAtem.Commands.Audio.Fairlight
 
         [Serialize(20), Int32D(100, -10000, 600, true)]
         public double Gain { get; set; }
+
+        [Serialize(24), Int16D(100, 0, 10000)]
+        public double StereoSimulation { get; set; }
         
         [Serialize(26), Bool]
         public bool EqualizerEnabled { get; set; }
