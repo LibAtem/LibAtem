@@ -21,6 +21,24 @@ namespace LibAtem.State
 
             public DynamicsState Dynamics { get; } = new DynamicsState();
             public EqualizerState Equalizer { get; } = new EqualizerState();
+
+            public LevelsState Levels { get; set; }
+        }
+
+        [Serializable]
+        public class LevelsState
+        {
+            public double[] Levels { get; set; } = new double[0];
+            public double[] Peaks { get; set; } = new double[0];
+
+            public double[] DynamicsInputLevels { get; set; } = new double[0];
+            public double[] DynamicsInputPeaks { get; set; } = new double[0];
+            public double[] DynamicsOutputLevels { get; set; } = new double[0];
+            public double[] DynamicsOutputPeaks { get; set; } = new double[0];
+
+            public double ExpanderGainReductionLevel { get; set; }
+            public double CompressorGainReductionLevel { get; set; }
+            public double LimiterGainReductionLevel { get; set; }
         }
 
         [Serializable]
@@ -74,6 +92,8 @@ namespace LibAtem.State
 
             public DynamicsState Dynamics { get; } = new DynamicsState();
             public EqualizerState Equalizer { get; } = new EqualizerState();
+
+            public LevelsState Levels { get; set; }
         }
 
         [Serializable]

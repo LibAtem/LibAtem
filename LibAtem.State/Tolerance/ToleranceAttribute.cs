@@ -1,9 +1,10 @@
 ﻿using LibAtem.Serialization;
 using System;
+using System.Collections.Generic;
 
 namespace LibAtem.State.Tolerance
 {
-    public class ToleranceAttribute : Attribute
+    public class ToleranceAttribute : Attribute, IEqualityComparer<double>
     {
         public double Tolerance { get; }
 
@@ -15,6 +16,16 @@ namespace LibAtem.State.Tolerance
         public virtual bool AreEqual(double a, double b)
         {
             return Math.Abs(a - b) <= Tolerance;
+        }
+
+        public bool Equals(double x, double y)
+        {
+            return AreEqual(x, y);
+        }
+
+        public int GetHashCode(double obj)
+        {
+            return obj.GetHashCode();
         }
     }
     public class UintToleranceAttribute : Attribute
