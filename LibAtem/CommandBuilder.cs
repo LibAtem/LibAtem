@@ -158,6 +158,11 @@ namespace LibAtem
             AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes(val).Take(4)));
         }
 
+        public void AddInt64(long val)
+        {
+            AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes(val).Take(8)));
+        }
+
         public void AddInt16(int scale, double val)
         {
             AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes((short)(val * scale)).Take(2)));

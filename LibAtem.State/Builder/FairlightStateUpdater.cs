@@ -56,11 +56,11 @@ namespace LibAtem.State.Builder
                 }
                 else if (command is FairlightMixerInputGetCommand inpCmd)
                 {
-                    if (!state.Fairlight.Inputs.TryGetValue((long) inpCmd.Index, out var inputState))
-                        inputState = state.Fairlight.Inputs[(long) inpCmd.Index] = new FairlightAudioState.InputState();
+                    if (!state.Fairlight.Inputs.TryGetValue((long)inpCmd.Index, out var inputState))
+                        inputState = state.Fairlight.Inputs[(long)inpCmd.Index] = new FairlightAudioState.InputState();
 
-                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] {"Index"},
-                        new[] {"Sources", "Analog", "Xlr"});
+                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] { "Index" },
+                        new[] { "Sources", "Analog", "Xlr" });
                     result.SetSuccess(new[]
                     {
                         $"Fairlight.Inputs.{inpCmd.Index:D}.ExternalPortType",
@@ -90,11 +90,11 @@ namespace LibAtem.State.Builder
                 }
                 else if (command is FairlightMixerSourceDeleteCommand delCmd)
                 {
-                    UpdaterUtil.TryForKey(result, state.Fairlight.Inputs, (long) delCmd.Index, inputState =>
-                    {
-                        inputState.Sources.RemoveAll(src => src.SourceId == delCmd.SourceId);
-                        result.SetSuccess($"Fairlight.Inputs.{delCmd.Index:D}.Sources.{delCmd.SourceId:D}");
-                    });
+                    UpdaterUtil.TryForKey(result, state.Fairlight.Inputs, (long)delCmd.Index, inputState =>
+                   {
+                       inputState.Sources.RemoveAll(src => src.SourceId == delCmd.SourceId);
+                       result.SetSuccess($"Fairlight.Inputs.{delCmd.Index:D}.Sources.{delCmd.SourceId:D}");
+                   });
                 }
                 else if (command is FairlightMixerSourceCompressorGetCommand compCmd)
                 {
@@ -209,6 +209,11 @@ namespace LibAtem.State.Builder
                             result.SetSuccess($"Fairlight.Inputs.{srcLevelCmd.Index:D}.Sources.{srcLevelCmd.SourceId:D}.Levels");
                         }
                     });
+                }
+                else if (command is FairlightMixerTallyCommand tallyCmd)
+                {
+                    state.Fairlight.Tally = tallyCmd.Tally;
+                    result.SetSuccess("Fairlight.Tally");
                 }
             }
         }

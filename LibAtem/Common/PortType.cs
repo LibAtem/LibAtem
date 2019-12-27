@@ -18,7 +18,7 @@ namespace LibAtem.Common
         AESEBU = 64,
         RCA = 128,
 
-        // Note: the below are definitely correct
+        // Note: the below are definitely correct for audio
         TSJack = 512, 
         MADI = 1024,
         TRS = 2048,

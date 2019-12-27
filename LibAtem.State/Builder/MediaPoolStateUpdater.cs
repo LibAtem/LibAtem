@@ -2,6 +2,7 @@ using LibAtem.Commands;
 using LibAtem.Commands.DeviceProfile;
 using LibAtem.Commands.Media;
 using LibAtem.Common;
+using System.Linq;
 
 namespace LibAtem.State.Builder
 {
@@ -41,6 +42,16 @@ namespace LibAtem.State.Builder
                         */
                         break;
                 }
+            } else if (command is MediaPoolClipDescriptionCommand clipCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MediaPool.Clips, (int)clipCmd.Index, clip =>
+                {
+                    clip.IsUsed = clipCmd.IsUsed;
+                    clip.Name = clipCmd.Name;
+                    clip.Frames = Enumerable.Range(0, (int)clipCmd.FrameCount).Select(i => new MediaPoolState.FrameState()).ToList();
+
+                    result.SetSuccess($"MediaPlayers.Clips.{clipCmd.Index:D}");
+                });
             }
         }
     }

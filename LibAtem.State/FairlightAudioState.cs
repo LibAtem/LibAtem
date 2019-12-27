@@ -12,6 +12,8 @@ namespace LibAtem.State
         public Dictionary<long, InputState> Inputs { get; } = new Dictionary<long, InputState>();
         public IReadOnlyList<MonitorOutputState> Monitors { get; set; } = new List<MonitorOutputState>();
 
+        public Dictionary<Tuple<AudioSource, long>, bool> Tally { get; set; }
+
         [Serializable]
         public class ProgramOutState
         {
