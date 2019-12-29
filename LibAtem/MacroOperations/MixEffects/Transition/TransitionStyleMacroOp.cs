@@ -10,15 +10,15 @@ namespace LibAtem.MacroOperations.MixEffects.Transition
     {
         [Serialize(5), Enum8]
         [MacroField("TransitionStyle", "style")]
-        public TStyle Style { get; set; }
+        public TransitionStyle Style { get; set; }
 
         public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionPropertiesSetCommand()
             {
-                Mask = TransitionPropertiesSetCommand.MaskFlags.Style,
+                Mask = TransitionPropertiesSetCommand.MaskFlags.NextStyle,
                 Index = Index,
-                Style = Style,
+                NextStyle = Style,
             };
         }
     }

@@ -50,8 +50,8 @@ namespace LibAtem.DeviceProfile
                 return IsAvailable((DownstreamKeyId)val, profile);
             if (val is AuxiliaryId)
                 return IsAvailable((AuxiliaryId)val, profile);
-            if (val is TStyle)
-                return IsAvailable((TStyle)val, profile);
+            if (val is TransitionStyle)
+                return IsAvailable((TransitionStyle)val, profile);
             if (val is TransitionLayer)
                 return IsAvailable((TransitionLayer)val, profile);
             if (val is MixEffectKeyType)
@@ -165,22 +165,22 @@ namespace LibAtem.DeviceProfile
             // return profile.GetStandards().Contains(mode.GetStandard());
         }
 
-        public static bool IsAvailable(this TStyle style, DeviceProfile profile)
+        public static bool IsAvailable(this TransitionStyle style, DeviceProfile profile)
         {
             if (!style.IsValid())
                 return false;
 
             switch (style)
             {
-                case TStyle.Mix:
+                case TransitionStyle.Mix:
                     return true;
-                case TStyle.Dip:
+                case TransitionStyle.Dip:
                     return true;
-                case TStyle.Wipe:
+                case TransitionStyle.Wipe:
                     return true;
-                case TStyle.DVE:
+                case TransitionStyle.DVE:
                     return profile.DVE > 0;
-                case TStyle.Stinger:
+                case TransitionStyle.Stinger:
                     return profile.Stingers > 0;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(style), style, null);

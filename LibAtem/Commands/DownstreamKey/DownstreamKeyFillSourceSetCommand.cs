@@ -13,14 +13,14 @@ namespace LibAtem.Commands.DownstreamKey
         [Serialize(0), Enum8]
         public DownstreamKeyId Index { get; set; }
         [Serialize(2), Enum16]
-        public VideoSource Source { get; set; }
+        public VideoSource FillSource { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new DownstreamKeyFillInputMacroOp
             {
                 KeyIndex = Index,
-                Input = Source,
+                Input = FillSource,
             };
         }
     }

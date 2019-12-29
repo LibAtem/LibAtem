@@ -7,8 +7,8 @@ namespace LibAtem.XmlState.MixEffects.TransitionStyle
     {
         public TransitionStyle()
         {
-            Style = TStyle.Mix;
-            NextStyle = TStyle.Mix;
+            Style = Common.TransitionStyle.Mix;
+            NextStyle = Common.TransitionStyle.Mix;
 
             PreviewTransition = AtemBool.False;
             TransitionPosition = 0;
@@ -19,10 +19,10 @@ namespace LibAtem.XmlState.MixEffects.TransitionStyle
         }
 
         [XmlAttribute("style")]
-        public TStyle Style { get; set; }
+        public Common.TransitionStyle Style { get; set; }
 
         [XmlAttribute("nextStyle")]
-        public TStyle NextStyle { get; set; }
+        public Common.TransitionStyle NextStyle { get; set; }
 
         [XmlAttribute("previewTransition")]
         public AtemBool PreviewTransition { get; set; }

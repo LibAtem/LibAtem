@@ -18,7 +18,7 @@ namespace LibAtem.Commands.SuperSource
         public bool Enabled { get; set; }
 
         [Serialize(4), Enum16]
-        public VideoSource InputSource { get; set; }
+        public VideoSource Source { get; set; }
 
         [Serialize(6), Int16D(100, -4800, 4800)]
         public double PositionX { get; set; }

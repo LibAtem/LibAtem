@@ -17,7 +17,7 @@ namespace LibAtem.State
         public class BoxState
         {
             public bool Enabled { get; set; }
-            public VideoSource InputSource { get; set; }
+            public VideoSource Source { get; set; }
             [Tolerance(0.01)]
             public double PositionX { get; set; }
             [Tolerance(0.01)]
@@ -39,8 +39,8 @@ namespace LibAtem.State
         [Serializable]
         public class PropertiesState
         {
-            public VideoSource ArtFillInput { get; set; }
-            public VideoSource ArtKeyInput { get; set; }
+            public VideoSource ArtFillSource { get; set; }
+            public VideoSource ArtCutSource { get; set; }
             public SuperSourceArtOption ArtOption { get; set; }
             public bool ArtPreMultiplied { get; set; }
             [Tolerance(0.01)]

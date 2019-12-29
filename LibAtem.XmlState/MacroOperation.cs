@@ -1609,7 +1609,7 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("style")]
-        public LibAtem.Common.TStyle TransitionStyle
+        public LibAtem.Common.TransitionStyle TransitionStyle
         {
             get;
             set;

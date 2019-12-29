@@ -188,8 +188,24 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.MixEffects, (int) transCmd.Index, me =>
                 {
-                    UpdaterUtil.CopyAllProperties(transCmd, me.Transition.Properties, new []{"Index"});
+                    UpdaterUtil.CopyAllProperties(transCmd, me.Transition.Properties, new[] { "Index" }, new[] { "Preview", "IsInPreview" });
                     result.SetSuccess($"MixEffects.{transCmd.Index:D}.Transition.Properties");
+                });
+            }
+            else if (command is TransitionPositionGetCommand transPosCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int)transPosCmd.Index, me =>
+                {
+                    UpdaterUtil.CopyAllProperties(transPosCmd, me.Transition.Position, new[] { "Index" });
+                    result.SetSuccess($"MixEffects.{transPosCmd.Index:D}.Transition.Position");
+                });
+            }
+            else if (command is TransitionPreviewGetCommand prevCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int)prevCmd.Index, me =>
+                {
+                    me.Transition.Properties.Preview = prevCmd.PreviewTransition;
+                    result.SetSuccess($"MixEffects.{prevCmd.Index:D}.Transition.Properties");
                 });
             }
             else if (command is TransitionMixGetCommand mixCmd)

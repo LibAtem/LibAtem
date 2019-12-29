@@ -1,6 +1,6 @@
 namespace LibAtem.Common
 {
-    public enum TStyle
+    public enum TransitionStyle
     {
         Mix = 0,
         Dip = 1,

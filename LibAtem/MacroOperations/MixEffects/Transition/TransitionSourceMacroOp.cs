@@ -16,9 +16,9 @@ namespace LibAtem.MacroOperations.MixEffects.Transition
         {
             return new TransitionPropertiesSetCommand()
             {
-                Mask = TransitionPropertiesSetCommand.MaskFlags.Selection,
+                Mask = TransitionPropertiesSetCommand.MaskFlags.NextSelection,
                 Index = Index,
-                Selection = Source,
+                NextSelection = Source,
             };
         }
     }

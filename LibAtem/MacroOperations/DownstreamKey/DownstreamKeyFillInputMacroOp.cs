@@ -17,7 +17,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
             return new DownstreamKeyFillSourceSetCommand()
             {
                 Index = KeyIndex,
-                Source = Input,
+                FillSource = Input,
             };
         }
     }

@@ -29,7 +29,8 @@ namespace LibAtem.State
         public class TransitionState
         {
             public TransitionPropertiesState Properties { get; } = new TransitionPropertiesState();
-            
+            public TransitionPositionState Position { get; } = new TransitionPositionState();
+
             public TransitionMixState Mix { get; set; }
             public TransitionDipState Dip { get; set; }
             public TransitionWipeState Wipe { get; set; }
@@ -40,10 +41,21 @@ namespace LibAtem.State
         [Serializable]
         public class TransitionPropertiesState
         {
-            public TStyle Style { get; set; }
-            public TStyle NextStyle { get; set; }
+            public TransitionStyle Style { get; set; }
+            public TransitionStyle NextStyle { get; set; }
             public TransitionLayer Selection { get; set; }
             public TransitionLayer NextSelection { get; set; }
+
+            public bool Preview { get; set; }
+            public bool IsInPreview { get; set; }
+        }
+
+        [Serializable]
+        public class TransitionPositionState
+        {
+            public bool InTransition { get; set; }
+            public uint RemainingFrames { get; set; }
+            public double HandlePosition { get; set; }
         }
 
         [Serializable]
@@ -141,7 +153,7 @@ namespace LibAtem.State
         [Serializable]
         public class KeyerPropertiesState
         {
-            public MixEffectKeyType Mode { get; set; }
+            public MixEffectKeyType KeyType { get; set; }
             public bool FlyEnabled { get; set; }
             public VideoSource FillSource { get; set; }
             public VideoSource CutSource { get; set; }

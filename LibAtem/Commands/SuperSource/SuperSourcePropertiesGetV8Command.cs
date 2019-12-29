@@ -11,9 +11,9 @@ namespace LibAtem.Commands.SuperSource
         public SuperSourceId SSrcId { get; set; }
 
         [Serialize(2), Enum16]
-        public VideoSource ArtFillInput { get; set; }
+        public VideoSource ArtFillSource { get; set; }
         [Serialize(4), Enum16]
-        public VideoSource ArtKeyInput { get; set; }
+        public VideoSource ArtCutSource { get; set; }
         [Serialize(6), Enum8]
         public SuperSourceArtOption ArtOption { get; set; }
         [Serialize(7), Bool]
