@@ -68,7 +68,9 @@ namespace LibAtem.Common
 
     public enum SuperSourceId
     {
+        [XmlEnum("0")]
         One = 0,
+        [XmlEnum("1")]
         Two = 1,
     }
 

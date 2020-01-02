@@ -19,7 +19,7 @@ namespace LibAtem.XmlState.MixEffects
             Preview = new ProgramPreview(VideoSource.Input1);
 
             NextTransition = new NextTransition();
-            TransitionStyle = new TransitionStyle.TransitionStyle();
+            TransitionStyle = new TransitionStyle.XmlTransitionStyle();
 
             Keys = new List<MixEffectsKey>();
             FadeToBlack = new FadeToBlack();
@@ -48,7 +48,7 @@ namespace LibAtem.XmlState.MixEffects
 
         public NextTransition NextTransition { get; set; }
 
-        public TransitionStyle.TransitionStyle TransitionStyle { get; set; }
+        public TransitionStyle.XmlTransitionStyle TransitionStyle { get; set; }
 
         [XmlArrayItem("Key")]
         public List<MixEffectsKey> Keys { get; set; }
