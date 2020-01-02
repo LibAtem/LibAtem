@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibAtem.XmlState.Test", "Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibAtem.XmlState.TestMacroOpsGenerate", "LibAtem.XmlState.TestMacroOpsGenerate\LibAtem.XmlState.TestMacroOpsGenerate.csproj", "{B97436E8-F4DE-4EAB-97EA-94660E45843C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FatAntelope", "FatAntelope\FatAntelope\FatAntelope.csproj", "{22A6051A-DF44-4D64-B2F6-D2DFAB6943FB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{81BE8BB6-E000-4214-B0B0-CA2BE91EE3E2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{BE769ADA-4F26-4871-851E-4C651E29269B}"

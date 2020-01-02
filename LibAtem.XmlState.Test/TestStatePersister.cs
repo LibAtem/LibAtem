@@ -192,14 +192,14 @@ namespace LibAtem.XmlState.Test
             var thisFqPath = fqPath + "." + node.Name;
             switch (node.Match)
             {
-                case MatchType.Match:
+                case FatAntelope.MatchType.Match:
                     return new List<string>();
-                case MatchType.NoMatch:
+                case FatAntelope.MatchType.NoMatch:
                     if (canIgnore.Contains(thisFqPath))
                         return new List<string>();
 
                     return new List<string>() {prefix + "Unexpected " + node.Name + ": " + NodeToString(node)};
-                case MatchType.Change:
+                case FatAntelope.MatchType.Change:
                     break;
                 default:
                     Debug.Fail("Unexpected MatchType in XmlDiff");
