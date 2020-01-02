@@ -67,12 +67,15 @@ namespace LibAtem.State.Builder
             {
                 foreach (KeyValuePair<VideoSource, Tuple<bool, bool>> inp in tallyCmd.Tally)
                 {
-                    var inputTally = state.Settings.Inputs[inp.Key].Tally;
-                    if (inputTally.ProgramTally != inp.Value.Item1 || inputTally.PreviewTally != inp.Value.Item2)
+                    if (state.Settings.Inputs.TryGetValue(inp.Key, out InputState input))
                     {
-                        inputTally.ProgramTally = inp.Value.Item1;
-                        inputTally.PreviewTally = inp.Value.Item2;
-                        result.SetSuccess($"Settings.Inputs.{inp.Key:D}.Tally");
+                        InputState.TallyState inputTally = input.Tally;
+                        if (inputTally.ProgramTally != inp.Value.Item1 || inputTally.PreviewTally != inp.Value.Item2)
+                        {
+                            inputTally.ProgramTally = inp.Value.Item1;
+                            inputTally.PreviewTally = inp.Value.Item2;
+                            result.SetSuccess($"Settings.Inputs.{inp.Key:D}.Tally");
+                        }
                     }
                 }
             }
