@@ -42,7 +42,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(31), UInt8Range(0, 254)]
         public uint BevelPosition { get; set; }
 
-        [Serialize(32), UInt8Range(0, 254)]
+        [Serialize(32), UInt8Range(0, 255)]
         public uint BorderOpacity { get; set; }
         [Serialize(34), UInt16D(10, 0, 65535)]
         public double BorderHue { get; set; }

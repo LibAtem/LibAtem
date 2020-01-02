@@ -72,7 +72,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(35), UInt8Range(0, 254)]
         public uint BevelPosition { get; set; }
 
-        [Serialize(36), UInt8Range(0, 254)]
+        [Serialize(36), UInt8Range(0, 255)]
         public uint BorderOpacity { get; set; }
         [Serialize(38), UInt16D(10, 0, 65535)]
         public double BorderHue { get; set; }
@@ -85,8 +85,6 @@ namespace LibAtem.Commands.MixEffects.Key
         public double LightSourceDirection { get; set; }
         [Serialize(46), UInt8Range(0, 254)]
         public uint LightSourceAltitude { get; set; }
-
-        // TODO - MaskEnabled?
 
         [Serialize(48), Int16D(1000, -9000, 9000)]
         public double MaskTop { get; set; }
