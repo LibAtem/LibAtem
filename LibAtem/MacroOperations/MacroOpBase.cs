@@ -52,6 +52,7 @@ namespace LibAtem.MacroOperations
         public MacroOperationAttribute(MacroOperationType op, ProtocolVersion minimumVersion, int length) : base(length)
         {
             Operation = op;
+            MinimumVersion = minimumVersion;
         }
 
         public static MacroOperationAttribute GetForType(Type t)
