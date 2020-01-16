@@ -7,6 +7,8 @@ namespace LibAtem.Serialization
 {
     public class UInt32ListAttribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => _innerAttr.Size * (uint)Count;
+
         public int Count { get; }
 
         private readonly UInt32Attribute _innerAttr;
@@ -46,7 +48,7 @@ namespace LibAtem.Serialization
 
         public object GetRandom(Random random, Type type)
         {
-            return Enumerable.Range(0, Count).Select(i => (uint) _innerAttr.GetRandom(random, type)).ToList();
+            return Enumerable.Range(0, Count).Select(i => (uint)_innerAttr.GetRandom(random, type)).ToList();
         }
 
         public override bool IsValid(PropertyInfo prop, object val)

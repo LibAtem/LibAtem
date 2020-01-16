@@ -21,6 +21,8 @@ namespace LibAtem.Serialization
 
     public abstract class SerializableAttributeBase : Attribute
     {
+        public abstract uint Size { get; }
+        
         public abstract void Serialize(bool reverseBytes, byte[] data, uint start, object val);
         public abstract object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop);
         public abstract bool AreEqual(object val1, object val2);

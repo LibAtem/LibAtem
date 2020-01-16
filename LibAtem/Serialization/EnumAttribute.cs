@@ -7,6 +7,8 @@ namespace LibAtem.Serialization
 {
     public class Enum32Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => 4;
+        
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             byte[] bytes = BitConverter.GetBytes((int)val);
@@ -41,6 +43,8 @@ namespace LibAtem.Serialization
 
     public class Enum16Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => 2;
+        
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             byte[] bytes = BitConverter.GetBytes((int)val);
@@ -74,6 +78,8 @@ namespace LibAtem.Serialization
 
     public class Enum8Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => 1;
+        
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             data[start] = BitConverter.GetBytes((int)val)[0];

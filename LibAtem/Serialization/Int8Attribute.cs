@@ -5,6 +5,8 @@ namespace LibAtem.Serialization
 {
     public class Int8Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => 1;
+
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             data[start] = BitConverter.GetBytes((int)val)[0];
@@ -27,7 +29,7 @@ namespace LibAtem.Serialization
 
         public override bool IsValid(PropertyInfo prop, object obj)
         {
-            int v = (int) obj;
+            int v = (int)obj;
             return v <= sbyte.MaxValue && v >= sbyte.MinValue;
         }
     }

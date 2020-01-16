@@ -6,6 +6,8 @@ namespace LibAtem.Serialization
 {
     public class HyperDeckTimeAttribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => 4;
+
         private readonly UInt8Attribute _uint8 = new UInt8Attribute();
 
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
@@ -48,10 +50,10 @@ namespace LibAtem.Serialization
         {
             return new HyperDeckTime
             {
-                Hour = (uint) random.Next(255),
-                Minute = (uint) random.Next(59),
-                Second = (uint) random.Next(59),
-                Frame = (uint) random.Next(20),
+                Hour = (uint)random.Next(255),
+                Minute = (uint)random.Next(59),
+                Second = (uint)random.Next(59),
+                Frame = (uint)random.Next(20),
             };
         }
 

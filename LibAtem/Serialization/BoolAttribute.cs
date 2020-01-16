@@ -12,15 +12,19 @@ namespace LibAtem.Serialization
             _index = index;
         }
 
+        public override uint Size => 1;
+
+        public int Index => _index;
+
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             if ((bool) val)
-                data[start] |= (byte) (1 << _index);
+                data[start] |= (byte) (1 << Index);
         }
 
         public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            return (data[start] & (1 << _index)) > 0;
+            return (data[start] & (1 << Index)) > 0;
         }
 
         public override bool AreEqual(object val1, object val2)

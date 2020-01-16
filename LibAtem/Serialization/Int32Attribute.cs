@@ -6,6 +6,8 @@ namespace LibAtem.Serialization
 {
     public class Int32Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => 4;
+
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             byte[] bytes = BitConverter.GetBytes((int)val);
@@ -57,7 +59,7 @@ namespace LibAtem.Serialization
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             int value = (int)Math.Round((double)val * Scale);
-            if (double.IsNegativeInfinity((double) val))
+            if (double.IsNegativeInfinity((double)val))
                 value = ScaledMin - 1;
 
             base.Serialize(reverseBytes, data, start, value);
@@ -95,6 +97,8 @@ namespace LibAtem.Serialization
 
     public class UInt32Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => 4;
+
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             byte[] bytes = BitConverter.GetBytes((uint)val);
@@ -116,7 +120,7 @@ namespace LibAtem.Serialization
 
         public virtual object GetRandom(Random random, Type type)
         {
-            return (uint) random.Next();
+            return (uint)random.Next();
         }
 
         public override bool IsValid(PropertyInfo prop, object obj)
@@ -124,7 +128,7 @@ namespace LibAtem.Serialization
             return true; // TODO 
         }
     }
-    
+
     public class UInt32RangeAttribute : UInt32Attribute
     {
         public int Min { get; }
@@ -220,21 +224,23 @@ namespace LibAtem.Serialization
 
     public class DirectionInt32Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => 5;
+
         private readonly BoolAttribute _bool = new BoolAttribute();
         private readonly UInt32Attribute _uint32 = new UInt32Attribute();
         private readonly Int32Attribute _int32 = new Int32Attribute();
 
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
-            int val1 = (int) val;
+            int val1 = (int)val;
             _bool.Serialize(reverseBytes, data, start, val1 < 0);
-            _uint32.Serialize(reverseBytes, data, start + 1, (uint) Math.Abs(val1));
+            _uint32.Serialize(reverseBytes, data, start + 1, (uint)Math.Abs(val1));
         }
 
         public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
         {
-            bool isNegative = (bool) _bool.Deserialize(reverseBytes, data, start, prop);
-            int val = (int) (uint) _uint32.Deserialize(reverseBytes, data, start + 1, prop);
+            bool isNegative = (bool)_bool.Deserialize(reverseBytes, data, start, prop);
+            int val = (int)(uint)_uint32.Deserialize(reverseBytes, data, start + 1, prop);
             return isNegative ? -val : val;
         }
 

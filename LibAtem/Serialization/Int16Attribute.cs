@@ -6,6 +6,8 @@ namespace LibAtem.Serialization
 {
     public class Int16Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
+        public override uint Size => 2;
+        
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             byte[] bytes = BitConverter.GetBytes((int)val);

@@ -8,12 +8,12 @@ namespace LibAtem.Serialization
     {
         private readonly uint _length;
 
-        public ByteArrayAttribute(uint length = 0)
+        public ByteArrayAttribute(uint length)
         {
             _length = length;
         }
-        
-        public uint Length => _length;
+
+        public override uint Size => _length;
 
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
