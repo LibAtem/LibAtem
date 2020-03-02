@@ -12,11 +12,41 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Gain")]
         public double Gain { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtGain,
+                return new SuperSourcePropertiesSetV8Command()
+                {
+                    Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtGain,
+                    SSrcId = SuperSourceId.One,
+                    ArtGain = Gain
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtGain,
+                    ArtGain = Gain,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2ArtGain, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2ArtGainMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(8), UInt16D(65536, 0, 65536)]
+        [MacroField("Gain")]
+        public double Gain { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourcePropertiesSetV8Command()
+            {
+                Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtGain,
+                SSrcId = SSrcId,
                 ArtGain = Gain,
             };
         }

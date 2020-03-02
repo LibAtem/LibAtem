@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands
 {
-    [CommandName("Warn", 44), NoCommandId]
+    [CommandName("Warn", CommandDirection.ToClient, 44), NoCommandId]
     public class WarningCommand : SerializableCommandBase
     {
         [Serialize(0), String(44)]

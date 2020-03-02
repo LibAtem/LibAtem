@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.Media
     [MacroOperation(MacroOperationType.MediaPlayerSourceStill, 8)]
     public class MediaPlayerSourceStillMacroOp : MediaPlayerMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MediaPlayerSourceSetCommand()
             {

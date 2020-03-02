@@ -6,14 +6,14 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("DCut", 4)]
+    [CommandName("DCut", CommandDirection.ToServer, 4)]
     public class MixEffectCutCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new CutTransitionMacroOp()
             {

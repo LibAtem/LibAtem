@@ -7,21 +7,21 @@ using LibAtem.MacroOperations.MixEffects.Transition.Stinger;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTSt", 20)]
+    [CommandName("CTSt", CommandDirection.ToServer, 20)]
     public class TransitionStingerSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
         {
-            Source           = 1 << 0,
+            Source = 1 << 0,
             PreMultipliedKey = 1 << 1,
-            Clip             = 1 << 2,
-            Gain             = 1 << 3,
-            Invert           = 1 << 4,
-            Preroll          = 1 << 5,
-            ClipDuration     = 1 << 6,
-            TriggerPoint     = 1 << 7,
-            MixRate          = 1 << 8,
+            Clip = 1 << 2,
+            Gain = 1 << 3,
+            Invert = 1 << 4,
+            Preroll = 1 << 5,
+            ClipDuration = 1 << 6,
+            TriggerPoint = 1 << 7,
+            MixRate = 1 << 8,
 
             Durations = Preroll | ClipDuration | TriggerPoint | MixRate,
         }
@@ -54,28 +54,28 @@ namespace LibAtem.Commands.MixEffects.Transition
 
         // TODO - additional validation
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Source))
-                yield return new TransitionStingerSourceMediaPlayerMacroOp {Index = Index, Source = Source};
+                yield return new TransitionStingerSourceMediaPlayerMacroOp { Index = Index, Source = Source };
             if (Mask.HasFlag(MaskFlags.PreMultipliedKey))
-                yield return new TransitionStingerDVEPreMultiplyMacroOp {Index = Index, PreMultiply = PreMultipliedKey};
+                yield return new TransitionStingerDVEPreMultiplyMacroOp { Index = Index, PreMultiply = PreMultipliedKey };
 
             if (Mask.HasFlag(MaskFlags.Clip))
-                yield return new TransitionStingerDVEClipMacroOp {Index = Index, Clip = Clip};
+                yield return new TransitionStingerDVEClipMacroOp { Index = Index, Clip = Clip };
             if (Mask.HasFlag(MaskFlags.Gain))
                 yield return new TransitionStingerDVEGainMacroOp { Index = Index, Gain = Gain };
             if (Mask.HasFlag(MaskFlags.Invert))
                 yield return new TransitionStingerDVEInvertMacroOp { Index = Index, Invert = Invert };
 
             if (Mask.HasFlag(MaskFlags.Preroll))
-                yield return new TransitionStingerPreRollMacroOp {Index = Index, Preroll = Preroll};
+                yield return new TransitionStingerPreRollMacroOp { Index = Index, Preroll = Preroll };
             if (Mask.HasFlag(MaskFlags.ClipDuration))
-                yield return new TransitionStingerClipDurationMacroOp {Index = Index, ClipDuration = ClipDuration};
+                yield return new TransitionStingerClipDurationMacroOp { Index = Index, ClipDuration = ClipDuration };
             if (Mask.HasFlag(MaskFlags.TriggerPoint))
-                yield return new TransitionStingerTriggerPointMacroOp {Index = Index, TriggerPoint = TriggerPoint};
+                yield return new TransitionStingerTriggerPointMacroOp { Index = Index, TriggerPoint = TriggerPoint };
             if (Mask.HasFlag(MaskFlags.MixRate))
-                yield return new TransitionStingerMixRateMacroOp {Index = Index, MixRate = MixRate};
+                yield return new TransitionStingerMixRateMacroOp { Index = Index, MixRate = MixRate };
         }
     }
 }

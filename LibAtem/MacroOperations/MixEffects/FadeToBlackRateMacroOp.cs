@@ -8,7 +8,7 @@ namespace LibAtem.MacroOperations.MixEffects
     [MacroOperation(MacroOperationType.FadeToBlackRate, 8)]
     public class FadeToBlackRateMacroOp : TransitionRateMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new FadeToBlackRateSetCommand()
             {

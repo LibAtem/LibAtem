@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("LKOB", 4)]
+    [CommandName("LKOB", CommandDirection.ToClient, 4)]
     public class LockObtainedCommand : SerializableCommandBase
     {
         [CommandId]

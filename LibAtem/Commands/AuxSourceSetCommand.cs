@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands
 {
-    [CommandName("CAuS", 4)]
+    [CommandName("CAuS", CommandDirection.ToServer, 4)]
     public class AuxSourceSetCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8]
@@ -14,11 +14,11 @@ namespace LibAtem.Commands
         [CommandId]
         [Serialize(1), Enum8]
         public AuxiliaryId Id { get; set; }
-        
+
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new AuxiliaryInputMacroOp()
             {

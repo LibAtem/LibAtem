@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKTp", 8)]
+    [CommandName("CKTp", CommandDirection.ToServer, 8)]
     public class MixEffectKeyTypeSetCommand : SerializableCommandBase
     {
         [Flags]
@@ -30,7 +30,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(4), Bool]
         public bool FlyEnabled { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.KeyType))
                 yield return new KeyTypeMacroOp()

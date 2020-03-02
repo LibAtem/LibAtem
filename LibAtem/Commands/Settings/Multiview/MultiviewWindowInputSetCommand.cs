@@ -6,19 +6,19 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("CMvI", 4)]
+    [CommandName("CMvI", CommandDirection.ToServer, 4)]
     public class MultiviewWindowInputSetCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), UInt8]
         public uint MultiviewIndex { get; set; }
         [CommandId]
-        [Serialize(1), UInt8Range(0, 9)]
+        [Serialize(1), UInt8Range(0, 15)]
         public uint WindowIndex { get; set; }
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new MultiViewWindowInputMacroOp
             {

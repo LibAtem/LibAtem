@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.Stinger
         [MacroField("MixRate")]
         public uint MixRate { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionStingerSetCommand
             {

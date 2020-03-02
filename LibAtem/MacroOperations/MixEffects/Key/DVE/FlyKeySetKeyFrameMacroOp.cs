@@ -6,7 +6,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
     [MacroOperation(MacroOperationType.FlyKeySetKeyFrame, 8)]
     public class FlyKeySetKeyFrameMacroOp : FlyKeyFrameMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null;
 //            return new MixEffectKeyFlyKeyframeSetCommand()

@@ -4,7 +4,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPfe")]
+    [CommandName("MPfe", CommandDirection.ToClient)]
     public class MediaPoolFrameDescriptionCommand : SerializableCommandBase
     {
         [CommandId]

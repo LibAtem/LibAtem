@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.Pattern
         [MacroField("Softness")]
         public double Softness { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectKeyPatternSetCommand()
             {

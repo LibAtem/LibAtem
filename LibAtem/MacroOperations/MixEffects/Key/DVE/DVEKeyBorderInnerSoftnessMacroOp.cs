@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
         [MacroField("InnerSoftness")]
         public uint InnerSoftness { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectKeyDVESetCommand()
             {

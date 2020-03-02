@@ -11,4 +11,12 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("SuperSourceBoxIndex", "boxIndex")]
         public SuperSourceBoxId BoxIndex { get; set; }
     }
+
+    public abstract class SuperSourceV2BoxMacroOpBase : SuperSourceMacroOpBase
+    {
+        [CommandId]
+        [Serialize(6), Enum8]
+        [MacroField("SuperSourceBoxIndex", "boxIndex")]
+        public SuperSourceBoxId BoxIndex { get; set; }
+    }
 }

@@ -4,7 +4,7 @@ using LibAtem.Common;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("AMLv"), NoCommandId]
+    [CommandName("AMLv", CommandDirection.ToClient), NoCommandId]
     public class AudioMixerLevelsCommand : ICommand
     {
         public AudioMixerLevelsCommand()

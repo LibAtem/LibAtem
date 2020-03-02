@@ -91,6 +91,11 @@ namespace LibAtem
             return BitConverter.ToInt32(ReverseBytesIfNeeded(TakeBytes(4)), 0);
         }
 
+        public long GetInt64()
+        {
+            return BitConverter.ToInt64(ReverseBytesIfNeeded(TakeBytes(8)), 0);
+        }
+
         public int GetInt32(int min, int max)
         {
             int val = GetInt32();

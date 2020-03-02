@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKMs", 12)]
+    [CommandName("CKMs", CommandDirection.ToServer, 12)]
     public class MixEffectKeyMaskSetCommand : SerializableCommandBase
     {
         [Flags]
@@ -40,7 +40,7 @@ namespace LibAtem.Commands.MixEffects.Key
         public double MaskRight { get; set; }
 
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.MaskEnabled))
                 yield return new KeyMaskEnableMacroOp()

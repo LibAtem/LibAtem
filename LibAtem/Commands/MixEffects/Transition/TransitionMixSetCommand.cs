@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTMx", 4)]
+    [CommandName("CTMx", CommandDirection.ToServer, 4)]
     public class TransitionMixSetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -15,7 +15,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(1), UInt8Range(0, 250)]
         public uint Rate { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new TransitionMixRateMacroOp()
             {

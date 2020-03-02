@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTUA", 4)]
+    [CommandName("FTUA", CommandDirection.Both, 4)]
     public class DataTransferAckCommand : SerializableCommandBase
     {
         [CommandId]

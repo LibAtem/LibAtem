@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("C3sl", 4), NoCommandId]
+    [CommandName("C3sl", CommandDirection.ToServer, 4), NoCommandId]
     public class SDI3GLevelOutputSetCommand : SerializableCommandBase
     {
         [Serialize(0), Enum8]

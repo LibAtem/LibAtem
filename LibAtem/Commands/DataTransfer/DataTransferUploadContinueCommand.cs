@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTCD", 12)] // Client to Server
+    [CommandName("FTCD", CommandDirection.ToServer, 12)] // Client to Server
     public class DataTransferUploadContinueCommand : SerializableCommandBase
     {
         [CommandId]

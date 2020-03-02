@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("CSTL", 4)]
+    [CommandName("CSTL", CommandDirection.ToServer, 4)]
     public class MediaPoolClearStillCommand : SerializableCommandBase
     {
         [CommandId]

@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_DVE"), NoCommandId]
+    [CommandName("_DVE", CommandDirection.ToClient), NoCommandId]
     public class DVEConfigCommand : ICommand
     {
         // Perhaps this is the available styles?

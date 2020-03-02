@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("KeDV", 60)]
+    [CommandName("KeDV", CommandDirection.ToClient, 60)]
     public class MixEffectKeyDVEGetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -27,21 +27,21 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(24), Bool]
         public bool BorderEnabled { get; set; }
         [Serialize(25), Bool]
-        public bool BorderShadow { get; set; }
+        public bool BorderShadowEnabled { get; set; }
         [Serialize(26), Enum8]
         public BorderBevel BorderBevel { get; set; }
         [Serialize(28), UInt16D(100, 0, 1600)]
-        public double OuterWidth { get; set; }
+        public double BorderOuterWidth { get; set; }
         [Serialize(30), UInt16D(100, 0, 1600)]
-        public double InnerWidth { get; set; }
+        public double BorderInnerWidth { get; set; }
         [Serialize(32), UInt8Range(0, 100)]
-        public uint OuterSoftness { get; set; }
+        public uint BorderOuterSoftness { get; set; }
         [Serialize(33), UInt8Range(0, 100)]
-        public uint InnerSoftness { get; set; }
+        public uint BorderInnerSoftness { get; set; }
         [Serialize(34), UInt8Range(0, 100)]
-        public uint BevelSoftness { get; set; }
+        public uint BorderBevelSoftness { get; set; }
         [Serialize(35), UInt8Range(0, 100)]
-        public uint BevelPosition { get; set; }
+        public uint BorderBevelPosition { get; set; }
 
         [Serialize(36), UInt8Range(0, 100)]
         public uint BorderOpacity { get; set; }

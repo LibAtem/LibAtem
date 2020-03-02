@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.DVE
         [MacroField("DVEEffectPattern", "pattern")]
         public DVEEffect Pattern { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionDVESetCommand()
             {

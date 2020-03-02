@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
         [MacroField("Rate")]
         public uint Rate { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new DownstreamKeyRateSetCommand()
             {

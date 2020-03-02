@@ -16,14 +16,17 @@ namespace LibAtem.MacroOperations.Settings
         [MacroField("VideoPort")]
         public MacroPortType Port { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
+            /*
             return new InputPropertiesSetCommand
             {
                 Mask = InputPropertiesSetCommand.MaskFlags.ExternalPortType,
                 Id = Source,
                 ExternalPortType = Port.ToExternalPortType(),
             };
+            */
+            return null;
         }
     }
 }

@@ -38,7 +38,8 @@ namespace LibAtem.Serialization
 
         public override bool IsValid(PropertyInfo prop, object obj)
         {
-            return (double) obj <= 32768 && (double) obj >= 0;
+            uint val = DecibelToUInt(obj);
+            return val <= 65535 && (double)val >= 0;
         }
     }
 }

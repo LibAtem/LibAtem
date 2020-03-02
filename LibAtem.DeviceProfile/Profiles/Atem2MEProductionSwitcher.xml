@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DeviceProfile>
+  <Model>TwoME4K</Model>
+  <Product>ATEM 2 M/E Production Studio 4K</Product>
+  <MixEffectBlocks>2</MixEffectBlocks>
+  <Sources>
+    <DevicePort id="1">
+      <Port>HDMI</Port>
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="2">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="3">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="4">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="5">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="6">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="7">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="8">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="9">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="10">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="11">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="12">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="13">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="14">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="15">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="16">
+      <Port>SDI</Port>
+    </DevicePort>
+  </Sources>
+  <ColorGenerators>2</ColorGenerators>
+  <Auxiliaries>6</Auxiliaries>
+  <DownstreamKeys>2</DownstreamKeys>
+  <UpstreamKeys>2</UpstreamKeys>
+  <RoutableKeyMasks>false</RoutableKeyMasks>
+  <Stingers>1</Stingers>
+  <HyperDecks>4</HyperDecks>
+  <DVE>1</DVE>
+  <SuperSource>1</SuperSource>
+  <MediaPlayers>2</MediaPlayers>
+  <MediaPoolStills>32</MediaPoolStills>
+  <MediaPoolClips>2</MediaPoolClips>
+  <MacroCount>100</MacroCount>
+  <MultiView>
+    <Count>2</Count>
+    <VuMeters>true</VuMeters>
+    <CanSwapPreviewProgram>true</CanSwapPreviewProgram>
+    <CanRouteInputs>true</CanRouteInputs>
+    <CanToggleSafeArea>false</CanToggleSafeArea>
+  </MultiView>
+  <SerialPort>1</SerialPort>
+  <AudioMonitor>false</AudioMonitor>
+  <VideoModes minimumSupported="SDISD" maximumSupported="SDIHD" downConvertAbove="SDIHD">
+    <MaxFrames sd="3600" _720="1600" _1080="720" _4k="180" />
+  </VideoModes>
+  <TalkbackOverSDI>1</TalkbackOverSDI>
+</DeviceProfile>

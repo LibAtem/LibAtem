@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.Audio
         [MacroField("Mute")]
         public bool Mute { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new AudioMixerMonitorSetCommand
             {

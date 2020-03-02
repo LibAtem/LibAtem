@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.DownStreamKey
         [MacroField("Tie")]
         public bool Tie { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new DownstreamKeyTieSetCommand()
             {

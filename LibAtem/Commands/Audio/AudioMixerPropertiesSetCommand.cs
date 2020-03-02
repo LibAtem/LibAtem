@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("CAMP", 8), NoCommandId]
+    [CommandName("CAMP", CommandDirection.ToServer, 8), NoCommandId]
     public class AudioMixerPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]
@@ -20,10 +20,10 @@ namespace LibAtem.Commands.Audio
         [Serialize(1), Bool]
         public bool AudioFollowVideo { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.AudioFollowVideo))
-                yield return new AudioMixerAfvFollowTransitionMacroOp {Enable = AudioFollowVideo};
+                yield return new AudioMixerAfvFollowTransitionMacroOp { Enable = AudioFollowVideo };
         }
     }
 }

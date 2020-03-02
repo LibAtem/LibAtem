@@ -6,20 +6,14 @@ namespace LibAtem.Net
 {
     public class ReceivedPacket
     {
-        // The five bits in "command" (from LSB to MSB): (right to left)
-        // 1 = ACK, "Please respond to this packet" (using the _lastRemotePacketID). Exception: The initial 10-20 kbytes of Switcher status
-        // 2 = ?. Set during initialization? (first hand-shake packets contains that)
-        // 3 = "This is a retransmission". You will see this bit set if the ATEM switcher did not get a timely response to a packet.
-        // 4 = ? ("hello packet" according to "ratte", forum at atemuser.com)
-        // 5 = "This is a response on your request". So set this when answering...
         [Flags]
         public enum CommandCodeFlags
         {
             None = 0,
             AckRequest = 1 << 0,
             Handshake = 1 << 1,
-            Retransmission = 1 << 2,
-            Unknown = 1 << 3,
+            IsRetransmit = 1 << 2,
+            RetransmitRequest = 1 << 3,
             AckReply = 1 << 4,
         }
 
@@ -52,7 +46,7 @@ namespace LibAtem.Net
             Commands = ParseCommands(Payload);
         }
 
-        private static List<ParsedCommand> ParseCommands(byte[] payload)
+        public static List<ParsedCommand> ParseCommands(byte[] payload)
         {
             var res = new List<ParsedCommand>();
 

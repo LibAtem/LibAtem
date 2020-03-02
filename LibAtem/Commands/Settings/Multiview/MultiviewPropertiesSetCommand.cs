@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("CMvP", 8)]
+    [CommandName("CMvP", CommandDirection.ToServer, 8)]
     public class MultiviewPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]
@@ -30,10 +30,10 @@ namespace LibAtem.Commands.Settings.Multiview
         [Serialize(4), Bool]
         public bool ProgramPreviewSwapped { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Layout))
-                yield return new MultiViewLayoutMacroOp {MultiViewIndex = MultiviewIndex, Layout = Layout};
+                yield return new MultiViewLayoutMacroOp { MultiViewIndex = MultiviewIndex, Layout = Layout };
             if (Mask.HasFlag(MaskFlags.SafeAreaEnabled))
                 yield return null;
             if (Mask.HasFlag(MaskFlags.ProgramPreviewSwapped))

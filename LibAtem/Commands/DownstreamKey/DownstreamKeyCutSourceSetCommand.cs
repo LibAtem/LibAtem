@@ -6,21 +6,21 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsC", 4)]
+    [CommandName("CDsC", CommandDirection.ToServer, 4)]
     public class DownstreamKeyCutSourceSetCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum8]
         public DownstreamKeyId Index { get; set; }
         [Serialize(2), Enum16]
-        public VideoSource Source { get; set; }
+        public VideoSource CutSource { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new DownstreamKeyCutInputMacroOp
             {
                 KeyIndex = Index,
-                Input = Source,
+                Input = CutSource,
             };
         }
     }

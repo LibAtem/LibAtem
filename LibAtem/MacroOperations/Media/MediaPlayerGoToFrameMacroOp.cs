@@ -11,7 +11,7 @@ namespace LibAtem.MacroOperations.Media
         [MacroField("Frame")]
         public uint Frame { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null;// TODO
         }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("CPvI", 4)]
+    [CommandName("CPvI", CommandDirection.ToServer, 4)]
     public class PreviewInputSetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -15,7 +15,7 @@ namespace LibAtem.Commands.MixEffects
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new PreviewInputMacroOp()
             {

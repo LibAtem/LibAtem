@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TDvP", 20)]
+    [CommandName("TDvP", CommandDirection.ToClient, 20)]
     public class TransitionDVEGetCommand : SerializableCommandBase
     {
         [CommandId]

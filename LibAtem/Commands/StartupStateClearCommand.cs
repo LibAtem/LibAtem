@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
-    [CommandName("SRcl", 4), NoCommandId]
+    [CommandName("SRcl", CommandDirection.ToServer, 4), NoCommandId]
     public class StartupStateClearCommand : SerializableCommandBase
     {
         [Serialize(0), ByteArray(4)]

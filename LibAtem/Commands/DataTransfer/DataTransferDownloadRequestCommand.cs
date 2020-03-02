@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTSU", 12)] // Server to Client
+    [CommandName("FTSU", CommandDirection.ToClient, 12)] // Server to Client
     public class DataTransferDownloadRequestCommand : SerializableCommandBase
     {
         [CommandId]

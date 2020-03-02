@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTDC", 4)]
+    [CommandName("FTDC", CommandDirection.Both, 4)]
     public class DataTransferCompleteCommand : SerializableCommandBase
     {
         [CommandId]

@@ -6,12 +6,14 @@ namespace LibAtem.Serialization
 {
     public class ByteArrayAttribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
-        private readonly int _length;
+        private readonly uint _length;
 
-        public ByteArrayAttribute(int length = 0)
+        public ByteArrayAttribute(uint length = 0)
         {
             _length = length;
         }
+        
+        public uint Length => _length;
 
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
@@ -19,7 +21,7 @@ namespace LibAtem.Serialization
                 return;
 
             byte[] arr = (byte[])val;
-            int len = _length > 0 ? _length : arr.Length;
+            int len = _length > 0 ? (int) _length : arr.Length;
             arr.Take(len).ToArray().CopyTo(data, (int) start);
         }
 
@@ -28,7 +30,7 @@ namespace LibAtem.Serialization
             if (_length <= 0)
                 return null; // Note: not supported
 
-            return data.Skip((int) start).Take(_length).ToArray();
+            return data.Skip((int) start).Take((int) _length).ToArray();
         }
 
         public override bool AreEqual(object val1, object val2)

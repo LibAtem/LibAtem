@@ -16,7 +16,7 @@ namespace LibAtem.MacroOperations
         [MacroField("Hue")]
         public double Hue { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new ColorGeneratorSetCommand
             {

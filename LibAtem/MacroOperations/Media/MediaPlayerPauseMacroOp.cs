@@ -6,7 +6,7 @@ namespace LibAtem.MacroOperations.Media
     [MacroOperation(MacroOperationType.MediaPlayerPause, 8)]
     public class MediaPlayerPauseMacroOp : MediaPlayerMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null;// TODO
         }

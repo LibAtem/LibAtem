@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("DskB", 8)]
+    [CommandName("DskB", CommandDirection.ToClient, 8)]
     public class DownstreamKeySourceGetCommand : SerializableCommandBase
     {
         [CommandId]

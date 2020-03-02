@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.Settings
         [MacroField("VideoMode")]
         public VideoMode VideoMode { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new VideoModeSetCommand
             {

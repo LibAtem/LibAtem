@@ -11,7 +11,7 @@ namespace LibAtem.MacroOperations.HyperDeck
         [MacroField("HyperDeckSingleClipEnabled", "singleClipEnabled")]
         public bool SingleClipEnabled { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null;// TODO
         }

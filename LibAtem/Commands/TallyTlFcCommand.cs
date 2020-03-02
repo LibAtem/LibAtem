@@ -3,7 +3,7 @@ using LibAtem.Common;
 
 namespace LibAtem.Commands
 {
-    [CommandName("TlFc"), NoCommandId] // TODO not sure what this command is for. Is new since 7.0
+    [CommandName("TlFc", CommandDirection.ToClient), NoCommandId] // TODO not sure what this command is for. Is new since 7.0
     public class TallyTlFcCommand : ICommand
     {
         public Dictionary<VideoSource, uint> Tally { get; set; }

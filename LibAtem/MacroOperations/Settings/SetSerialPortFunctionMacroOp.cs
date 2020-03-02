@@ -16,7 +16,7 @@ namespace LibAtem.MacroOperations.Settings
         [MacroField("Function")]
         public SerialMode SerialMode { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new SerialPortModeCommand()
             {

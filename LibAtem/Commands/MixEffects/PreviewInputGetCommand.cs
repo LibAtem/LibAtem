@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("PrvI", 8)]
+    [CommandName("PrvI", CommandDirection.ToClient, 8)]
     public class PreviewInputGetCommand : SerializableCommandBase
     {
         [CommandId]

@@ -6,7 +6,7 @@ namespace LibAtem.MacroOperations.HyperDeck
     [MacroOperation(MacroOperationType.HyperDeckPlay, 8)]
     public class HyperDeckPlayMacroOp : HyperDeckMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return null;// TODO
         }

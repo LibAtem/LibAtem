@@ -3,13 +3,14 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTDa")]
+    [CommandName("FTDa", CommandDirection.Both)]
     public class DataTransferDataCommand : ICommand
     {
         [CommandId]
-        [Serialize(0), UInt16]
+        [UInt16]
         public uint TransferId { get; set; }
 
+        [BytesLength]
         public byte[] Body { get; set; }
 
         public void Deserialize(ParsedByteArray cmd)

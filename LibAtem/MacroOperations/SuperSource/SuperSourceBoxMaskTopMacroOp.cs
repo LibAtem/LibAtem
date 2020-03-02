@@ -12,12 +12,44 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Top")]
         public double Top { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourceBoxSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourceBoxSetCommand.MaskFlags.CropTop,
-                Index = BoxIndex,
+                return new SuperSourceBoxSetV8Command()
+                {
+                    Mask = SuperSourceBoxSetV8Command.MaskFlags.CropTop,
+                    SSrcId = SuperSourceId.One,
+                    BoxIndex = BoxIndex,
+                    CropTop = Top,
+                };
+            }
+            else
+            {
+                return new SuperSourceBoxSetCommand()
+                {
+                    Mask = SuperSourceBoxSetCommand.MaskFlags.CropTop,
+                    BoxIndex = BoxIndex,
+                    CropTop = Top,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BoxMaskTop, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2BoxMaskTopMacroOp : SuperSourceV2BoxMacroOpBase
+    {
+        [Serialize(8), Int32D(65536, 0, 18 * 65536)]
+        [MacroField("Top")]
+        public double Top { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourceBoxSetV8Command()
+            {
+                Mask = SuperSourceBoxSetV8Command.MaskFlags.CropTop,
+                SSrcId = SSrcId,
+                BoxIndex = BoxIndex,
                 CropTop = Top,
             };
         }

@@ -2,8 +2,8 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("MAct", 4)]
-    public class MacroActionCommand : ICommand
+    [CommandName("MAct", CommandDirection.ToServer, 4)]
+    public class MacroActionCommand : SerializableCommandBase
     {
         public enum MacroAction
         {
@@ -21,7 +21,7 @@ namespace LibAtem.Commands.Macro
         [Serialize(2), Enum8]
         public MacroAction Action { get; set; }
 
-        public void Serialize(ByteArrayBuilder cmd)
+        public override void Serialize(ByteArrayBuilder cmd)
         {
             switch (Action)
             {
@@ -31,18 +31,12 @@ namespace LibAtem.Commands.Macro
                     break;
                 default:
                     cmd.AddUInt16(0xFFFF);
+                    Index = 0xFFFF;
                     break;
             }
 
-            cmd.AddUInt8((int) Action);
+            cmd.AddUInt8((int)Action);
             cmd.Pad();
-        }
-
-        public void Deserialize(ParsedByteArray cmd)
-        {
-            Index = cmd.GetUInt16();
-            Action = (MacroAction) cmd.GetUInt8();
-            cmd.Skip();
         }
     }
 }

@@ -2,18 +2,15 @@
 
 namespace LibAtem.Commands.DeviceProfile
 {
-    [CommandName("_ver", 4), NoCommandId]
+    [CommandName("_ver", CommandDirection.ToClient, 4), NoCommandId]
     public class VersionCommand : SerializableCommandBase
     {
         public VersionCommand()
         {
-            ApiMajor = Version.ApiMajor;
-            ApiMinor = Version.ApiMinor;
+            ProtocolVersion = ProtocolVersion.Latest;
         }
 
-        [Serialize(0), UInt16]
-        public uint ApiMajor { get; protected set; }
-        [Serialize(2), UInt16]
-        public uint ApiMinor { get; protected set; }
+        [Serialize(0), Enum32]
+        public ProtocolVersion ProtocolVersion { get; set; }
     }
 }

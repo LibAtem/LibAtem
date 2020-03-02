@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("FtbC", 4)]
+    [CommandName("FtbC", CommandDirection.ToServer, 4)]
     public class FadeToBlackRateSetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -21,7 +21,7 @@ namespace LibAtem.Commands.MixEffects
             cmd.Set(0, 0x01); // Mask Flag
         }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new FadeToBlackRateMacroOp
             {

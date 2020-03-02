@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Transition.Wipe
         [MacroField("Input")]
         public VideoSource Input { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new TransitionWipeSetCommand
             {

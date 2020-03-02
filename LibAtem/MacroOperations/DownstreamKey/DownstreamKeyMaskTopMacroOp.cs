@@ -12,13 +12,13 @@ namespace LibAtem.MacroOperations.DownStreamKey
         [MacroField("Top")]
         public double Top { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new DownstreamKeyMaskSetCommand()
             {
-                Mask = DownstreamKeyMaskSetCommand.MaskFlags.Top,
+                Mask = DownstreamKeyMaskSetCommand.MaskFlags.MaskTop,
                 Index = KeyIndex,
-                Top = Top,
+                MaskTop = Top,
             };
         }
     }

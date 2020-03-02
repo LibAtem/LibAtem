@@ -3,7 +3,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("MSRc")]
+    [CommandName("MSRc", CommandDirection.ToServer)]
     public class MacroRecordCommand : SerializableCommandBase
     {
         [CommandId]

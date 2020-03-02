@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("KeOn", 4)]
+    [CommandName("KeOn", CommandDirection.ToClient, 4)]
     public class MixEffectKeyOnAirGetCommand : SerializableCommandBase
     {
         [CommandId]

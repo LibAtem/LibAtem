@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKeC", 4)]
+    [CommandName("CKeC", CommandDirection.ToServer, 4)]
     public class MixEffectKeyCutSourceSetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -18,7 +18,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(2), Enum16]
         public VideoSource CutSource { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new KeyCutInputMacroOp()
             {

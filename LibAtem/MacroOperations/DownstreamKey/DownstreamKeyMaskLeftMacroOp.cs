@@ -12,13 +12,13 @@ namespace LibAtem.MacroOperations.DownStreamKey
         [MacroField("Left")]
         public double Left { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new DownstreamKeyMaskSetCommand()
             {
-                Mask = DownstreamKeyMaskSetCommand.MaskFlags.Left,
+                Mask = DownstreamKeyMaskSetCommand.MaskFlags.MaskLeft,
                 Index = KeyIndex,
-                Left = Left,
+                MaskLeft = Left,
             };
         }
     }

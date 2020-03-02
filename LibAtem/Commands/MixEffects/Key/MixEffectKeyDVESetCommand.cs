@@ -7,38 +7,38 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKDV", 64)]
+    [CommandName("CKDV", CommandDirection.ToServer, 64)]
     public class MixEffectKeyDVESetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
         {
-            SizeX                = 1 << 0,
-            SizeY                = 1 << 1,
-            PositionX            = 1 << 2,
-            PositionY            = 1 << 3,
-            Rotation             = 1 << 4,
-            BorderEnabled        = 1 << 5,
-            ShadowEnabled        = 1 << 6,
-            BorderBevel          = 1 << 7,
-            BorderOuterWidth     = 1 << 8,
-            BorderInnerWidth     = 1 << 9,
-            BorderOuterSoftness  = 1 << 10,
-            BorderInnerSoftness  = 1 << 11,
-            BorderBevelSoftness  = 1 << 12,
-            BorderBevelPosition  = 1 << 13,
-            BorderOpacity        = 1 << 14,
-            BorderHue            = 1 << 15,
-            BorderSaturation     = 1 << 16,
-            BorderLuma           = 1 << 17,
+            SizeX = 1 << 0,
+            SizeY = 1 << 1,
+            PositionX = 1 << 2,
+            PositionY = 1 << 3,
+            Rotation = 1 << 4,
+            BorderEnabled = 1 << 5,
+            BorderShadowEnabled = 1 << 6,
+            BorderBevel = 1 << 7,
+            BorderOuterWidth = 1 << 8,
+            BorderInnerWidth = 1 << 9,
+            BorderOuterSoftness = 1 << 10,
+            BorderInnerSoftness = 1 << 11,
+            BorderBevelSoftness = 1 << 12,
+            BorderBevelPosition = 1 << 13,
+            BorderOpacity = 1 << 14,
+            BorderHue = 1 << 15,
+            BorderSaturation = 1 << 16,
+            BorderLuma = 1 << 17,
             LightSourceDirection = 1 << 18,
-            LightSourceAltitude  = 1 << 19,
-            MaskEnabled          = 1 << 20,
-            MaskTop              = 1 << 21,
-            MaskBottom           = 1 << 22,
-            MaskLeft             = 1 << 23,
-            MaskRight            = 1 << 24,
-            Rate                 = 1 << 25,
+            LightSourceAltitude = 1 << 19,
+            MaskEnabled = 1 << 20,
+            MaskTop = 1 << 21,
+            MaskBottom = 1 << 22,
+            MaskLeft = 1 << 23,
+            MaskRight = 1 << 24,
+            Rate = 1 << 25,
         }
 
         [Serialize(0), Enum32]
@@ -65,7 +65,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(28), Bool]
         public bool BorderEnabled { get; set; }
         [Serialize(29), Bool]
-        public bool ShadowEnabled { get; set; }
+        public bool BorderShadowEnabled { get; set; }
         [Serialize(30), Enum8]
         public BorderBevel BorderBevel { get; set; }
         [Serialize(32), UInt16D(100, 0, 1600)]
@@ -108,86 +108,86 @@ namespace LibAtem.Commands.MixEffects.Key
 
         [Serialize(60), UInt8Range(1, 250)]
         public uint Rate { get; set; }
-        
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.SizeX))
-                yield return new DVEAndFlyKeyXSizeMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, SizeX = SizeX};
+                yield return new DVEAndFlyKeyXSizeMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, SizeX = SizeX };
 
             if (Mask.HasFlag(MaskFlags.SizeY))
-                yield return new DVEAndFlyKeyYSizeMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, SizeY = SizeY};
+                yield return new DVEAndFlyKeyYSizeMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, SizeY = SizeY };
 
             if (Mask.HasFlag(MaskFlags.PositionX))
-                yield return new DVEAndFlyKeyXPositionMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, PositionX = PositionX};
+                yield return new DVEAndFlyKeyXPositionMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, PositionX = PositionX };
 
             if (Mask.HasFlag(MaskFlags.PositionY))
-                yield return new DVEAndFlyKeyYPositionMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, PositionY = PositionY};
+                yield return new DVEAndFlyKeyYPositionMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, PositionY = PositionY };
 
             if (Mask.HasFlag(MaskFlags.Rotation))
-                yield return new DVEAndFlyKeyRotationMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Rotation = Rotation};
+                yield return new DVEAndFlyKeyRotationMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, Rotation = Rotation };
 
             if (Mask.HasFlag(MaskFlags.BorderEnabled))
-                yield return new DVEKeyBorderEnableMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = BorderEnabled};
+                yield return new DVEKeyBorderEnableMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = BorderEnabled };
 
-            if (Mask.HasFlag(MaskFlags.ShadowEnabled))
-                yield return new DVEKeyShadowEnableMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = ShadowEnabled};
+            if (Mask.HasFlag(MaskFlags.BorderShadowEnabled))
+                yield return new DVEKeyShadowEnableMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = BorderShadowEnabled };
 
             if (Mask.HasFlag(MaskFlags.BorderBevel))
-                yield return new DVEKeyBorderBevelMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Bevel = BorderBevel};
+                yield return new DVEKeyBorderBevelMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Bevel = BorderBevel };
 
             if (Mask.HasFlag(MaskFlags.BorderOuterWidth))
-                yield return new DVEKeyBorderOuterWidthMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, OuterWidth = BorderOuterWidth };
+                yield return new DVEKeyBorderOuterWidthMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, OuterWidth = BorderOuterWidth };
 
             if (Mask.HasFlag(MaskFlags.BorderInnerWidth))
-                yield return new DVEKeyBorderInnerWidthMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, InnerWidth = BorderInnerWidth };
+                yield return new DVEKeyBorderInnerWidthMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, InnerWidth = BorderInnerWidth };
 
             if (Mask.HasFlag(MaskFlags.BorderOuterSoftness))
-                yield return new DVEKeyBorderOuterSoftnessMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, OuterSoftness = BorderOuterSoftness };
+                yield return new DVEKeyBorderOuterSoftnessMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, OuterSoftness = BorderOuterSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderInnerSoftness))
-                yield return new DVEKeyBorderInnerSoftnessMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, InnerSoftness = BorderInnerSoftness };
+                yield return new DVEKeyBorderInnerSoftnessMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, InnerSoftness = BorderInnerSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderBevelSoftness))
-                yield return new DVEKeyBorderBevelSoftnessMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, BevelSoftness = BorderBevelSoftness };
+                yield return new DVEKeyBorderBevelSoftnessMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, BevelSoftness = BorderBevelSoftness };
 
             if (Mask.HasFlag(MaskFlags.BorderBevelPosition))
-                yield return new DVEKeyBorderBevelPositionMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, BevelPosition = BorderBevelPosition };
+                yield return new DVEKeyBorderBevelPositionMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, BevelPosition = BorderBevelPosition };
 
             if (Mask.HasFlag(MaskFlags.BorderOpacity))
-                yield return new DVEKeyBorderOpacityMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Opacity = BorderOpacity};
+                yield return new DVEKeyBorderOpacityMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Opacity = BorderOpacity };
 
             if (Mask.HasFlag(MaskFlags.BorderHue))
-                yield return new DVEKeyBorderHueMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Hue = BorderHue};
+                yield return new DVEKeyBorderHueMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Hue = BorderHue };
 
             if (Mask.HasFlag(MaskFlags.BorderSaturation))
-                yield return new DVEKeyBorderSaturationMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Saturation = BorderSaturation};
+                yield return new DVEKeyBorderSaturationMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Saturation = BorderSaturation };
 
             if (Mask.HasFlag(MaskFlags.BorderLuma))
-                yield return new DVEKeyBorderLuminescenceMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Luma = BorderLuma};
+                yield return new DVEKeyBorderLuminescenceMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Luma = BorderLuma };
 
             if (Mask.HasFlag(MaskFlags.LightSourceDirection))
                 yield return new DVEKeyShadowDirectionMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Direction = LightSourceDirection };
 
             if (Mask.HasFlag(MaskFlags.LightSourceAltitude))
-                yield return new DVEKeyShadowAltitudeMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Altitude = LightSourceAltitude};
+                yield return new DVEKeyShadowAltitudeMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Altitude = LightSourceAltitude };
 
             if (Mask.HasFlag(MaskFlags.MaskEnabled))
-                yield return new DVEKeyMaskEnableMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = MaskEnabled};
+                yield return new DVEKeyMaskEnableMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, Enable = MaskEnabled };
 
             if (Mask.HasFlag(MaskFlags.MaskTop))
-                yield return new DVEKeyMaskTopMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Top = MaskTop};
+                yield return new DVEKeyMaskTopMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, Top = MaskTop };
 
             if (Mask.HasFlag(MaskFlags.MaskBottom))
-                yield return new DVEKeyMaskBottomMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Bottom = MaskBottom};
+                yield return new DVEKeyMaskBottomMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, Bottom = MaskBottom };
 
             if (Mask.HasFlag(MaskFlags.MaskLeft))
-                yield return new DVEKeyMaskLeftMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Left = MaskLeft};
+                yield return new DVEKeyMaskLeftMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, Left = MaskLeft };
 
             if (Mask.HasFlag(MaskFlags.MaskRight))
-                yield return new DVEKeyMaskRightMacroOp() {Index = MixEffectIndex, KeyIndex = KeyerIndex, Right = MaskRight};
+                yield return new DVEKeyMaskRightMacroOp() { Index = MixEffectIndex, KeyIndex = KeyerIndex, Right = MaskRight };
 
             if (Mask.HasFlag(MaskFlags.Rate))
-                yield return new DVEAndFlyKeyRateMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Rate = Rate};
+                yield return new DVEAndFlyKeyRateMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Rate = Rate };
         }
     }
 }

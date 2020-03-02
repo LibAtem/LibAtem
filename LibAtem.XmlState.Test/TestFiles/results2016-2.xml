@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile majorVersion="1" minorVersion="3" product="ATEM 2 M/E Production Studio 4K">
+    <MixEffectBlocks>
+        <MixEffectBlock index="0">
+            <Program input="1"/>
+            <Preview input="6"/>
+            <NextTransition selection="Background" nextSelection="Background"/>
+            <TransitionStyle style="Mix" nextStyle="Mix" previewTransition="False" transitionPosition="0">
+                <MixParameters rate="1"/>
+                <DipParameters rate="25" input="2001"/>
+                <WipeParameters rate="25" pattern="DiamondIris" symmetry="50" xPosition="0.5" yPosition="0.5" reverseDirection="False" flipFlip="False" borderInput="2001" borderWidth="0" borderSoftness="0"/>
+                <StingerParameters source="MediaPlayer1" preMultipliedKey="True" clip="50" gain="70" invert="False" clipDuration="73" triggerPoint="34" mixRate="5" preroll="2"/>
+                <DVEParameters rate="25" logoRate="25" reverseDirection="False" flipFlop="False" effect="PushRight" fillSource="3010" keySource="3011" enableKey="True" preMultipliedKey="True" clip="50" gain="70" invertKey="False"/>
+            </TransitionStyle>
+            <Keys>
+                <Key index="0" type="Luma" inputCut="0" inputFill="0" onAir="False" masked="False" maskTop="9" maskBottom="-9" maskLeft="-16" maskRight="16">
+                    <LumaParameters preMultiplied="False" clip="50" gain="70" inverse="False"/>
+                    <ChromaParameters hue="0" gain="100" ySuppress="90" lift="0" narrow="False"/>
+                    <PatternParameters style="DiamondIris" inverse="False" size="50" symmetry="50" softness="0" xPosition="0.5" yPosition="0.5"/>
+                    <DVEParameters maskEnabled="False" maskTop="0" maskBottom="0" maskLeft="0" maskRight="0" shadowEnabled="False" lightSourceDirection="36" lightSourceAltitude="25" borderEnabled="True" borderStyle="None" borderBevelHue="0" borderBevelSaturation="0" borderBevelLuma="100" borderWidthOut="0.5" borderWidthIn="0.5" borderSoftnessOut="0" borderSoftnessIn="0" borderBevelOpacity="100" borderBevelPosition="0.5" borderBevelSoftness="0"/>
+                    <FlyParameters enabled="False" xPosition="0" yPosition="0" xSize="0.5" ySize="0.5" rotation="0" rate="25"/>
+                </Key>
+                <Key index="1" type="Luma" inputCut="0" inputFill="0" onAir="False" masked="False" maskTop="9" maskBottom="-9" maskLeft="-16" maskRight="16">
+                    <LumaParameters preMultiplied="False" clip="50" gain="70" inverse="False"/>
+                    <ChromaParameters hue="0" gain="100" ySuppress="90" lift="0" narrow="False"/>
+                    <PatternParameters style="DiamondIris" inverse="False" size="50" symmetry="50" softness="0" xPosition="0.5" yPosition="0.5"/>
+                    <DVEParameters maskEnabled="False" maskTop="0" maskBottom="0" maskLeft="0" maskRight="0" shadowEnabled="False" lightSourceDirection="36" lightSourceAltitude="25" borderEnabled="True" borderStyle="None" borderBevelHue="0" borderBevelSaturation="0" borderBevelLuma="100" borderWidthOut="0.5" borderWidthIn="0.5" borderSoftnessOut="0" borderSoftnessIn="0" borderBevelOpacity="100" borderBevelPosition="0.5" borderBevelSoftness="0"/>
+                    <FlyParameters enabled="False" xPosition="0" yPosition="0" xSize="0.5" ySize="0.5" rotation="0" rate="25"/>
+                </Key>
+            </Keys>
+            <FadeToBlack rate="25" isFullyBlack="False"/>
+        </MixEffectBlock>
+        <MixEffectBlock index="1">
+            <Program input="1"/>
+            <Preview input="3"/>
+            <NextTransition selection="Background" nextSelection="Background"/>
+            <TransitionStyle style="Mix" nextStyle="Mix" previewTransition="False" transitionPosition="0">
+                <MixParameters rate="10"/>
+                <DipParameters rate="25" input="2001"/>
+                <WipeParameters rate="25" pattern="DiamondIris" symmetry="50" xPosition="0.5" yPosition="0.5" reverseDirection="False" flipFlip="False" borderInput="2001" borderWidth="0" borderSoftness="0"/>
+                <StingerParameters source="MediaPlayer1" preMultipliedKey="True" clip="50" gain="70" invert="False" clipDuration="73" triggerPoint="34" mixRate="5" preroll="2"/>
+                <DVEParameters rate="25" logoRate="25" reverseDirection="False" flipFlop="False" effect="PushRight" fillSource="3010" keySource="3011" enableKey="True" preMultipliedKey="True" clip="50" gain="70" invertKey="False"/>
+            </TransitionStyle>
+            <Keys>
+                <Key index="0" type="Luma" inputCut="0" inputFill="0" onAir="False" masked="False" maskTop="9" maskBottom="-9" maskLeft="-16" maskRight="16">
+                    <LumaParameters preMultiplied="False" clip="50" gain="70" inverse="False"/>
+                    <ChromaParameters hue="0" gain="100" ySuppress="90" lift="0" narrow="False"/>
+                    <PatternParameters style="DiamondIris" inverse="False" size="50" symmetry="50" softness="0" xPosition="0.5" yPosition="0.5"/>
+                    <DVEParameters maskEnabled="False" maskTop="0" maskBottom="0" maskLeft="0" maskRight="0" shadowEnabled="False" lightSourceDirection="36" lightSourceAltitude="25" borderEnabled="True" borderStyle="None" borderBevelHue="0" borderBevelSaturation="0" borderBevelLuma="100" borderWidthOut="0.5" borderWidthIn="0.5" borderSoftnessOut="0" borderSoftnessIn="0" borderBevelOpacity="100" borderBevelPosition="0.5" borderBevelSoftness="0"/>
+                    <FlyParameters enabled="False" xPosition="0" yPosition="0" xSize="0.5" ySize="0.5" rotation="0" rate="25"/>
+                </Key>
+                <Key index="1" type="Luma" inputCut="0" inputFill="0" onAir="False" masked="False" maskTop="9" maskBottom="-9" maskLeft="-16" maskRight="16">
+                    <LumaParameters preMultiplied="False" clip="50" gain="70" inverse="False"/>
+                    <ChromaParameters hue="0" gain="100" ySuppress="90" lift="0" narrow="False"/>
+                    <PatternParameters style="DiamondIris" inverse="False" size="50" symmetry="50" softness="0" xPosition="0.5" yPosition="0.5"/>
+                    <DVEParameters maskEnabled="False" maskTop="0" maskBottom="0" maskLeft="0" maskRight="0" shadowEnabled="False" lightSourceDirection="36" lightSourceAltitude="25" borderEnabled="True" borderStyle="None" borderBevelHue="0" borderBevelSaturation="0" borderBevelLuma="100" borderWidthOut="0.5" borderWidthIn="0.5" borderSoftnessOut="0" borderSoftnessIn="0" borderBevelOpacity="100" borderBevelPosition="0.5" borderBevelSoftness="0"/>
+                    <FlyParameters enabled="False" xPosition="0" yPosition="0" xSize="0.5" ySize="0.5" rotation="0" rate="25"/>
+                </Key>
+            </Keys>
+            <FadeToBlack rate="25" isFullyBlack="False"/>
+        </MixEffectBlock>
+    </MixEffectBlocks>
+    <DownstreamKeys>
+        <DownstreamKey index="0" fillSource="3020" keySource="3021" rate="25" maskEnabled="False" maskTop="9" maskBottom="-9" maskLeft="-16" maskRight="16" preMultipliedKey="True" clip="49.4" gain="31.6" invert="False" onAir="True" tie="False"/>
+        <DownstreamKey index="1" fillSource="19" keySource="20" rate="25" maskEnabled="False" maskTop="9" maskBottom="-9" maskLeft="-16" maskRight="16" preMultipliedKey="True" clip="50" gain="70" invert="False" onAir="True" tie="False"/>
+    </DownstreamKeys>
+    <ColorGenerators>
+        <ColorGenerator index="0" hue="50" saturation="100" luma="50"/>
+        <ColorGenerator index="1" hue="27" saturation="100" luma="50"/>
+    </ColorGenerators>
+    <Auxiliaries>
+        <Auxiliary id="8001" input="10020"/>
+        <Auxiliary id="8002" input="1000"/>
+        <Auxiliary id="8003" input="10010"/>
+        <Auxiliary id="8004" input="15"/>
+        <Auxiliary id="8005" input="16"/>
+        <Auxiliary id="8006" input="7001"/>
+    </Auxiliaries>
+    <Settings videoMode="1080i50" abDirect="False" cameraAux="-1">
+        <MultiViewVideoModes>
+            <MultiViewVideoMode coreVideoMode="525i5994 NTSC" multiViewVideoMode="1080i5994"/>
+            <MultiViewVideoMode coreVideoMode="625i50 PAL" multiViewVideoMode="1080i50"/>
+            <MultiViewVideoMode coreVideoMode="525i5994 16:9" multiViewVideoMode="1080i5994"/>
+            <MultiViewVideoMode coreVideoMode="625i50 16:9" multiViewVideoMode="1080i50"/>
+            <MultiViewVideoMode coreVideoMode="720p50" multiViewVideoMode="720p50"/>
+            <MultiViewVideoMode coreVideoMode="720p5994" multiViewVideoMode="720p5994"/>
+            <MultiViewVideoMode coreVideoMode="1080i50" multiViewVideoMode="1080i50"/>
+            <MultiViewVideoMode coreVideoMode="1080i5994" multiViewVideoMode="1080i5994"/>
+            <MultiViewVideoMode coreVideoMode="1080p2398" multiViewVideoMode="1080p2398"/>
+            <MultiViewVideoMode coreVideoMode="1080p24" multiViewVideoMode="1080p24"/>
+            <MultiViewVideoMode coreVideoMode="1080p25" multiViewVideoMode="1080i50"/>
+            <MultiViewVideoMode coreVideoMode="1080p2997" multiViewVideoMode="1080i5994"/>
+            <MultiViewVideoMode coreVideoMode="1080p50" multiViewVideoMode="1080i50"/>
+            <MultiViewVideoMode coreVideoMode="1080p5994" multiViewVideoMode="1080i5994"/>
+            <MultiViewVideoMode coreVideoMode="4KHDp2398" multiViewVideoMode="1080p2398"/>
+            <MultiViewVideoMode coreVideoMode="4KHDp24" multiViewVideoMode="1080p24"/>
+            <MultiViewVideoMode coreVideoMode="4KHDp25" multiViewVideoMode="1080i50"/>
+            <MultiViewVideoMode coreVideoMode="4KHDp2997" multiViewVideoMode="1080i5994"/>
+        </MultiViewVideoModes>
+        <DownConvertedHDVideoModes>
+            <DownConvertedHDVideoMode coreVideoMode="525i5994 NTSC" downConvertedHDVideoMode="525i5994 NTSC"/>
+            <DownConvertedHDVideoMode coreVideoMode="625i50 PAL" downConvertedHDVideoMode="625i50 PAL"/>
+            <DownConvertedHDVideoMode coreVideoMode="525i5994 16:9" downConvertedHDVideoMode="525i5994 16:9"/>
+            <DownConvertedHDVideoMode coreVideoMode="625i50 16:9" downConvertedHDVideoMode="625i50 16:9"/>
+            <DownConvertedHDVideoMode coreVideoMode="720p50" downConvertedHDVideoMode="720p50"/>
+            <DownConvertedHDVideoMode coreVideoMode="720p5994" downConvertedHDVideoMode="720p5994"/>
+            <DownConvertedHDVideoMode coreVideoMode="1080i50" downConvertedHDVideoMode="1080i50"/>
+            <DownConvertedHDVideoMode coreVideoMode="1080i5994" downConvertedHDVideoMode="1080i5994"/>
+            <DownConvertedHDVideoMode coreVideoMode="1080p2398" downConvertedHDVideoMode="1080p2398"/>
+            <DownConvertedHDVideoMode coreVideoMode="1080p24" downConvertedHDVideoMode="1080p24"/>
+            <DownConvertedHDVideoMode coreVideoMode="1080p25" downConvertedHDVideoMode="1080p25"/>
+            <DownConvertedHDVideoMode coreVideoMode="1080p2997" downConvertedHDVideoMode="1080p2997"/>
+            <DownConvertedHDVideoMode coreVideoMode="1080p50" downConvertedHDVideoMode="1080p50"/>
+            <DownConvertedHDVideoMode coreVideoMode="1080p5994" downConvertedHDVideoMode="1080p5994"/>
+            <DownConvertedHDVideoMode coreVideoMode="4KHDp2398" downConvertedHDVideoMode="1080p2398"/>
+            <DownConvertedHDVideoMode coreVideoMode="4KHDp24" downConvertedHDVideoMode="1080p24"/>
+            <DownConvertedHDVideoMode coreVideoMode="4KHDp25" downConvertedHDVideoMode="1080i50"/>
+            <DownConvertedHDVideoMode coreVideoMode="4KHDp2997" downConvertedHDVideoMode="1080i5994"/>
+        </DownConvertedHDVideoModes>
+        <AudioMonitors>
+            <AudioMonitor index="0" monitorEnabled="True"/>
+        </AudioMonitors>
+        <Inputs>
+            <Input id="1" shortName="VT" longName="VT" externalPortType="HDMI"/>
+            <Input id="2" shortName="5" longName="5. Jamie" externalPortType="SDI"/>
+            <Input id="3" shortName="4" longName="4. Tomos" externalPortType="SDI"/>
+            <Input id="4" shortName="6" longName="6. Natalia" externalPortType="SDI"/>
+            <Input id="5" shortName="no" longName="nope" externalPortType="SDI"/>
+            <Input id="6" shortName="2" longName="2. Analyst" externalPortType="SDI"/>
+            <Input id="7" shortName="1" longName="1. Wide" externalPortType="SDI"/>
+            <Input id="8" shortName="3" longName="3. Guest" externalPortType="SDI"/>
+            <Input id="9" shortName="Crwd" longName="7. DH Crowd" externalPortType="SDI"/>
+            <Input id="10" shortName="DHGp" longName="DH Graph" externalPortType="SDI"/>
+            <Input id="11" shortName="Cm11" longName="Camera 11" externalPortType="SDI"/>
+            <Input id="12" shortName="Cm12" longName="Camera 12" externalPortType="SDI"/>
+            <Input id="13" shortName="Gr-K" longName="Graphs Key" externalPortType="SDI"/>
+            <Input id="14" shortName="ME2" longName="ME 2 Loop" externalPortType="SDI"/>
+            <Input id="15" shortName="Mlt1" longName="Multi 1" externalPortType="SDI"/>
+            <Input id="16" shortName="Mlt2" longName="Multi 2" externalPortType="SDI"/>
+            <Input id="17" shortName="Gr-F" longName="Graphs Fill" externalPortType="SDI"/>
+            <Input id="18" shortName="Twit" longName="Twitter" externalPortType="SDI"/>
+            <Input id="19" shortName="Fill" longName="Graphics" externalPortType="SDI"/>
+            <Input id="20" shortName="Key" longName="Caspar Key" externalPortType="SDI"/>
+        </Inputs>
+        <MediaPool>
+            <Clips>
+                <Clip index="0" maxFrameCount="360"/>
+                <Clip index="1" maxFrameCount="360"/>
+            </Clips>
+        </MediaPool>
+        <MultiViews>
+            <MultiView index="0" layout="ProgramTop">
+                <Windows>
+                    <Window index="0" input="10011"/>
+                    <Window index="1" input="10010"/>
+                    <Window index="2" input="7"/>
+                    <Window index="3" input="6"/>
+                    <Window index="4" input="8"/>
+                    <Window index="5" input="19"/>
+                    <Window index="6" input="3"/>
+                    <Window index="7" input="2"/>
+                    <Window index="8" input="4"/>
+                    <Window index="9" input="6000"/>
+                </Windows>
+            </MultiView>
+            <MultiView index="1" layout="ProgramTop">
+                <Windows>
+                    <Window index="0" input="10021"/>
+                    <Window index="1" input="10020"/>
+                    <Window index="2" input="1"/>
+                    <Window index="3" input="10"/>
+                    <Window index="4" input="17"/>
+                    <Window index="5" input="19"/>
+                    <Window index="6" input="6000"/>
+                    <Window index="7" input="9"/>
+                    <Window index="8" input="18"/>
+                    <Window index="9" input="20"/>
+                </Windows>
+            </MultiView>
+        </MultiViews>
+        <ButtonMapping>
+            <Button index="0" externalInputIndex="6" mappedToCamera="True"/>
+            <Button index="1" externalInputIndex="5" mappedToCamera="True"/>
+            <Button index="2" externalInputIndex="7" mappedToCamera="True"/>
+            <Button index="3" externalInputIndex="2" mappedToCamera="True"/>
+            <Button index="4" externalInputIndex="1" mappedToCamera="True"/>
+            <Button index="5" externalInputIndex="3" mappedToCamera="True"/>
+            <Button index="6" externalInputIndex="8" mappedToCamera="True"/>
+            <Button index="7" externalInputIndex="0" mappedToCamera="True"/>
+            <Button index="8" externalInputIndex="9" mappedToCamera="True"/>
+            <Button index="9" externalInputIndex="17" mappedToCamera="True"/>
+            <Button index="10" externalInputIndex="10" mappedToCamera="True"/>
+            <Button index="11" externalInputIndex="11" mappedToCamera="True"/>
+            <Button index="12" externalInputIndex="12" mappedToCamera="True"/>
+            <Button index="13" externalInputIndex="13" mappedToCamera="True"/>
+            <Button index="14" externalInputIndex="14" mappedToCamera="True"/>
+            <Button index="15" externalInputIndex="15" mappedToCamera="True"/>
+            <Button index="16" externalInputIndex="16" mappedToCamera="True"/>
+            <Button index="17" externalInputIndex="17" mappedToCamera="True"/>
+            <Button index="18" externalInputIndex="18" mappedToCamera="True"/>
+            <Button index="19" externalInputIndex="19" mappedToCamera="True"/>
+        </ButtonMapping>
+    </Settings>
+    <AudioMixer programOutGain="-0.4" programOutBalance="0" programOutFollowFadeToBlack="False">
+        <AudioInputs>
+            <AudioInput id="1" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="2" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="3" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="4" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="5" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="6" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="7" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="8" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="9" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="10" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="11" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="12" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="13" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="14" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="15" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="16" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="17" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="18" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="19" mixOption="On" gain="-12.4" balance="0"/>
+            <AudioInput id="20" mixOption="Off" gain="0" balance="0"/>
+            <AudioInput id="2001" mixOption="AudioFollowVideo" gain="-5.6" balance="0"/>
+            <AudioInput id="2002" mixOption="AudioFollowVideo" gain="-6" balance="0"/>
+            <AudioInput id="1201" mixOption="On" gain="0" balance="0"/>
+            <AudioInput id="1001" mixOption="On" gain="0" balance="0"/>
+        </AudioInputs>
+        <AudioMonitorOutputs>
+            <AudioMonitorOutput index="0" gain="0" mute="False" solo="False" soloInput="1" dim="False" dimLevel="20"/>
+        </AudioMonitorOutputs>
+    </AudioMixer>
+    <MediaPlayers>
+        <MediaPlayer index="0" sourceType="Still" sourceIndex="0"/>
+        <MediaPlayer index="1" sourceType="Clip" sourceIndex="1" playing="False" loop="False" atBeginning="False" clipFrame="52"/>
+    </MediaPlayers>
+    <SuperSource artFillInput="17" artKeyInput="3010" artOption="Foreground" artPreMultiplied="False" artClip="50" artGain="70" artInvertKey="False" borderEnabled="False" borderBevel="InOut" borderHue="0" borderSaturation="0" borderLuma="100" borderWidthOut="0.5" borderWidthIn="0.5" borderSoftnessOut="0" borderSoftnessIn="0" borderBevelPosition="0.5" borderBevelSoftness="0" borderLightSourceDirection="36" borderLightSourceAltitude="25">
+        <Boxes>
+            <Box index="0" enabled="True" inputSource="10020" xPosition="-7.82" yPosition="1.6" size="0.52" cropped="False" cropTop="0" cropBottom="0" cropLeft="0" cropRight="0"/>
+            <Box index="1" enabled="False" inputSource="0" xPosition="6.32" yPosition="-3.5" size="0.5" cropped="False" cropTop="0" cropBottom="0" cropLeft="0" cropRight="0"/>
+            <Box index="2" enabled="False" inputSource="0" xPosition="0" yPosition="0" size="1" cropped="False" cropTop="0" cropBottom="0" cropLeft="0" cropRight="0"/>
+            <Box index="3" enabled="False" inputSource="0" xPosition="0" yPosition="0" size="1" cropped="False" cropTop="0" cropBottom="0" cropLeft="0" cropRight="0"/>
+        </Boxes>
+    </SuperSource>
+    <MediaPool>
+        <Stills>
+            <Still index="0" name="Graph-Alpha" path="ATEM Media Pool/Graph-Alpha.png"/>
+        </Stills>
+        <Clips>
+            <Clip index="0" name="ResultsNightTransition_00000 2">
+                <Frame index="0" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0001.png"/>
+                <Frame index="1" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0002.png"/>
+                <Frame index="2" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0003.png"/>
+                <Frame index="3" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0004.png"/>
+                <Frame index="4" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0005.png"/>
+                <Frame index="5" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0006.png"/>
+                <Frame index="6" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0007.png"/>
+                <Frame index="7" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0008.png"/>
+                <Frame index="8" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0009.png"/>
+                <Frame index="9" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0010.png"/>
+                <Frame index="10" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0011.png"/>
+                <Frame index="11" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0012.png"/>
+                <Frame index="12" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0013.png"/>
+                <Frame index="13" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0014.png"/>
+                <Frame index="14" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0015.png"/>
+                <Frame index="15" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0016.png"/>
+                <Frame index="16" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0017.png"/>
+                <Frame index="17" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0018.png"/>
+                <Frame index="18" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0019.png"/>
+                <Frame index="19" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0020.png"/>
+                <Frame index="20" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0021.png"/>
+                <Frame index="21" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0022.png"/>
+                <Frame index="22" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0023.png"/>
+                <Frame index="23" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0024.png"/>
+                <Frame index="24" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0025.png"/>
+                <Frame index="25" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0026.png"/>
+                <Frame index="26" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0027.png"/>
+                <Frame index="27" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0028.png"/>
+                <Frame index="28" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0029.png"/>
+                <Frame index="29" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0030.png"/>
+                <Frame index="30" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0031.png"/>
+                <Frame index="31" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0032.png"/>
+                <Frame index="32" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0033.png"/>
+                <Frame index="33" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0034.png"/>
+                <Frame index="34" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0035.png"/>
+                <Frame index="35" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0036.png"/>
+                <Frame index="36" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0037.png"/>
+                <Frame index="37" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0038.png"/>
+                <Frame index="38" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0039.png"/>
+                <Frame index="39" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0040.png"/>
+                <Frame index="40" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0041.png"/>
+                <Frame index="41" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0042.png"/>
+                <Frame index="42" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0043.png"/>
+                <Frame index="43" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0044.png"/>
+                <Frame index="44" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0045.png"/>
+                <Frame index="45" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0046.png"/>
+                <Frame index="46" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0047.png"/>
+                <Frame index="47" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0048.png"/>
+                <Frame index="48" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0049.png"/>
+                <Frame index="49" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0050.png"/>
+                <Frame index="50" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0051.png"/>
+                <Frame index="51" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0052.png"/>
+                <Frame index="52" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0053.png"/>
+                <Frame index="53" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0054.png"/>
+                <Frame index="54" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0055.png"/>
+                <Frame index="55" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0056.png"/>
+                <Frame index="56" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0057.png"/>
+                <Frame index="57" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0058.png"/>
+                <Frame index="58" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0059.png"/>
+                <Frame index="59" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0060.png"/>
+                <Frame index="60" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0061.png"/>
+                <Frame index="61" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0062.png"/>
+                <Frame index="62" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0063.png"/>
+                <Frame index="63" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0064.png"/>
+                <Frame index="64" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0065.png"/>
+                <Frame index="65" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0066.png"/>
+                <Frame index="66" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0067.png"/>
+                <Frame index="67" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0068.png"/>
+                <Frame index="68" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0069.png"/>
+                <Frame index="69" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0070.png"/>
+                <Frame index="70" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0071.png"/>
+                <Frame index="71" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0072.png"/>
+                <Frame index="72" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0073.png"/>
+                <Frame index="73" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0074.png"/>
+                <Frame index="74" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0075.png"/>
+                <Frame index="75" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0076.png"/>
+                <Frame index="76" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0077.png"/>
+                <Frame index="77" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0078.png"/>
+                <Frame index="78" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0079.png"/>
+                <Frame index="79" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0080.png"/>
+                <Frame index="80" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0081.png"/>
+                <Frame index="81" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0082.png"/>
+                <Frame index="82" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0083.png"/>
+                <Frame index="83" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0084.png"/>
+                <Frame index="84" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0085.png"/>
+                <Frame index="85" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0086.png"/>
+                <Frame index="86" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0087.png"/>
+                <Frame index="87" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0088.png"/>
+                <Frame index="88" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0089.png"/>
+                <Frame index="89" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0090.png"/>
+                <Frame index="90" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0091.png"/>
+                <Frame index="91" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0092.png"/>
+                <Frame index="92" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0093.png"/>
+                <Frame index="93" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0094.png"/>
+                <Frame index="94" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0095.png"/>
+                <Frame index="95" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0096.png"/>
+                <Frame index="96" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0097.png"/>
+                <Frame index="97" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0098.png"/>
+                <Frame index="98" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0099.png"/>
+                <Frame index="99" path="ATEM Media Pool/ResultsNightTransition_00000 2/ResultsNightTransition_00000 2 0100.png"/>
+                <Audio name="ResultsNightTransition 478" path="ATEM Media Pool/ResultsNightTransition 478.wav"/>
+            </Clip>
+            <Clip index="1" name="Comp 1_00000 6">
+                <Frame index="0" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0001.png"/>
+                <Frame index="1" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0002.png"/>
+                <Frame index="2" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0003.png"/>
+                <Frame index="3" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0004.png"/>
+                <Frame index="4" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0005.png"/>
+                <Frame index="5" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0006.png"/>
+                <Frame index="6" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0007.png"/>
+                <Frame index="7" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0008.png"/>
+                <Frame index="8" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0009.png"/>
+                <Frame index="9" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0010.png"/>
+                <Frame index="10" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0011.png"/>
+                <Frame index="11" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0012.png"/>
+                <Frame index="12" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0013.png"/>
+                <Frame index="13" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0014.png"/>
+                <Frame index="14" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0015.png"/>
+                <Frame index="15" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0016.png"/>
+                <Frame index="16" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0017.png"/>
+                <Frame index="17" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0018.png"/>
+                <Frame index="18" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0019.png"/>
+                <Frame index="19" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0020.png"/>
+                <Frame index="20" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0021.png"/>
+                <Frame index="21" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0022.png"/>
+                <Frame index="22" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0023.png"/>
+                <Frame index="23" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0024.png"/>
+                <Frame index="24" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0025.png"/>
+                <Frame index="25" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0026.png"/>
+                <Frame index="26" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0027.png"/>
+                <Frame index="27" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0028.png"/>
+                <Frame index="28" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0029.png"/>
+                <Frame index="29" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0030.png"/>
+                <Frame index="30" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0031.png"/>
+                <Frame index="31" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0032.png"/>
+                <Frame index="32" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0033.png"/>
+                <Frame index="33" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0034.png"/>
+                <Frame index="34" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0035.png"/>
+                <Frame index="35" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0036.png"/>
+                <Frame index="36" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0037.png"/>
+                <Frame index="37" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0038.png"/>
+                <Frame index="38" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0039.png"/>
+                <Frame index="39" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0040.png"/>
+                <Frame index="40" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0041.png"/>
+                <Frame index="41" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0042.png"/>
+                <Frame index="42" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0043.png"/>
+                <Frame index="43" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0044.png"/>
+                <Frame index="44" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0045.png"/>
+                <Frame index="45" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0046.png"/>
+                <Frame index="46" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0047.png"/>
+                <Frame index="47" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0048.png"/>
+                <Frame index="48" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0049.png"/>
+                <Frame index="49" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0050.png"/>
+                <Frame index="50" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0051.png"/>
+                <Frame index="51" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0052.png"/>
+                <Frame index="52" path="ATEM Media Pool/Comp 1_00000 6/Comp 1_00000 6 0053.png"/>
+                <Audio name="Comp 1" path="ATEM Media Pool/Comp 1.wav"/>
+            </Clip>
+        </Clips>
+    </MediaPool>
+    <CameraControl>
+        <Parameter device="1" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="1" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="1" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="1" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="1" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="1" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="1" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="1" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="1" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="1" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="1" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="1" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="2" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="2" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="2" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="2" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="2" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="2" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="2" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="2" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="2" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="2" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="2" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="2" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="3" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="3" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="3" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="3" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="3" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="3" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="3" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="3" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="3" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="3" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="3" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="3" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="4" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="4" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="4" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="4" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="4" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="4" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="4" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="4" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="4" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="4" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="4" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="4" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="5" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="5" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="5" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="5" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="5" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="5" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="5" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="5" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="5" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="5" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="5" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="5" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="6" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="6" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="6" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="6" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="6" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="6" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="6" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="6" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="6" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="6" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="6" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="6" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="7" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="7" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="7" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="7" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="7" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="7" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="7" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="7" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="7" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="7" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="7" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="7" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="8" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="8" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="8" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="8" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="8" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="8" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="8" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="8" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="8" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="8" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="8" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="8" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="9" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="9" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="9" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="9" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="9" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="9" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="9" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="9" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="9" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="9" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="9" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="9" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="10" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="10" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="10" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="10" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="10" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="10" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="10" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="10" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="10" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="10" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="10" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="10" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="11" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="11" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="11" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="11" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="11" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="11" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="11" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="11" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="11" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="11" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="11" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="11" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="12" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="12" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="12" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="12" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="12" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="12" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="12" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="12" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="12" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="12" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="12" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="12" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="13" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="13" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="13" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="13" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="13" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="13" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="13" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="13" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="13" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="13" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="13" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="13" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="14" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="14" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="14" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="14" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="14" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="14" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="14" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="14" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="14" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="14" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="14" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="14" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="15" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="15" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="15" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="15" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="15" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="15" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="15" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="15" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="15" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="15" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="15" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="15" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="16" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="16" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="16" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="16" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="16" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="16" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="16" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="16" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="16" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="16" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="16" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="16" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="17" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="17" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="17" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="17" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="17" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="17" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="17" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="17" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="17" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="17" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="17" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="17" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="18" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="18" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="18" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="18" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="18" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="18" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="18" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="18" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="18" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="18" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="18" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="18" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="19" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="19" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="19" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="19" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="19" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="19" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="19" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="19" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="19" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="19" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="19" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="19" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Parameter device="20" category="Lens" parameter="ApertureNormalised" value="0.5"/>
+        <Parameter device="20" category="Video" parameter="SensorGain" value="2"/>
+        <Parameter device="20" category="Video" parameter="ManualWhiteBalance" value="5600"/>
+        <Parameter device="20" category="Video" parameter="Exposure" value="20000"/>
+        <Parameter device="20" category="Video" parameter="DetailLevel" value="1"/>
+        <Parameter device="20" category="ColorCorrection" parameter="LiftAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="20" category="ColorCorrection" parameter="GammaAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="20" category="ColorCorrection" parameter="GainAdjust" red="1" green="1" blue="1" luma="1"/>
+        <Parameter device="20" category="ColorCorrection" parameter="OffsetAdjust" red="0" green="0" blue="0" luma="0"/>
+        <Parameter device="20" category="ColorCorrection" parameter="ContrastAdjust" pivot="0.5" adjust="1"/>
+        <Parameter device="20" category="ColorCorrection" parameter="LumaMix" value="1"/>
+        <Parameter device="20" category="ColorCorrection" parameter="ColorAdjust" hue="0" saturation="1"/>
+        <Property device="1" property="ApertureCoarse" value="1"/>
+        <Property device="1" property="Locked" value="False"/>
+        <Property device="2" property="ApertureCoarse" value="1"/>
+        <Property device="2" property="Locked" value="False"/>
+        <Property device="3" property="ApertureCoarse" value="1"/>
+        <Property device="3" property="Locked" value="False"/>
+        <Property device="4" property="ApertureCoarse" value="1"/>
+        <Property device="4" property="Locked" value="False"/>
+        <Property device="5" property="ApertureCoarse" value="1"/>
+        <Property device="5" property="Locked" value="False"/>
+        <Property device="6" property="ApertureCoarse" value="1"/>
+        <Property device="6" property="Locked" value="False"/>
+        <Property device="7" property="ApertureCoarse" value="1"/>
+        <Property device="7" property="Locked" value="False"/>
+        <Property device="8" property="ApertureCoarse" value="1"/>
+        <Property device="8" property="Locked" value="False"/>
+        <Property device="9" property="ApertureCoarse" value="1"/>
+        <Property device="9" property="Locked" value="False"/>
+        <Property device="10" property="ApertureCoarse" value="1"/>
+        <Property device="10" property="Locked" value="False"/>
+        <Property device="11" property="ApertureCoarse" value="1"/>
+        <Property device="11" property="Locked" value="False"/>
+        <Property device="12" property="ApertureCoarse" value="1"/>
+        <Property device="12" property="Locked" value="False"/>
+        <Property device="13" property="ApertureCoarse" value="1"/>
+        <Property device="13" property="Locked" value="False"/>
+        <Property device="14" property="ApertureCoarse" value="1"/>
+        <Property device="14" property="Locked" value="False"/>
+        <Property device="15" property="ApertureCoarse" value="1"/>
+        <Property device="15" property="Locked" value="False"/>
+        <Property device="16" property="ApertureCoarse" value="1"/>
+        <Property device="16" property="Locked" value="False"/>
+        <Property device="17" property="ApertureCoarse" value="1"/>
+        <Property device="17" property="Locked" value="False"/>
+        <Property device="18" property="ApertureCoarse" value="1"/>
+        <Property device="18" property="Locked" value="False"/>
+        <Property device="19" property="ApertureCoarse" value="1"/>
+        <Property device="19" property="Locked" value="False"/>
+        <Property device="20" property="ApertureCoarse" value="1"/>
+        <Property device="20" property="Locked" value="False"/>
+    </CameraControl>
+    <MacroPool>
+        <Macro index="0" name="Burn" description="">
+            <Op id="MediaPlayerSourceClipIndex" mediaPlayer="1" index="1"/>
+            <Op id="MediaPlayerSourceClip" mediaPlayer="1"/>
+            <Op id="MediaPlayerPlay" mediaPlayer="1"/>
+            <Op id="MacroSleep" frames="7"/>
+            <Op id="CutTransition" mixEffectBlockIndex="0"/>
+        </Macro>
+        <Macro index="1" name="Results" description="">
+            <Op id="MediaPlayerSourceClipIndex" mediaPlayer="1" index="0"/>
+            <Op id="MediaPlayerSourceClip" mediaPlayer="1"/>
+            <Op id="MediaPlayerPlay" mediaPlayer="1"/>
+            <Op id="MacroSleep" frames="15"/>
+            <Op id="CutTransition" mixEffectBlockIndex="0"/>
+        </Macro>
+    </MacroPool>
+    <MacroControl loop="False"/>
+</Profile>

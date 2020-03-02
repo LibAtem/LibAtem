@@ -7,7 +7,7 @@ namespace LibAtem.MacroOperations.MixEffects
     [MacroOperation(MacroOperationType.CutTransition, 8)]
     public class CutTransitionMacroOp : MixEffectMacroOpBase
     {
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectCutCommand()
             {

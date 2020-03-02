@@ -3,7 +3,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Commands.Macro
 {
-    [CommandName("MPrp")]
+    [CommandName("MPrp", CommandDirection.ToClient)]
     public class MacroPropertiesGetCommand : SerializableCommandBase
     {
         [CommandId]

@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("TrPs", 8)]
+    [CommandName("TrPs", CommandDirection.ToClient, 8)]
     public class TransitionPositionGetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -13,7 +13,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         public bool InTransition { get; set; }
         [Serialize(2), UInt8Range(0, 250)]
         public uint RemainingFrames { get; set; }
-        [Serialize(4), UInt16D(9999, 0, 9999)]
+        [Serialize(4), UInt16D(10000, 0, 9999)]
         public double HandlePosition { get; set; }
     }
 }

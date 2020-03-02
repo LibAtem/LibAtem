@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKCk", 16)]
+    [CommandName("CKCk", CommandDirection.ToServer, 16)]
     public class MixEffectKeyChromaSetCommand : SerializableCommandBase
     {
         [Flags]
@@ -39,10 +39,10 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(12), Bool]
         public bool Narrow { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Hue))
-                yield return new ChromaKeyHueMacroOp {Index = MixEffectIndex, KeyIndex = KeyerIndex, Hue = Hue};
+                yield return new ChromaKeyHueMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Hue = Hue };
             if (Mask.HasFlag(MaskFlags.Gain))
                 yield return new ChromaKeyGainMacroOp { Index = MixEffectIndex, KeyIndex = KeyerIndex, Gain = Gain };
             if (Mask.HasFlag(MaskFlags.YSuppress))

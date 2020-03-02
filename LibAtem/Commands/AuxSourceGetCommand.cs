@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
-    [CommandName("AuxS", 4)]
+    [CommandName("AuxS", CommandDirection.ToClient, 4)]
     public class AuxSourceGetCommand : SerializableCommandBase
     {
         [CommandId]

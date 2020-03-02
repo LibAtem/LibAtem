@@ -69,6 +69,8 @@ namespace LibAtem.Serialization
         {
             _maxlength = maxlength;
         }
+        
+        public uint MaxLength => _maxlength;
 
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
@@ -100,6 +102,50 @@ namespace LibAtem.Serialization
         public override bool IsValid(PropertyInfo prop, object obj)
         {
             string str = (string) obj;
+            return str.Length <= _maxlength;
+        }
+    }
+
+    public class BytesLengthAttribute : SerializableAttributeBase, IRandomGeneratorAttribute
+    {
+        private readonly uint _maxlength;
+
+        public BytesLengthAttribute(uint maxlength=128)
+        {
+            _maxlength = maxlength;
+        }
+
+        public uint MaxLength => _maxlength;
+
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
+        {
+            byte[] str = (byte[]) val;
+            byte[] bytes = BitConverter.GetBytes(str.Length);
+            data[start] = bytes[reverseBytes ? 1 : 0];
+            data[start + 1] = bytes[reverseBytes ? 0 : 1];
+        }
+
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
+        {
+            int len = BitConverter.ToUInt16(ReverseBytes(reverseBytes, data.Skip((int) start).Take(2)), 0);
+            return new byte[len];
+        }
+
+        public override bool AreEqual(object val1, object val2)
+        {
+            return Equals(val1, val2);
+        }
+
+        public object GetRandom(Random random)
+        {
+            int len = random.Next((int) _maxlength);
+            return Enumerable.Repeat(0, len)
+                .Select(s => (byte) random.Next(255)).ToArray();
+        }
+
+        public override bool IsValid(PropertyInfo prop, object obj)
+        {
+            byte[] str = (byte[]) obj;
             return str.Length <= _maxlength;
         }
     }

@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTTp", 4)]
+    [CommandName("CTTp", CommandDirection.ToServer, 4)]
     public class TransitionPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
         {
-            Style = 1 << 0,
-            Selection = 1 << 1,
+            NextStyle = 1 << 0,
+            NextSelection = 1 << 1,
         }
 
         [Serialize(0), Enum8]
@@ -23,24 +23,24 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(1), Enum8]
         public MixEffectBlockId Index { get; set; }
         [Serialize(2), Enum8]
-        public TStyle Style { get; set; }
+        public TransitionStyle NextStyle { get; set; }
         [Serialize(3), Enum8]
-        public TransitionLayer Selection { get; set; }
+        public TransitionLayer NextSelection { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
-            if (Mask.HasFlag(MaskFlags.Style))
+            if (Mask.HasFlag(MaskFlags.NextStyle))
                 yield return new TransitionStyleMacroOp()
                 {
                     Index = Index,
-                    Style = Style,
+                    Style = NextStyle,
                 };
 
-            if (Mask.HasFlag(MaskFlags.Selection))
+            if (Mask.HasFlag(MaskFlags.NextSelection))
                 yield return new TransitionSourceMacroOp()
                 {
                     Index = Index,
-                    Source = Selection,
+                    Source = NextSelection,
                 };
         }
     }

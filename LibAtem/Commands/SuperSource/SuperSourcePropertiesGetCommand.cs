@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.SuperSource
 {
-    [CommandName("SSrc", 32), NoCommandId]
+    [CommandName("SSrc", CommandDirection.ToClient, 32), NoCommandId]
     public class SuperSourcePropertiesGetCommand : SerializableCommandBase
     {
         [Serialize(0), Enum16]
@@ -26,13 +26,13 @@ namespace LibAtem.Commands.SuperSource
         [Serialize(12), Enum8]
         public BorderBevel BorderBevel { get; set; }
         [Serialize(14), UInt16D(100, 0, 1600)]
-        public double BorderWidthOut { get; set; }
+        public double BorderOuterWidth { get; set; }
         [Serialize(16), UInt16D(100, 0, 1600)]
-        public double BorderWidthIn { get; set; }
+        public double BorderInnerWidth { get; set; }
         [Serialize(18), UInt8Range(0, 100)]
-        public uint BorderSoftnessOut { get; set; }
+        public uint BorderOuterSoftness { get; set; }
         [Serialize(19), UInt8Range(0, 100)]
-        public uint BorderSoftnessIn { get; set; }
+        public uint BorderInnerSoftness { get; set; }
         [Serialize(20), UInt8Range(0, 100)]
         public uint BorderBevelSoftness { get; set; }
         [Serialize(21), UInt8Range(0, 100)]

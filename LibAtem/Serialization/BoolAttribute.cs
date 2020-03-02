@@ -30,7 +30,7 @@ namespace LibAtem.Serialization
 
         public object GetRandom(Random random)
         {
-            return random.Next(1) > 0;
+            return random.Next(2) > 0;
         }
 
         public override bool IsValid(PropertyInfo prop, object obj)

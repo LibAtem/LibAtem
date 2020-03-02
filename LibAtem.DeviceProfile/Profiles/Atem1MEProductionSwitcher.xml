@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DeviceProfile>
+  <Model>OneME</Model>
+  <Product>ATEM 1 M/E Production Switcher</Product>
+  <MixEffectBlocks>1</MixEffectBlocks>
+  <Sources>
+    <DevicePort id="1">
+      <Port>Composite</Port>
+      <Port>SVideo</Port>
+      <Port>Component</Port>
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="2">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="3">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="4">
+      <Port>HDMI</Port>
+    </DevicePort>
+    <DevicePort id="5">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="6">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="7">
+      <Port>SDI</Port>
+    </DevicePort>
+    <DevicePort id="8">
+      <Port>SDI</Port>
+    </DevicePort>
+  </Sources>
+  <ColorGenerators>2</ColorGenerators>
+  <Auxiliaries>3</Auxiliaries>
+  <DownstreamKeys>2</DownstreamKeys>
+  <UpstreamKeys>4</UpstreamKeys>
+  <RoutableKeyMasks>false</RoutableKeyMasks>
+  <Stingers>1</Stingers>
+  <HyperDecks>4</HyperDecks>
+  <DVE>1</DVE>
+  <SuperSource>0</SuperSource>
+  <MediaPlayers>2</MediaPlayers>
+  <MediaPoolStills>32</MediaPoolStills>
+  <MediaPoolClips>2</MediaPoolClips>
+  <MacroCount>100</MacroCount>
+  <MultiView>
+    <Count>1</Count>
+    <VuMeters>false</VuMeters>
+    <CanSwapPreviewProgram>false</CanSwapPreviewProgram>
+    <CanRouteInputs>true</CanRouteInputs>
+    <CanToggleSafeArea>false</CanToggleSafeArea>
+  </MultiView>
+  <SerialPort>1</SerialPort>
+  <AudioMonitor>true</AudioMonitor>
+  <VideoModes minimumSupported="SDISD" maximumSupported="SDIHD" downConvertAbove="SDIHD">
+    <MaxFrames sd="900" _720="360" _1080="180" _4k="0" />
+  </VideoModes>
+</DeviceProfile>

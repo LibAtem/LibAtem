@@ -12,12 +12,12 @@ namespace LibAtem.MacroOperations.DownStreamKey
         [MacroField("Input")]
         public VideoSource Input { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new DownstreamKeyFillSourceSetCommand()
             {
                 Index = KeyIndex,
-                Source = Input,
+                FillSource = Input,
             };
         }
     }

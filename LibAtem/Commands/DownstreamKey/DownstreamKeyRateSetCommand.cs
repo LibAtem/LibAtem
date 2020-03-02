@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsR", 4)]
+    [CommandName("CDsR", CommandDirection.ToServer, 4)]
     public class DownstreamKeyRateSetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -15,7 +15,7 @@ namespace LibAtem.Commands.DownstreamKey
         [Serialize(1), UInt8Range(0, 250)]
         public uint Rate { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new DownstreamKeyRateMacroOp
             {

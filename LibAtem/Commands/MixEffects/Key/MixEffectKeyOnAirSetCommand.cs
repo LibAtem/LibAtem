@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKOn", 4)]
+    [CommandName("CKOn", CommandDirection.ToServer, 4)]
     public class MixEffectKeyOnAirSetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -18,7 +18,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(2), Bool]
         public bool OnAir { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new KeyOnAirMacroOp()
             {

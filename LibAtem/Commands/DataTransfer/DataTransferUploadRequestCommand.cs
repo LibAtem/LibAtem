@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DataTransfer
 {
-    [CommandName("FTSD", 16)] // Client to Server
+    [CommandName("FTSD", CommandDirection.ToServer, 16)] // Client to Server
     public class DataTransferUploadRequestCommand : SerializableCommandBase
     {
         [Flags]
@@ -32,7 +32,7 @@ namespace LibAtem.Commands.DataTransfer
         [Serialize(12), Enum16]
         public TransferMode Mode { get; set; }
 
-        [Serialize(14), UInt16]
-        public uint Unknown { get; set; } = 0x6411;
+        // [Serialize(14), UInt16]
+        // public uint Unknown { get; set; } = 0x6411;
     }
 }

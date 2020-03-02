@@ -12,11 +12,41 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Invert")]
         public bool Invert { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtInvertKey,
+                return new SuperSourcePropertiesSetV8Command()
+                {
+                    Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtInvertKey,
+                    SSrcId = SuperSourceId.One,
+                    ArtInvertKey = Invert,
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtInvertKey,
+                    ArtInvertKey = Invert,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2ArtInvert, ProtocolVersion.V8_0, 8)]
+    public class SuperSourceV2ArtInvertMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(6), Bool]
+        [MacroField("Invert")]
+        public bool Invert { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourcePropertiesSetV8Command()
+            {
+                Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtInvertKey,
+                SSrcId = SSrcId,
                 ArtInvertKey = Invert,
             };
         }

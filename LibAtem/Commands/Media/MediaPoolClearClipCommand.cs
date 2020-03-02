@@ -2,7 +2,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("CMPC", 4)]
+    [CommandName("CMPC", CommandDirection.ToServer, 4)]
     public class MediaPoolClearClipCommand : SerializableCommandBase
     {
         [CommandId]

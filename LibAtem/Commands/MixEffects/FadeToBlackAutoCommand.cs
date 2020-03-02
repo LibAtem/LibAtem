@@ -6,14 +6,14 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects
 {
-    [CommandName("FtbA", 4)]
+    [CommandName("FtbA", CommandDirection.ToServer, 4)]
     public class FadeToBlackAutoCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum8]
         public MixEffectBlockId Index { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new FadeToBlackAutoMacroOp()
             {

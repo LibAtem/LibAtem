@@ -41,10 +41,13 @@ namespace LibAtem.Net
 
         public DataTransferManager DataTransfer { get; }
 
-        public AtemClient(string address, bool autoConnect=true)
+        public ProtocolVersion? ConnectionVersion => _connection.ConnectionVersion;
+
+        public AtemClient(string address, bool autoConnect = true)
         {
             _remoteEp = new IPEndPoint(IPAddress.Parse(address), 9910);
             _client = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
+            _client.Client.ReceiveBufferSize = 1500 * 50; // TODO tweak this value
 
             _connection = new AtemClientConnection(_remoteEp, new Random().Next(32767));
             _connection.OnDisconnect += sender => OnDisconnect?.Invoke(this);
@@ -87,7 +90,7 @@ namespace LibAtem.Net
 
             return true;
         }
-        
+
         private void StartTimeoutTimer()
         {
             _timeoutTimer = new Timer(o =>
@@ -131,11 +134,10 @@ namespace LibAtem.Net
                 while (_run || _connection.HasCommandsToProcess)
                 {
                     List<ICommand> cmds = _connection.GetNextCommands();
-                    
-                    Log.DebugFormat("Recieved {0} commands", cmds.Count);
+                    int rawCount = cmds.Count;
 
                     cmds = cmds.Where(c => !DataTransfer.HandleCommand(c)).ToList();
-                    Log.DebugFormat("{0} commands to be handle by user code", cmds.Count);
+                    Log.DebugFormat("Recieved {0} commands. {1} to be handle by user code", rawCount, cmds.Count);
 
                     if (cmds.Any())
                         OnReceive?.Invoke(this, cmds);
@@ -188,7 +190,7 @@ namespace LibAtem.Net
                         // TODO - should this only be allowed once?
                         if (_connection.SessionId != packet.SessionId)
                         {
-                            _connection.SessionId = (int) packet.SessionId;
+                            _connection.SessionId = (int)packet.SessionId;
                             Log.InfoFormat("Got new session id: {0}", packet.SessionId);
                         }
 
@@ -214,7 +216,7 @@ namespace LibAtem.Net
             // TODO
 
             DataTransfer?.Dispose();
-            
+
             _timeoutTimer?.Dispose();
         }
 

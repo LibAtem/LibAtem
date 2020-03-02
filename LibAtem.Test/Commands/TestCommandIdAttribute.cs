@@ -69,19 +69,21 @@ namespace LibAtem.Test.Commands
                 if (typeInfo.IsInterface || typeInfo.IsAbstract)
                     continue;
 
+                bool typeIsAutoSerializable = typeof(SerializableCommandBase).GetTypeInfo().IsAssignableFrom(type);
+
                 IEnumerable<PropertyInfo> props = CommandIdAttribute.GetProperties(type);
                 foreach (PropertyInfo prop in props)
                 {
                     // The props founds through Serialize attribute are used for CommandQueueKey
-                    if (prop.GetCustomAttribute<SerializeAttribute>() == null)
+                    if (typeIsAutoSerializable && prop.GetCustomAttribute<SerializeAttribute>() == null)
                     {
                         badTypes.Add(string.Format("{0}: {1} is missing serialize attribute", type.Name, prop.Name));
                         continue;
                     }
 
                     Type propType = prop.PropertyType;
-                    
-                    bool isValid = typeof(uint) == propType || propType.GetTypeInfo().IsEnum;
+
+                    bool isValid = typeof(uint) == propType || typeof(long) == propType || propType.GetTypeInfo().IsEnum;
                     if (!isValid)
                         badTypes.Add(string.Format("{0}: {1} has invalid type {2}", type.Name, prop.Name, propType.Name));
                 }

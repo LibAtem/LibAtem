@@ -12,7 +12,7 @@ namespace LibAtem.MacroOperations.MixEffects.Key
         [MacroField("Input")]
         public VideoSource Source { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectKeyFillSourceSetCommand()
             {

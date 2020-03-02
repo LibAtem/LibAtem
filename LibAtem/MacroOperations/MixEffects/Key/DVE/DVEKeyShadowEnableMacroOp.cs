@@ -12,14 +12,14 @@ namespace LibAtem.MacroOperations.MixEffects.Key.DVE
         [MacroField("Enable")]
         public bool Enable { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
             return new MixEffectKeyDVESetCommand()
             {
-                Mask = MixEffectKeyDVESetCommand.MaskFlags.ShadowEnabled,
+                Mask = MixEffectKeyDVESetCommand.MaskFlags.BorderShadowEnabled,
                 MixEffectIndex = Index,
                 KeyerIndex = KeyIndex,
-                ShadowEnabled = Enable,
+                BorderShadowEnabled = Enable,
             };
         }
     }

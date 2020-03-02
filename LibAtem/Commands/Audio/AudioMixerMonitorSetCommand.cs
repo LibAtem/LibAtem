@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("CAMm", 12), NoCommandId]
+    [CommandName("CAMm", CommandDirection.ToServer, 12), NoCommandId]
     public class AudioMixerMonitorSetCommand : SerializableCommandBase
     {
         [Flags]
@@ -36,20 +36,20 @@ namespace LibAtem.Commands.Audio
         [Serialize(8), Bool]
         public bool Dim { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Enabled))
-                yield return new AudioMixerMonitorOutMacroOp {Enable = Enabled};
+                yield return new AudioMixerMonitorOutMacroOp { Enable = Enabled };
             if (Mask.HasFlag(MaskFlags.Gain))
-                yield return new AudioMixerMonitorOutGainMacroOp {Gain = Gain};
+                yield return new AudioMixerMonitorOutGainMacroOp { Gain = Gain };
             if (Mask.HasFlag(MaskFlags.Mute))
-                yield return new AudioMixerMonitorOutMuteMacroOp {Mute = Mute};
+                yield return new AudioMixerMonitorOutMuteMacroOp { Mute = Mute };
             if (Mask.HasFlag(MaskFlags.Solo))
-                yield return new AudioMixerMonitorOutSoloMacroOp {Solo = Solo};
+                yield return new AudioMixerMonitorOutSoloMacroOp { Solo = Solo };
             if (Mask.HasFlag(MaskFlags.SoloSource))
-                yield return new AudioMixerMonitorOutSoloInputMacroOp {Input = SoloSource};
+                yield return new AudioMixerMonitorOutSoloInputMacroOp { Input = SoloSource };
             if (Mask.HasFlag(MaskFlags.Dim))
-                yield return new AudioMixerMonitorOutDimMacroOp {Dim = Dim};
+                yield return new AudioMixerMonitorOutDimMacroOp { Dim = Dim };
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("CKeF", 4)]
+    [CommandName("CKeF", CommandDirection.ToServer, 4)]
     public class MixEffectKeyFillSourceSetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -18,7 +18,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(2), Enum16]
         public VideoSource FillSource { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new KeyFillInputMacroOp()
             {

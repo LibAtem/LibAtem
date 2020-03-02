@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("CDsL", 4)]
+    [CommandName("CDsL", CommandDirection.ToServer, 4)]
     public class DownstreamKeyOnAirSetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -15,7 +15,7 @@ namespace LibAtem.Commands.DownstreamKey
         [Serialize(1), Bool]
         public bool OnAir { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new DownstreamKeyOnAirMacroOp()
             {

@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("AMmO", 12), NoCommandId]
+    [CommandName("AMmO", CommandDirection.ToClient, 12), NoCommandId]
     public class AudioMixerMonitorGetCommand : SerializableCommandBase
     {
         [Serialize(0), Bool]

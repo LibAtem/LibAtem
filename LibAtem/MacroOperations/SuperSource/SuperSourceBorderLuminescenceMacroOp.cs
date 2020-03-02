@@ -12,12 +12,42 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Luma")]
         public double Luma { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderLuma,
-                BorderLuma = Luma,
+                return new SuperSourceBorderSetCommand()
+                {
+                    Mask = SuperSourceBorderSetCommand.MaskFlags.Luma,
+                    SSrcId = SuperSourceId.One,
+                    Luma = Luma,
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.BorderLuma,
+                    BorderLuma = Luma,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2BorderLuminescence, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2BorderLuminescenceMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(8), UInt32DScale]
+        [MacroField("Luma")]
+        public double Luma { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourceBorderSetCommand()
+            {
+                Mask = SuperSourceBorderSetCommand.MaskFlags.Luma,
+                SSrcId = SSrcId,
+                Luma = Luma,
             };
         }
     }

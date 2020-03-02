@@ -113,6 +113,106 @@ namespace LibAtem.Common
         [VideoSourceDefaults("Camera 20", "Cm20")]
         [XmlEnum("20")]
         Input20 = 20,
+        [VideoSourceType(InternalPortType.External, 21)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 21", "Cm21")]
+        [XmlEnum("21")]
+        Input21 = 21,
+        [VideoSourceType(InternalPortType.External, 22)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 22", "Cm22")]
+        [XmlEnum("22")]
+        Input22 = 22,
+        [VideoSourceType(InternalPortType.External, 23)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 23", "Cm23")]
+        [XmlEnum("23")]
+        Input23 = 23,
+        [VideoSourceType(InternalPortType.External, 24)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 24", "Cm24")]
+        [XmlEnum("24")]
+        Input24 = 24,
+        [VideoSourceType(InternalPortType.External, 25)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 25", "Cm25")]
+        [XmlEnum("25")]
+        Input25 = 25,
+        [VideoSourceType(InternalPortType.External, 26)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 26", "Cm26")]
+        [XmlEnum("26")]
+        Input26 = 26,
+        [VideoSourceType(InternalPortType.External, 27)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 27", "Cm27")]
+        [XmlEnum("27")]
+        Input27 = 27,
+        [VideoSourceType(InternalPortType.External, 28)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 28", "Cm28")]
+        [XmlEnum("28")]
+        Input28 = 28,
+        [VideoSourceType(InternalPortType.External, 29)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 29", "Cm29")]
+        [XmlEnum("29")]
+        Input29 = 29,
+        [VideoSourceType(InternalPortType.External, 30)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 30", "Cm30")]
+        [XmlEnum("30")]
+        Input30 = 30,
+        [VideoSourceType(InternalPortType.External, 31)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 31", "Cm31")]
+        [XmlEnum("31")]
+        Input31 = 31,
+        [VideoSourceType(InternalPortType.External, 32)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 32", "Cm32")]
+        [XmlEnum("32")]
+        Input32 = 32,
+        [VideoSourceType(InternalPortType.External, 33)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 33", "Cm33")]
+        [XmlEnum("33")]
+        Input33 = 33,
+        [VideoSourceType(InternalPortType.External, 34)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 34", "Cm34")]
+        [XmlEnum("34")]
+        Input34 = 34,
+        [VideoSourceType(InternalPortType.External, 35)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 35", "Cm35")]
+        [XmlEnum("35")]
+        Input35 = 35,
+        [VideoSourceType(InternalPortType.External, 36)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 36", "Cm36")]
+        [XmlEnum("36")]
+        Input36 = 36,
+        [VideoSourceType(InternalPortType.External, 37)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 37", "Cm37")]
+        [XmlEnum("37")]
+        Input37 = 37,
+        [VideoSourceType(InternalPortType.External, 38)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 38", "Cm38")]
+        [XmlEnum("38")]
+        Input38 = 38,
+        [VideoSourceType(InternalPortType.External, 39)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 39", "Cm39")]
+        [XmlEnum("39")]
+        Input39 = 39,
+        [VideoSourceType(InternalPortType.External, 40)]
+        [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
+        [VideoSourceDefaults("Camera 40", "Cm40")]
+        [XmlEnum("40")]
+        Input40 = 40,
 
         [VideoSourceType(InternalPortType.ColorBars, 0)]
         [VideoSourceAvailability(SourceAvailability.All, MeAvailability.All)]
@@ -204,6 +304,11 @@ namespace LibAtem.Common
         [VideoSourceDefaults("SuperSource", "SSrc")]
         [XmlEnum("6000")]
         SuperSource = 6000,
+        [VideoSourceType(InternalPortType.SuperSource, 1)]
+        [VideoSourceAvailability(SourceAvailability.All & ~SourceAvailability.SuperSourceArt, MeAvailability.All)]
+        [VideoSourceDefaults("SuperSource 2", "SS2")]
+        [XmlEnum("6001")]
+        SuperSource2 = 6001,
 
         [VideoSourceType(InternalPortType.MEOutput, 0)]
         [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
@@ -215,6 +320,16 @@ namespace LibAtem.Common
         [VideoSourceDefaults("Clean Feed 2", "Cfd2")]
         [XmlEnum("7002")]
         CleanFeed2 = 7002,
+        [VideoSourceType(InternalPortType.MEOutput, 0)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Clean Feed 3", "Cfd3")]
+        [XmlEnum("7003")]
+        CleanFeed3 = 7003,
+        [VideoSourceType(InternalPortType.MEOutput, 0)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Clean Feed 4", "Cfd4")]
+        [XmlEnum("7004")]
+        CleanFeed4 = 7004,
 
         [VideoSourceType(InternalPortType.Auxiliary, 1)]
         [VideoSourceAvailability(SourceAvailability.Multiviewer)]
@@ -246,6 +361,99 @@ namespace LibAtem.Common
         [VideoSourceDefaults("Auxiliary 6", "Aux6")]
         [XmlEnum("8006")]
         Auxilary6 = 8006,
+        // TODO - more
+
+        [VideoSourceType(InternalPortType.Auxiliary, 7)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 7", "Aux7")]
+        [XmlEnum("8007")]
+        Auxilary7 = 8007,
+        [VideoSourceType(InternalPortType.Auxiliary, 8)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 8", "Aux8")]
+        [XmlEnum("8008")]
+        Auxilary8 = 8008,
+        [VideoSourceType(InternalPortType.Auxiliary, 9)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 9", "Aux9")]
+        [XmlEnum("8009")]
+        Auxilary9 = 8009,
+        [VideoSourceType(InternalPortType.Auxiliary, 10)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 10", "Ax10")]
+        [XmlEnum("8010")]
+        Auxilary10 = 8010,
+
+        [VideoSourceType(InternalPortType.Auxiliary, 11)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 11", "Ax11")]
+        [XmlEnum("8011")]
+        Auxilary11 = 8011,
+        [VideoSourceType(InternalPortType.Auxiliary, 12)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 12", "Ax12")]
+        [XmlEnum("8012")]
+        Auxilary12 = 8012,
+        [VideoSourceType(InternalPortType.Auxiliary, 13)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 13", "Ax13")]
+        [XmlEnum("8013")]
+        Auxilary13 = 8013,
+        [VideoSourceType(InternalPortType.Auxiliary, 14)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 14", "Ax14")]
+        [XmlEnum("8014")]
+        Auxilary14 = 8014,
+        [VideoSourceType(InternalPortType.Auxiliary, 15)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 15", "Ax15")]
+        [XmlEnum("8015")]
+        Auxilary15 = 8015,
+        [VideoSourceType(InternalPortType.Auxiliary, 16)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 16", "Ax16")]
+        [XmlEnum("8016")]
+        Auxilary16 = 8016,
+        [VideoSourceType(InternalPortType.Auxiliary, 17)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 17", "Ax17")]
+        [XmlEnum("8017")]
+        Auxilary17 = 8017,
+        [VideoSourceType(InternalPortType.Auxiliary, 18)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 18", "Ax18")]
+        [XmlEnum("8018")]
+        Auxilary18 = 8018,
+        [VideoSourceType(InternalPortType.Auxiliary, 19)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 19", "Ax19")]
+        [XmlEnum("8019")]
+        Auxilary19 = 8019,
+        [VideoSourceType(InternalPortType.Auxiliary, 20)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 20", "Ax20")]
+        [XmlEnum("8020")]
+        Auxilary20 = 8020,
+        [VideoSourceType(InternalPortType.Auxiliary, 21)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 21", "Ax21")]
+        [XmlEnum("8021")]
+        Auxilary21 = 8021,
+        [VideoSourceType(InternalPortType.Auxiliary, 22)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 22", "Ax22")]
+        [XmlEnum("8022")]
+        Auxilary22 = 8022,
+        [VideoSourceType(InternalPortType.Auxiliary, 23)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 23", "Ax23")]
+        [XmlEnum("8023")]
+        Auxilary23 = 8023,
+        [VideoSourceType(InternalPortType.Auxiliary, 24)]
+        [VideoSourceAvailability(SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("Auxiliary 24", "Ax24")]
+        [XmlEnum("8024")]
+        Auxilary24 = 8024,
 
         [VideoSourceType(InternalPortType.MEOutput, 1)]
         [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
@@ -263,6 +471,28 @@ namespace LibAtem.Common
         [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1)]
         [XmlEnum("10021")]
         ME2Prev = 10021,
+        [VideoSourceType(InternalPortType.MEOutput, 3)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1 | MeAvailability.Me2)]
+        [XmlEnum("10030")]
+        ME3Prog = 10030,
+        [VideoSourceType(InternalPortType.MEOutput, 3)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1 | MeAvailability.Me2)]
+        [XmlEnum("10031")]
+        ME3Prev = 10031,
+        [VideoSourceType(InternalPortType.MEOutput, 4)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1 | MeAvailability.Me2 | MeAvailability.Me3)]
+        [XmlEnum("10040")]
+        ME4Prog = 10040,
+        [VideoSourceType(InternalPortType.MEOutput, 4)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer | SourceAvailability.SuperSourceBox, MeAvailability.Me1 | MeAvailability.Me2 | MeAvailability.Me3)]
+        [XmlEnum("10041")]
+        ME4Prev = 10041,
+        
+        [VideoSourceType(InternalPortType.External, 1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary, MeAvailability.None)]
+        [VideoSourceDefaults("Camera 1 Direct", "DIR")]
+        [XmlEnum("11001")]
+        Input1Direct = 11001,
     }
 
     public static class VideoSourceLists
@@ -328,7 +558,7 @@ namespace LibAtem.Common
         public int Me1Index { get; }
         public int Me2Index { get; }
 
-        public VideoSourceTypeAttribute(InternalPortType portType, int me1Index, int me2Index=-1)
+        public VideoSourceTypeAttribute(InternalPortType portType, int me1Index, int me2Index = -1)
         {
             PortType = portType;
             Me1Index = me1Index;

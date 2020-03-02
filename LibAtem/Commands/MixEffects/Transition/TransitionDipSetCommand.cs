@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTDp", 8)]
+    [CommandName("CTDp", CommandDirection.ToServer, 8)]
     public class TransitionDipSetCommand : SerializableCommandBase
     {
         [Flags]
@@ -27,13 +27,13 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(4), Enum16]
         public VideoSource Input { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Rate))
-                yield return new TransitionDipRateMacroOp() {Index = Index, Rate = Rate};
+                yield return new TransitionDipRateMacroOp() { Index = Index, Rate = Rate };
 
             if (Mask.HasFlag(MaskFlags.Input))
-                yield return new TransitionDipInputMacroOp{Index = Index,Input = Input};
+                yield return new TransitionDipInputMacroOp { Index = Index, Input = Input };
         }
     }
 }

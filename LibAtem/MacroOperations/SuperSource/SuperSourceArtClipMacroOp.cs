@@ -12,11 +12,41 @@ namespace LibAtem.MacroOperations.SuperSource
         [MacroField("Clip")]
         public double Clip { get; set; }
 
-        public override ICommand ToCommand()
+        public override ICommand ToCommand(ProtocolVersion version)
         {
-            return new SuperSourcePropertiesSetCommand()
+            if (version >= ProtocolVersion.V8_0)
             {
-                Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtClip,
+                return new SuperSourcePropertiesSetV8Command()
+                {
+                    Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtClip,
+                    SSrcId = SuperSourceId.One,
+                    ArtClip = Clip
+                };
+            }
+            else
+            {
+                return new SuperSourcePropertiesSetCommand()
+                {
+                    Mask = SuperSourcePropertiesSetCommand.MaskFlags.ArtClip,
+                    ArtClip = Clip,
+                };
+            }
+        }
+    }
+
+    [MacroOperation(MacroOperationType.SuperSourceV2ArtClip, ProtocolVersion.V8_0, 12)]
+    public class SuperSourceV2ArtClipMacroOp : SuperSourceMacroOpBase
+    {
+        [Serialize(8), UInt16D(65536, 0, 65536)]
+        [MacroField("Clip")]
+        public double Clip { get; set; }
+
+        public override ICommand ToCommand(ProtocolVersion version)
+        {
+            return new SuperSourcePropertiesSetV8Command()
+            {
+                Mask = SuperSourcePropertiesSetV8Command.MaskFlags.ArtClip,
+                SSrcId = SSrcId,
                 ArtClip = Clip,
             };
         }

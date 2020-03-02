@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Audio
 {
-    [CommandName("RAMP", 8), NoCommandId]
+    [CommandName("RAMP", CommandDirection.ToServer, 8), NoCommandId]
     public class AudioMixerResetPeaksCommand : SerializableCommandBase
     {
         [Flags]
@@ -34,7 +34,7 @@ namespace LibAtem.Commands.Audio
         [Serialize(5), Bool]
         public bool Monitor => Mask.HasFlag(MaskFlags.Monitor);
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             if (Mask.HasFlag(MaskFlags.Input))
                 yield return new AudioMixerInputResetPeaksMacroOp { Input = Input };

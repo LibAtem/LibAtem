@@ -6,7 +6,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Transition
 {
-    [CommandName("CTPr", 4)]
+    [CommandName("CTPr", CommandDirection.ToServer, 4)]
     public class TransitionPreviewSetCommand : SerializableCommandBase
     {
         [CommandId]
@@ -15,7 +15,7 @@ namespace LibAtem.Commands.MixEffects.Transition
         [Serialize(1), Bool]
         public bool PreviewTransition { get; set; }
 
-        public override IEnumerable<MacroOpBase> ToMacroOps()
+        public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
             yield return new TransitionPreviewMacroOp
             {
