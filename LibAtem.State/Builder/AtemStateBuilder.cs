@@ -73,6 +73,10 @@ namespace LibAtem.State.Builder
                     SuperSource = topCmd.SuperSource,
                 });
             }
+            else if (command is TopologyV811Command topCmd811)
+            {
+                HandleTopologyCommand(state, result, topCmd811);
+            }
             else if (command is TopologyV8Command topCmd8)
             {
                 HandleTopologyCommand(state, result, topCmd8);

@@ -51,7 +51,7 @@ namespace LibAtem.State
             public double InputTalkbackGain { get; set; }
             public double InputSidetoneGain { get; set; }
         }
-
+        
         [Serializable]
         public class InputState
         {
@@ -60,9 +60,6 @@ namespace LibAtem.State
 
             public ExternalPortType ExternalPortType { get; set; }
             public FairlightInputConfiguration ActiveConfiguration { get; set; }
-
-            public bool SupportsRcaToXlr { get; set; }
-            public bool RcaToXlrEnabled { get; set; }
 
             public AnalogState Analog { get; set; }
 

@@ -2,6 +2,7 @@ using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.Audio.Fairlight;
 using LibAtem.Commands.DeviceProfile;
+using LibAtem.Common;
 
 namespace LibAtem.State.Builder
 {
@@ -59,12 +60,37 @@ namespace LibAtem.State.Builder
                     if (!state.Fairlight.Inputs.TryGetValue((long)inpCmd.Index, out var inputState))
                         inputState = state.Fairlight.Inputs[(long)inpCmd.Index] = new FairlightAudioState.InputState();
 
-                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] { "Index" },
+                    if (inpCmd.SupportsRcaToXlr)
+                    {
+                        inputState.Analog = new FairlightAudioState.AnalogState
+                        {
+                            SupportedInputLevel =
+                                FairlightAnalogInputLevel.ConsumerLine | FairlightAnalogInputLevel.ProLine,
+                            InputLevel = inpCmd.RcaToXlrEnabled
+                                ? FairlightAnalogInputLevel.ConsumerLine
+                                : FairlightAnalogInputLevel.ProLine
+                        };
+                    }
+
+                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] { "Index", "SupportsRcaToXlr", "RcaToXlrEnabled" },
                         new[] { "Sources", "Analog", "Xlr" });
                     result.SetSuccess(new[]
                     {
                         $"Fairlight.Inputs.{inpCmd.Index:D}.ExternalPortType",
                         $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration"
+                    });
+                }
+                else if (command is FairlightMixerInputGetV811Command inp811Cmd)
+                {
+                    if (!state.Fairlight.Inputs.TryGetValue((long)inp811Cmd.Index, out var inputState))
+                        inputState = state.Fairlight.Inputs[(long)inp811Cmd.Index] = new FairlightAudioState.InputState();
+
+                    UpdaterUtil.CopyAllProperties(inp811Cmd, inputState, new[] { "Index" },
+                        new[] { "Sources", "Analog", "Xlr" });
+                    result.SetSuccess(new[]
+                    {
+                        $"Fairlight.Inputs.{inp811Cmd.Index:D}.ExternalPortType",
+                        $"Fairlight.Inputs.{inp811Cmd.Index:D}.ActiveConfiguration"
                     });
                 }
                 else if (command is FairlightMixerSourceGetCommand srcCmd)
