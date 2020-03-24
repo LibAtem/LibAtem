@@ -27,6 +27,16 @@ namespace LibAtem
         public string Name { get; }
     }
 
+    public class SinceAttribute : System.Attribute
+    {
+        public SinceAttribute(ProtocolVersion version)
+        {
+            Version = version;
+        }
+
+        public ProtocolVersion Version { get; }
+    }
+
     public static class ProtocolVersionExt
     {
         public static string ToVersionString(this ProtocolVersion version)
