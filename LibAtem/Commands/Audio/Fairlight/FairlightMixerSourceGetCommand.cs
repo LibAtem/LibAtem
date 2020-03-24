@@ -30,6 +30,8 @@ namespace LibAtem.Commands.Audio.Fairlight
         [Serialize(26), Int16D(100, 0, 10000)]
         public double StereoSimulation { get; set; }
 
+        [Serialize(28), UInt8]
+        public uint EqualizerBands { get; set; }
         [Serialize(29), Bool]
         public bool EqualizerEnabled { get; set; }
         [Serialize(32), Int32D(100, -2000, 2000)]

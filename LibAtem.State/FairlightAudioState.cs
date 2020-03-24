@@ -156,7 +156,9 @@ namespace LibAtem.State
         {
             public bool BandEnabled { get; set; }
 
+            public FairlightEqualizerBandShape SupportedShapes { get; set; }
             public FairlightEqualizerBandShape Shape { get; set; }
+            public FairlightEqualizerFrequencyRange SupportedFrequencyRanges { get; set; }
             public FairlightEqualizerFrequencyRange FrequencyRange { get; set; }
 
             public uint Frequency { get; set; }
