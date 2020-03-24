@@ -77,7 +77,8 @@ namespace LibAtem.State.Builder
                     result.SetSuccess(new[]
                     {
                         $"Fairlight.Inputs.{inpCmd.Index:D}.ExternalPortType",
-                        $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration"
+                        $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration",
+                        $"Fairlight.Inputs.{inpCmd.Index:D}.Analog"
                     });
                 }
                 else if (command is FairlightMixerInputGetV811Command inp811Cmd)
@@ -85,12 +86,23 @@ namespace LibAtem.State.Builder
                     if (!state.Fairlight.Inputs.TryGetValue((long)inp811Cmd.Index, out var inputState))
                         inputState = state.Fairlight.Inputs[(long)inp811Cmd.Index] = new FairlightAudioState.InputState();
 
-                    UpdaterUtil.CopyAllProperties(inp811Cmd, inputState, new[] { "Index" },
+                    UpdaterUtil.CopyAllProperties(inp811Cmd, inputState, new[] { "Index", "SupportedInputLevels", "ActiveInputLevel" },
                         new[] { "Sources", "Analog", "Xlr" });
+
+                    if (inp811Cmd.SupportedInputLevels != 0)
+                    {
+                        inputState.Analog = new FairlightAudioState.AnalogState
+                        {
+                            SupportedInputLevel = inp811Cmd.SupportedInputLevels,
+                            InputLevel = inp811Cmd.ActiveInputLevel
+                        };
+                    }
+
                     result.SetSuccess(new[]
                     {
                         $"Fairlight.Inputs.{inp811Cmd.Index:D}.ExternalPortType",
-                        $"Fairlight.Inputs.{inp811Cmd.Index:D}.ActiveConfiguration"
+                        $"Fairlight.Inputs.{inp811Cmd.Index:D}.ActiveConfiguration",
+                        $"Fairlight.Inputs.{inp811Cmd.Index:D}.Analog"
                     });
                 }
                 else if (command is FairlightMixerSourceGetCommand srcCmd)
