@@ -15,6 +15,17 @@ namespace LibAtem.State
         public Dictionary<long, InputState> Inputs { get; set; } = new Dictionary<long, InputState>();
         public IReadOnlyList<MonitorOutputState> Monitors { get; set; } = new List<MonitorOutputState>();
 
+        public Dictionary<AudioSource, bool> Tally { get; set; }
+
+        [Serializable]
+        public class LevelsState
+        {
+            [DecibelTolerance(5)]
+            public double[] Levels { get; set; } = new double[0];
+            [DecibelTolerance(5)]
+            public double[] Peaks { get; set; } = new double[0];
+        }
+
         [Serializable]
         public class ProgramOutState
         {
@@ -24,14 +35,7 @@ namespace LibAtem.State
             public double Balance { get; set; }
             public bool FollowFadeToBlack { get; set; }
 
-            [DecibelTolerance(5)]
-            public double LevelLeft { get; set; } = double.NegativeInfinity;
-            [DecibelTolerance(5)]
-            public double LevelRight { get; set; } = double.NegativeInfinity;
-            [DecibelTolerance(5)]
-            public double PeakLeft { get; set; } = double.NegativeInfinity;
-            [DecibelTolerance(5)]
-            public double PeakRight { get; set; } = double.NegativeInfinity;
+            public LevelsState Levels { get; set; }
         }
 
         [Serializable]
@@ -62,7 +66,7 @@ namespace LibAtem.State
             public bool IsMixedIn { get; set; }
 
             public PropertiesState Properties { get; } = new PropertiesState();
-            public LevelsState Levels { get; } = new LevelsState();
+            public LevelsState Levels { get; set; }
 
             [Serializable]
             public class PropertiesState
@@ -74,19 +78,6 @@ namespace LibAtem.State
                 public double Gain { get; set; }
                 [Tolerance(0.01)]
                 public double Balance { get; set; }
-            }
-
-            [Serializable]
-            public class LevelsState
-            {
-                [DecibelTolerance(5)]
-                public double LevelLeft { get; set; } = double.NegativeInfinity;
-                [DecibelTolerance(5)]
-                public double LevelRight { get; set; } = double.NegativeInfinity;
-                [DecibelTolerance(5)]
-                public double PeakLeft { get; set; } = double.NegativeInfinity;
-                [DecibelTolerance(5)]
-                public double PeakRight { get; set; } = double.NegativeInfinity;
             }
         }
     }

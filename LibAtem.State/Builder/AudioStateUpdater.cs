@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Commands;
 using LibAtem.Commands.Audio;
 using LibAtem.Commands.DeviceProfile;
@@ -23,7 +24,7 @@ namespace LibAtem.State.Builder
                 if (command is AudioMixerMasterGetCommand masterCmd)
                 {
                     UpdaterUtil.CopyAllProperties(masterCmd, state.Audio.ProgramOut, null,
-                        new[] {"LevelLeft", "LevelRight", "PeakLeft", "PeakRight"});
+                        new[] {"Levels"});
                     result.SetSuccess("Audio.ProgramOut");
                 }
                 else if (command is AudioMixerMonitorGetCommand monCmd)
@@ -58,6 +59,35 @@ namespace LibAtem.State.Builder
                         UpdaterUtil.CopyAllProperties(inputCmd, input.Properties, new[] { "Index", "IndexOfSourceType" });
                         result.SetSuccess($"Audio.Inputs.{inputCmd.Index:D}.Properties");
                     });
+                }
+                else if (command is AudioMixerLevelsCommand levelsCmd)
+                {
+                    var paths = new List<string>(new[] {"Audio.ProgramOut.Levels"});
+                    state.Audio.ProgramOut.Levels = new AudioState.LevelsState
+                    {
+                        Levels = new[] {levelsCmd.MasterLeftLevel, levelsCmd.MasterRightLevel},
+                        Peaks = new[] {levelsCmd.MasterLeftPeak, levelsCmd.MasterRightPeak},
+                    };
+
+                    foreach (AudioMixerLevelInput inputLevels in levelsCmd.Inputs)
+                    {
+                        UpdaterUtil.TryForKey(result, state.Audio.Inputs, (long)inputLevels.Source, input =>
+                        {
+                            paths.Add($"Audio.Inputs.{inputLevels.Source:D}.Levels");
+                            input.Levels = new AudioState.LevelsState
+                            {
+                                Levels = new[] { inputLevels.LeftLevel, inputLevels.RightLevel },
+                                Peaks = new[] { inputLevels.LeftPeak, inputLevels.RightPeak },
+                            };
+                        });
+                    }
+
+                    result.SetSuccess(paths);
+                }
+                else if (command is AudioMixerTallyCommand tallyCmd)
+                {
+                    state.Audio.Tally = tallyCmd.Inputs;
+                    result.SetSuccess($"Audio.Tally");
                 }
             }
         }
