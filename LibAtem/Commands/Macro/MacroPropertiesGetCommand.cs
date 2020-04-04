@@ -11,12 +11,12 @@ namespace LibAtem.Commands.Macro
         public uint Index { get; set; }
         [Serialize(2), Bool]
         public bool IsUsed { get; set; }
+        [Serialize(3), Bool]
+        public bool HasUnsupportedOps { get; set; }
         [Serialize(4), StringLength]
         public string Name { get; set; }
         [Serialize(6), StringLength]
         public string Description { get; set; }
-
-        // TODO HasUnsupportedOps?
 
         public override void Serialize(ByteArrayBuilder cmd)
         {

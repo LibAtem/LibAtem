@@ -120,7 +120,7 @@ namespace LibAtem
 
         public void SetString(int pos, string str)
         {
-            SetString(pos, str.Length, str);
+            SetString(pos, str?.Length ?? 0, str);
         }
 
         public void SetString(int pos, int length, string str)

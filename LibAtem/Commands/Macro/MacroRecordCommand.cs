@@ -19,7 +19,7 @@ namespace LibAtem.Commands.Macro
             base.Serialize(cmd);
 
             cmd.SetString(6, Name);
-            cmd.SetString(6 + Name.Length, Description);
+            cmd.SetString(6 + Name?.Length ?? 0, Description);
         }
 
         public override void Deserialize(ParsedByteArray cmd)
