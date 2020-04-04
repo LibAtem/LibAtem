@@ -5,7 +5,6 @@ namespace LibAtem.Commands
     [CommandName("SRsv", CommandDirection.ToServer, 4), NoCommandId]
     public class StartupStateSaveCommand : SerializableCommandBase
     {
-        [Serialize(0), ByteArray(4)]
-        public byte[] Data => new byte[] {0x00, 0xce, 0x4f, 0x01};
+        // 0 is the 'mode' parameter, which is always 0 for now
     }
 }

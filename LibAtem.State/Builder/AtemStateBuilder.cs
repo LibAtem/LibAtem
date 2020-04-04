@@ -81,6 +81,12 @@ namespace LibAtem.State.Builder
             {
                 HandleTopologyCommand(state, result, topCmd8);
             }
+            else if (command is PowerStatusCommand powCmd)
+            {
+                // TODO - when do we have only one psu?
+                state.Power = new[] {powCmd.Pin1, powCmd.Pin2};
+                result.SetSuccess("Power");
+            }
         }
 
         private static void HandleTopologyCommand(AtemState state, UpdateResultImpl result, TopologyV8Command cmd)
