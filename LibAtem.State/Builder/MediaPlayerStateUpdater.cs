@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using LibAtem.Commands;
 using LibAtem.Commands.Media;
 
@@ -23,14 +24,17 @@ namespace LibAtem.State.Builder
                     {
                         if (mp.ClipStatus == null) mp.ClipStatus = new MediaPlayerState.ClipStatusState();
 
+                        var skipProps = new List<string> { "Index" };
+                        var ignoreDestProps = new List<string> { "Index" };
                         if (updateSettings != null && !updateSettings.TrackMediaClipFrames)
                         {
-                            // TODO - this is bad
-                            statusCmd.AtBeginning = mp.ClipStatus.AtBeginning;
-                            statusCmd.ClipFrame = mp.ClipStatus.ClipFrame;
+                            skipProps.Add("AtBeginning");
+                            skipProps.Add("ClipFrame");
+                            ignoreDestProps.Add("AtBeginning");
+                            ignoreDestProps.Add("ClipFrame");
                         }
 
-                        UpdaterUtil.CopyAllProperties(statusCmd, mp.ClipStatus, new[] {"Index"});
+                        UpdaterUtil.CopyAllProperties(statusCmd, mp.ClipStatus, skipProps.ToArray(), ignoreDestProps.ToArray());
                         result.SetSuccess($"MediaPlayers.{statusCmd.Index:D}.ClipStatus");
                     });
                 }

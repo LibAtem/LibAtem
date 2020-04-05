@@ -26,9 +26,9 @@ namespace LibAtem.Commands.Media
         [Serialize(2), Enum8]
         public MediaPlayerSource SourceType { get; set; }
         [Serialize(3), UInt8]
-        public uint ClipIndex { get; set; }
-        [Serialize(4), UInt8]
         public uint StillIndex { get; set; }
+        [Serialize(4), UInt8]
+        public uint ClipIndex { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {
