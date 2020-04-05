@@ -15,11 +15,12 @@ namespace LibAtem.State.Builder
             {
                 state.Audio = new AudioState
                 {
-                    Monitors = UpdaterUtil.CreateList(confCmd.Monitors, i => new AudioState.MonitorOutputState())
+                    MonitorOutputs = UpdaterUtil.CreateList(confCmd.Monitors, i => new AudioState.MonitorOutputState()),
+                    HeadphoneOutputs = UpdaterUtil.CreateList(confCmd.Headphones, i => new AudioState.HeadphoneOutputState())
                 };
                 // TODO - inputs?
                 // TODO - more props?
-                result.SetSuccess("Audio.Monitors");
+                result.SetSuccess("Audio.MonitorOutputs");
             } else if (state.Audio != null) { 
                 if (command is AudioMixerMasterGetCommand masterCmd)
                 {
@@ -29,10 +30,18 @@ namespace LibAtem.State.Builder
                 }
                 else if (command is AudioMixerMonitorGetCommand monCmd)
                 {
-                    UpdaterUtil.TryForIndex(result, state.Audio.Monitors, 0, mon => // TODO - dynamic index
+                    UpdaterUtil.TryForIndex(result, state.Audio.MonitorOutputs, 0, mon => // TODO - dynamic index
                     {
                         UpdaterUtil.CopyAllProperties(monCmd, mon);
-                        result.SetSuccess("Audio.Monitors.0");
+                        result.SetSuccess("Audio.MonitorOutputs.0");
+                    });
+                }
+                else if (command is AudioMixerHeadphoneGetCommand hpCmd)
+                {
+                    UpdaterUtil.TryForIndex(result, state.Audio.HeadphoneOutputs, 0, mon => // TODO - dynamic index
+                    {
+                        UpdaterUtil.CopyAllProperties(hpCmd, mon);
+                        result.SetSuccess("Audio.HeadphoneOutputs.0");
                     });
                 }
                 /*else if (command is AudioMixerTalkbackPropertiesGetCommand talkbackCmd)

@@ -9,5 +9,7 @@ namespace LibAtem.Commands.DeviceProfile
         public uint Inputs { get; set; }
         [Serialize(1), UInt8]
         public uint Monitors { get; set; }
+        [Serialize(2), UInt8]
+        public uint Headphones { get; set; }
     }
 }

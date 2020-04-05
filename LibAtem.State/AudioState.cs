@@ -11,7 +11,8 @@ namespace LibAtem.State
         public ProgramOutState ProgramOut { get; } = new ProgramOutState();
 
         public Dictionary<long, InputState> Inputs { get; set; } = new Dictionary<long, InputState>();
-        public IReadOnlyList<MonitorOutputState> Monitors { get; set; } = new List<MonitorOutputState>();
+        public IReadOnlyList<MonitorOutputState> MonitorOutputs { get; set; } = new List<MonitorOutputState>();
+        public IReadOnlyList<HeadphoneOutputState> HeadphoneOutputs { get; set; } = new List<HeadphoneOutputState>();
 
         public Dictionary<AudioSource, bool> Tally { get; set; }
 
@@ -50,7 +51,21 @@ namespace LibAtem.State
 
             public bool Dim { get; set; }
         }
-        
+
+        [Serializable]
+        public class HeadphoneOutputState
+        {
+            [DecibelTolerance(5)]
+            public double Gain { get; set; }
+
+            [DecibelTolerance(5)]
+            public double ProgramOutGain { get; set; }
+            [DecibelTolerance(5)]
+            public double SidetoneGain { get; set; }
+            [DecibelTolerance(5)]
+            public double TalkbackGain { get; set; }
+        }
+
         [Serializable]
         public class InputState
         {

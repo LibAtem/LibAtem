@@ -33,7 +33,7 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.Settings.Hyperdecks, (int)hyperdeckCmd.Id, deck =>
                 {
-                    UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck, new[] {"Id"});
+                    UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck, new[] {"Id", "NetworkAddressBytes"});
                     result.SetSuccess($"Settings.Hyperdecks.{hyperdeckCmd.Id:D}");
                 });
             }
