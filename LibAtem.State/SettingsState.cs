@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using LibAtem.Common;
 using LibAtem.State.Tolerance;
 
@@ -14,6 +13,7 @@ namespace LibAtem.State
 
         public IReadOnlyList<HyperdeckState> Hyperdecks { get; set; } = new List<HyperdeckState>();
         public IReadOnlyDictionary<TalkbackChannel, TalkbackState> Talkback { get; set; }
+        public IReadOnlyList<MixMinusOutputState> MixMinusOutputs { get; set; } = new List<MixMinusOutputState>();
 
         public VideoMode VideoMode { get; set; }
         public SerialMode SerialMode { get; set; }
@@ -29,6 +29,15 @@ namespace LibAtem.State
             public VideoSource Input { get; set; }
             public bool AutoRoll { get; set; }
             public uint AutoRollFrameDelay { get; set; }
+        }
+
+
+        [Serializable]
+        public class MixMinusOutputState
+        {
+            public long AudioInputId { get; set; }
+            public MixMinusMode SupportedModes { get; set; }
+            public MixMinusMode Mode { get; set; }
         }
 
         [Serializable]

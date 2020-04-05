@@ -107,6 +107,7 @@ namespace LibAtem.State.Builder
             });
 
             state.Settings.Hyperdecks = UpdaterUtil.CreateList(cmd.HyperDecks, i => new SettingsState.HyperdeckState());
+            state.Settings.MixMinusOutputs = UpdaterUtil.CreateList(cmd.MixMinusOutputs, i => new SettingsState.MixMinusOutputState());
 
             // Everything has changed
             result.SetSuccess("");

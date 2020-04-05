@@ -50,6 +50,7 @@ namespace LibAtem.State
             public AudioSource SoloSource { get; set; }
 
             public bool Dim { get; set; }
+            public double DimLevel { get; set; }
         }
 
         [Serializable]

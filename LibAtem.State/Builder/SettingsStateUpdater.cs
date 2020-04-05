@@ -42,6 +42,14 @@ namespace LibAtem.State.Builder
                 state.Settings.SuperSourceCascade = cascadeCmd.Cascade;
                 result.SetSuccess("Settings.SuperSourceCascade");
             }
+            else if (command is MixMinusOutputGetCommand mmoCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.Settings.MixMinusOutputs, (int)mmoCmd.Id, output =>
+                {
+                    UpdaterUtil.CopyAllProperties(mmoCmd, output, new[] { "Id" });
+                    result.SetSuccess($"Settings.MixMinusOutputs.{mmoCmd.Id:D}");
+                });
+            }
 
             UpdateInputs(state, result, command);
             UpdateMultiViewers(state, result, command);
