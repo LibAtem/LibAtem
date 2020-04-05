@@ -64,7 +64,7 @@ namespace LibAtem.State.Builder
                 //props.IsExternal = cmd.IsExternal;
                 props.Properties.AvailableExternalPortTypes = propsCmd.AvailableExternalPorts;
                 props.Properties.CurrentExternalPortType = propsCmd.ExternalPortType;
-                //props.InternalPortType = cmd.InternalPortType;
+                props.Properties.InternalPortType = propsCmd.InternalPortType;
                 //props.SourceAvailability = cmd.SourceAvailability;
                 //props.MeAvailability = cmd.MeAvailability;
                 result.SetSuccess($"Settings.Inputs.{propsCmd.Id:D}.Properties");

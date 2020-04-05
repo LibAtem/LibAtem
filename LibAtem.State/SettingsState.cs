@@ -13,6 +13,7 @@ namespace LibAtem.State
         public Dictionary<VideoSource, InputState> Inputs { get; set; } = new Dictionary<VideoSource, InputState>();
 
         public IReadOnlyList<HyperdeckState> Hyperdecks { get; set; } = new List<HyperdeckState>();
+        public IReadOnlyDictionary<TalkbackChannel, TalkbackState> Talkback { get; set; }
 
         public VideoMode VideoMode { get; set; }
         public SerialMode SerialMode { get; set; }
@@ -29,21 +30,38 @@ namespace LibAtem.State
             public bool AutoRoll { get; set; }
             public uint AutoRollFrameDelay { get; set; }
         }
+
+        [Serializable]
+        public class TalkbackState
+        {
+            public bool MuteSDI { get; set; }
+
+            //
+            public IReadOnlyList<TalkbackInputState> Inputs { get; set; } = new List<TalkbackInputState>();
+        }
+
+        [Serializable]
+        public class TalkbackInputState
+        {
+            //
+        }
     }
 
     [Serializable]
     public class InputState
     {
-        public PropertiesState Properties = new PropertiesState();
-        public TallyState Tally = new TallyState();
-        
+        public PropertiesState Properties { get; } = new PropertiesState();
+        public TallyState Tally { get; } = new TallyState();
+
         [Serializable]
         public class PropertiesState
         {
             public string ShortName { get; set; }
             public string LongName { get; set; }
             // public bool AreNamesDefault { get; set; }
-            
+
+            public InternalPortType InternalPortType { get; set; }
+
             public ExternalPortTypeFlags AvailableExternalPortTypes { get; set; }
             public ExternalPortTypeFlags CurrentExternalPortType { get; set; }
         }

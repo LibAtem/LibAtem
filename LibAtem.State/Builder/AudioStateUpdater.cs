@@ -35,18 +35,30 @@ namespace LibAtem.State.Builder
                         result.SetSuccess("Audio.Monitors.0");
                     });
                 }
-                else if (command is AudioMixerTalkbackPropertiesGetCommand talkbackCmd)
+                /*else if (command is AudioMixerTalkbackPropertiesGetCommand talkbackCmd)
                 {
                     UpdaterUtil.CopyAllProperties(talkbackCmd, state.Audio.Talkback, null, new[] {"Inputs"});
                     result.SetSuccess("Audio.Talkback");
-                }
+                }*/
                 else if (command is AudioMixerInputGetV8Command input8Cmd)
                 {
                     if (!state.Audio.Inputs.ContainsKey((int)input8Cmd.Index)) state.Audio.Inputs[(int)input8Cmd.Index] = new AudioState.InputState();
 
                     UpdaterUtil.TryForKey(result, state.Audio.Inputs, (long)input8Cmd.Index, input =>
                     {
-                        UpdaterUtil.CopyAllProperties(input8Cmd, input.Properties, new[] { "Index", "IndexOfSourceType" });
+                        if (input8Cmd.SupportsRcaToXlrEnabled)
+                        {
+                            input.Analog = new AudioState.InputState.AnalogState
+                            {
+                                RcaToXlr = input8Cmd.RcaToXlrEnabled
+                            };
+                        }
+                        else
+                        {
+                            input.Analog = null;
+                        }
+
+                        UpdaterUtil.CopyAllProperties(input8Cmd, input.Properties, new[] { "Index", "IndexOfSourceType", "SupportsRcaToXlrEnabled", "RcaToXlrEnabled" });
                         result.SetSuccess($"Audio.Inputs.{input8Cmd.Index:D}.Properties");
                     });
                 }

@@ -16,6 +16,7 @@ namespace LibAtem.Commands.Audio
             MixOption = 1 << 0,
             Gain = 1 << 1,
             Balance = 1 << 2,
+            RcaToXlrEnabled = 1 << 3,
         }
 
         [Serialize(0), Enum8]
@@ -29,6 +30,8 @@ namespace LibAtem.Commands.Audio
         public double Gain { get; set; }
         [Serialize(8), Int16D(200, -10000, 10000)]
         public double Balance { get; set; }
+        [Serialize(10), Bool]
+        public bool RcaToXlrEnabled { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {

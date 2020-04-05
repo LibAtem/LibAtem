@@ -10,8 +10,6 @@ namespace LibAtem.State
     {
         public ProgramOutState ProgramOut { get; } = new ProgramOutState();
 
-        public TalkbackState Talkback { get; } = new TalkbackState();
-
         public Dictionary<long, InputState> Inputs { get; set; } = new Dictionary<long, InputState>();
         public IReadOnlyList<MonitorOutputState> Monitors { get; set; } = new List<MonitorOutputState>();
 
@@ -37,13 +35,6 @@ namespace LibAtem.State
 
             public LevelsState Levels { get; set; }
         }
-
-        [Serializable]
-        public class TalkbackState
-        {
-            public bool MuteSDI { get; set; }
-            public Dictionary<long, bool> Inputs { get; set; } = new Dictionary<long, bool>();
-        }
         
         [Serializable]
         public class MonitorOutputState
@@ -68,6 +59,8 @@ namespace LibAtem.State
             public PropertiesState Properties { get; } = new PropertiesState();
             public LevelsState Levels { get; set; }
 
+            public AnalogState Analog { get; set; }
+
             [Serializable]
             public class PropertiesState
             {
@@ -78,6 +71,12 @@ namespace LibAtem.State
                 public double Gain { get; set; }
                 [Tolerance(0.01)]
                 public double Balance { get; set; }
+            }
+
+            [Serializable]
+            public class AnalogState
+            {
+                public bool RcaToXlr { get; set; }
             }
         }
     }
