@@ -18,10 +18,14 @@ namespace LibAtem.Commands.Audio.Fairlight
         public uint Band { get; set; }
         [Serialize(17), Bool]
         public bool BandEnabled { get; set; }
-        
+
+        [Serialize(18), Enum8]
+        public FairlightEqualizerBandShape SupportedShapes { get; set; }
         [Serialize(19), Enum8]
         public FairlightEqualizerBandShape Shape { get; set; }
-        
+
+        [Serialize(20), Enum8]
+        public FairlightEqualizerFrequencyRange SupportedFrequencyRanges { get; set; }
         [Serialize(21), Enum8]
         public FairlightEqualizerFrequencyRange FrequencyRange { get; set; }
         

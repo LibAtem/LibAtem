@@ -75,7 +75,7 @@ namespace LibAtem.Serialization
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
             string str = (string) val;
-            byte[] bytes = BitConverter.GetBytes(str.Length);
+            byte[] bytes = BitConverter.GetBytes(str?.Length ?? 0);
             data[start] = bytes[reverseBytes ? 1 : 0];
             data[start + 1] = bytes[reverseBytes ? 0 : 1];
         }

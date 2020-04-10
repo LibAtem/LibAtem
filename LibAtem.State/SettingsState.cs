@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using LibAtem.Common;
 using LibAtem.State.Tolerance;
 
@@ -13,11 +12,15 @@ namespace LibAtem.State
         public Dictionary<VideoSource, InputState> Inputs { get; set; } = new Dictionary<VideoSource, InputState>();
 
         public IReadOnlyList<HyperdeckState> Hyperdecks { get; set; } = new List<HyperdeckState>();
+        public IReadOnlyDictionary<TalkbackChannel, TalkbackState> Talkback { get; set; }
+        public IReadOnlyList<MixMinusOutputState> MixMinusOutputs { get; set; } = new List<MixMinusOutputState>();
 
         public VideoMode VideoMode { get; set; }
         public SerialMode SerialMode { get; set; }
 
         public SDI3GOutputLevel SDI3GLevel { get; set; }
+
+        public bool SuperSourceCascade { get; set; }
 
         [Serializable]
         public class HyperdeckState
@@ -27,21 +30,47 @@ namespace LibAtem.State
             public bool AutoRoll { get; set; }
             public uint AutoRollFrameDelay { get; set; }
         }
+
+
+        [Serializable]
+        public class MixMinusOutputState
+        {
+            public long AudioInputId { get; set; }
+            public MixMinusMode SupportedModes { get; set; }
+            public MixMinusMode Mode { get; set; }
+        }
+
+        [Serializable]
+        public class TalkbackState
+        {
+            public bool MuteSDI { get; set; }
+
+            //
+            public IReadOnlyList<TalkbackInputState> Inputs { get; set; } = new List<TalkbackInputState>();
+        }
+
+        [Serializable]
+        public class TalkbackInputState
+        {
+            //
+        }
     }
 
     [Serializable]
     public class InputState
     {
-        public PropertiesState Properties = new PropertiesState();
-        public TallyState Tally = new TallyState();
-        
+        public PropertiesState Properties { get; } = new PropertiesState();
+        public TallyState Tally { get; } = new TallyState();
+
         [Serializable]
         public class PropertiesState
         {
             public string ShortName { get; set; }
             public string LongName { get; set; }
             // public bool AreNamesDefault { get; set; }
-            
+
+            public InternalPortType InternalPortType { get; set; }
+
             public ExternalPortTypeFlags AvailableExternalPortTypes { get; set; }
             public ExternalPortTypeFlags CurrentExternalPortType { get; set; }
         }
@@ -60,6 +89,7 @@ namespace LibAtem.State
         public bool SupportsVuMeters { get; set; }
         public bool SupportsProgramPreviewSwapped { get; set; }
         public bool SupportsQuadrantLayout { get; set; }
+        public bool SupportsToggleSafeArea { get; set; }
 
         [Tolerance(1)]
         public double VuMeterOpacity { get; set; }
@@ -82,7 +112,7 @@ namespace LibAtem.State
             public VideoSource Source { get; set; }
             
             public bool SafeAreaEnabled { get; set; }
-            public bool SupportsSafeArea { get; set; }
+            // public bool SupportsSafeArea { get; set; }
         }
     }
 }

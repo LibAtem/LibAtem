@@ -1,4 +1,6 @@
-﻿namespace LibAtem.Common
+﻿using System;
+
+namespace LibAtem.Common
 {
     public enum AudioMixOption
     {
@@ -53,9 +55,12 @@
         Stereo = 1,
     }
 
+    [Flags]
     public enum FairlightAnalogInputLevel
     {
         Microphone = 1,
-        ConsumerLine = 2
+        ConsumerLine = 2,
+        [Since(ProtocolVersion.V8_1_1)]
+        ProLine = 4
     }
 }

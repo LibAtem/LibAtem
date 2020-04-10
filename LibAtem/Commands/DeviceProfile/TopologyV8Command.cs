@@ -29,4 +29,10 @@ namespace LibAtem.Commands.DeviceProfile
         public uint SuperSource { get; set; }
 
     }
+
+    [CommandName("_top", CommandDirection.ToClient, ProtocolVersion.V8_1_1, 28), NoCommandId]
+    public class TopologyV811Command : TopologyV8Command
+    {
+
+    }
 }

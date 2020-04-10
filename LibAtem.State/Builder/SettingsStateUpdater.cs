@@ -5,6 +5,7 @@ using LibAtem.Commands.DeviceProfile;
 using LibAtem.Commands.Settings;
 using LibAtem.Commands.Settings.HyperDeck;
 using LibAtem.Commands.Settings.Multiview;
+using LibAtem.Commands.SuperSource;
 using LibAtem.Common;
 
 namespace LibAtem.State.Builder
@@ -32,8 +33,21 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.Settings.Hyperdecks, (int)hyperdeckCmd.Id, deck =>
                 {
-                    UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck, new[] {"Id"});
+                    UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck, new[] {"Id", "NetworkAddressBytes"});
                     result.SetSuccess($"Settings.Hyperdecks.{hyperdeckCmd.Id:D}");
+                });
+            }
+            else if (command is SuperSourceCascadeCommand cascadeCmd)
+            {
+                state.Settings.SuperSourceCascade = cascadeCmd.Cascade;
+                result.SetSuccess("Settings.SuperSourceCascade");
+            }
+            else if (command is MixMinusOutputGetCommand mmoCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.Settings.MixMinusOutputs, (int)mmoCmd.Id, output =>
+                {
+                    UpdaterUtil.CopyAllProperties(mmoCmd, output, new[] { "Id" });
+                    result.SetSuccess($"Settings.MixMinusOutputs.{mmoCmd.Id:D}");
                 });
             }
 
@@ -58,7 +72,7 @@ namespace LibAtem.State.Builder
                 //props.IsExternal = cmd.IsExternal;
                 props.Properties.AvailableExternalPortTypes = propsCmd.AvailableExternalPorts;
                 props.Properties.CurrentExternalPortType = propsCmd.ExternalPortType;
-                //props.InternalPortType = cmd.InternalPortType;
+                props.Properties.InternalPortType = propsCmd.InternalPortType;
                 //props.SourceAvailability = cmd.SourceAvailability;
                 //props.MeAvailability = cmd.MeAvailability;
                 result.SetSuccess($"Settings.Inputs.{propsCmd.Id:D}.Properties");
@@ -91,7 +105,8 @@ namespace LibAtem.State.Builder
                         w => new MultiViewerState.WindowState()),
                     SupportsVuMeters = multiview8Cmd.SupportsVuMeters,
                     SupportsProgramPreviewSwapped = multiview8Cmd.CanSwapPreviewProgram,
-                    SupportsQuadrantLayout = multiview8Cmd.SupportsQuadrants
+                    SupportsQuadrantLayout = multiview8Cmd.SupportsQuadrants,
+                    SupportsToggleSafeArea = multiview8Cmd.CanToggleSafeArea,
                 });
                 result.SetSuccess($"Settings.MultiViewers");
             }
@@ -216,8 +231,8 @@ namespace LibAtem.State.Builder
                 {
                     UpdaterUtil.TryForIndex(result, mv.Windows, (int)safeAreaCmd.WindowIndex, win =>
                     {
-                        //win.SafeAreaEnabled = safeAreaCmd.SafeAreaEnabled;
-                        //result.SetSuccess($"Settings.MultiViewers.{safeAreaCmd.MultiviewIndex:D}.SafeAreaEnabled");
+                        win.SafeAreaEnabled = safeAreaCmd.SafeAreaEnabled;
+                        result.SetSuccess($"Settings.MultiViewers.{safeAreaCmd.MultiviewIndex:D}.SafeAreaEnabled");
                     });
                 });
             }

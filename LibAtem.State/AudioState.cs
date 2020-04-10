@@ -10,10 +10,20 @@ namespace LibAtem.State
     {
         public ProgramOutState ProgramOut { get; } = new ProgramOutState();
 
-        public TalkbackState Talkback { get; } = new TalkbackState();
-
         public Dictionary<long, InputState> Inputs { get; set; } = new Dictionary<long, InputState>();
-        public IReadOnlyList<MonitorOutputState> Monitors { get; set; } = new List<MonitorOutputState>();
+        public IReadOnlyList<MonitorOutputState> MonitorOutputs { get; set; } = new List<MonitorOutputState>();
+        public IReadOnlyList<HeadphoneOutputState> HeadphoneOutputs { get; set; } = new List<HeadphoneOutputState>();
+
+        public Dictionary<AudioSource, bool> Tally { get; set; }
+
+        [Serializable]
+        public class LevelsState
+        {
+            [DecibelTolerance(5)]
+            public double[] Levels { get; set; } = new double[0];
+            [DecibelTolerance(5)]
+            public double[] Peaks { get; set; } = new double[0];
+        }
 
         [Serializable]
         public class ProgramOutState
@@ -24,21 +34,7 @@ namespace LibAtem.State
             public double Balance { get; set; }
             public bool FollowFadeToBlack { get; set; }
 
-            [DecibelTolerance(5)]
-            public double LevelLeft { get; set; } = double.NegativeInfinity;
-            [DecibelTolerance(5)]
-            public double LevelRight { get; set; } = double.NegativeInfinity;
-            [DecibelTolerance(5)]
-            public double PeakLeft { get; set; } = double.NegativeInfinity;
-            [DecibelTolerance(5)]
-            public double PeakRight { get; set; } = double.NegativeInfinity;
-        }
-
-        [Serializable]
-        public class TalkbackState
-        {
-            public bool MuteSDI { get; set; }
-            public Dictionary<long, bool> Inputs { get; set; } = new Dictionary<long, bool>();
+            public LevelsState Levels { get; set; }
         }
         
         [Serializable]
@@ -54,15 +50,32 @@ namespace LibAtem.State
             public AudioSource SoloSource { get; set; }
 
             public bool Dim { get; set; }
+            public double DimLevel { get; set; }
         }
-        
+
+        [Serializable]
+        public class HeadphoneOutputState
+        {
+            [DecibelTolerance(5)]
+            public double Gain { get; set; }
+
+            [DecibelTolerance(5)]
+            public double ProgramOutGain { get; set; }
+            [DecibelTolerance(5)]
+            public double SidetoneGain { get; set; }
+            [DecibelTolerance(5)]
+            public double TalkbackGain { get; set; }
+        }
+
         [Serializable]
         public class InputState
         {
             public bool IsMixedIn { get; set; }
 
             public PropertiesState Properties { get; } = new PropertiesState();
-            public LevelsState Levels { get; } = new LevelsState();
+            public LevelsState Levels { get; set; }
+
+            public AnalogState Analog { get; set; }
 
             [Serializable]
             public class PropertiesState
@@ -77,16 +90,9 @@ namespace LibAtem.State
             }
 
             [Serializable]
-            public class LevelsState
+            public class AnalogState
             {
-                [DecibelTolerance(5)]
-                public double LevelLeft { get; set; } = double.NegativeInfinity;
-                [DecibelTolerance(5)]
-                public double LevelRight { get; set; } = double.NegativeInfinity;
-                [DecibelTolerance(5)]
-                public double PeakLeft { get; set; } = double.NegativeInfinity;
-                [DecibelTolerance(5)]
-                public double PeakRight { get; set; } = double.NegativeInfinity;
+                public bool RcaToXlr { get; set; }
             }
         }
     }

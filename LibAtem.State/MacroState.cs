@@ -37,6 +37,7 @@ namespace LibAtem.State
         public class ItemState
         {
             public bool IsUsed { get; set; }
+            public bool HasUnsupportedOps { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
         }

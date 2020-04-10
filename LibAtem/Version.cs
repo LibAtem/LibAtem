@@ -12,7 +12,9 @@ namespace LibAtem
         V8_0 = 0x0002001C, // 2.28
         [ProtocolVersionName("v8.0.1")]
         V8_0_1 = 0x0002001D, // 2.29
-        Latest = V8_0_1
+        [ProtocolVersionName("v8.1.1")]
+        V8_1_1 = 0x0002001E, // 2.30
+        Latest = V8_1_1
     }
     
     public class ProtocolVersionNameAttribute : System.Attribute
@@ -23,6 +25,16 @@ namespace LibAtem
         }
 
         public string Name { get; }
+    }
+
+    public class SinceAttribute : System.Attribute
+    {
+        public SinceAttribute(ProtocolVersion version)
+        {
+            Version = version;
+        }
+
+        public ProtocolVersion Version { get; }
     }
 
     public static class ProtocolVersionExt

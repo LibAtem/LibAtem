@@ -2,6 +2,8 @@ using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.Audio.Fairlight;
 using LibAtem.Commands.DeviceProfile;
+using LibAtem.Common;
+using LibAtem.Util;
 
 namespace LibAtem.State.Builder
 {
@@ -59,12 +61,49 @@ namespace LibAtem.State.Builder
                     if (!state.Fairlight.Inputs.TryGetValue((long)inpCmd.Index, out var inputState))
                         inputState = state.Fairlight.Inputs[(long)inpCmd.Index] = new FairlightAudioState.InputState();
 
-                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] { "Index" },
+                    if (inpCmd.SupportsRcaToXlr)
+                    {
+                        inputState.Analog = new FairlightAudioState.AnalogState
+                        {
+                            SupportedInputLevel =
+                                FairlightAnalogInputLevel.ConsumerLine | FairlightAnalogInputLevel.ProLine,
+                            InputLevel = inpCmd.RcaToXlrEnabled
+                                ? FairlightAnalogInputLevel.ConsumerLine
+                                : FairlightAnalogInputLevel.ProLine
+                        };
+                    }
+
+                    UpdaterUtil.CopyAllProperties(inpCmd, inputState, new[] { "Index", "SupportsRcaToXlr", "RcaToXlrEnabled" },
                         new[] { "Sources", "Analog", "Xlr" });
                     result.SetSuccess(new[]
                     {
                         $"Fairlight.Inputs.{inpCmd.Index:D}.ExternalPortType",
-                        $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration"
+                        $"Fairlight.Inputs.{inpCmd.Index:D}.ActiveConfiguration",
+                        $"Fairlight.Inputs.{inpCmd.Index:D}.Analog"
+                    });
+                }
+                else if (command is FairlightMixerInputGetV811Command inp811Cmd)
+                {
+                    if (!state.Fairlight.Inputs.TryGetValue((long)inp811Cmd.Index, out var inputState))
+                        inputState = state.Fairlight.Inputs[(long)inp811Cmd.Index] = new FairlightAudioState.InputState();
+
+                    UpdaterUtil.CopyAllProperties(inp811Cmd, inputState, new[] { "Index", "SupportedInputLevels", "ActiveInputLevel" },
+                        new[] { "Sources", "Analog", "Xlr" });
+
+                    if (inp811Cmd.SupportedInputLevels != 0)
+                    {
+                        inputState.Analog = new FairlightAudioState.AnalogState
+                        {
+                            SupportedInputLevel = inp811Cmd.SupportedInputLevels,
+                            InputLevel = inp811Cmd.ActiveInputLevel
+                        };
+                    }
+
+                    result.SetSuccess(new[]
+                    {
+                        $"Fairlight.Inputs.{inp811Cmd.Index:D}.ExternalPortType",
+                        $"Fairlight.Inputs.{inp811Cmd.Index:D}.ActiveConfiguration",
+                        $"Fairlight.Inputs.{inp811Cmd.Index:D}.Analog"
                     });
                 }
                 else if (command is FairlightMixerSourceGetCommand srcCmd)
@@ -81,9 +120,14 @@ namespace LibAtem.State.Builder
                         srcState.Dynamics.MakeUpGain = srcCmd.MakeUpGain;
                         srcState.Equalizer.Enabled = srcCmd.EqualizerEnabled;
                         srcState.Equalizer.Gain = srcCmd.EqualizerGain;
+                        if (srcCmd.EqualizerBands != srcState.Equalizer.Bands.Count)
+                        {
+                            srcState.Equalizer.Bands = srcState.Equalizer.Bands.RebuildToLength(srcCmd.EqualizerBands,
+                                (i) => new FairlightAudioState.EqualizerBandState());
+                        }
 
                         UpdaterUtil.CopyAllProperties(srcCmd, srcState,
-                            new[] { "Index", "EqualizerEnabled", "EqualizerGain", "MakeUpGain" },
+                            new[] { "Index", "EqualizerBands", "EqualizerEnabled", "EqualizerGain", "MakeUpGain" },
                             new[] { "Dynamics", "Equalizer", "Levels" });
                         result.SetSuccess($"Fairlight.Inputs.{srcCmd.Index:D}.Sources.{srcCmd.SourceId:D}");
                     });
@@ -214,6 +258,22 @@ namespace LibAtem.State.Builder
                 {
                     state.Fairlight.Tally = tallyCmd.Tally;
                     result.SetSuccess("Fairlight.Tally");
+                }
+                else if (command is FairlightMixerSourceEqualizerBandGetCommand srcBandCmd)
+                {
+                    UpdaterUtil.TryForKey(result, state.Fairlight.Inputs, (long)srcBandCmd.Index, inputState =>
+                    {
+                        FairlightAudioState.InputSourceState srcState =
+                            inputState.Sources.FirstOrDefault(s => s.SourceId == srcBandCmd.SourceId);
+                        if (srcState != null)
+                        {
+                            UpdaterUtil.TryForIndex(result, srcState.Equalizer.Bands, (int) srcBandCmd.Band, band =>
+                            {
+                                UpdaterUtil.CopyAllProperties(srcBandCmd, band, new[] {"Index", "SourceId", "Band"});
+                                result.SetSuccess($"Fairlight.Inputs.{srcBandCmd.Index:D}.Sources.{srcBandCmd.SourceId:D}.Equalizer.Bands.{srcBandCmd.Band:D}");
+                            });
+                        }
+                    });
                 }
             }
         }

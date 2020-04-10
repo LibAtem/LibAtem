@@ -73,9 +73,19 @@ namespace LibAtem.State.Builder
                     SuperSource = topCmd.SuperSource,
                 });
             }
+            else if (command is TopologyV811Command topCmd811)
+            {
+                HandleTopologyCommand(state, result, topCmd811);
+            }
             else if (command is TopologyV8Command topCmd8)
             {
                 HandleTopologyCommand(state, result, topCmd8);
+            }
+            else if (command is PowerStatusCommand powCmd)
+            {
+                // TODO - when do we have only one psu?
+                state.Power = new[] {powCmd.Pin1, powCmd.Pin2};
+                result.SetSuccess("Power");
             }
         }
 
@@ -97,6 +107,7 @@ namespace LibAtem.State.Builder
             });
 
             state.Settings.Hyperdecks = UpdaterUtil.CreateList(cmd.HyperDecks, i => new SettingsState.HyperdeckState());
+            state.Settings.MixMinusOutputs = UpdaterUtil.CreateList(cmd.MixMinusOutputs, i => new SettingsState.MixMinusOutputState());
 
             // Everything has changed
             result.SetSuccess("");

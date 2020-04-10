@@ -30,7 +30,7 @@ namespace LibAtem.Commands.Macro
 
             // TODO - specify max lengths on these
             cmd.SetString(8, Name);
-            cmd.SetString(8 + Name.Length, Description);
+            cmd.SetString(8 + Name?.Length ?? 0, Description);
         }
 
         public override void Deserialize(ParsedByteArray cmd)

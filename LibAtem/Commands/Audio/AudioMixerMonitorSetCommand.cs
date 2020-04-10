@@ -19,6 +19,7 @@ namespace LibAtem.Commands.Audio
             Solo = 1 << 3,
             SoloSource = 1 << 4,
             Dim = 1 << 5,
+            DimLevel = 1 << 6,
         }
 
         [Serialize(0), Enum8]
@@ -35,6 +36,8 @@ namespace LibAtem.Commands.Audio
         public AudioSource SoloSource { get; set; }
         [Serialize(8), Bool]
         public bool Dim { get; set; }
+        [Serialize(10), UInt16D(100, 0, 10000)]
+        public double DimLevel { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {

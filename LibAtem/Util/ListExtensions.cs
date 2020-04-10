@@ -42,5 +42,16 @@ namespace LibAtem.Util
             if (list.Count > target)
                 list.RemoveRange((int) target, (int) (list.Count - target));
         }
+
+        public static IReadOnlyList<T> RebuildToLength<T>(this IReadOnlyList<T> rawList, uint target, Func<int, T> generator)
+        {
+            List<T> list = rawList.ToList();
+            while (generator != null && list.Count < target)
+                list.Add(generator(list.Count));
+            if (list.Count > target)
+                list.RemoveRange((int)target, (int)(list.Count - target));
+
+            return list;
+        }
     }
 }

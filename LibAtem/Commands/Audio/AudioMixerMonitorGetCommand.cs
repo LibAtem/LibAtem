@@ -18,5 +18,7 @@ namespace LibAtem.Commands.Audio
         public AudioSource SoloSource { get; set; }
         [Serialize(8), Bool]
         public bool Dim { get; set; }
+        [Serialize(10), UInt16D(100, 0, 10000)]
+        public double DimLevel { get; set; }
     }
 }

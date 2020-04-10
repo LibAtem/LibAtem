@@ -15,7 +15,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
         [NoSerialize]
         public string NetworkAddress { get; set; }
         [Serialize(4), ByteArray(4)]
-        protected byte[] NetworkAddressBytes
+        public byte[] NetworkAddressBytes
         {
             get => IPUtil.ParseAddress(NetworkAddress ?? "0.0.0.0");
             set => NetworkAddress = value.All(v => v == 0) ? null : IPUtil.IPToString(value);
@@ -26,7 +26,7 @@ namespace LibAtem.Commands.Settings.HyperDeck
         public VideoSource Input { get; set; }
         [Serialize(10), Bool]
         public bool AutoRoll { get; set; }
-        [Serialize(12), UInt8Range(0, 60)]
+        [Serialize(12), UInt16Range(0, 60)]
         public uint AutoRollFrameDelay { get; set; }
     }
 }
