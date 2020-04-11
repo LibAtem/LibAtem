@@ -7,15 +7,15 @@ namespace LibAtem.Commands.CameraControl;
     public class CameraGetCommand : SerializableCommandBase
     {
         [CommandId]
-        [Serialize(0), Enum8]
-        public CameraId Id { get; set; }
+        [Serialize(0), Uint8]
+        public CameraId CameraId { get; set; }
 
         [CommandId]
         [Serialize(1), Enum8]
         public Group CameraGroup { get; set; }
 
         [CommandId]
-        [Serialize(2), Enum8]
+        [Serialize(2), Uint8]
         public Parameter Id { get; set; }
 
         #ToDo figure out data field (type and number of elements)
