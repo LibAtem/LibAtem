@@ -12,7 +12,7 @@ namespace LibAtem.Common;
         Configuration = 7,
         ColorCorrection = 8,
         Media = 10,
-        PTZControl = 11
+        PTZControl = 11,
     }
 }
 

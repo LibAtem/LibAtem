@@ -18,7 +18,7 @@ namespace LibAtem.Commands.CameraControl;
         [Serialize(2), Uint8]
         public Parameter Id { get; set; }
 
-        #ToDo figure out data field (type and number of elements)
-        #bound to have this all wrong. Will need to create class for each group/parameter
+        //ToDo figure out data field (type and number of elements)
+        //bound to have this all wrong. Will need to create class for each group/parameter
     }
 }
