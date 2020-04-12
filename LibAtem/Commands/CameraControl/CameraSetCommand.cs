@@ -1,10 +1,10 @@
-namespace LibAtem.Commands.CameraControl;
+namespace LibAtem.Commands.CameraControl
 {
     [CommandName("CMmd", CommandDirection.ToServer), NoCommandId]
-    public class CameraSettingsSetCommand : ICommand
+    public class CameraSettingsSetCommand
     {
-        [CommandId]
-        
+
+        //Todo
 
     }
 }

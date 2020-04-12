@@ -1,4 +1,4 @@
-namespace LibAtem.Common;
+namespace LibAtem.Common
 {
     public enum CameraGroup
     {
