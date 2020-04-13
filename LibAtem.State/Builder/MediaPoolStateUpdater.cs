@@ -3,6 +3,7 @@ using LibAtem.Commands.DeviceProfile;
 using LibAtem.Commands.Media;
 using LibAtem.Common;
 using System.Linq;
+using LibAtem.Util;
 
 namespace LibAtem.State.Builder
 {
@@ -24,7 +25,7 @@ namespace LibAtem.State.Builder
                         UpdaterUtil.TryForIndex(result, state.MediaPool.Stills, (int) frameCmd.Index, still =>
                         {
                             UpdaterUtil.CopyAllProperties(frameCmd, still, new[] {"Index", "Bank"});
-                            result.SetSuccess($"MediaPlayers.Stills.{frameCmd.Index:D}");
+                            result.SetSuccess($"MediaPool.Stills.{frameCmd.Index:D}");
                         });
                         break;
                     case MediaPoolFileType.Clip1:
@@ -36,7 +37,7 @@ namespace LibAtem.State.Builder
                             UpdaterUtil.TryForIndex(result, clip.Frames, (int) frameCmd.Index, frame =>
                             {
                                 UpdaterUtil.CopyAllProperties(frameCmd, frame, new[] {"Index", "Bank", "Hash"});
-                                result.SetSuccess($"MediaPlayers.Clips.{bankId:D}.Frames.{frameCmd.Index:D}");
+                                result.SetSuccess($"MediaPool.Clips.{bankId:D}.Frames.{frameCmd.Index:D}");
                             });
                         });
                         */
@@ -50,8 +51,12 @@ namespace LibAtem.State.Builder
                     clip.Name = clipCmd.Name;
                     clip.Frames = Enumerable.Range(0, (int)clipCmd.FrameCount).Select(i => new MediaPoolState.FrameState()).ToList();
 
-                    result.SetSuccess($"MediaPlayers.Clips.{clipCmd.Index:D}");
+                    result.SetSuccess($"MediaPool.Clips.{clipCmd.Index:D}");
                 });
+            } else if (command is MediaPoolSettingsGetCommand settingsCmd)
+            {
+                state.MediaPool.Clips.ForEach((i, clip) => { clip.MaxFrames = settingsCmd.MaxFrames[i]; });
+                result.SetSuccess($"MediaPool.Clips");
             }
         }
     }

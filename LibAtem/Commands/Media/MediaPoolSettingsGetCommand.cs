@@ -1,28 +1,14 @@
+using System;
 using System.Collections.Generic;
+using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPSp", CommandDirection.ToClient), NoCommandId]
-    public class MediaPoolSettingsGetCommand : ICommand
+    [CommandName("MPSp", CommandDirection.ToClient, 12), NoCommandId]
+    public class MediaPoolSettingsGetCommand : SerializableCommandBase
     {
-        public List<uint> MaxFrames { get; set; }
+        [Serialize(0), UInt16List(4)]
+        public List<uint> MaxFrames { get; set; } = new List<uint> {0, 0, 0, 0};
 
-        public void Serialize(ByteArrayBuilder cmd)
-        {
-            foreach (uint fr in MaxFrames)
-                cmd.AddUInt16(fr);
-
-            cmd.PadToNearestMultipleOf4();
-        }
-
-        public void Deserialize(ParsedByteArray cmd)
-        {
-            MaxFrames = new List<uint>();
-
-            for (int i = 0; i < cmd.BodyLength; i += 2)
-                MaxFrames.Add(cmd.GetUInt16());
-
-            cmd.SkipToNearestMultipleOf4();
-        }
     }
 }

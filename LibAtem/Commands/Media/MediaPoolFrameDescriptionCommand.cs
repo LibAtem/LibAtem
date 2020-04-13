@@ -1,3 +1,4 @@
+using System;
 using LibAtem.Common;
 using LibAtem.Serialization;
 using LibAtem.Util;
@@ -21,8 +22,8 @@ namespace LibAtem.Commands.Media
         [Serialize(5), ByteArray(16)]
         public byte[] Hash { get; set; }
         
-        [Serialize(22), StringLength(20)]
-        public string Filename { get; set; } // TODO - guard length
+        [Serialize(22), StringLength(64)]
+        public string Filename { get; set; }
 
         public override void Serialize(ByteArrayBuilder cmd)
         {

@@ -21,6 +21,11 @@ namespace LibAtem
             pos = 0;
         }
 
+        public void Reset()
+        {
+            pos = 0;
+        }
+
         public bool HasFinished => pos >= BodyLength;
 
         public int BodyLength => Body.Length;
@@ -156,6 +161,11 @@ namespace LibAtem
         public void SkipToNearestMultipleOf4()
         {
             int targetLen = MathExt.NextMultipleOf4((int)pos);
+            SkipTo(targetLen);
+        }
+
+        public void SkipTo(int targetLen)
+        {
             Skip((uint)(targetLen - pos));
         }
 

@@ -30,6 +30,8 @@ namespace LibAtem.State
             public bool IsUsed { get; set; }
             public string Name { get; set; }
 
+            public uint MaxFrames{ get; set; }
+
             public IReadOnlyList<FrameState> Frames { get; set; } = new List<FrameState>();
         }
     }

@@ -89,6 +89,11 @@ namespace LibAtem
         public void PadToNearestMultipleOf4()
         {
             int targetLen = MathExt.NextMultipleOf4(_data.Count);
+            PadTo(targetLen);
+        }
+
+        public void PadTo(int targetLen)
+        {
             Pad(targetLen - _data.Count);
         }
 

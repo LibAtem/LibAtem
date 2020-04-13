@@ -39,7 +39,11 @@ namespace LibAtem.Commands
         private static ICommand ParseInner(ParsedCommand rawCmd, Type commandType)
         {
             ICommand cmd = (ICommand)Activator.CreateInstance(commandType);
-            cmd.Deserialize(rawCmd);
+            lock (rawCmd)
+            {
+                rawCmd.Reset();
+                cmd.Deserialize(rawCmd);
+            }
 
             if (!rawCmd.HasFinished && !(cmd is SerializableCommandBase))
                 throw new Exception("Some stray bytes were left after deserialize");

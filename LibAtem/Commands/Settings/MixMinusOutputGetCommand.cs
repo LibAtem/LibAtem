@@ -15,8 +15,8 @@ namespace LibAtem.Commands.Settings
         [Serialize(2), Enum8]
         public MixMinusMode SupportedModes { get; set; }
 
-        [Serialize(6), UInt16]
-        public long AudioInputId { get; set; }
+        [Serialize(6), Enum16]
+        public AudioSource AudioInputId { get; set; }
 
         // TODO - more must be used for something
     }
