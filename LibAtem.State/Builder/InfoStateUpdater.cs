@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.DeviceProfile;
+using LibAtem.Common;
 
 namespace LibAtem.State.Builder
 {
@@ -34,6 +37,23 @@ namespace LibAtem.State.Builder
                 state.Info.Model = pidCmd.Model;
                 state.Info.ProductName = pidCmd.Name;
                 result.SetSuccess("Info.Model");
+            }
+            else if (command is VideoMixerConfigCommand videoCmd)
+            {
+                var modes = new List<VideoModeInfo>();
+                foreach (VideoMixerConfigCommand.Entry mode in videoCmd.Modes)
+                {
+                    modes.Add(new VideoModeInfo
+                    {
+                        Mode = mode.Mode,
+                        RequiresReconfig = mode.RequiresReconfig,
+                        MultiviewModes = mode.MultiviewModes.ToArray(),
+                        DownConvertModes = mode.DownConvertModes.ToArray(),
+                    });
+                }
+
+                state.Info.SupportedVideoModes = modes.OrderBy(s => s.Mode).ToList();
+                result.SetSuccess("Info.SupportedVideoModes");
             }
         }
     }

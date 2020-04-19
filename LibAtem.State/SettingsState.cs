@@ -16,6 +16,9 @@ namespace LibAtem.State
         public IReadOnlyList<MixMinusOutputState> MixMinusOutputs { get; set; } = new List<MixMinusOutputState>();
 
         public VideoMode VideoMode { get; set; }
+        public DownConvertMode DownConvertMode { get; set; }
+        public VideoMode DownConvertVideoMode { get; set; }
+
         public SerialMode SerialMode { get; set; }
 
         public SDI3GOutputLevel SDI3GLevel { get; set; }

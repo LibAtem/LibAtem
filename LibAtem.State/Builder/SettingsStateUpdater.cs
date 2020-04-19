@@ -24,6 +24,12 @@ namespace LibAtem.State.Builder
                 state.Settings.VideoMode = videoCmd.VideoMode;
                 result.SetSuccess($"Settings.VideoMode");
             }
+            else if (command is DownConvertModeGetCommand dcModeCmd)
+            {
+                state.Settings.DownConvertMode = dcModeCmd.DownConvertMode;
+                result.SetSuccess($"Settings.DownConvertVideoMode");
+            }
+            // TODO DownConvertVideoMode
             else if (command is SDI3GLevelOutputGetCommand sdiLevelCmd)
             {
                 state.Settings.SDI3GLevel = sdiLevelCmd.SDI3GOutputLevel;

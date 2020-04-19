@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using LibAtem.Common;
 
 namespace LibAtem.State
@@ -13,6 +14,21 @@ namespace LibAtem.State
 
         public ModelId Model { get; set; }
         public string ProductName { get; set; }
+
+        public IReadOnlyList<VideoModeInfo> SupportedVideoModes { get; set; } = new List<VideoModeInfo>();
+        
+        public bool SupportsAutoVideoMode { get; set; }
+    }
+
+    [Serializable]
+    public class VideoModeInfo
+    {
+        public VideoMode Mode { get; set; }
+
+        public bool RequiresReconfig { get; set; }
+
+        public VideoMode[] MultiviewModes { get; set; } = new VideoMode[0];
+        public VideoMode[] DownConvertModes { get; set; } = new VideoMode[0];
     }
 
     [Serializable]

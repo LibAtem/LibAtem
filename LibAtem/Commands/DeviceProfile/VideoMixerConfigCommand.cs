@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using LibAtem.Common;
 
 namespace LibAtem.Commands.DeviceProfile
@@ -7,17 +8,26 @@ namespace LibAtem.Commands.DeviceProfile
     [CommandName("_VMC", CommandDirection.ToClient), NoCommandId]
     public class VideoMixerConfigCommand : ICommand
     {
+        private static readonly VideoMode[] AllVideoModes;
+
+        static VideoMixerConfigCommand()
+        {
+            AllVideoModes = Enum.GetValues(typeof(VideoMode)).OfType<VideoMode>().ToArray();
+        }
+
         public class Entry : IEquatable<Entry>
         {
             public VideoMode Mode { get; }
-            public VideoMode MultiviewMode { get; }
-            public VideoMode SomeMode { get; }
+            public List<VideoMode> MultiviewModes { get; }
+            public List<VideoMode> DownConvertModes { get; }
+            public bool RequiresReconfig { get; }
 
-            public Entry(VideoMode mode, VideoMode multiviewMode, VideoMode someMode)
+            public Entry(VideoMode mode, List<VideoMode> multiviewModes, List<VideoMode> downConvertModes, bool requiresReconfig)
             {
                 Mode = mode;
-                MultiviewMode = multiviewMode;
-                SomeMode = someMode;
+                MultiviewModes = multiviewModes;
+                DownConvertModes = downConvertModes;
+                RequiresReconfig = requiresReconfig;
             }
 
             #region IEquatable
@@ -26,7 +36,7 @@ namespace LibAtem.Commands.DeviceProfile
             {
                 if (ReferenceEquals(null, other)) return false;
                 if (ReferenceEquals(this, other)) return true;
-                return Mode == other.Mode && MultiviewMode == other.MultiviewMode && SomeMode == other.SomeMode;
+                return Mode == other.Mode && MultiviewModes.SequenceEqual(other.MultiviewModes) /*&& SomeMode == other.SomeMode*/ && RequiresReconfig == other.RequiresReconfig;
             }
 
             public override bool Equals(object obj)
@@ -42,8 +52,9 @@ namespace LibAtem.Commands.DeviceProfile
                 unchecked
                 {
                     var hashCode = (int)Mode;
-                    hashCode = (hashCode * 397) ^ (int)MultiviewMode;
-                    hashCode = (hashCode * 397) ^ (int)SomeMode;
+                    //hashCode = (hashCode * 397) ^ (int)MultiviewMode; // TODO - fix
+                    //hashCode = (hashCode * 397) ^ (int)SomeMode;
+                    hashCode = (hashCode * 397) ^ (RequiresReconfig ? 1 : 0);
                     return hashCode;
                 }
             }
@@ -62,9 +73,20 @@ namespace LibAtem.Commands.DeviceProfile
             {
                 cmd.AddUInt8((uint)mode.Mode);
                 cmd.Pad(3);
-                cmd.AddUInt32((uint)(1 << (int)mode.MultiviewMode)); // TODO - should be mask
-                cmd.AddUInt32((uint)(1 << (int)mode.SomeMode)); // TODO - should be mask
+                cmd.AddUInt32(ModesToUInt(mode.MultiviewModes));
+                cmd.AddUInt32(ModesToUInt(mode.DownConvertModes));
+                cmd.AddBoolArray(mode.RequiresReconfig);
             }
+        }
+
+        private uint ModesToUInt(IReadOnlyList<VideoMode> modes)
+        {
+            uint res = 0;
+            foreach (VideoMode mode in modes)
+            {
+                res |= (1u << (int) mode);
+            }
+            return res;
         }
 
         public void Deserialize(ParsedByteArray cmd)
@@ -77,11 +99,23 @@ namespace LibAtem.Commands.DeviceProfile
             {
                 VideoMode mode = (VideoMode)cmd.GetUInt8();
                 cmd.Skip(3);
-                VideoMode mvMode = (VideoMode)Math.Floor(Math.Log(cmd.GetUInt32(), 2)); // TODO - should be mask
-                VideoMode someMode = (VideoMode)Math.Floor(Math.Log(cmd.GetUInt32(), 2)); // TODO - should be mask
-                cmd.Skip(1); // TODO is this 8.0+ specific?
-                Modes.Add(new Entry(mode, mvMode, someMode));
+                List<VideoMode> multiviewModes = ReadVideoModeBitmask(cmd.GetUInt32());
+                List<VideoMode> downConvertModes = ReadVideoModeBitmask(cmd.GetUInt32());
+                bool requiresReconfig = cmd.GetBoolArray()[0]; // TODO this will be 8.0+ specific
+                Modes.Add(new Entry(mode, multiviewModes, downConvertModes, requiresReconfig));
             }
+        }
+
+        private List<VideoMode> ReadVideoModeBitmask(uint rawVal)
+        {
+            var modes = new List<VideoMode>();
+            foreach (VideoMode possibleMode in AllVideoModes)
+            {
+                if ((rawVal & (1 << (int)possibleMode)) != 0)
+                    modes.Add(possibleMode);
+            }
+
+            return modes;
         }
     }
 }
