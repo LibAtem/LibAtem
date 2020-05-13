@@ -148,6 +148,8 @@ namespace LibAtem.State
             public bool OnAir { get; set; }
             
             public KeyerPropertiesState Properties { get; } = new KeyerPropertiesState();
+
+            public KeyerFlyProperties FlyProperties { get; set; }
         }
 
         [Serializable]
@@ -319,8 +321,22 @@ namespace LibAtem.State
             [Tolerance(0.01)]
             public double MaskRight { get; set; }
         }
-        
+
         [Serializable]
+        public class KeyerFlyProperties
+        {
+            public bool IsASet { get; set; }
+            public bool IsBSet { get; set; }
+            public int IsAtKeyFrame { get; set; }
+            public int RunToInfinite { get; set; }
+
+            public int ActiveKeyFrame { get; set; }
+    
+
+
+        }    
+
+            [Serializable]
         public class KeyerFlyFrameState
         {
             [Tolerance(0.01)]
