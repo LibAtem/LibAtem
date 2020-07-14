@@ -46,7 +46,7 @@ namespace LibAtem.State.Builder
             MixEffectStateUpdater.Update(state, result, command);
             SettingsStateUpdater.Update(state, result, command);
             SuperSourceStateUpdater.Update(state, result, command);
-
+            CameraControllerUpdater.Update(state, result, command);
             return result;
         }
 
