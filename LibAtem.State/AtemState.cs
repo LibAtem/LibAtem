@@ -18,7 +18,8 @@ namespace LibAtem.State
         public AudioState Audio { get; set; }
         public FairlightAudioState Fairlight { get; set; }
 
-        public CameraControllerState CameraControl { get; set; }
+        public Dictionary<long, CamState> Cams { get; set; } = new Dictionary<long, CamState>();
+       // public IReadOnlyList<CamState> Cams { get; set; } = new List<CamState>();
         public MacroState Macros { get; } = new MacroState();
         public MediaPoolState MediaPool { get; } = new MediaPoolState();
         public SettingsState Settings { get; } = new SettingsState();

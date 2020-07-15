@@ -5,12 +5,7 @@ using LibAtem.State.Tolerance;
 
 namespace LibAtem.State
 {
-    [Serializable]
-    public class CameraControllerState
-    {
 
-        public Dictionary<long, CamState> Cams { get; set; } = new Dictionary<long, CamState>();
-   
 
         [Serializable]
         public class CamState
@@ -70,4 +65,3 @@ namespace LibAtem.State
 
         }
     }
-}
