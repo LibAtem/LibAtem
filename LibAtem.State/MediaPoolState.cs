@@ -8,6 +8,8 @@ namespace LibAtem.State
     {
         public IReadOnlyList<StillState> Stills { get; set; } = new List<StillState>();
         public IReadOnlyList<ClipState> Clips { get; set; } = new List<ClipState>();
+        
+        public uint UnassignedFrames { get; set; }
 
         [Serializable]
         public class StillState

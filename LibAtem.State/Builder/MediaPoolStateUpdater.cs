@@ -56,7 +56,8 @@ namespace LibAtem.State.Builder
             } else if (command is MediaPoolSettingsGetCommand settingsCmd)
             {
                 state.MediaPool.Clips.ForEach((i, clip) => { clip.MaxFrames = settingsCmd.MaxFrames[i]; });
-                result.SetSuccess($"MediaPool.Clips");
+                state.MediaPool.UnassignedFrames = settingsCmd.UnassignedFrames;
+                result.SetSuccess(new[] {$"MediaPool.Clips", $"MediaPool.UnassignedFrames"});
             }
         }
     }
