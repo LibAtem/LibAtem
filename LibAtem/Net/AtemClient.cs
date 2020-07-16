@@ -76,16 +76,23 @@ namespace LibAtem.Net
 
         private bool Reconnect()
         {
-            lock (_connection)
+            try
             {
-                if (!_connection.HasTimedOut)
-                    return false;
+                lock (_connection)
+                {
+                    if (!_connection.HasTimedOut)
+                        return false;
 
-                Log.InfoFormat("Attempting Reconnect");
-                _connection.ResetConnStatsInfo();
-                _connection.SessionId = new Random().Next(32767);
-                SendHandshake();
-                StartSendingTimer();
+                    Log.InfoFormat("Attempting Reconnect");
+                    _connection.ResetConnStatsInfo();
+                    _connection.SessionId = new Random().Next(32767);
+                    SendHandshake();
+                    StartSendingTimer();
+                }
+            }
+            catch (SocketException e)
+            {
+                Log.DebugFormat("Failed to reconnect: {0}", e);
             }
 
             return true;
