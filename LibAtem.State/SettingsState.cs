@@ -73,6 +73,9 @@ namespace LibAtem.State
             // public bool AreNamesDefault { get; set; }
 
             public InternalPortType InternalPortType { get; set; }
+            
+            public SourceAvailability SourceAvailability { get; set; }
+            public MeAvailability MeAvailability { get; set; }
 
             public ExternalPortTypeFlags AvailableExternalPortTypes { get; set; }
             public ExternalPortTypeFlags CurrentExternalPortType { get; set; }
