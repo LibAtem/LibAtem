@@ -86,11 +86,11 @@ namespace LibAtem.Discovery
             TXTRecord txtRec = records.OfType<TXTRecord>().FirstOrDefault(r => r.Type == DnsType.TXT && r.Name == answer.DomainName);
             List<string> strings = txtRec == null ? new List<string>() : txtRec.Strings;
 
-            string name = answer.DomainName;
+            string name = answer.DomainName.ToString();
             if (name.EndsWith(AtemDeviceInfo.ServiceName))
                 name = name.Substring(0, name.Length - AtemDeviceInfo.ServiceName.Length - 1);
 
-            var dev = new AtemDeviceInfo(name, srvRec.Target, DateTime.Now, aRec.Address.ToString(), srvRec.Port, strings);
+            var dev = new AtemDeviceInfo(name, srvRec.Target.ToString(), DateTime.Now, aRec.Address.ToString(), srvRec.Port, strings);
 
             lock (_knownDevices) {
                 _knownDevices[dev.DeviceId] = dev;
