@@ -81,7 +81,12 @@ namespace LibAtem.Util.Media
 
         public static byte[] DecodeRLE(VideoModeResolution size, byte[] data)
         {
-            byte[] res = new byte[size.GetByteCount()];
+            return DecodeRLESegment((uint) size.GetByteCount(), data).Item2;
+        }
+
+        public static Tuple<int, byte[]> DecodeRLESegment(uint maxBytes, byte[] data)
+        {
+            byte[] res = new byte[maxBytes];
             int p = 0;
 
             const int colBytes = 8;
@@ -109,7 +114,7 @@ namespace LibAtem.Util.Media
                 }
             }
 
-            return res;
+            return Tuple.Create(p, res);
         }
 
         private static bool IsTerminator(byte[] data, int i)
