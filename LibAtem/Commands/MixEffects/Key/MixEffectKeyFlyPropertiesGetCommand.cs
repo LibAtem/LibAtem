@@ -3,8 +3,8 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.MixEffects.Key
 {
-    [CommandName("KeFS", CommandDirection.ToClient)]
-    public class MixEffectKeyFlyPropertiesGetCommand : ICommand
+    [CommandName("KeFS", CommandDirection.ToClient, 8)]
+    public class MixEffectKeyFlyPropertiesGetCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), Enum8]
@@ -19,42 +19,13 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(3), Bool]
         public bool IsBSet { get; set; }
 
-        [Serialize(3), UInt8]
+        [Serialize(4), Enum8]
+        public FlyKeyLocation RunToInfinite { get; set; }
+
+        [Serialize(5), Enum8]
+        public FlyKeyKeyFrameType ActiveKeyFrame { get; set; }
+
+        [Serialize(6), UInt8] // TODO - type of this
         public int IsAtKeyFrame { get; set; }
-
-        [Serialize(4), UInt8]
-        public int RunToInfinite { get; set; }
-
-        public int ActiveKeyFrame { get; set; }
-
-
-
-        public void Serialize(ByteArrayBuilder cmd)
-        {
-            cmd.AddUInt8((int)MixEffectIndex);
-            cmd.AddUInt8((int)KeyerIndex);
-            cmd.AddBoolArray(false);
-            cmd.AddBoolArray(false);
-            cmd.Pad();
-            cmd.AddBoolArray(false, false, false, false);
-            cmd.AddUInt8(0);
-            cmd.Pad();
-        }
-
-        public void Deserialize(ParsedByteArray cmd)
-        {
-            MixEffectIndex = (MixEffectBlockId) cmd.GetUInt8();
-            KeyerIndex = (UpstreamKeyId)cmd.GetUInt8();
-            IsASet = (bool)cmd.GetBoolArray()[0];
-            IsBSet = (bool)cmd.GetBoolArray()[0];
-            ActiveKeyFrame = (int)cmd.GetUInt8();
-            RunToInfinite = (int)cmd.GetUInt8();
-
-            IsAtKeyFrame =(int)cmd.GetUInt8();
-            cmd.Skip(1);
-
-
-            
-        }
     }
 }

@@ -32,7 +32,7 @@ namespace LibAtem.Net.DataTransfer
                 TransferIndex = _index,
                 TransferStoreId = StoreId,
                 Size = _frame.GetYCbCrData().Length,
-                Mode = DataTransferUploadRequestCommand.TransferMode.Clear2Write,
+                Mode = DataTransferUploadRequestCommand.TransferMode.Clear2| DataTransferUploadRequestCommand.TransferMode.Write,
             };
             // TODO - seperate clear op?
         }

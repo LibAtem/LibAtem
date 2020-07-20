@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using LibAtem.Commands;
 using LibAtem.Commands.CameraControl;
-using LibAtem.Commands.Audio;
-using LibAtem.Commands.DeviceProfile;
 using LibAtem.Common;
 
 namespace LibAtem.State.Builder
@@ -14,21 +11,14 @@ namespace LibAtem.State.Builder
         {
             if (command is CCstCommand ccstCmd)
             {
-
-                // Dictionary<long, CamState> state.Cams  = new Dictionary<long, CamState>();
-            /*    state.CameraControl = new CameraControllerState
-                {
-                    
-                };*/
                 result.SetSuccess("CameraControl");
-                //result.SetSuccess("Audio.MonitorOutputs");
 
-            } else if (state.Cams != null) { 
+            } else if (state.CameraControl != null) { 
                 if (command is CameraControlGetCommand camCmd)
                 {
-                    if (!state.Cams.ContainsKey((int)camCmd.Input)) state.Cams[(int)camCmd.Input] = new CamState();
+                    if (!state.CameraControl.ContainsKey((int)camCmd.Input)) state.CameraControl[(int)camCmd.Input] = new CameraControlState();
 
-                    UpdaterUtil.TryForKey(result, state.Cams, (long)camCmd.Input, input =>
+                    UpdaterUtil.TryForKey(result, state.CameraControl, (long)camCmd.Input, input =>
                     {
 
                         if (camCmd.AdjustmentDomain == AdjustmentDomain.Camera)
@@ -120,7 +110,9 @@ namespace LibAtem.State.Builder
 
                     });
                 }
-              
+                
+                // TODO - this needs to set success in some way
+                // result.SetSuccess("CameraControl");
             }
         }
     }

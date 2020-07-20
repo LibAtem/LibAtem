@@ -118,6 +118,7 @@ namespace LibAtem.Common
         Two = 2,
     }
 
+    // TODO - this may want consolidating with FlyKeyKeyFrameId
     public enum FlyKeyKeyFrameType
     {
         A = 1,

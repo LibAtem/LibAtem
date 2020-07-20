@@ -14,7 +14,6 @@ namespace LibAtem.Commands.DataTransfer
             Clear = 2, // ?
             Write2 = 256,
             Clear2 = 512,
-            Clear2Write = 513,
         }
 
         [CommandId]
