@@ -46,6 +46,7 @@ namespace LibAtem.State.Builder
             MixEffectStateUpdater.Update(state, result, command);
             SettingsStateUpdater.Update(state, result, command);
             SuperSourceStateUpdater.Update(state, result, command);
+            StreamingStateBuilder.Update(state, result, command);
 
             return result;
         }
@@ -58,7 +59,7 @@ namespace LibAtem.State.Builder
             }
             else if (command is TopologyCommand topCmd)
             {
-                HandleTopologyCommand(state, result, new TopologyV8Command
+                HandleTopologyCommand(state, result, new TopologyV811Command
                 {
                     MixEffectBlocks = topCmd.MixEffectBlocks,
                     VideoSources = topCmd.VideoSources,
@@ -79,7 +80,20 @@ namespace LibAtem.State.Builder
             }
             else if (command is TopologyV8Command topCmd8)
             {
-                HandleTopologyCommand(state, result, topCmd8);
+                HandleTopologyCommand(state, result, new TopologyV811Command
+                {
+                    MixEffectBlocks = topCmd8.MixEffectBlocks,
+                    VideoSources = topCmd8.VideoSources,
+                    DownstreamKeyers = topCmd8.DownstreamKeyers,
+                    Auxiliaries = topCmd8.Auxiliaries,
+                    MixMinusOutputs = topCmd8.MixMinusOutputs,
+                    MediaPlayers = topCmd8.MediaPlayers,
+                    SerialPort = topCmd8.SerialPort,
+                    HyperDecks = topCmd8.HyperDecks,
+                    DVE = topCmd8.DVE,
+                    Stingers = topCmd8.Stingers,
+                    SuperSource = topCmd8.SuperSource,
+                });
             }
             else if (command is PowerStatusCommand powCmd)
             {
@@ -89,7 +103,7 @@ namespace LibAtem.State.Builder
             }
         }
 
-        private static void HandleTopologyCommand(AtemState state, UpdateResultImpl result, TopologyV8Command cmd)
+        private static void HandleTopologyCommand(AtemState state, UpdateResultImpl result, TopologyV811Command cmd)
         {
             state.Auxiliaries = UpdaterUtil.CreateList(cmd.Auxiliaries, (i) => new AuxState());
             state.ColorGenerators = UpdaterUtil.CreateList(2, (i) => new ColorState());

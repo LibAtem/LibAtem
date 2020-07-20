@@ -49,10 +49,14 @@ namespace LibAtem.Common
         MediaPlayerFill = 4,
         MediaPlayerKey = 5,
         SuperSource = 6,
+        [Since(ProtocolVersion.V8_1_1)]
+        ExternalDirect = 7,
 
         MEOutput = 128,
         Auxiliary = 129,
         Mask = 130,
+        [Since(ProtocolVersion.V8_1_1)]
+        MultiViewer = 131,
     }
 
     public enum AudioPortType

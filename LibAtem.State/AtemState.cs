@@ -21,6 +21,9 @@ namespace LibAtem.State
         public MediaPoolState MediaPool { get; } = new MediaPoolState();
         public SettingsState Settings { get; } = new SettingsState();
 
+        public StreamingState Streaming { get; set; }
+        public RecordingState Recording { get; set; }
+
         public InfoState Info { get; } = new InfoState();
 
         public bool[] Power { get; set; } = {false};
