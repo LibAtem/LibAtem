@@ -79,8 +79,8 @@ namespace LibAtem.State.Builder
                 props.Properties.AvailableExternalPortTypes = propsCmd.AvailableExternalPorts;
                 props.Properties.CurrentExternalPortType = propsCmd.ExternalPortType;
                 props.Properties.InternalPortType = propsCmd.InternalPortType;
-                //props.SourceAvailability = cmd.SourceAvailability;
-                //props.MeAvailability = cmd.MeAvailability;
+                props.Properties.SourceAvailability = propsCmd.SourceAvailability;
+                props.Properties.MeAvailability = propsCmd.MeAvailability;
                 result.SetSuccess($"Settings.Inputs.{propsCmd.Id:D}.Properties");
             }
             else if (command is TallyBySourceCommand tallyCmd)

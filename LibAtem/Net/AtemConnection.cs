@@ -363,6 +363,10 @@ namespace LibAtem.Net
             {
                 socket.SendTo(body, SocketFlags.None, Endpoint);
             }
+            catch (SocketException e)
+            {
+                Log.ErrorFormat("Send failed: {0}", e);
+            }
             catch (ObjectDisposedException)
             {
                 Log.ErrorFormat("{0} - Discarding message due to socket being disposed", Endpoint);
