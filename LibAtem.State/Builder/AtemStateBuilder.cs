@@ -47,7 +47,8 @@ namespace LibAtem.State.Builder
             SettingsStateUpdater.Update(state, result, command);
             SuperSourceStateUpdater.Update(state, result, command);
             StreamingStateBuilder.Update(state, result, command);
-
+            CameraControllerUpdater.Update(state, result, command);
+       
             return result;
         }
 

@@ -118,6 +118,15 @@ namespace LibAtem.Common
         Two = 2,
     }
 
+    public enum FlyKeyKeyFrameType
+    {
+        A = 1,
+        B = 2,
+        Full = 3,
+        RunToInfinite = 4
+
+    }
+
     public enum FlyKeyLocation
     {
         CentreOfKey = 0,

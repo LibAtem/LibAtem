@@ -137,8 +137,10 @@ namespace LibAtem.State.Builder
                 {
                     UpdaterUtil.TryForIndex(result, me.Keyers, (int) flyFrameCmd.KeyerIndex, keyer =>
                     {
+
                         if (keyer.FlyFrames == null)
                         {
+
                             keyer.FlyFrames = new[]
                             {
                                 new MixEffectState.KeyerFlyFrameState(),
@@ -151,6 +153,21 @@ namespace LibAtem.State.Builder
                             UpdaterUtil.CopyAllProperties(flyFrameCmd, frame, new[] {"MixEffectIndex", "KeyerIndex", "KeyFrame"});
                             result.SetSuccess($"MixEffects.{flyFrameCmd.MixEffectIndex:D}.Keyers.{flyFrameCmd.KeyerIndex:D}.FlyFrames.{(flyFrameCmd.KeyFrame - 1):D}");
                         });
+                    });
+                });
+            }
+            else if (command is MixEffectKeyFlyPropertiesGetCommand flyKeyCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.MixEffects, (int)flyKeyCmd.MixEffectIndex, me =>
+                {
+                    UpdaterUtil.TryForIndex(result, me.Keyers, (int)flyKeyCmd.KeyerIndex, keyer =>
+                    {
+                        if (keyer.FlyProperties == null) keyer.FlyProperties = new MixEffectState.KeyerFlyProperties();
+
+                        UpdaterUtil.CopyAllProperties(flyKeyCmd, keyer.FlyProperties, new[] { "MixEffectIndex", "KeyerIndex" });
+                        result.SetSuccess($"MixEffects.{flyKeyCmd.MixEffectIndex:D}.Keyers.{flyKeyCmd.KeyerIndex:D}.FlyProperties");
+
+              
                     });
                 });
             }
