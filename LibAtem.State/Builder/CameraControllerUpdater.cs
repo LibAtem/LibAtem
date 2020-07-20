@@ -34,7 +34,7 @@ namespace LibAtem.State.Builder
                             }
                             else if (camCmd.CameraFeature == CameraFeature.PositiveGain)
                             {
-                                input.Camera.PositivieGain = camCmd.CameraPositiveGain;
+                                input.Camera.PositiveGain = camCmd.CameraPositiveGain;
                             }
                             else if (camCmd.CameraFeature == CameraFeature.Shutter)
                             {

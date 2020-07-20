@@ -24,6 +24,19 @@ namespace LibAtem.State.Builder
                 state.Settings.VideoMode = videoCmd.VideoMode;
                 result.SetSuccess($"Settings.VideoMode");
             }
+            else if (command is AutoVideoModeCommand avmCmd)
+            {
+                var paths = new List<string> { "Settings.AutoVideoMode" };
+                state.Settings.AutoVideoMode = avmCmd.Enabled;
+
+                if (!state.Info.SupportsAutoVideoMode)
+                {
+                    state.Info.SupportsAutoVideoMode = true;
+                    paths.Add("Info.SupportsAutoVideoMode");
+                }
+
+                result.SetSuccess(paths);
+            }
             else if (command is DownConvertModeGetCommand dcModeCmd)
             {
                 state.Settings.DownConvertMode = dcModeCmd.DownConvertMode;

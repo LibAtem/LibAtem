@@ -17,7 +17,7 @@ namespace LibAtem.State
         {
             public CameraDetail Detail { get; set; }
             public int Gain { get; set; }
-            public uint PositivieGain { get; set; }
+            public uint PositiveGain { get; set; }
             public uint Shutter { get; set; }
             public uint WhiteBalance { get; set; }
         }

@@ -15,6 +15,7 @@ namespace LibAtem.State
         public IReadOnlyDictionary<TalkbackChannel, TalkbackState> Talkback { get; set; }
         public IReadOnlyList<MixMinusOutputState> MixMinusOutputs { get; set; } = new List<MixMinusOutputState>();
 
+        public bool AutoVideoMode { get; set; }
         public VideoMode VideoMode { get; set; }
         public DownConvertMode DownConvertMode { get; set; }
         public VideoMode DownConvertVideoMode { get; set; }

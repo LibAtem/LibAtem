@@ -327,10 +327,10 @@ namespace LibAtem.State
         {
             public bool IsASet { get; set; }
             public bool IsBSet { get; set; }
-            public int IsAtKeyFrame { get; set; }
-            public int RunToInfinite { get; set; }
+            public uint IsAtKeyFrame { get; set; }
+            // public uint RunToInfinite { get; set; }
 
-            public int ActiveKeyFrame { get; set; }
+            public uint ActiveKeyFrame { get; set; }
     
 
 
