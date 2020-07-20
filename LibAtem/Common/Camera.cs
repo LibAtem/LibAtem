@@ -1,20 +1,5 @@
 ﻿namespace LibAtem.Common
 {
-    [XmlAsString]
-
-    public enum CameraInput
-    {
-        Cam1 = 1,
-        Cam2 = 2,
-        Cam3 = 3,
-        Cam4 = 4,
-        Cam5 = 5,
-        Cam6 = 6,
-        Cam7 = 7,
-        Cam8 = 8,
-
-
-    }
     public enum AdjustmentDomain
     {
         Lens = 0,

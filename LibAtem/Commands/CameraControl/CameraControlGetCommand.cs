@@ -8,8 +8,7 @@ namespace LibAtem.Commands.CameraControl
     [CommandName("CCdP", CommandDirection.ToClient)]
     public class CameraControlGetCommand : ICommand
     {
-
-        public CameraInput Input { get; set; }
+        public VideoSource Input { get; set; }
 
         public AdjustmentDomain AdjustmentDomain { get; set; }
         public CameraFeature CameraFeature { get; set; }
@@ -48,7 +47,7 @@ namespace LibAtem.Commands.CameraControl
 
         public void Deserialize(ParsedByteArray cmd)
         {
-            Input = (CameraInput)cmd.GetUInt8();
+            Input = (VideoSource)cmd.GetUInt8();
             AdjustmentDomain = (AdjustmentDomain)cmd.GetUInt8();
             if (AdjustmentDomain == AdjustmentDomain.Camera)
             {
@@ -160,7 +159,9 @@ namespace LibAtem.Commands.CameraControl
                 cmd.Skip(7);
                 
             }
-                
+     
+            // TODO - we dont want this
+            cmd.SkipTo(cmd.BodyLength);
         }
     }
 }

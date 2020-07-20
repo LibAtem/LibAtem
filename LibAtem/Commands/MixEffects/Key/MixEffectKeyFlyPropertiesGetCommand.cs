@@ -19,13 +19,13 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(3), Bool]
         public bool IsBSet { get; set; }
 
-        [Serialize(4), Enum8]
-        public FlyKeyLocation RunToInfinite { get; set; }
+        [Serialize(4), UInt8] // TODO - type of this
+        public uint ActiveKeyFrame { get; set; }
 
-        [Serialize(5), Enum8]
-        public FlyKeyKeyFrameType ActiveKeyFrame { get; set; }
+        //[Serialize(5), UInt8] // TODO - type of this
+        //public uint RunToInfinite { get; set; }
 
         [Serialize(6), UInt8] // TODO - type of this
-        public int IsAtKeyFrame { get; set; }
+        public uint IsAtKeyFrame { get; set; }
     }
 }
