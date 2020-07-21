@@ -39,6 +39,7 @@ namespace LibAtem.State
         [Serializable]
         public class MixMinusOutputState
         {
+            public bool HasAudioInputId { get; set; }
             public AudioSource AudioInputId { get; set; }
             public MixMinusMode SupportedModes { get; set; }
             public MixMinusMode Mode { get; set; }
