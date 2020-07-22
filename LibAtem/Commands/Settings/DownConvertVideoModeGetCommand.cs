@@ -3,9 +3,10 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings
 {
-    [CommandName("DHVm", CommandDirection.ToClient, 4), NoCommandId]
-    public class DownConvertAvailableModesCommand : SerializableCommandBase
+    [CommandName("DHVm", CommandDirection.ToClient, 4)]
+    public class DownConvertVideoModeGetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public VideoMode CoreVideoMode { get; set; }
 

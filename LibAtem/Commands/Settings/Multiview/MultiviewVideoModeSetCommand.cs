@@ -3,9 +3,10 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.Multiview
 {
-    [CommandName("MvVM", CommandDirection.ToClient, 4), NoCommandId]
-    public class MultiviewerAvailableModesCommand : SerializableCommandBase
+    [CommandName("CMVM", CommandDirection.ToServer, 4)]
+    public class MultiviewVideoModeSetCommand : SerializableCommandBase
     {
+        [CommandId]
         [Serialize(0), Enum8]
         public VideoMode CoreVideoMode { get; set; }
         [Serialize(1), Enum8]

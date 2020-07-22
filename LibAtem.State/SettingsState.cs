@@ -18,7 +18,8 @@ namespace LibAtem.State
         public bool AutoVideoMode { get; set; }
         public VideoMode VideoMode { get; set; }
         public DownConvertMode DownConvertMode { get; set; }
-        public VideoMode DownConvertVideoMode { get; set; }
+        public Dictionary<VideoMode, VideoMode> DownConvertVideoModes { get; } = new Dictionary<VideoMode, VideoMode>();
+        public Dictionary<VideoMode, VideoMode> MultiviewVideoModes { get; } = new Dictionary<VideoMode, VideoMode>();
 
         public SerialMode SerialMode { get; set; }
 
