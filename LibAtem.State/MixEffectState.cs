@@ -169,6 +169,8 @@ namespace LibAtem.State
             public double MaskLeft { get; set; }
             [Tolerance(0.01)]
             public double MaskRight { get; set; }
+
+            public bool CanFlyKey { get; set; }
         }
         
         [Serializable]
@@ -274,6 +276,9 @@ namespace LibAtem.State
         [Serializable]
         public class KeyerDVEState
         {
+            // public bool CanScaleUp { get; set; }
+            // public bool CanRotate { get; set; }
+
             [Tolerance(0.01)]
             public double SizeX { get; set; }
             [Tolerance(0.01)]
@@ -327,13 +332,9 @@ namespace LibAtem.State
         {
             public bool IsASet { get; set; }
             public bool IsBSet { get; set; }
-            public uint IsAtKeyFrame { get; set; }
-            // public uint RunToInfinite { get; set; }
 
-            public uint ActiveKeyFrame { get; set; }
-    
-
-
+            public FlyKeyKeyFrameType RunningToKeyFrame { get; set; }
+            public FlyKeyLocation RunningToInfinite { get; set; }
         }    
 
             [Serializable]

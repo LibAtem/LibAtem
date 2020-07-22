@@ -19,13 +19,22 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(3), Bool]
         public bool IsBSet { get; set; }
 
-        [Serialize(4), UInt8] // TODO - type of this
-        public uint ActiveKeyFrame { get; set; }
+        [Serialize(4), Enum8]
+        public FlyKeyKeyFrameType RunningToKeyFrame { get; set; }
+        
+        [Serialize(5), Enum8]
+        public FlyKeyLocation RunningToInfinite { get; set; }
 
-        //[Serialize(5), UInt8] // TODO - type of this
-        //public uint RunToInfinite { get; set; }
+        // This is a pretty meaningless value, as it is really the LastRunKeyFrame
+        // [Serialize(6), Enum8]
+        // public FlyKeyAtKeyFrame IsAtKeyFrame { get; set; }
 
-        [Serialize(6), UInt8] // TODO - type of this
-        public uint IsAtKeyFrame { get; set; }
+        public override void Deserialize(ParsedByteArray cmd)
+        {
+            base.Deserialize(cmd);
+
+            if (RunningToKeyFrame != FlyKeyKeyFrameType.RunToInfinite)
+                RunningToInfinite = 0;
+        }
     }
 }

@@ -118,14 +118,23 @@ namespace LibAtem.Common
         Two = 2,
     }
 
+    public enum FlyKeyAtKeyFrame
+    {
+        None = 0,
+        A = 1,
+        B = 2,
+        Full = 4,
+        Infinite = 8
+    }
+
     // TODO - this may want consolidating with FlyKeyKeyFrameId
     public enum FlyKeyKeyFrameType
     {
+        None = 0,
         A = 1,
         B = 2,
         Full = 3,
         RunToInfinite = 4
-
     }
 
     public enum FlyKeyLocation

@@ -55,11 +55,11 @@ namespace LibAtem.Commands.MixEffects.Key
         public double SizeX { get; set; }
         [Serialize(12), UInt32D(1000, 0, 99990)]
         public double SizeY { get; set; }
-        [Serialize(16), Int32D(1000, -1000, 1000)] // TODO - check range
+        [Serialize(16), Int32D(1000, -1000 * 1000, 1000 * 1000)]
         public double PositionX { get; set; }
-        [Serialize(20), Int32D(1000, -1000, 1000)] // TODO - check range
+        [Serialize(20), Int32D(1000, -1000 * 1000, 1000 * 1000)]
         public double PositionY { get; set; }
-        [Serialize(24), Int32D(1000, -1000, 1000)] // TODO - check range
+        [Serialize(24), Int32D(10, -332230, 332230)]
         public double Rotation { get; set; }
 
         [Serialize(28), Bool]

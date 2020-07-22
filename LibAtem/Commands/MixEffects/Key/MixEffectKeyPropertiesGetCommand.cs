@@ -14,6 +14,10 @@ namespace LibAtem.Commands.MixEffects.Key
         public UpstreamKeyId KeyerIndex { get; set; }
         [Serialize(2), Enum8]
         public MixEffectKeyType KeyType { get; set; }
+
+        [Serialize(4), Bool]
+        public bool CanFlyKey { get; set; }
+
         [Serialize(5), Bool]
         public bool FlyEnabled { get; set; }
         [Serialize(6), Enum16]
@@ -31,13 +35,5 @@ namespace LibAtem.Commands.MixEffects.Key
         public double MaskLeft { get; set; }
         [Serialize(18), Int16D(1000, -16000, 16000)]
         public double MaskRight { get; set; }
-
-        public override void Serialize(ByteArrayBuilder cmd)
-        {
-            base.Serialize(cmd);
-
-            cmd.Set(3); // ??
-            cmd.Set(4); // ??
-        }
     }
 }

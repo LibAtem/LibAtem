@@ -7,6 +7,7 @@ namespace LibAtem.Commands.MixEffects.Key
     [CommandName("RFlK", CommandDirection.ToServer, 8)]
     public class MixEffectKeyFlyRunSetCommand : SerializableCommandBase
     {
+        /*
         [Flags]
         public enum MaskFlags
         {
@@ -16,6 +17,7 @@ namespace LibAtem.Commands.MixEffects.Key
 
         [Serialize(0), Enum8]
         public MaskFlags Mask { get; set; }
+        */
 
         [CommandId]
         [Serialize(1), Enum8]
