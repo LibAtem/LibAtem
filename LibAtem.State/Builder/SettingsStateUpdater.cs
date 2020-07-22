@@ -38,6 +38,7 @@ namespace LibAtem.State.Builder
             {
                 var paths = new List<string> { "Settings.AutoVideoMode" };
                 state.Settings.AutoVideoMode = avmCmd.Enabled;
+                state.Settings.DetectedVideoMode = avmCmd.Detected;
 
                 if (!state.Info.SupportsAutoVideoMode)
                 {

@@ -7,5 +7,9 @@ namespace LibAtem.Commands.Settings
     {
         [Serialize(0), Bool]
         public bool Enabled { get; set; }
+
+        [Serialize(1), Bool]
+        public bool Detected { get; set; }
+
     }
 }

@@ -16,6 +16,8 @@ namespace LibAtem.State
         public IReadOnlyList<MixMinusOutputState> MixMinusOutputs { get; set; } = new List<MixMinusOutputState>();
 
         public bool AutoVideoMode { get; set; }
+        public bool DetectedVideoMode { get; set; }
+
         public VideoMode VideoMode { get; set; }
         public DownConvertMode DownConvertMode { get; set; }
         public Dictionary<VideoMode, VideoMode> DownConvertVideoModes { get; } = new Dictionary<VideoMode, VideoMode>();
