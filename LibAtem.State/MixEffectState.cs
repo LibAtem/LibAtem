@@ -337,7 +337,7 @@ namespace LibAtem.State
             public FlyKeyLocation RunningToInfinite { get; set; }
         }    
 
-            [Serializable]
+        [Serializable]
         public class KeyerFlyFrameState
         {
             [Tolerance(0.01)]

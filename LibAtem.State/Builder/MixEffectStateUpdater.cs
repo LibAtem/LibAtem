@@ -141,7 +141,7 @@ namespace LibAtem.State.Builder
                         if (keyer.FlyFrames == null)
                         {
 
-                            keyer.FlyFrames = new[]
+                            keyer.FlyFrames = new List<MixEffectState.KeyerFlyFrameState>
                             {
                                 new MixEffectState.KeyerFlyFrameState(),
                                 new MixEffectState.KeyerFlyFrameState()

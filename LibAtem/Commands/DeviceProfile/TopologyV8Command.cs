@@ -28,6 +28,11 @@ namespace LibAtem.Commands.DeviceProfile
         [Serialize(10), UInt8]
         public uint SuperSource { get; set; }
 
+        [Serialize(17), Bool]
+        public bool CameraControl { get; set; }
+
+        [Serialize(21), Bool]
+        public bool AdvancedChromaKeyers { get; set; }
     }
 
     [CommandName("_top", CommandDirection.ToClient, ProtocolVersion.V8_1_1, 28), NoCommandId]
@@ -56,5 +61,10 @@ namespace LibAtem.Commands.DeviceProfile
         [Serialize(11), UInt8]
         public uint SuperSource { get; set; }
 
+        [Serialize(18), Bool]
+        public bool CameraControl { get; set; }
+
+        [Serialize(22), Bool]
+        public bool AdvancedChromaKeyers { get; set; }
     }
 }

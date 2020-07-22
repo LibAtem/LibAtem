@@ -18,6 +18,17 @@ namespace LibAtem.State
         public IReadOnlyList<VideoModeInfo> SupportedVideoModes { get; set; } = new List<VideoModeInfo>();
         
         public bool SupportsAutoVideoMode { get; set; }
+
+        public DveInfo DVE { get; set; }
+
+        [Serializable]
+        public class DveInfo
+        {
+            public bool CanRotate { get; set; }
+            public bool CanScaleUp { get; set; }
+
+            public IReadOnlyList<DVEEffect> SupportedTransitions { get; set; } = new List<DVEEffect>();
+        }
     }
 
     [Serializable]
