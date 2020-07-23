@@ -7,6 +7,7 @@ using LibAtem.Commands.Settings.HyperDeck;
 using LibAtem.Commands.Settings.Multiview;
 using LibAtem.Commands.SuperSource;
 using LibAtem.Common;
+using LibAtem.Util;
 
 namespace LibAtem.State.Builder
 {
@@ -92,15 +93,13 @@ namespace LibAtem.State.Builder
                 if (!state.Settings.Inputs.ContainsKey(propsCmd.Id))
                     state.Settings.Inputs[propsCmd.Id] = new InputState();
                 InputState props = state.Settings.Inputs[propsCmd.Id];
-            
+
+                props.Properties.AreNamesDefault = propsCmd.AreNamesDefault;
                 props.Properties.LongName = propsCmd.LongName;
                 props.Properties.ShortName = propsCmd.ShortName;
 
-                // Tuple<string, string> defaultName = propsCmd.Id.GetDefaultName(profile);
-                // props.AreNamesDefault = propsCmd.LongName == defaultName.Item1 && propsCmd.ShortName == defaultName.Item2;
-
                 //props.IsExternal = cmd.IsExternal;
-                props.Properties.AvailableExternalPortTypes = propsCmd.AvailableExternalPorts;
+                props.Properties.AvailableExternalPortTypes = propsCmd.AvailableExternalPorts.FindFlagComponents();
                 props.Properties.CurrentExternalPortType = propsCmd.ExternalPortType;
                 props.Properties.InternalPortType = propsCmd.InternalPortType;
                 props.Properties.SourceAvailability = propsCmd.SourceAvailability;

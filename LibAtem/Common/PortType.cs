@@ -25,6 +25,19 @@ namespace LibAtem.Common
     }
 
     [Flags]
+    public enum ExternalPortTypeFlags2
+    {
+        None = 0,
+        SDI = 1,
+        HDMI = 2,
+        Component = 4,
+        Composite = 8,
+        SVideo = 16,
+
+        Internal = 256,
+    }
+
+    [Flags]
     public enum ExternalPortTypeFlags
     {
         Unknown = 0,

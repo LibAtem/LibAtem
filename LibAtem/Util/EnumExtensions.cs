@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -40,6 +41,16 @@ namespace LibAtem.Util
             MemberInfo[] memInfo = type.GetMember(src.ToString(CultureInfo.InvariantCulture));
 
             return memInfo[0].GetCustomAttributes(typeof(T), false).OfType<T>().FirstOrDefault();
+        }
+        public static List<T> FindFlagComponents<T>(this T value) where T : Enum
+        {
+            return Enum.GetValues(typeof(T)).OfType<T>().Where(v => value.HasFlag(v) && Convert.ToInt32(v) != 0)
+                .ToList();
+        }
+
+        public static T CombineFlagComponents<T>(this IEnumerable<T> input) where T : Enum
+        {
+            return (T) Enum.ToObject(typeof(T), input.Select(v => Convert.ToInt32(v)).Sum());
         }
     }
 }

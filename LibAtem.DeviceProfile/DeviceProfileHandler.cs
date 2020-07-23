@@ -104,7 +104,7 @@ namespace LibAtem.DeviceProfile
             Profile.Sources.Add(new DevicePort
             {
                 Id = cmd.Id,
-                Port = cmd.AvailableExternalPorts.ToExternalPortTypes().ToList(),
+                Port = cmd.AvailableExternalPorts.FindFlagComponents(), //.ToExternalPortTypes().ToList(),
             });
             Profile.Sources.Sort((a, b) => a.Id.CompareTo(b.Id));
         }

@@ -75,15 +75,15 @@ namespace LibAtem.State
         {
             public string ShortName { get; set; }
             public string LongName { get; set; }
-            // public bool AreNamesDefault { get; set; }
+            public bool AreNamesDefault { get; set; }
 
             public InternalPortType InternalPortType { get; set; }
             
             public SourceAvailability SourceAvailability { get; set; }
             public MeAvailability MeAvailability { get; set; }
 
-            public ExternalPortTypeFlags AvailableExternalPortTypes { get; set; }
-            public ExternalPortTypeFlags CurrentExternalPortType { get; set; }
+            public IReadOnlyList<ExternalPortTypeFlags2> AvailableExternalPortTypes { get; set; }
+            public ExternalPortTypeFlags2 CurrentExternalPortType { get; set; }
         }
 
         [Serializable]
