@@ -94,6 +94,9 @@ namespace LibAtem.State.Builder
                     DVE = topCmd8.DVE,
                     Stingers = topCmd8.Stingers,
                     SuperSource = topCmd8.SuperSource,
+                    CameraControl = topCmd8.CameraControl,
+                    AdvancedChromaKeyers = topCmd8.AdvancedChromaKeyers,
+                    OnlyConfigurableOutputs = topCmd8.OnlyConfigurableOutputs,
                 });
             }
             else if (command is PowerStatusCommand powCmd)
@@ -123,6 +126,10 @@ namespace LibAtem.State.Builder
 
             state.Settings.Hyperdecks = UpdaterUtil.CreateList(cmd.HyperDecks, i => new SettingsState.HyperdeckState());
             state.Settings.MixMinusOutputs = UpdaterUtil.CreateList(cmd.MixMinusOutputs, i => new SettingsState.MixMinusOutputState());
+
+            state.Info.AdvancedChromaKeyers = cmd.AdvancedChromaKeyers;
+            state.Info.OnlyConfigurableOutputs = cmd.OnlyConfigurableOutputs;
+            state.Info.HasCameraControl = cmd.CameraControl;
 
             // Everything has changed
             result.SetSuccess("");

@@ -33,6 +33,8 @@ namespace LibAtem.Commands.DeviceProfile
 
         [Serialize(21), Bool]
         public bool AdvancedChromaKeyers { get; set; }
+        [Serialize(22), Bool]
+        public bool OnlyConfigurableOutputs { get; set; }
     }
 
     [CommandName("_top", CommandDirection.ToClient, ProtocolVersion.V8_1_1, 28), NoCommandId]
@@ -66,5 +68,7 @@ namespace LibAtem.Commands.DeviceProfile
 
         [Serialize(22), Bool]
         public bool AdvancedChromaKeyers { get; set; }
+        [Serialize(23), Bool]
+        public bool OnlyConfigurableOutputs { get; set; }
     }
 }

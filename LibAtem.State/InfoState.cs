@@ -19,6 +19,10 @@ namespace LibAtem.State
         
         public bool SupportsAutoVideoMode { get; set; }
 
+        public bool AdvancedChromaKeyers { get; set; }
+        public bool OnlyConfigurableOutputs { get; set; }
+        public bool HasCameraControl { get; set; }
+
         public DveInfoState DVE { get; set; }
         public MultiViewInfoState MultiViewers { get; set; }
 
