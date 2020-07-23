@@ -97,11 +97,6 @@ namespace LibAtem.State
     [Serializable]
     public class MultiViewerState
     {
-        public bool SupportsVuMeters { get; set; }
-        public bool SupportsProgramPreviewSwapped { get; set; }
-        public bool SupportsQuadrantLayout { get; set; }
-        public bool SupportsToggleSafeArea { get; set; }
-
         [Tolerance(1)]
         public double VuMeterOpacity { get; set; }
         public PropertiesState Properties { get; } = new PropertiesState();
@@ -118,12 +113,13 @@ namespace LibAtem.State
         [Serializable]
         public class WindowState
         {
-            public bool VuMeter { get; set; }
-            public bool SupportsVuMeter { get; set; }
             public VideoSource Source { get; set; }
+
+            public bool SupportsVuMeter { get; set; }
+            public bool VuMeterEnabled { get; set; }
             
+            public bool SupportsSafeArea { get; set; }
             public bool SafeAreaEnabled { get; set; }
-            // public bool SupportsSafeArea { get; set; }
         }
     }
 }

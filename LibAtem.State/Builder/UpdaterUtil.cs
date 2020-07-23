@@ -35,7 +35,17 @@ namespace LibAtem.State.Builder
         {
             return Enumerable.Range(0, (int) count).Select(func).ToList();
         }
-        
+
+        public static IReadOnlyList<T> UpdateList<T>(IReadOnlyList<T> previous, uint count, Func<int, T> func)
+        {
+            List<T> res = previous == null ? new List<T>() : previous.Take((int) count).ToList();
+            while (res.Count < count)
+            {
+                res.Add(func(res.Count));
+            }
+            return res;
+        }
+
         public static void CopyAllProperties<TSrc, TDest>(TSrc src, TDest dest, IEnumerable<string> skipSrc = null, IEnumerable<string> ignoreDest = null)
         {
             Dictionary<string, PropertyInfo> srcPropMap = typeof(TSrc).GetProperties().Where(p => skipSrc == null || !skipSrc.Contains(p.Name)).ToDictionary(p => p.Name);

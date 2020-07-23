@@ -19,15 +19,26 @@ namespace LibAtem.State
         
         public bool SupportsAutoVideoMode { get; set; }
 
-        public DveInfo DVE { get; set; }
+        public DveInfoState DVE { get; set; }
+        public MultiViewInfoState MultiViewers { get; set; }
 
         [Serializable]
-        public class DveInfo
+        public class DveInfoState
         {
             public bool CanRotate { get; set; }
             public bool CanScaleUp { get; set; }
 
             public IReadOnlyList<DVEEffect> SupportedTransitions { get; set; } = new List<DVEEffect>();
+        }
+
+        [Serializable]
+        public class MultiViewInfoState
+        {
+            public bool CanRouteInputs { get; set; }
+            public bool SupportsVuMeters { get; set; }
+            public bool SupportsProgramPreviewSwapped { get; set; }
+            public bool SupportsQuadrantLayout { get; set; }
+            public bool SupportsToggleSafeArea { get; set; }
         }
     }
 

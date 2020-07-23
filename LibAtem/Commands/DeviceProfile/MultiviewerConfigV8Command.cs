@@ -15,7 +15,7 @@ namespace LibAtem.Commands.DeviceProfile
         // [Serialize(2), Bool]
         // public bool Tmp2 { get; set; }
         [Serialize(3), Bool]
-        public bool CanRouteWindows { get; set; }
+        public bool CanRouteInputs { get; set; }
 
         // Setting 6 or 7 to true on 2me, causes connection to fail
 

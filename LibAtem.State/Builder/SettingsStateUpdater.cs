@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.DeviceProfile;
 using LibAtem.Commands.Settings;
@@ -128,27 +129,40 @@ namespace LibAtem.State.Builder
         {
             if (command is MultiviewerConfigV8Command multiview8Cmd)
             {
-                state.Settings.MultiViewers = UpdaterUtil.CreateList(multiview8Cmd.Count, i => new MultiViewerState
+                state.Info.MultiViewers = new InfoState.MultiViewInfoState
                 {
-                    Windows = UpdaterUtil.CreateList(multiview8Cmd.WindowCount,
-                        w => new MultiViewerState.WindowState()),
+                    CanRouteInputs = multiview8Cmd.CanRouteInputs,
                     SupportsVuMeters = multiview8Cmd.SupportsVuMeters,
                     SupportsProgramPreviewSwapped = multiview8Cmd.CanSwapPreviewProgram,
                     SupportsQuadrantLayout = multiview8Cmd.SupportsQuadrants,
                     SupportsToggleSafeArea = multiview8Cmd.CanToggleSafeArea,
+                };
+
+                state.Settings.MultiViewers = UpdaterUtil.UpdateList(state.Settings.MultiViewers, multiview8Cmd.Count, i => new MultiViewerState
+                {
+                    Windows = new List<MultiViewerState.WindowState>(), // Size gets done in a second
                 });
-                result.SetSuccess($"Settings.MultiViewers");
+                state.Settings.MultiViewers.ForEach(mv => mv.Windows = UpdaterUtil.UpdateList(mv.Windows,
+                    multiview8Cmd.WindowCount,
+                    w => new MultiViewerState.WindowState()));
+                result.SetSuccess(new[] {$"Info.MultiViewers", $"Settings.MultiViewers"});
             }
             else if (command is MultiviewerConfigCommand multiviewCmd)
             {
-                state.Settings.MultiViewers = UpdaterUtil.CreateList(multiviewCmd.Count, i => new MultiViewerState
+                state.Info.MultiViewers = new InfoState.MultiViewInfoState
                 {
-                    Windows = UpdaterUtil.CreateList(multiviewCmd.WindowCount,
-                        w => new MultiViewerState.WindowState()),
-                    // SupportsVuMeters = multiviewCmd.SupportsVuMeters,
+                    CanRouteInputs = multiviewCmd.CanRouteInputs,
                     SupportsProgramPreviewSwapped = multiviewCmd.CanSwapPreviewProgram
+                };
+
+                state.Settings.MultiViewers = UpdaterUtil.UpdateList(state.Settings.MultiViewers, multiviewCmd.Count, i => new MultiViewerState
+                {
+                    Windows = new List<MultiViewerState.WindowState>(), // Size gets done in a second
                 });
-                result.SetSuccess($"Settings.MultiViewers");
+                state.Settings.MultiViewers.ForEach(mv => mv.Windows = UpdaterUtil.UpdateList(mv.Windows,
+                    multiviewCmd.WindowCount,
+                    w => new MultiViewerState.WindowState()));
+                result.SetSuccess(new[] { $"Info.MultiViewers", $"Settings.MultiViewers" });
             }
             else if (command is MultiviewVuOpacityCommand vuOpacityCmd)
             {
@@ -163,24 +177,7 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)props8Cmd.MultiviewIndex, mv =>
                 {
                     mv.Properties.Layout = props8Cmd.Layout;
-                    if (mv.SupportsProgramPreviewSwapped)
-                    {
-                        mv.Properties.ProgramPreviewSwapped = props8Cmd.ProgramPreviewSwapped;
-                    }
-
-                    // Enforce some legacy behaviour
-                    if (mv.Windows.Count == 10) // TODO - perhaps this check can be done better?
-                    {
-                        if (mv.SupportsVuMeters) // TODO - could this be moved off state?
-                        {
-                            mv.Windows[0].SupportsVuMeter = props8Cmd.ProgramPreviewSwapped;
-                            mv.Windows[1].SupportsVuMeter = !props8Cmd.ProgramPreviewSwapped;
-                            
-                            result.SetSuccess($"Settings.MultiViewers.{props8Cmd.MultiviewIndex:D}.Windows.0");
-                            result.SetSuccess($"Settings.MultiViewers.{props8Cmd.MultiviewIndex:D}.Windows.1");
-                        }
-                        
-                    }
+                    mv.Properties.ProgramPreviewSwapped = props8Cmd.ProgramPreviewSwapped;
 
                     result.SetSuccess($"Settings.MultiViewers.{props8Cmd.MultiviewIndex:D}.Properties");
                 });
@@ -192,25 +189,8 @@ namespace LibAtem.State.Builder
                     if (!Enum.TryParse(propsCmd.Layout.ToString(), true, out MultiViewLayoutV8 layout))
                         layout = 0;
                     mv.Properties.Layout = layout;
-
                     mv.Properties.ProgramPreviewSwapped = propsCmd.ProgramPreviewSwapped;
-
-                    // Enforce some legacy behaviour
-                    if (mv.Windows.Count == 10) // TODO - perhaps this check can be done better?
-                    {
-                        mv.Windows[0].SafeAreaEnabled = propsCmd.SafeAreaEnabled && propsCmd.ProgramPreviewSwapped;
-                        mv.Windows[1].SafeAreaEnabled = propsCmd.SafeAreaEnabled && !propsCmd.ProgramPreviewSwapped;
-                        
-                        if (mv.SupportsVuMeters) // TODO - could this be moved off state?
-                        {
-                            mv.Windows[0].SupportsVuMeter = propsCmd.ProgramPreviewSwapped;
-                            mv.Windows[1].SupportsVuMeter = !propsCmd.ProgramPreviewSwapped;
-                        }
-                        
-                        result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex:D}.Windows.0");
-                        result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex:D}.Windows.1");
-                    }
-
+                    
                     result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex:D}.Properties");
                 });
             }
@@ -221,23 +201,8 @@ namespace LibAtem.State.Builder
                     UpdaterUtil.TryForIndex(result, mv.Windows, (int) winCmd.WindowIndex, win =>
                     {
                         win.Source = winCmd.Source;
-                        
-                        if (mv.SupportsVuMeters)
-                        {
-                            win.SupportsVuMeter = winCmd.Source.SupportsVuMeter();
-
-                            // Preview never supports it
-                            if (mv.SupportsProgramPreviewSwapped && !mv.SupportsQuadrantLayout)
-                            {
-                                if (winCmd.WindowIndex == 0)
-                                    win.SupportsVuMeter = mv.Properties.ProgramPreviewSwapped;
-                                if (winCmd.WindowIndex == 1)
-                                    win.SupportsVuMeter = !mv.Properties.ProgramPreviewSwapped;
-                            }
-                        } else
-                        {
-                            win.SupportsVuMeter = false;
-                        }
+                        win.SupportsVuMeter = winCmd.SupportVuMeter;
+                        win.SupportsSafeArea = winCmd.SupportsSafeArea;
 
                         result.SetSuccess($"Settings.MultiViewers.{winCmd.MultiviewIndex:D}.Windows.{winCmd.WindowIndex:D}");
                     });
@@ -249,7 +214,7 @@ namespace LibAtem.State.Builder
                 {
                     UpdaterUtil.TryForIndex(result, mv.Windows, (int) vuMeterCmd.WindowIndex, win =>
                     {
-                        win.VuMeter = vuMeterCmd.VuEnabled;
+                        win.VuMeterEnabled = vuMeterCmd.VuEnabled;
                         result.SetSuccess($"Settings.MultiViewers.{vuMeterCmd.MultiviewIndex:D}.Windows.{vuMeterCmd.WindowIndex:D}");
                     });
                 });

@@ -11,7 +11,7 @@ namespace LibAtem.Commands.Settings.Multiview
         public uint MultiviewIndex { get; set; }
         [Serialize(1), Enum8]
         public MultiViewLayoutV8 Layout { get; set; }
-        [Serialize(3), Bool]
+        [Serialize(2), Bool]
         public bool ProgramPreviewSwapped { get; set; }
     }
 }

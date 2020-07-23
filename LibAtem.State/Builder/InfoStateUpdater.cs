@@ -56,7 +56,7 @@ namespace LibAtem.State.Builder
                 result.SetSuccess("Info.SupportedVideoModes");
             } else if (command is DVEConfigCommand dveCmd)
             {
-                state.Info.DVE = new InfoState.DveInfo();
+                state.Info.DVE = new InfoState.DveInfoState();
 
                 UpdaterUtil.CopyAllProperties(dveCmd, state.Info.DVE);
 

@@ -14,5 +14,10 @@ namespace LibAtem.Commands.Settings.Multiview
         public uint WindowIndex { get; set; }
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }
+
+        [Serialize(4), Bool]
+        public bool SupportVuMeter { get; set; }
+        [Serialize(5), Bool]
+        public bool SupportsSafeArea { get; set; }
     }
 }

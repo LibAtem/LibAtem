@@ -288,6 +288,55 @@ namespace LibAtem.Common
         [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [XmlEnum("4040")]
         Key4Mask = 4040,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4050")]
+        Key5Mask = 4050,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4060")]
+        Key6Mask = 4060,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4070")]
+        Key7Mask = 4070,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4080")]
+        Key8Mask = 4080,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4090")]
+        Key9Mask = 4090,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4100")]
+        Key10Mask = 4100,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4110")]
+        Key11Mask = 4110,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4120")]
+        Key12Mask = 4120,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("413")]
+        Key13Mask = 4130,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4140")]
+        Key14Mask = 4140,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4150")]
+        Key15Mask = 4150,
+        [VideoSourceType(InternalPortType.Mask, -1)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [XmlEnum("4160")]
+        Key16Mask = 4160,
+
         [VideoSourceType(InternalPortType.Mask, 0)]
         [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
         [VideoSourceDefaults("DSK 1 Mask", "DK1M")]
@@ -298,6 +347,16 @@ namespace LibAtem.Common
         [VideoSourceDefaults("DSK 2 Mask", "DK2M")]
         [XmlEnum("5020")]
         DSK2Mask = 5020,
+        [VideoSourceType(InternalPortType.Mask, 0)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("DSK 3 Mask", "DK3M")]
+        [XmlEnum("5030")]
+        DSK3Mask = 5030,
+        [VideoSourceType(InternalPortType.Mask, 0)]
+        [VideoSourceAvailability(SourceAvailability.Auxiliary | SourceAvailability.Multiviewer)]
+        [VideoSourceDefaults("DSK 4 Mask", "DK4M")]
+        [XmlEnum("5040")]
+        DSK4Mask = 5040,
 
         [VideoSourceType(InternalPortType.SuperSource, 1)]
         [VideoSourceAvailability(SourceAvailability.All & ~SourceAvailability.SuperSourceArt, MeAvailability.All)]
@@ -361,7 +420,6 @@ namespace LibAtem.Common
         [VideoSourceDefaults("Auxiliary 6", "Aux6")]
         [XmlEnum("8006")]
         Auxilary6 = 8006,
-        // TODO - more
 
         [VideoSourceType(InternalPortType.Auxiliary, 7)]
         [VideoSourceAvailability(SourceAvailability.Multiviewer)]
