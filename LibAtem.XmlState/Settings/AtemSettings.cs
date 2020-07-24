@@ -95,11 +95,11 @@ namespace LibAtem.XmlState.Settings
 
     public class Input
     {
-        public Input() : this(VideoSource.Input1, "Cam?", "Camera ?", ExternalPortType.SDI)
+        public Input() : this(VideoSource.Input1, "Cam?", "Camera ?", VideoPortType.SDI)
         {
         }
 
-        public Input(VideoSource id, string shortName, string longName, ExternalPortType type)
+        public Input(VideoSource id, string shortName, string longName, VideoPortType type)
         {
             Id = id;
             ShortName = shortName;
@@ -117,7 +117,7 @@ namespace LibAtem.XmlState.Settings
         public string LongName { get; set; }
 
         [XmlAttribute("externalPortType")]
-        public ExternalPortType PortType { get; set; }
+        public VideoPortType PortType { get; set; }
     }
 
     public class ButtonMap

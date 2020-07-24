@@ -1,42 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace LibAtem.Common
 {
-    // TODO - add attribute to describe as audio/video/both
-    // TODO - are all these values correct or should it be flags?
-    public enum ExternalPortType
-    {
-        Internal = 0,
-        SDI = 1,
-        HDMI = 2,
-        Composite = 3,
-        Component = 4,
-        SVideo = 5,
-        XLR = 32,
-        AESEBU = 64,
-        RCA = 128,
-
-        // Note: the below are definitely correct for audio
-        TSJack = 512, 
-        MADI = 1024,
-        TRS = 2048,
-    }
-
-    [Flags]
-    public enum ExternalPortTypeFlags2
-    {
-        None = 0,
-        SDI = 1,
-        HDMI = 2,
-        Component = 4,
-        Composite = 8,
-        SVideo = 16,
-
-        Internal = 256,
-    }
-    
     public enum InternalPortType
     {
         External = 0,
@@ -54,6 +19,19 @@ namespace LibAtem.Common
         Mask = 130,
         [Since(ProtocolVersion.V8_1_1)]
         MultiViewer = 131,
+    }
+
+    [Flags]
+    public enum VideoPortType
+    {
+        None = 0,
+        SDI = 1,
+        HDMI = 2,
+        Component = 4,
+        Composite = 8,
+        SVideo = 16,
+
+        Internal = 256,
     }
 
     public enum AudioPortType

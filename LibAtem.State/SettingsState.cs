@@ -82,8 +82,8 @@ namespace LibAtem.State
             public SourceAvailability SourceAvailability { get; set; }
             public MeAvailability MeAvailability { get; set; }
 
-            public IReadOnlyList<ExternalPortTypeFlags2> AvailableExternalPortTypes { get; set; }
-            public ExternalPortTypeFlags2 CurrentExternalPortType { get; set; }
+            public IReadOnlyList<VideoPortType> AvailableExternalPortTypes { get; set; }
+            public VideoPortType CurrentExternalPortType { get; set; }
         }
 
         [Serializable]

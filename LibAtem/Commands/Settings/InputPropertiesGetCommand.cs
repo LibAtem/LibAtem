@@ -17,9 +17,9 @@ namespace LibAtem.Commands.Settings
         public bool AreNamesDefault { get; set; }
 
         [Serialize(28), Enum16]
-        public ExternalPortTypeFlags2 AvailableExternalPorts { get; set; }
+        public VideoPortType AvailableExternalPorts { get; set; }
         [Serialize(30), Enum16]
-        public ExternalPortTypeFlags2 ExternalPortType { get; set; }
+        public VideoPortType ExternalPortType { get; set; }
         [Serialize(32), Enum8]
         public InternalPortType InternalPortType { get; set; }
         [Serialize(34), Enum8]

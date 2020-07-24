@@ -92,7 +92,7 @@ namespace LibAtem.DeviceProfile
         public VideoSource Id { get; set; }
 
         [XmlElement("Port")]
-        public List<ExternalPortTypeFlags2> Port { get; set; }
+        public List<VideoPortType> Port { get; set; }
     }
 
     public class MultiView

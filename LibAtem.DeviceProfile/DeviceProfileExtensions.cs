@@ -53,13 +53,13 @@ namespace LibAtem.DeviceProfile
             
             return res;
         }
-
-        public static IEnumerable<ExternalPortType> FilterVideoMode(this IEnumerable<ExternalPortType> orig, VideoMode mode)
+        
+        public static IEnumerable<VideoPortType> FilterVideoMode(this IEnumerable<VideoPortType> orig, VideoMode mode)
         {
             if (mode.GetStandard() == VideoModeStandard.SDISD)
                 return orig.OrderBy(p => p);
 
-            return orig.Where(p => p != ExternalPortType.Composite && p != ExternalPortType.SVideo).OrderBy(p => p);
+            return orig.Where(p => p != VideoPortType.Composite && p != VideoPortType.SVideo).OrderBy(p => p);
         }
 
     }
