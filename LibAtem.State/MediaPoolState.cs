@@ -23,7 +23,7 @@ namespace LibAtem.State
         public class FrameState
         {
             public bool IsUsed { get; set; }
-            public byte[] Filename { get; set; }
+            public byte[] Hash { get; set; } = new byte[16];
         }
 
         [Serializable]
@@ -31,10 +31,23 @@ namespace LibAtem.State
         {
             public bool IsUsed { get; set; }
             public string Name { get; set; }
+            public uint FrameCount { get; set; }
 
-            public uint MaxFrames{ get; set; }
+            public uint MaxFrames { get; set; }
 
             public IReadOnlyList<FrameState> Frames { get; set; } = new List<FrameState>();
+
+            public AudioState Audio { get; } = new AudioState();
+
+
+            [Serializable]
+            public class AudioState
+            {
+                public bool IsUsed { get; set; }
+                public string Name { get; set; }
+
+                public byte[] Hash { get; set; }
+            }
         }
     }
 }

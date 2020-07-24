@@ -11,5 +11,7 @@
         Still = 0,
         Clip1 = 1,
         Clip2 = 2,
+        Clip3 = 3,
+        Clip4 = 4,
     }
 }

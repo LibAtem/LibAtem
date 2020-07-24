@@ -30,32 +30,47 @@ namespace LibAtem.State.Builder
                         break;
                     case MediaPoolFileType.Clip1:
                     case MediaPoolFileType.Clip2:
+                    case MediaPoolFileType.Clip3:
+                    case MediaPoolFileType.Clip4:
                         int bankId = (int) frameCmd.Bank - 1;
-                        /* TODO - this may error(?) as the frames arent being created yet..
                         UpdaterUtil.TryForIndex(result, state.MediaPool.Clips, bankId, clip =>
                         {
                             UpdaterUtil.TryForIndex(result, clip.Frames, (int) frameCmd.Index, frame =>
                             {
-                                UpdaterUtil.CopyAllProperties(frameCmd, frame, new[] {"Index", "Bank", "Hash"});
+                                UpdaterUtil.CopyAllProperties(frameCmd, frame, new[] {"Index", "Bank", "Filename" });
                                 result.SetSuccess($"MediaPool.Clips.{bankId:D}.Frames.{frameCmd.Index:D}");
                             });
                         });
-                        */
                         break;
                 }
-            } else if (command is MediaPoolClipDescriptionCommand clipCmd)
+            }
+            else if (command is MediaPoolAudioDescriptionCommand audioCmd)
+            {
+                uint index = audioCmd.Index - 1;
+                UpdaterUtil.TryForIndex(result, state.MediaPool.Clips, (int)index, clip =>
+                {
+                    UpdaterUtil.CopyAllProperties(audioCmd, clip.Audio, new[] {"Index"});
+                    result.SetSuccess($"MediaPool.Clips.{index:D}.Audio");
+                });
+            }
+            else if (command is MediaPoolClipDescriptionCommand clipCmd)
             {
                 UpdaterUtil.TryForIndex(result, state.MediaPool.Clips, (int)clipCmd.Index, clip =>
                 {
                     clip.IsUsed = clipCmd.IsUsed;
                     clip.Name = clipCmd.Name;
-                    clip.Frames = Enumerable.Range(0, (int)clipCmd.FrameCount).Select(i => new MediaPoolState.FrameState()).ToList();
+                    clip.FrameCount = clipCmd.FrameCount;
 
                     result.SetSuccess($"MediaPool.Clips.{clipCmd.Index:D}");
                 });
             } else if (command is MediaPoolSettingsGetCommand settingsCmd)
             {
-                state.MediaPool.Clips.ForEach((i, clip) => { clip.MaxFrames = settingsCmd.MaxFrames[i]; });
+                state.MediaPool.Clips.ForEach((i, clip) =>
+                {
+                    clip.MaxFrames = settingsCmd.MaxFrames[i];
+                    clip.Frames = UpdaterUtil.UpdateList(clip.Frames, settingsCmd.MaxFrames[i],
+                        o => new MediaPoolState.FrameState());
+                });
                 state.MediaPool.UnassignedFrames = settingsCmd.UnassignedFrames;
                 result.SetSuccess(new[] {$"MediaPool.Clips", $"MediaPool.UnassignedFrames"});
             }
