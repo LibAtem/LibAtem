@@ -87,34 +87,50 @@ namespace LibAtem.Util.Media
         public static Tuple<int, byte[]> DecodeRLESegment(uint maxBytes, byte[] data)
         {
             byte[] res = new byte[maxBytes];
-            int p = 0;
+            int outPos = 0;
 
-            const int colBytes = 8;
-
-            for (int i = 0; i < data.Length; i += 8)
+            int inPos = 0;
+            while (inPos < data.Length)
             {
-                // Ensure it looks correct
-                if (!IsTerminator(data, i))
+                int blockEnd = -1;
+                for (int i = inPos; i < data.Length; i += 8)
                 {
-                    Array.Copy(data, i, res, p, colBytes);
-                    p += colBytes;
-                    continue;
+                    if (IsTerminator(data, i))
+                    {
+                        blockEnd = i;
+                        break;
+                    }
                 }
 
-                long count = BitConverter.ToInt64(data.Skip(i + 8).Take(8).Reverse().ToArray(), 0);
-                i += 16;
-                if (count == 0)
-                    continue;
-
-                // Find the pixels to repeat
-                for (int o = 0; o < count; o++)
+                if (blockEnd == -1 || blockEnd > inPos)
                 {
-                    Array.Copy(data, i, res, p, colBytes);
-                    p += colBytes;
+                    // Copy many bytes across
+                    int copyEnd = blockEnd != -1 ? blockEnd : data.Length;
+                    int copyLength = copyEnd - inPos;
+                    Array.Copy(data, inPos, res, outPos, copyLength);
+                    outPos += copyLength;
+                    inPos = copyEnd;
+                }
+                else
+                {
+                    // We hit a terminator, so decode it
+                    long count = BitConverter.ToInt64(data.Skip(inPos + 8).Take(8).Reverse().ToArray(), 0);
+                    long dataPos = inPos + 16;
+                    inPos += 24;
+                    if (count == 0)
+                        continue;
+
+                    // Find the pixels to repeat
+                    for (int o = 0; o < count; o++)
+                    {
+                        Array.Copy(data, dataPos, res, outPos, 8);
+                        outPos += 8;
+                    }
+                    
                 }
             }
 
-            return Tuple.Create(p, res);
+            return Tuple.Create(outPos, res);
         }
 
         private static bool IsTerminator(byte[] data, int i)

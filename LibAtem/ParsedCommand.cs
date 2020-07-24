@@ -185,17 +185,29 @@ namespace LibAtem
         }
     }
 
+    public readonly struct ParsedCommandSpec
+    {
+        public ParsedCommandSpec(string name, byte[] body)
+        {
+            Name = name;
+            Body = body;
+        }
+
+        public string Name { get; }
+        public byte[] Body { get; }
+    }
+
     public class ParsedCommand : ParsedByteArray
     {
         public string Name { get; }
 
-        public ParsedCommand(string name, byte[] body)
-            : base(body, true)
+        public ParsedCommand(ParsedCommandSpec spec)
+            : base(spec.Body, true)
         {
-            Name = name;
+            Name = spec.Name;
         }
         
-        public static bool ReadNextCommand(byte[] payload, int offset, out ParsedCommand cmd)
+        public static bool ReadNextCommand(byte[] payload, int offset, out ParsedCommandSpec? cmd)
         {
             cmd = null;
 
@@ -208,9 +220,9 @@ namespace LibAtem
 
             byte[] cmdBody = new byte[cmdLength - 8];
             Array.Copy(payload, offset + 8, cmdBody, 0, cmdLength - 8);
-
+            
             string name = Encoding.ASCII.GetString(payload, offset + 4, 4);
-            cmd = new ParsedCommand(name, cmdBody);
+            cmd = new ParsedCommandSpec(name, cmdBody);
 
             return true;
         }

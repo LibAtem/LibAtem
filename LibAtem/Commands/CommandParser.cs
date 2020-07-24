@@ -7,7 +7,7 @@ namespace LibAtem.Commands
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(CommandParser));
 
-        public static ICommand Parse(ProtocolVersion protocolVersion, ParsedCommand rawCmd)
+        public static ICommand Parse(ProtocolVersion protocolVersion, ParsedCommandSpec rawCmd)
         {
             Type commandType = CommandManager.FindForName(rawCmd.Name, protocolVersion);
             if (commandType == null)
@@ -27,7 +27,7 @@ namespace LibAtem.Commands
             }
         }
 
-        public static ICommand ParseUnsafe(ProtocolVersion protocolVersion, ParsedCommand rawCmd)
+        public static ICommand ParseUnsafe(ProtocolVersion protocolVersion, ParsedCommandSpec rawCmd)
         {
             Type commandType = CommandManager.FindForName(rawCmd.Name, protocolVersion);
             if (commandType == null)
@@ -36,16 +36,13 @@ namespace LibAtem.Commands
             return ParseInner(rawCmd, commandType);
         }
 
-        private static ICommand ParseInner(ParsedCommand rawCmd, Type commandType)
+        private static ICommand ParseInner(ParsedCommandSpec rawCmd, Type commandType)
         {
             ICommand cmd = (ICommand)Activator.CreateInstance(commandType);
-            lock (rawCmd)
-            {
-                rawCmd.Reset();
-                cmd.Deserialize(rawCmd);
-            }
+            var rawCmd2 = new ParsedCommand(rawCmd); 
+            cmd.Deserialize(rawCmd2);
 
-            if (!rawCmd.HasFinished && !(cmd is SerializableCommandBase))
+            if (!rawCmd2.HasFinished && !(cmd is SerializableCommandBase))
                 throw new Exception("Some stray bytes were left after deserialize");
 
             return cmd;

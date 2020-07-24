@@ -199,10 +199,10 @@ namespace LibAtem.Net
             try
             {
                 var result = new List<ICommand>();
-                foreach (ParsedCommand rawCmd in _processQueue.Take().Commands)
+                foreach (ParsedCommandSpec rawCmd in _processQueue.Take().Commands)
                 {
                     // Don't print full command, if it is really long for performance reasons 
-                    string payloadStr = rawCmd.BodyLength > 100 ? "of " + rawCmd.BodyLength + " bytes" : BitConverter.ToString(rawCmd.Body);
+                    string payloadStr = rawCmd.Body.Length > 100 ? "of " + rawCmd.Body.Length + " bytes" : BitConverter.ToString(rawCmd.Body);
                     Log.DebugFormat("{0} - Received command {1} with content {2}", Endpoint, rawCmd.Name, payloadStr);
 
                     var cmd = CommandParser.Parse(_protocolVersion ?? ProtocolVersion.Minimum, rawCmd);

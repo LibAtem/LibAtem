@@ -12,7 +12,7 @@ namespace LibAtem.Commands.DataTransfer
         [Serialize(2), UInt16]
         public uint TransferStoreId { get; set; }
 
-        [Serialize(7), UInt8]
+        [Serialize(6), UInt16]
         public uint TransferIndex { get; set; }
 
         [Serialize(8), UInt16]

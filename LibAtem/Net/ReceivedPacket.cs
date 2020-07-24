@@ -25,7 +25,7 @@ namespace LibAtem.Net
         public uint PacketId { get; }
         public byte[] Payload { get; }
         public int PayloadLength { get; }
-        public List<ParsedCommand> Commands { get; }
+        public List<ParsedCommandSpec> Commands { get; }
 
         public ReceivedPacket(byte[] raw)
         {
@@ -46,18 +46,18 @@ namespace LibAtem.Net
             Commands = ParseCommands(Payload);
         }
 
-        public static List<ParsedCommand> ParseCommands(byte[] payload)
+        public static List<ParsedCommandSpec> ParseCommands(byte[] payload)
         {
-            var res = new List<ParsedCommand>();
+            var res = new List<ParsedCommandSpec>();
 
             int offset = 0;
             while (offset < payload.Length)
             {
-                if (!ParsedCommand.ReadNextCommand(payload, offset, out ParsedCommand cmd) || cmd == null)
+                if (!ParsedCommand.ReadNextCommand(payload, offset, out ParsedCommandSpec? cmd) || !cmd.HasValue)
                     return res;
 
-                res.Add(cmd);
-                offset += 8 + cmd.BodyLength;
+                res.Add(cmd.Value);
+                offset += 8 + cmd.Value.Body.Length;
             }
 
             return res;

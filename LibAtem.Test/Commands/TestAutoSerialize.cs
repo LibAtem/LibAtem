@@ -61,10 +61,10 @@ namespace LibAtem.Test.Commands
 
         private static ICommand DeserializeSingle(ProtocolVersion version, byte[] arr)
         {
-            Assert.True(ParsedCommand.ReadNextCommand(arr, 0, out ParsedCommand parsed));
+            Assert.True(ParsedCommand.ReadNextCommand(arr, 0, out ParsedCommandSpec? parsed));
             Assert.NotNull(parsed);
 
-            Type type = CommandManager.FindForName(parsed.Name, version);
+            Type type = CommandManager.FindForName(parsed.Value.Name, version);
             if (type == null)
                 throw new Exception("Failed to find command during deserialize");
 
@@ -72,7 +72,8 @@ namespace LibAtem.Test.Commands
             if (cmd == null)
                 throw new Exception("Failed to construct command");
 
-            cmd.Deserialize(parsed);
+            ParsedCommand parsed2 = new ParsedCommand(parsed.Value);
+            cmd.Deserialize(parsed2);
             return cmd;
         }
     }

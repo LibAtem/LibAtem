@@ -38,15 +38,6 @@ namespace LibAtem.Commands
         public string Name { get; }
         public CommandDirection Direction { get; }
         public ProtocolVersion MinimumVersion { get; }
-
-        public static Tuple<string, ProtocolVersion> GetNameAndVersion(Type type)
-        {
-            CommandNameAttribute attribute = type.GetTypeInfo().GetCustomAttributes(typeof(CommandNameAttribute), true).OfType<CommandNameAttribute>().FirstOrDefault();
-            if (attribute == null)
-                throw new Exception(string.Format("Missing CommandNameAttribute on type: {0}", type.Name));
-
-            return Tuple.Create(attribute.Name, attribute.MinimumVersion);
-        }
     }
 
     public class CommandIdAttribute : Attribute
@@ -66,7 +57,11 @@ namespace LibAtem.Commands
     {
         public static byte[] ToByteArray(this ICommand cmd)
         {
-            var builder = new CommandBuilder(CommandNameAttribute.GetNameAndVersion(cmd.GetType()).Item1);
+            Tuple<string, ProtocolVersion> nameInfo = CommandManager.FindNameAndVersionForType(cmd);
+            if (nameInfo == null)
+                throw new Exception($"Missing CommandNameAttribute on type: {cmd.GetType().Name}");
+
+            var builder = new CommandBuilder(nameInfo.Item1);
             cmd.Serialize(builder);
             return builder.ToByteArray();
         }

@@ -63,7 +63,7 @@ namespace LibAtem.Test.Commands
 
             bool failed = false;
 
-            foreach (ParsedCommand cmd in packet.Commands)
+            foreach (ParsedCommandSpec cmd in packet.Commands)
             {
                 try
                 {
