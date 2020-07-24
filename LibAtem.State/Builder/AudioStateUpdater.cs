@@ -18,14 +18,12 @@ namespace LibAtem.State.Builder
                     MonitorOutputs = UpdaterUtil.CreateList(confCmd.Monitors, i => new AudioState.MonitorOutputState()),
                     HeadphoneOutputs = UpdaterUtil.CreateList(confCmd.Headphones, i => new AudioState.HeadphoneOutputState())
                 };
-                // TODO - inputs?
-                // TODO - more props?
                 result.SetSuccess("Audio.MonitorOutputs");
             } else if (state.Audio != null) { 
                 if (command is AudioMixerMasterGetCommand masterCmd)
                 {
                     UpdaterUtil.CopyAllProperties(masterCmd, state.Audio.ProgramOut, null,
-                        new[] {"Levels"});
+                        new[] {"Levels", "AudioFollowVideoCrossfadeTransitionEnabled" });
                     result.SetSuccess("Audio.ProgramOut");
                 }
                 else if (command is AudioMixerMonitorGetCommand monCmd)
@@ -109,6 +107,11 @@ namespace LibAtem.State.Builder
                 {
                     state.Audio.Tally = tallyCmd.Inputs;
                     result.SetSuccess($"Audio.Tally");
+                }
+                else if (command is AudioMixerPropertiesGetCommand mixCmd)
+                {
+                    state.Audio.ProgramOut.AudioFollowVideoCrossfadeTransitionEnabled = mixCmd.AudioFollowVideo;
+                    result.SetSuccess($"Audio.ProgramOut.AudioFollowVideoCrossfadeTransitionEnabled");
                 }
             }
         }

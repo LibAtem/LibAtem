@@ -33,6 +33,7 @@ namespace LibAtem.State
             [Tolerance(0.01)]
             public double Balance { get; set; }
             public bool FollowFadeToBlack { get; set; }
+            public bool AudioFollowVideoCrossfadeTransitionEnabled { get; set; }
 
             public LevelsState Levels { get; set; }
         }
