@@ -46,8 +46,7 @@ namespace LibAtem.State
             public TransitionLayer Selection { get; set; }
             public TransitionLayer NextSelection { get; set; }
 
-            public bool Preview { get; set; }
-            public bool IsInPreview { get; set; }
+            public bool PreviewTransition { get; set; }
         }
 
         [Serializable]
