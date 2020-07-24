@@ -7,6 +7,6 @@ namespace LibAtem.Commands.Media
     public class MediaPoolSettingsSetCommand : SerializableCommandBase
     {
         [Serialize(0), UInt16List(4)]
-        public List<uint> MaxFrames { get; set; } = new List<uint> { 0, 0, 0, 0 };
+        public List<uint> MaxFrames { get; set; } = new List<uint>();
     }
 }

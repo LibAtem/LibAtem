@@ -1,6 +1,7 @@
 using LibAtem.MacroOperations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using LibAtem.Test.Util;
@@ -41,6 +42,11 @@ namespace LibAtem.Test.MacroOp
                 catch (Exception e)
                 {
                     failures.Add(string.Format("{0}: {1}", type.Name, e.Message));
+                    if (Debugger.IsAttached)
+                    {
+                        //the debugger no longer breaks here
+                        throw;
+                    }
                 }
             }
 

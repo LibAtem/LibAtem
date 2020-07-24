@@ -116,7 +116,7 @@ namespace LibAtem.Serialization
 
         public virtual object GetRandom(Random random)
         {
-            return random.Next();
+            return (uint) random.Next();
         }
 
         public override bool IsValid(PropertyInfo prop, object obj)

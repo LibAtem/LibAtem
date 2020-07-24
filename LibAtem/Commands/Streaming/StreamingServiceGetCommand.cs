@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Streaming
 {
-    [CommandName("SRSU", CommandDirection.ToClient, 1096)]
+    [CommandName("SRSU", CommandDirection.ToClient, 1096), NoCommandId]
     public class StreamingServiceGetCommand : SerializableCommandBase
     {
         [Serialize(0), String(64)]

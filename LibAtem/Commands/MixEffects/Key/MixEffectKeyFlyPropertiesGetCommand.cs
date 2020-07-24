@@ -36,5 +36,13 @@ namespace LibAtem.Commands.MixEffects.Key
             if (RunningToKeyFrame != FlyKeyKeyFrameType.RunToInfinite)
                 RunningToInfinite = 0;
         }
+
+        public override void Serialize(ByteArrayBuilder cmd)
+        {
+            if (RunningToKeyFrame != FlyKeyKeyFrameType.RunToInfinite)
+                RunningToInfinite = 0;
+            
+            base.Serialize(cmd);
+        }
     }
 }

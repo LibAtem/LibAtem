@@ -8,11 +8,16 @@ namespace LibAtem.Commands.CameraControl
     [CommandName("CCmd", CommandDirection.ToServer)]
     public class CameraControlSetCommand : ICommand
     {
+        [CommandId]
         public VideoSource Input { get; set; }
+        [CommandId]
         public AdjustmentDomain AdjustmentDomain { get; set; }
+        [CommandId]
         public CameraFeature CameraFeature { get; set; }
         public bool Relative { get; set; }
+        [CommandId]
         public LensFeature LensFeature { get; set; }
+        [CommandId]
         public ChipFeature ChipFeature { get; set; }
         public CameraDetail Detail { get; set; }
 

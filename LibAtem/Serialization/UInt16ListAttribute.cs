@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace LibAtem.Serialization
 {
-    public class UInt16ListAttribute : SerializableAttributeBase
+    public class UInt16ListAttribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
         public int Count { get; }
 
@@ -42,6 +42,11 @@ namespace LibAtem.Serialization
         public override bool AreEqual(object val1, object val2)
         {
             return ((List<uint>) val1).SequenceEqual((List<uint>) val2);
+        }
+
+        public object GetRandom(Random random)
+        {
+            return Enumerable.Range(0, Count).Select(i => (uint) _innerAttr.GetRandom(random)).ToList();
         }
 
         public override bool IsValid(PropertyInfo prop, object val)

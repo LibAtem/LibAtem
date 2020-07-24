@@ -8,12 +8,19 @@ namespace LibAtem.Commands.CameraControl
     [CommandName("CCdP", CommandDirection.ToClient)]
     public class CameraControlGetCommand : ICommand
     {
+        [CommandId]
         public VideoSource Input { get; set; }
 
+        [CommandId]
         public AdjustmentDomain AdjustmentDomain { get; set; }
+        [CommandId]
         public CameraFeature CameraFeature { get; set; }
+        [CommandId]
         public LensFeature LensFeature { get; set; }
+        [CommandId]
         public ChipFeature ChipFeature { get; set; }
+        
+        
         public CameraDetail Detail { get; set; }
 
         public bool ColorBars { get; set; }

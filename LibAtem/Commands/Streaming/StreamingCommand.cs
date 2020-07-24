@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Streaming
 {
-    [CommandName("StrR", CommandDirection.ToServer, 4)]
+    [CommandName("StrR", CommandDirection.ToServer, 4), NoCommandId]
     public class StreamingActiveSetCommand : SerializableCommandBase
     {
         [Serialize(0), Bool]
@@ -20,14 +20,14 @@ namespace LibAtem.Commands.Streaming
         Stopping = 1 << 3,
     }
 
-    [CommandName("StRS", CommandDirection.ToClient, 4)]
+    [CommandName("StRS", CommandDirection.ToClient, 4), NoCommandId]
     public class StreamingStateCommand : SerializableCommandBase
     {
         [Serialize(0), Enum16]
         public StreamingStatus StreamingStatus { get; set; }
     }
 
-    [CommandName("SRSS", CommandDirection.ToClient, 8)]
+    [CommandName("SRSS", CommandDirection.ToClient, 8), NoCommandId]
     public class SRSSCommand : SerializableCommandBase
     {
     }

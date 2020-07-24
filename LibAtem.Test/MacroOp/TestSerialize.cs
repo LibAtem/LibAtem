@@ -2,6 +2,7 @@
 using LibAtem.Test.Util;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Xunit;
@@ -39,6 +40,11 @@ namespace LibAtem.Test.MacroOp
                 {
                     failures.Add(e.StackTrace);
                     failures.Add(string.Format("{0}: {1}", type.Name, e.Message));
+                    if (Debugger.IsAttached)
+                    {
+                        //the debugger no longer breaks here
+                        throw;
+                    }
                 }
             }
 

@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands.Streaming
 {
-    [CommandName("SRST", CommandDirection.ToClient, 8)]
+    [CommandName("SRST", CommandDirection.ToClient, 8), NoCommandId]
     public class StreamingTimecodeCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8Range(0, 23)]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using LibAtem.Commands;
@@ -39,6 +40,11 @@ namespace LibAtem.Test.Commands
                 catch (Exception e)
                 {
                     failures.Add(string.Format("{0}: {1}", type.Name, e.Message));
+                    if (Debugger.IsAttached)
+                    {
+                        //the debugger no longer breaks here
+                        throw;
+                    }
                 }
             }
 
@@ -57,7 +63,7 @@ namespace LibAtem.Test.Commands
                 if (!t.GetTypeInfo().IsAssignableFrom(cmd.GetType()))
                     throw new Exception("Deserialized command of wrong type");
                 
-                Assert.Equal(raw.ToByteArray(), cmd.ToByteArray());
+                Assert.Equal(BitConverter.ToString(raw.ToByteArray()), BitConverter.ToString(cmd.ToByteArray()));
             }
         }
     }
