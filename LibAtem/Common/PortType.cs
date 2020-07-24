@@ -36,23 +36,7 @@ namespace LibAtem.Common
 
         Internal = 256,
     }
-
-    [Flags]
-    public enum ExternalPortTypeFlags
-    {
-        Unknown = 0,
-        SDI = 1,
-        HDMI = 2,
-        Component = 4,
-        Composite = 8,
-        SVideo = 16,
-        Internal = 32,
-        XLR = 64,
-        AESEBU = 128,
-        RCA = 256,
-        TSJack = 512,
-    }
-
+    
     public enum InternalPortType
     {
         External = 0,
@@ -81,7 +65,9 @@ namespace LibAtem.Common
         AESEBU = 64,
         RCA = 128,
         Internal = 256,
-        Headset = 512
+        TSJack = 512,
+        MADI = 1024,
+        TRSJack = 2048,
     }
 
     public enum MacroPortType
@@ -92,6 +78,7 @@ namespace LibAtem.Common
         // TODO - other types
     }
 
+    /*
     public static class MacroPortTypeExtensions
     {
         public static MacroPortType ToMacroPortType(this ExternalPortType type)
@@ -125,74 +112,6 @@ namespace LibAtem.Common
             }
         }
     }
+    */
 
-    public static class ExternalPortTypeFlagsExtensions
-    {
-        public static ExternalPortTypeFlags ToFlags(this IEnumerable<ExternalPortType> types)
-        {
-            ExternalPortTypeFlags res = 0;
-            foreach (ExternalPortType t in types)
-                res |= t.ToFlag();
-
-            return res;
-        }
-        public static ExternalPortTypeFlags ToFlag(this ExternalPortType type)
-        {
-            switch (type)
-            {
-                case ExternalPortType.HDMI:
-                    return ExternalPortTypeFlags.HDMI;
-                case ExternalPortType.Component:
-                    return ExternalPortTypeFlags.Component;
-                case ExternalPortType.Composite:
-                    return ExternalPortTypeFlags.Composite;
-                case ExternalPortType.SVideo:
-                    return ExternalPortTypeFlags.SVideo;
-                case ExternalPortType.Internal:
-                    return ExternalPortTypeFlags.Internal;
-                case ExternalPortType.XLR:
-                    return ExternalPortTypeFlags.XLR;
-                case ExternalPortType.AESEBU:
-                    return ExternalPortTypeFlags.AESEBU;
-                case ExternalPortType.RCA:
-                    return ExternalPortTypeFlags.RCA;
-                case ExternalPortType.TSJack:
-                    return ExternalPortTypeFlags.TSJack;
-                case ExternalPortType.SDI:
-                    return ExternalPortTypeFlags.SDI;
-                default:
-                    return ExternalPortTypeFlags.Unknown;
-            }
-        }
-
-        public static List<ExternalPortType> ToExternalPortTypes(this ExternalPortTypeFlags type)
-        {
-            var res = new List<ExternalPortType>();
-
-            var possibles = Enum.GetValues(typeof(ExternalPortType)).OfType<ExternalPortType>().ToArray();
-            foreach (ExternalPortType e in possibles)
-            {
-                if ((type & e.ToFlag()) != 0)
-                    res.Add(e);
-            }
-
-            if (res.Count == 0) res.Add(0);
-            return res;
-        }
-
-        
-        public static AudioPortType ToAudioPortType(this ExternalPortTypeFlags type)
-        {
-            if (type >= ExternalPortTypeFlags.XLR) return (AudioPortType)((int)type >> 1);
-            if (type == ExternalPortTypeFlags.Internal) return AudioPortType.Internal;
-            return (AudioPortType)type;
-        }
-
-        public static ExternalPortTypeFlags ToExternalPortType(this AudioPortType type)
-        {
-            if (type >= AudioPortType.XLR) return (ExternalPortTypeFlags)((int)type << 1);
-            if (type == AudioPortType.Internal) return ExternalPortTypeFlags.Internal;
-            return (ExternalPortTypeFlags)type;
-        }
-    }
 }

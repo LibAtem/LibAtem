@@ -14,7 +14,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         public FairlightInputType InputType { get; set; }
 
         [Serialize(6), Enum16]
-        public ExternalPortType ExternalPortType { get; set; }
+        public AudioPortType ExternalPortType { get; set; }
         
         [Serialize(9), Enum8]
         public FairlightInputConfiguration SupportedConfigurations { get; set; }

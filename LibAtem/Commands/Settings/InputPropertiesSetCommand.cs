@@ -27,7 +27,7 @@ namespace LibAtem.Commands.Settings
         [Serialize(24), String(4)]
         public string ShortName { get; set; }
         [Serialize(28), Enum16]
-        public ExternalPortTypeFlags ExternalPortType { get; set; }
+        public ExternalPortTypeFlags2 ExternalPortType { get; set; }
 
         public override IEnumerable<MacroOpBase> ToMacroOps(ProtocolVersion version)
         {

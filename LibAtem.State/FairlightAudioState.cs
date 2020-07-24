@@ -58,7 +58,7 @@ namespace LibAtem.State
             public FairlightInputType InputType { get; set; }
             public FairlightInputConfiguration SupportedConfigurations { get; set; }
 
-            public ExternalPortType ExternalPortType { get; set; }
+            public AudioPortType ExternalPortType { get; set; }
             public FairlightInputConfiguration ActiveConfiguration { get; set; }
 
             public AnalogState Analog { get; set; }
