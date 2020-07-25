@@ -16,5 +16,13 @@ namespace LibAtem.Util
 
             return (int) ((Math.Floor((double) v / 4) + 1) * 4);
         }
+
+        public static int NextMultipleOf8(int v)
+        {
+            if (v % 8 == 0)
+                return v;
+
+            return (int) ((Math.Floor((double) v / 8) + 1) * 8);
+        }
     }
 }

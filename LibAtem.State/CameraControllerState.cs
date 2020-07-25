@@ -1,5 +1,6 @@
 using System;
 using LibAtem.Common;
+using LibAtem.State.Tolerance;
 
 namespace LibAtem.State
 {
@@ -29,28 +30,40 @@ namespace LibAtem.State
             public RGBYState Gamma { get; } = new RGBYState();
             public RGBYState Gain { get; } = new RGBYState();
 
-            public uint Contrast { get; set; }
-            public int Hue { get; set; }
-            public uint Saturation { get; set; }
-            public uint LumMix { get; set; }
-            public uint Aperture { get; set; }
+            [Tolerance(0.01)]
+            public double Contrast { get; set; }
+            [Tolerance(0.01)]
+            public double Hue { get; set; }
+            [Tolerance(0.01)]
+            public double Saturation { get; set; }
+            [Tolerance(0.01)]
+            public double LumMix { get; set; }
+            [Tolerance(0.01)]
+            public double Aperture { get; set; }
         }
 
         [Serializable]
         public class LensState
         {
-            public int ZoomSpeed { get; set; }
-            public int Focus { get; set; }
-            public uint Iris { get; set; }
+            [Tolerance(0.01)]
+            public double ZoomSpeed { get; set; }
+            [Tolerance(0.01)]
+            public double Focus { get; set; }
+            [Tolerance(0.01)]
+            public double Iris { get; set; }
         }
 
         [Serializable]
         public class RGBYState
         {
-            public int R { get; set; }
-            public int G { get; set; }
-            public int B { get; set; }
-            public int Y { get; set; }
+            [Tolerance(0.01)]
+            public double R { get; set; }
+            [Tolerance(0.01)]
+            public double G { get; set; }
+            [Tolerance(0.01)]
+            public double B { get; set; }
+            [Tolerance(0.01)]
+            public double Y { get; set; }
         }
 
     }

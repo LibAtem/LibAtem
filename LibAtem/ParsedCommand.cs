@@ -164,6 +164,12 @@ namespace LibAtem
             SkipTo(targetLen);
         }
 
+        public void SkipToNearestMultipleOf8()
+        {
+            int targetLen = MathExt.NextMultipleOf8((int)pos);
+            SkipTo(targetLen);
+        }
+
         public void SkipTo(int targetLen)
         {
             Skip((uint)(targetLen - pos));
