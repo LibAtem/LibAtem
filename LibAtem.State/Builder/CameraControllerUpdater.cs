@@ -1,7 +1,7 @@
 using System;
 using LibAtem.Commands;
 using LibAtem.Commands.CameraControl;
-using LibAtem.Common;
+using LibAtem.State.Util;
 
 namespace LibAtem.State.Builder
 {
@@ -20,99 +20,17 @@ namespace LibAtem.State.Builder
 
                     UpdaterUtil.TryForKey(result, state.CameraControl, (long)camCmd.Input, input =>
                     {
-
-                        if (camCmd.AdjustmentDomain == AdjustmentDomain.Camera)
+                        try
                         {
-                           
-                            if(camCmd.CameraFeature == CameraFeature.Detail)
-                            {
-                                input.Camera.Detail = camCmd.Detail;
-                            }
-                            else if (camCmd.CameraFeature == CameraFeature.Gain)
-                            {
-                                input.Camera.Gain = camCmd.CameraGain;
-                            }
-                            else if (camCmd.CameraFeature == CameraFeature.PositiveGain)
-                            {
-                                input.Camera.PositiveGain = camCmd.CameraPositiveGain;
-                            }
-                            else if (camCmd.CameraFeature == CameraFeature.Shutter)
-                            {
-                                input.Camera.Shutter = camCmd.Shutter;
-                            }
-                            else if (camCmd.CameraFeature == CameraFeature.WhiteBalance)
-                            {
-                                input.Camera.WhiteBalance = camCmd.WhiteBalance;
-                            }
+                            string[] path = CameraControlUtil.ApplyToState(input, camCmd);
+                            result.SetSuccess(path);
                         }
-                        else if(camCmd.AdjustmentDomain == AdjustmentDomain.Lens)
+                        catch (Exception e)
                         {
-
-                            if(camCmd.LensFeature == LensFeature.Zoom)
-                            {
-                                input.Lens.ZoomSpeed = camCmd.ZoomSpeed;
-                            }
-                            else if (camCmd.LensFeature == LensFeature.Focus)
-                            {
-                                input.Lens.Focus = camCmd.Focus;
-                            }
-                            else if (camCmd.LensFeature == LensFeature.Iris)
-                            {
-                                input.Lens.Iris = camCmd.Iris;
-                            }
+                            result.AddError(e.ToString());
                         }
-                        else if (camCmd.AdjustmentDomain == AdjustmentDomain.Chip)
-                        {
-
-                            if (camCmd.ChipFeature == ChipFeature.Lift)
-                            {
-                                input.Chip.Lift.R = camCmd.R;
-                                input.Chip.Lift.G = camCmd.G;
-                                input.Chip.Lift.B = camCmd.B;
-                                input.Chip.Lift.Y = camCmd.Y;
-                            }
-                            else if (camCmd.ChipFeature == ChipFeature.Gamma)
-                            {
-                                input.Chip.Gamma.R = camCmd.R;
-                                input.Chip.Gamma.G = camCmd.G;
-                                input.Chip.Gamma.B = camCmd.B;
-                                input.Chip.Gamma.Y = camCmd.Y;
-                            }
-                            else if (camCmd.ChipFeature == ChipFeature.Gain)
-                            {
-                                input.Chip.Gain.R = camCmd.R;
-                                input.Chip.Gain.G = camCmd.G;
-                                input.Chip.Gain.B = camCmd.B;
-                                input.Chip.Gain.Y = camCmd.Y;
-                            }
-                            else if(camCmd.ChipFeature == ChipFeature.Contrast)
-                            {
-                                input.Chip.Contrast = camCmd.Contrast;
-                            }
-                            else if (camCmd.ChipFeature == ChipFeature.HueSaturation)
-                            {
-                                input.Chip.Hue = camCmd.Hue;
-                                input.Chip.Saturation = camCmd.Saturation;
-                            }
-                            else if (camCmd.ChipFeature == ChipFeature.Lum)
-                            {
-                                input.Chip.LumMix = camCmd.LumMix;
-                            }
-                            else if (camCmd.ChipFeature == ChipFeature.Aperture)
-                            {
-                                input.Chip.Aperture = camCmd.Aperture;
-                            }
-                        }
-                        else if (camCmd.AdjustmentDomain == AdjustmentDomain.ColourBars)
-                        {
-                            input.ColorBars = camCmd.ColorBars;
-                        }
-
                     });
                 }
-                
-                // TODO - this needs to set success in some way
-                // result.SetSuccess("CameraControl");
             }
         }
     }
