@@ -22,7 +22,10 @@ namespace LibAtem.Commands.CameraControl
         public CameraControlDataType Type { get; set; }
 
         public int[] IntData { get; set; }
+        public long[] LongData { get; set; }
         public double[] FloatData { get; set; }
+        public string StringData { get; set; }
+        public bool[] BoolData { get; set; }
 
         protected virtual void SerializeType(ByteArrayBuilder cmd)
         {
@@ -38,6 +41,19 @@ namespace LibAtem.Commands.CameraControl
 
             switch (Type)
             {
+                case CameraControlDataType.Bool:
+                {
+                    bool[] data = BoolData ?? Array.Empty<bool>();
+                    cmd.AddUInt16(data.Length);
+                    cmd.Pad(6);
+                    cmd.PadToNearestMultipleOf8();
+
+                    foreach (bool val in data)
+                        cmd.AddBoolArray(val);
+                    cmd.PadToNearestMultipleOf8();
+
+                    break;
+                }
                 case CameraControlDataType.SInt8:
                 {
                     int[] data = IntData ?? Array.Empty<int>();
@@ -79,6 +95,30 @@ namespace LibAtem.Commands.CameraControl
 
                     break;
                 }
+                case CameraControlDataType.SInt64:
+                {
+                    long[] data = LongData ?? Array.Empty<long>();
+                    cmd.Pad(6);
+                    cmd.AddUInt16(data.Length);
+                    cmd.PadToNearestMultipleOf8();
+
+                    foreach (long val in data)
+                        cmd.AddInt64(val);
+                    cmd.PadToNearestMultipleOf8();
+
+                    break;
+                }
+                case CameraControlDataType.String:
+                {
+                    string str = StringData ?? string.Empty;
+                    cmd.AddUInt16(str.Length);
+                    cmd.Pad(6);
+                    cmd.PadToNearestMultipleOf8();
+
+                    cmd.AddString(str);
+                    cmd.PadToNearestMultipleOf8();
+                    break;
+                }
                 case CameraControlDataType.Float:
                 {
                     double[] data = FloatData ?? Array.Empty<double>();
@@ -112,6 +152,21 @@ namespace LibAtem.Commands.CameraControl
 
             switch (Type)
             {
+                case CameraControlDataType.Bool:
+                {
+                    // Length
+                    uint count = cmd.GetUInt16();
+                    cmd.Skip(6);
+
+                    cmd.SkipToNearestMultipleOf8();
+
+                    // Data
+                    BoolData = new bool[count];
+                    for (int i = 0; i < count; i++)
+                        BoolData[i] = cmd.GetBoolArray()[0];
+
+                    break;
+                }
                 case CameraControlDataType.SInt8:
                 {
                     // Length
@@ -157,6 +212,29 @@ namespace LibAtem.Commands.CameraControl
                         IntData[i] = cmd.GetInt32();
                     break;
                 }
+                case CameraControlDataType.SInt64:
+                {
+                    // Length
+                    cmd.Skip(6);
+                    uint count = cmd.GetUInt16();
+
+                    cmd.SkipToNearestMultipleOf8();
+
+                    // Data
+                    LongData = new long[count];
+                    for (int i = 0; i < count; i++)
+                        LongData[i] = cmd.GetInt64();
+                    break;
+                }
+                case CameraControlDataType.String:
+                {
+                    uint length = cmd.GetUInt16();
+                    cmd.Skip(6);
+                    cmd.SkipToNearestMultipleOf8();
+
+                    StringData = cmd.GetString(length);
+                    break;
+                }
                 case CameraControlDataType.Float:
                 {
                     // Length
@@ -187,10 +265,12 @@ namespace LibAtem.Commands.CameraControl
 
     public enum CameraControlDataType
     {
+        Bool = 0x00,
         SInt8 = 0x01,
         SInt16 = 0x02,
         SInt32 = 0x03,
-        // SInt64 = 0x04, // TODO Verify
+        SInt64 = 0x04,
+        String = 0x05,
         Float = 0x80,
     }
 }
