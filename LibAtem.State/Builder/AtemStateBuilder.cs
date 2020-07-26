@@ -10,6 +10,7 @@ namespace LibAtem.State.Builder
     public class AtemStateBuilderSettings
     {
         public bool TrackMediaClipFrames { get; set; }
+        public bool IgnoreUnknownCameraControlProperties { get; set; }
     }
 
     public static class AtemStateBuilder
@@ -47,7 +48,7 @@ namespace LibAtem.State.Builder
             SettingsStateUpdater.Update(state, result, command);
             SuperSourceStateUpdater.Update(state, result, command);
             StreamingStateBuilder.Update(state, result, command);
-            CameraControllerUpdater.Update(state, result, command);
+            CameraControllerUpdater.Update(state, result, command, settings);
        
             return result;
         }

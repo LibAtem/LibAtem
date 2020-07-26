@@ -7,7 +7,7 @@ namespace LibAtem.State.Builder
 {
     internal static class CameraControllerUpdater
     {
-        public static void Update(AtemState state, UpdateResultImpl result, ICommand command)
+        public static void Update(AtemState state, UpdateResultImpl result, ICommand command, AtemStateBuilderSettings settings)
         {
             if (command is CCstCommand ccstCmd)
             {
@@ -22,8 +22,8 @@ namespace LibAtem.State.Builder
                     {
                         try
                         {
-                            string[] path = CameraControlUtil.ApplyToState(input, camCmd);
-                            result.SetSuccess(path);
+                            string[] path = CameraControlUtil.ApplyToState(input, camCmd, settings.IgnoreUnknownCameraControlProperties);
+                            if (path.Length > 0) result.SetSuccess(path);
                         }
                         catch (Exception e)
                         {

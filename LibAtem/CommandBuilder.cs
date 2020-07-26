@@ -92,6 +92,12 @@ namespace LibAtem
             PadTo(targetLen);
         }
 
+        public void PadToNearestMultipleOf8()
+        {
+            int targetLen = MathExt.NextMultipleOf8(_data.Count);
+            PadTo(targetLen);
+        }
+
         public void PadTo(int targetLen)
         {
             Pad(targetLen - _data.Count);
@@ -166,6 +172,16 @@ namespace LibAtem
         public void AddInt64(long val)
         {
             AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes(val).Take(8)));
+        }
+
+        public void AddInt8(int val)
+        {
+            AddByte((byte) ((sbyte) val));
+        }
+
+        public void AddInt16(int val)
+        {
+            AddByte(ReverseBytesIfNeeded(BitConverter.GetBytes(val).Take(2)));
         }
 
         public void AddInt16(int scale, double val)

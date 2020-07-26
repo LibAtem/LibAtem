@@ -27,7 +27,7 @@ namespace LibAtem.State.Util
                 throw new Exception($"Not enough values (target: {expectedLength})");
         }
 
-        public static string[] ApplyToState(CameraControlState input, CameraControlGetCommand cmd)
+        public static string[] ApplyToState(CameraControlState input, CameraControlGetCommand cmd, bool ignoreUnknown)
         {
             AdjustmentDomain category = (AdjustmentDomain) cmd.Category;
             if (category == AdjustmentDomain.Camera)
@@ -55,6 +55,7 @@ namespace LibAtem.State.Util
                         input.Camera.WhiteBalance = (uint) cmd.IntData[0];
                         return new[] { "Camera.WhiteBalance"};
                     default:
+                        if (ignoreUnknown) return Array.Empty<string>();
                         throw new ArgumentOutOfRangeException();
                 }
             }
@@ -78,6 +79,7 @@ namespace LibAtem.State.Util
                         EnsureLength(cmd, 0);
                         return new[] {"Lens.AutoFocus"};
                     default:
+                        if (ignoreUnknown) return Array.Empty<string>();
                         throw new ArgumentOutOfRangeException();
                 }
             }
@@ -126,6 +128,7 @@ namespace LibAtem.State.Util
                         input.Chip.Aperture = cmd.FloatData[0];
                         return new[] { "Chip.Aperture" };
                     default:
+                        if (ignoreUnknown) return Array.Empty<string>();
                         throw new ArgumentOutOfRangeException();
                 }
             }
@@ -139,14 +142,16 @@ namespace LibAtem.State.Util
                         return new[] { "ColorBars" };
                     }
                     default:
+                        if (ignoreUnknown) return Array.Empty<string>();
                         throw new ArgumentOutOfRangeException();
                 }
             }
             else
             {
+                if (ignoreUnknown) return Array.Empty<string>();
                 //throw new ArgumentOutOfRangeException();
                 // TODO - not everything is parsed yet
-                return new string[0];
+                return Array.Empty<string>();
             }
         }
     }
