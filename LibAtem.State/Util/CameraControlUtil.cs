@@ -27,7 +27,7 @@ namespace LibAtem.State.Util
                 throw new Exception($"Not enough values (target: {expectedLength})");
         }
 
-        public static string[] ApplyToState(CameraControlState input, CameraControlGetCommand cmd, bool ignoreUnknown)
+        public static string[] ApplyToState(CameraControlState.CameraState input, CameraControlGetCommand cmd, bool ignoreUnknown)
         {
             AdjustmentDomain category = (AdjustmentDomain) cmd.Category;
             if (category == AdjustmentDomain.Camera)
@@ -37,27 +37,33 @@ namespace LibAtem.State.Util
                     case CameraFeature.Detail:
                         EnsureLength(cmd, 1);
                         input.Camera.Detail = (CameraDetail) cmd.IntData[0];
-                        return new[] {"Camera.Detail"};
+                        input.Camera.DetailPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case CameraFeature.Gain:
                         EnsureLength(cmd, 1);
                         input.Camera.Gain = cmd.IntData[0];
-                        return new[] { "Camera.Gain"};
+                        input.Camera.GainPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case CameraFeature.PositiveGain:
                         EnsureLength(cmd, 1);
                         input.Camera.PositiveGain = (uint) cmd.IntData[0];
-                        return new[] { "Camera.PositiveGain"};
+                        input.Camera.PositiveGainPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case CameraFeature.Shutter:
                         EnsureLength(cmd, 1);
                         input.Camera.Shutter = (uint) cmd.IntData[0];
-                        return new[] { "Camera.Shutter"};
+                        input.Camera.ShutterPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case CameraFeature.WhiteBalance:
                         EnsureLength(cmd, 1);
                         input.Camera.WhiteBalance = (uint) cmd.IntData[0];
-                        return new[] { "Camera.WhiteBalance"};
+                        input.Camera.WhiteBalancePeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     default:
                         if (ignoreUnknown) return Array.Empty<string>();
                         throw new ArgumentOutOfRangeException();
                 }
+                return new[] { "Camera" };
             }
             else if (category == AdjustmentDomain.Lens)
             {
@@ -66,22 +72,26 @@ namespace LibAtem.State.Util
                     case LensFeature.Zoom:
                         EnsureLength(cmd, 1);
                         input.Lens.ZoomSpeed = cmd.FloatData[0];
-                        return new[] {"Lens.ZoomSpeed"};
+                        input.Lens.ZoomSpeedPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case LensFeature.Focus:
                         EnsureLength(cmd, 1);
                         input.Lens.Focus = cmd.FloatData[0];
-                        return new[] {"Lens.Focus"};
+                        input.Lens.FocusPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case LensFeature.Iris:
                         EnsureLength(cmd, 1);
                         input.Lens.Iris = cmd.FloatData[0];
-                        return new[] {"Lens.Iris"};
+                        input.Lens.IrisPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case LensFeature.AutoFocus:
                         EnsureLength(cmd, 0);
-                        return new[] {"Lens.AutoFocus"};
+                        break;
                     default:
                         if (ignoreUnknown) return Array.Empty<string>();
                         throw new ArgumentOutOfRangeException();
                 }
+                return new[] { "Lens" };
             }
             else if (category == AdjustmentDomain.Chip)
             {
@@ -93,44 +103,52 @@ namespace LibAtem.State.Util
                         input.Chip.Lift.G = cmd.FloatData[1];
                         input.Chip.Lift.B = cmd.FloatData[2];
                         input.Chip.Lift.Y = cmd.FloatData[3];
-                        return new[] {"Chip.Lift"};
+                        input.Chip.Lift.PeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case ChipFeature.Gamma:
                         EnsureLength(cmd, 4);
                         input.Chip.Gamma.R = cmd.FloatData[0];
                         input.Chip.Gamma.G = cmd.FloatData[1];
                         input.Chip.Gamma.B = cmd.FloatData[2];
                         input.Chip.Gamma.Y = cmd.FloatData[3];
-                        return new[] {"Chip.Gamma"};
+                        input.Chip.Gamma.PeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case ChipFeature.Gain:
                         EnsureLength(cmd, 4);
                         input.Chip.Gain.R = cmd.FloatData[0];
                         input.Chip.Gain.G = cmd.FloatData[1];
                         input.Chip.Gain.B = cmd.FloatData[2];
                         input.Chip.Gain.Y = cmd.FloatData[3];
-                        return new[] {"Chip.Gain"};
+                        input.Chip.Gain.PeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case ChipFeature.Contrast:
                         EnsureLength(cmd, 2);
                         // TODO - byte 0
                         input.Chip.Contrast = cmd.FloatData[1];
-                        return new[] {"Chip.Contrast"};
+                        input.Chip.ContrastPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case ChipFeature.HueSaturation:
                         EnsureLength(cmd, 2);
                         input.Chip.Hue = cmd.FloatData[0];
                         input.Chip.Saturation = cmd.FloatData[1];
-                        return new[] {"Chip.Hue", "Chip.Saturation"};
+                        input.Chip.HueSaturationPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case ChipFeature.Lum:
                         EnsureLength(cmd, 1);
                         input.Chip.LumMix = cmd.FloatData[0];
-                        return new[] { "Chip.LumMix" };
+                        input.Chip.LumMixPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     case ChipFeature.Aperture:
                         EnsureLength(cmd, 4);
                         // TODO - byte 1, 2, 3
                         input.Chip.Aperture = cmd.FloatData[0];
-                        return new[] { "Chip.Aperture" };
+                        input.Chip.AperturePeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
                     default:
                         if (ignoreUnknown) return Array.Empty<string>();
                         throw new ArgumentOutOfRangeException();
                 }
+                return new[] { "Chip" };
             }
             else if (category == AdjustmentDomain.ColourBars)
             {
