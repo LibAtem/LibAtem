@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using LibAtem.Commands.Settings.HyperDeck;
 using LibAtem.Common;
 
 namespace LibAtem.State
@@ -8,6 +7,7 @@ namespace LibAtem.State
     [Serializable]
     public class HyperdeckState
     {
+        public StorageState Storage { get; } = new StorageState();
         public SettingsState Settings { get; } = new SettingsState();
         public PlayerState Player { get; } = new PlayerState();
 
@@ -32,10 +32,9 @@ namespace LibAtem.State
             public bool SingleClip { get; set; }
             public int PlaybackSpeed { get; set; }
 
-            public int CurrentClipId { get; set; }
-
             public HyperDeckTime ClipTime { get; set; }
             public HyperDeckTime TimelineTime { get; set; }
+
         }
 
         [Serializable]
@@ -50,12 +49,20 @@ namespace LibAtem.State
             public bool IsRemoteEnabled { get; set; }
 
             public IReadOnlyList<HyperDeckStorageStatus> StorageMedia { get; set; } = new List<HyperDeckStorageStatus>();
+        }
+
+        [Serializable]
+        public class StorageState
+        {
             public int ActiveStorageMedia { get; set; }
+            public int CurrentClipId { get; set; }
 
             public uint FrameRate { get; set; }
             public uint TimeScale { get; set; }
             public bool IsInterlaced { get; set; }
-            public bool IsDropFrameTimecode{ get; set; }
+            public bool IsDropFrameTimecode { get; set; }
+
+            public HyperDeckTime RemainingRecordTime { get; set; }
         }
     }
 }

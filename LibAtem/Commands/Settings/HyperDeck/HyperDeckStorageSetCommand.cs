@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands.Settings.HyperDeck
 {
     [CommandName("CXSS", CommandDirection.ToServer, 8)]
-    public class HyperDeckSourceSetCommand : SerializableCommandBase
+    public class HyperDeckStorageSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags

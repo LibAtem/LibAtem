@@ -12,38 +12,28 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.Hyperdecks, (int)hyperdeckCmd.Id, deck =>
                 {
-                    UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck.Settings, new[] {"Id", "StorageMediaCount" },
-                        new[] {"StorageMedia", "ActiveStorageMedia", "FrameRate", "TimeScale", "IsInterlaced", "IsDropFrameTimecode" });
+                    UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck.Settings, new[] {"Id", "StorageMediaCount"},
+                        new[] {"StorageMedia"});
                     deck.Settings.StorageMedia = UpdaterUtil.UpdateList(deck.Settings.StorageMedia,
                         hyperdeckCmd.StorageMediaCount, i => HyperDeckStorageStatus.Unavailable);
 
                     result.SetSuccess($"Hyperdecks.{hyperdeckCmd.Id:D}.Settings");
                 });
             }
-            else if (command is HyperDeckPlayerGetCommand rxcpCmd)
+            else if (command is HyperDeckPlayerGetCommand playerCmd)
             {
-                UpdaterUtil.TryForIndex(result, state.Hyperdecks, (int)rxcpCmd.Id, deck =>
+                UpdaterUtil.TryForIndex(result, state.Hyperdecks, (int)playerCmd.Id, deck =>
                 {
-                    UpdaterUtil.CopyAllProperties(rxcpCmd, deck.Player, new[] {"Id"}, new[] {"CurrentClipId"});
-                    result.SetSuccess($"Hyperdecks.{rxcpCmd.Id:D}.Player");
+                    UpdaterUtil.CopyAllProperties(playerCmd, deck.Player, new[] {"Id"});
+                    result.SetSuccess($"Hyperdecks.{playerCmd.Id:D}.Player");
                 });
             }
-            else if (command is HyperDeckSourceGetCommand rxssCmd)
+            else if (command is HyperDeckStorageGetCommand storageCmd)
             {
-                UpdaterUtil.TryForIndex(result, state.Hyperdecks, (int)rxssCmd.Id, deck =>
+                UpdaterUtil.TryForIndex(result, state.Hyperdecks, (int)storageCmd.Id, deck =>
                 {
-                    //UpdaterUtil.CopyAllProperties(rxcpCmd, deck.Player, new[] { "Id" });
-
-                    // TODO properly
-                    deck.Settings.ActiveStorageMedia = rxssCmd.ActiveStorageMedia;
-                    deck.Player.CurrentClipId = rxssCmd.CurrentClipId;
-
-                    deck.Settings.FrameRate = rxssCmd.FrameRate;
-                    deck.Settings.TimeScale = rxssCmd.TimeScale;
-                    deck.Settings.IsInterlaced = rxssCmd.IsInterlaced;
-                    deck.Settings.IsDropFrameTimecode = rxssCmd.IsDropFrameTimecode;
-
-                    result.SetSuccess($"Hyperdecks.{rxssCmd.Id:D}.Player");
+                    UpdaterUtil.CopyAllProperties(storageCmd, deck.Storage, new[] { "Id" });
+                    result.SetSuccess($"Hyperdecks.{storageCmd.Id:D}.Storage");
                 });
             }
             else if (command is HyperDeckClipCountCommand clipCountCmd)

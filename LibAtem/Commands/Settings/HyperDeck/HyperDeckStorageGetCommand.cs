@@ -1,9 +1,10 @@
+using LibAtem.Common;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.HyperDeck
 {
     [CommandName("RXSS", CommandDirection.ToClient, 32)]
-    public class HyperDeckSourceGetCommand : SerializableCommandBase
+    public class HyperDeckStorageGetCommand : SerializableCommandBase
     {
         [CommandId]
         [Serialize(0), UInt16]
@@ -15,6 +16,8 @@ namespace LibAtem.Commands.Settings.HyperDeck
         [Serialize(10), Int16]
         public int CurrentClipId { get; set; }
 
+        [Serialize(13), HyperDeckTime]
+        public HyperDeckTime RemainingRecordTime { get; set; }
 
         [Serialize(20), UInt32]
         public uint FrameRate { get; set; }
