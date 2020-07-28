@@ -1,5 +1,6 @@
 using LibAtem.Commands;
 using LibAtem.Commands.Settings.HyperDeck;
+using LibAtem.Common;
 
 namespace LibAtem.State.Builder
 {
@@ -12,22 +13,22 @@ namespace LibAtem.State.Builder
                 UpdaterUtil.TryForIndex(result, state.Hyperdecks, (int)hyperdeckCmd.Id, deck =>
                 {
                     UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck.Settings, new[] {"Id", "StorageMediaCount" },
-                        new[] {"StorageMedia", "ActiveStorageMedia"});
+                        new[] {"StorageMedia", "ActiveStorageMedia", "FrameRate", "TimeScale", "IsInterlaced", "IsDropFrameTimecode" });
                     deck.Settings.StorageMedia = UpdaterUtil.UpdateList(deck.Settings.StorageMedia,
                         hyperdeckCmd.StorageMediaCount, i => HyperDeckStorageStatus.Unavailable);
 
                     result.SetSuccess($"Hyperdecks.{hyperdeckCmd.Id:D}.Settings");
                 });
             }
-            else if (command is HyperDeckRXCPCommand rxcpCmd)
+            else if (command is HyperDeckPlayerGetCommand rxcpCmd)
             {
                 UpdaterUtil.TryForIndex(result, state.Hyperdecks, (int)rxcpCmd.Id, deck =>
                 {
-                    UpdaterUtil.CopyAllProperties(rxcpCmd, deck.Player, new[] { "Id" });
+                    UpdaterUtil.CopyAllProperties(rxcpCmd, deck.Player, new[] {"Id"}, new[] {"CurrentClipId"});
                     result.SetSuccess($"Hyperdecks.{rxcpCmd.Id:D}.Player");
                 });
             }
-            else if (command is HyperDeckRXSSCommand rxssCmd)
+            else if (command is HyperDeckSourceGetCommand rxssCmd)
             {
                 UpdaterUtil.TryForIndex(result, state.Hyperdecks, (int)rxssCmd.Id, deck =>
                 {
@@ -35,6 +36,13 @@ namespace LibAtem.State.Builder
 
                     // TODO properly
                     deck.Settings.ActiveStorageMedia = rxssCmd.ActiveStorageMedia;
+                    deck.Player.CurrentClipId = rxssCmd.CurrentClipId;
+
+                    deck.Settings.FrameRate = rxssCmd.FrameRate;
+                    deck.Settings.TimeScale = rxssCmd.TimeScale;
+                    deck.Settings.IsInterlaced = rxssCmd.IsInterlaced;
+                    deck.Settings.IsDropFrameTimecode = rxssCmd.IsDropFrameTimecode;
+
                     result.SetSuccess($"Hyperdecks.{rxssCmd.Id:D}.Player");
                 });
             }
@@ -54,16 +62,9 @@ namespace LibAtem.State.Builder
                 {
                     UpdaterUtil.TryForIndex(result, deck.Clips, (int) clipCmd.ClipId, clip =>
                     {
-                        clip.Name = clipCmd.Name;
-                        clip.Duration = new HyperdeckState.Time(clipCmd.DurationHour, clipCmd.DurationMinute,
-                            clipCmd.DurationSecond, clipCmd.DurationFrame);
-                        clip.TimelineStart = new HyperdeckState.Time(clipCmd.StartHour, clipCmd.StartMinute,
-                            clipCmd.StartSecond, clipCmd.StartFrame);
-                        clip.TimelineEnd = new HyperdeckState.Time(clipCmd.EndHour, clipCmd.EndMinute,
-                            clipCmd.EndSecond, clipCmd.EndFrame);
+                        UpdaterUtil.CopyAllProperties(clipCmd, clip, new[] { "ClipId", "HyperdeckId" });
+                        result.SetSuccess($"Hyperdecks.{clipCmd.HyperdeckId:D}.Clips.{clipCmd.ClipId:D}");
                     });
-
-                    result.SetSuccess($"Hyperdecks.{clipCmd.HyperdeckId:D}.Clips.{clipCmd.ClipId:D}");
                 });
             }
         }

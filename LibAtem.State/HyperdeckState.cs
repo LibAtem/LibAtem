@@ -17,41 +17,25 @@ namespace LibAtem.State
         public class ClipState
         {
             public string Name { get; set; }
-            public Time Duration { get; set; }
+            public HyperDeckTime Duration { get; set; }
 
-            public Time TimelineStart { get; set; }
-            public Time TimelineEnd{ get; set; }
+            public HyperDeckTime TimelineStart { get; set; }
+            public HyperDeckTime TimelineEnd { get; set; }
 
         }
-
-        [Serializable]
-        public class Time
-        {
-            public Time()
-            {
-            }
-
-            public Time(uint hour, uint minute, uint second, uint frame)
-            {
-                Hour = hour;
-                Minute = minute;
-                Second = second;
-                Frame = frame;
-            }
-
-            public uint Hour { get;  }
-            public uint Minute { get; }
-            public uint Second { get; }
-            public uint Frame { get;}
-        }
-
+        
         [Serializable]
         public class PlayerState
         {
             public HyperDeckPlayerState State { get; set; }
             public bool Loop { get; set; }
             public bool SingleClip { get; set; }
-            public uint PlaybackSpeed { get; set; }
+            public int PlaybackSpeed { get; set; }
+
+            public int CurrentClipId { get; set; }
+
+            public HyperDeckTime ClipTime { get; set; }
+            public HyperDeckTime TimelineTime { get; set; }
         }
 
         [Serializable]
@@ -67,6 +51,11 @@ namespace LibAtem.State
 
             public IReadOnlyList<HyperDeckStorageStatus> StorageMedia { get; set; } = new List<HyperDeckStorageStatus>();
             public int ActiveStorageMedia { get; set; }
+
+            public uint FrameRate { get; set; }
+            public uint TimeScale { get; set; }
+            public bool IsInterlaced { get; set; }
+            public bool IsDropFrameTimecode{ get; set; }
         }
     }
 }

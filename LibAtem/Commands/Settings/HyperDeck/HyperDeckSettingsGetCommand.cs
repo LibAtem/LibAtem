@@ -3,18 +3,6 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Settings.HyperDeck
 {
-    public enum HyperDeckStorageStatus
-    {
-        Ready = 0, // TODO
-        Unavailable = 1, // TODO
-    }
-    public enum HyperDeckConnectionStatus
-    {
-        NotConnected = 0,
-        Connecting = 1,
-        Connected = 2,
-        Incompatible = 3,
-    }
 
     [CommandName("RXMS", CommandDirection.ToClient, 20)]
     public class HyperDeckSettingsGetCommand : SerializableCommandBase
@@ -40,8 +28,5 @@ namespace LibAtem.Commands.Settings.HyperDeck
         public uint StorageMediaCount { get; set; }
         [Serialize(18), Bool]
         public bool IsRemoteEnabled { get; set; }
-
-        // [Serialize(15), Int8]
-        // public int ActiveStorageMedia { get; set; }
     }
 }

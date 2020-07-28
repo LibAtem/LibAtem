@@ -217,4 +217,40 @@ namespace LibAtem.Serialization
         {
         }
     }
+
+    public class DirectionInt32Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
+    {
+        private readonly BoolAttribute _bool = new BoolAttribute();
+        private readonly UInt32Attribute _uint32 = new UInt32Attribute();
+        private readonly Int32Attribute _int32 = new Int32Attribute();
+
+        public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
+        {
+            int val1 = (int) val;
+            _bool.Serialize(reverseBytes, data, start, val1 < 0);
+            _uint32.Serialize(reverseBytes, data, start + 1, (uint) Math.Abs(val1));
+        }
+
+        public override object Deserialize(bool reverseBytes, byte[] data, uint start, PropertyInfo prop)
+        {
+            bool isNegative = (bool) _bool.Deserialize(reverseBytes, data, start, prop);
+            int val = (int) (uint) _uint32.Deserialize(reverseBytes, data, start + 1, prop);
+            return isNegative ? -val : val;
+        }
+
+        public override bool AreEqual(object val1, object val2)
+        {
+            return _int32.AreEqual(val1, val2);
+        }
+
+        public object GetRandom(Random random)
+        {
+            return _int32.GetRandom(random);
+        }
+
+        public override bool IsValid(PropertyInfo prop, object val)
+        {
+            return _int32.IsValid(prop, val);
+        }
+    }
 }
