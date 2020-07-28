@@ -4,7 +4,6 @@ using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.DeviceProfile;
 using LibAtem.Commands.Settings;
-using LibAtem.Commands.Settings.HyperDeck;
 using LibAtem.Commands.Settings.Multiview;
 using LibAtem.Commands.SuperSource;
 using LibAtem.Common;
@@ -55,19 +54,10 @@ namespace LibAtem.State.Builder
                 state.Settings.DownConvertMode = dcModeCmd.DownConvertMode;
                 result.SetSuccess($"Settings.DownConvertVideoMode");
             }
-            // TODO DownConvertVideoMode
             else if (command is SDI3GLevelOutputGetCommand sdiLevelCmd)
             {
                 state.Settings.SDI3GLevel = sdiLevelCmd.SDI3GOutputLevel;
                 result.SetSuccess("Settings.SDI3GLevel");
-            }
-            else if (command is HyperDeckSettingsGetCommand hyperdeckCmd)
-            {
-                UpdaterUtil.TryForIndex(result, state.Settings.Hyperdecks, (int)hyperdeckCmd.Id, deck =>
-                {
-                    UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck, new[] {"Id", "NetworkAddressBytes"});
-                    result.SetSuccess($"Settings.Hyperdecks.{hyperdeckCmd.Id:D}");
-                });
             }
             else if (command is SuperSourceCascadeCommand cascadeCmd)
             {

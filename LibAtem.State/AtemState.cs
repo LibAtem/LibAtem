@@ -14,6 +14,7 @@ namespace LibAtem.State
         public IReadOnlyList<MediaPlayerState> MediaPlayers { get; set; } = new List<MediaPlayerState>();
         public IReadOnlyList<MixEffectState> MixEffects { get; set; } = new List<MixEffectState>();
         public IReadOnlyList<SuperSourceState> SuperSources { get; set; } = new List<SuperSourceState>();
+        public IReadOnlyList<HyperdeckState> Hyperdecks { get; set; } = new List<HyperdeckState>();
 
         public AudioState Audio { get; set; }
         public FairlightAudioState Fairlight { get; set; }

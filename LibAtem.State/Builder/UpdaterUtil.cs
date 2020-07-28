@@ -5,9 +5,9 @@ using System.Reflection;
 
 namespace LibAtem.State.Builder
 {
-    internal static class UpdaterUtil
+    public static class UpdaterUtil
     {
-        public static void TryForIndex<T>(UpdateResultImpl result, IReadOnlyList<T> arr, int index, Action<T> func)
+        internal static void TryForIndex<T>(UpdateResultImpl result, IReadOnlyList<T> arr, int index, Action<T> func)
         {
             T obj = arr.ElementAtOrDefault(index);
             if (obj != null)
@@ -19,7 +19,7 @@ namespace LibAtem.State.Builder
                 result.AddError($"Update for unknown {typeof(T).Name}: {index}");
             }
         }
-        public static void TryForKey<TK, TV>(UpdateResultImpl result, IDictionary<TK, TV> dict, TK key, Action<TV> func)
+        internal static void TryForKey<TK, TV>(UpdateResultImpl result, IDictionary<TK, TV> dict, TK key, Action<TV> func)
         {
             if (dict.TryGetValue(key, out TV obj))
             {

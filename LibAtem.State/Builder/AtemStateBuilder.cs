@@ -46,6 +46,7 @@ namespace LibAtem.State.Builder
             MediaPoolStateUpdater.Update(state, result, command);
             MixEffectStateUpdater.Update(state, result, command);
             SettingsStateUpdater.Update(state, result, command);
+            HyperDeckStateUpdater.Update(state, result, command);
             SuperSourceStateUpdater.Update(state, result, command);
             StreamingStateBuilder.Update(state, result, command);
             CameraControllerUpdater.Update(state, result, command, settings);
@@ -115,6 +116,7 @@ namespace LibAtem.State.Builder
             state.DownstreamKeyers = UpdaterUtil.CreateList(cmd.DownstreamKeyers, (i) => new DownstreamKeyerState());
             state.MediaPlayers = UpdaterUtil.CreateList(cmd.MediaPlayers, (i) => new MediaPlayerState());
             state.SuperSources = UpdaterUtil.CreateList(cmd.SuperSource, (i) => new SuperSourceState());
+            state.Hyperdecks = UpdaterUtil.CreateList(cmd.HyperDecks, i => new HyperdeckState());
 
             state.MixEffects = UpdaterUtil.CreateList(cmd.MixEffectBlocks, (i) =>
             {
@@ -125,7 +127,6 @@ namespace LibAtem.State.Builder
                 return me;
             });
 
-            state.Settings.Hyperdecks = UpdaterUtil.CreateList(cmd.HyperDecks, i => new SettingsState.HyperdeckState());
             state.Settings.MixMinusOutputs = UpdaterUtil.CreateList(cmd.MixMinusOutputs, i => new SettingsState.MixMinusOutputState());
 
             state.Info.AdvancedChromaKeyers = cmd.AdvancedChromaKeyers;
