@@ -12,11 +12,7 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.Hyperdecks, (int)hyperdeckCmd.Id, deck =>
                 {
-                    UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck.Settings, new[] {"Id", "StorageMediaCount"},
-                        new[] {"StorageMedia"});
-                    deck.Settings.StorageMedia = UpdaterUtil.UpdateList(deck.Settings.StorageMedia,
-                        hyperdeckCmd.StorageMediaCount, i => HyperDeckStorageStatus.Unavailable);
-
+                    UpdaterUtil.CopyAllProperties(hyperdeckCmd, deck.Settings, new[] {"Id"});
                     result.SetSuccess($"Hyperdecks.{hyperdeckCmd.Id:D}.Settings");
                 });
             }

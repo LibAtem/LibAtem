@@ -10,6 +10,9 @@ namespace LibAtem.Commands.Settings.HyperDeck
         [Serialize(0), UInt16]
         public uint Id { get; set; }
 
+        [Serialize(7), Enum8]
+        public HyperDeckStorageStatus ActiveStorageStatus { get; set; }
+
         [Serialize(8), Int16]
         public int ActiveStorageMedia { get; set; }
 

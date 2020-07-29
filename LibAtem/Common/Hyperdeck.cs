@@ -4,8 +4,8 @@ namespace LibAtem.Common
 {
     public enum HyperDeckStorageStatus
     {
-        Ready = 0, // TODO
-        Unavailable = 1, // TODO
+        Unavailable = 0,
+        Ready = 1,
     }
 
     public enum HyperDeckConnectionStatus
@@ -17,11 +17,10 @@ namespace LibAtem.Common
     }
 
     public enum HyperDeckPlayerState {
-        Idle = 1,
         Playing = 0,
+        Idle = 1,
         Shuttle = 2,
         Recording = 4,
-        // Unknown = 6, // TODO
     }
 
     [Serializable]

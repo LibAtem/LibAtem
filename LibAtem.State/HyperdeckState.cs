@@ -48,7 +48,7 @@ namespace LibAtem.State
             public HyperDeckConnectionStatus Status { get; set; }
             public bool IsRemoteEnabled { get; set; }
 
-            public IReadOnlyList<HyperDeckStorageStatus> StorageMedia { get; set; } = new List<HyperDeckStorageStatus>();
+            public uint StorageMediaCount { get; set; }
         }
 
         [Serializable]
@@ -56,6 +56,8 @@ namespace LibAtem.State
         {
             public int ActiveStorageMedia { get; set; }
             public int CurrentClipId { get; set; }
+
+            public HyperDeckStorageStatus ActiveStorageStatus { get; set; }
 
             public uint FrameRate { get; set; }
             public uint TimeScale { get; set; }
