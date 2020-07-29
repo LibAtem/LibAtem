@@ -25,7 +25,7 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
-        public virtual object GetRandom(Random random)
+        public virtual object GetRandom(Random random, Type type)
         {
             return random.Next();
         }
@@ -75,7 +75,7 @@ namespace LibAtem.Serialization
             return val / Scale;
         }
 
-        public override object GetRandom(Random random)
+        public override object GetRandom(Random random, Type type)
         {
             double range = (double)ScaledMax - (double)ScaledMin;
             return (random.NextDouble() * range + ScaledMin) / Scale;
@@ -114,7 +114,7 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
-        public virtual object GetRandom(Random random)
+        public virtual object GetRandom(Random random, Type type)
         {
             return (uint) random.Next();
         }
@@ -148,7 +148,7 @@ namespace LibAtem.Serialization
             return val;
         }
 
-        public override object GetRandom(Random random)
+        public override object GetRandom(Random random, Type type)
         {
             return (uint)random.Next(Min, Max);
         }
@@ -193,7 +193,7 @@ namespace LibAtem.Serialization
             return val / Scale;
         }
 
-        public override object GetRandom(Random random)
+        public override object GetRandom(Random random, Type type)
         {
             uint range = ScaledMax - ScaledMin;
             return (random.NextDouble() * range + ScaledMin) / Scale;
@@ -243,9 +243,9 @@ namespace LibAtem.Serialization
             return _int32.AreEqual(val1, val2);
         }
 
-        public object GetRandom(Random random)
+        public object GetRandom(Random random, Type type)
         {
-            return _int32.GetRandom(random);
+            return _int32.GetRandom(random, type);
         }
 
         public override bool IsValid(PropertyInfo prop, object val)

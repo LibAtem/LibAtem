@@ -30,9 +30,9 @@ namespace LibAtem.Serialization
             return (string) val1 == (string) val2;
         }
 
-        public object GetRandom(Random random)
+        public object GetRandom(Random random, Type type)
         {
-            return IPUtil.IPToString((byte[]) _helper.GetRandom(random));
+            return IPUtil.IPToString((byte[]) _helper.GetRandom(random, type));
         }
 
         public override bool IsValid(PropertyInfo prop, object obj)

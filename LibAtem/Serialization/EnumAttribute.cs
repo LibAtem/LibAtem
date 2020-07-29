@@ -5,7 +5,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Serialization
 {
-    public class Enum32Attribute : SerializableAttributeBase
+    public class Enum32Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
@@ -27,13 +27,19 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
+        public object GetRandom(Random random, Type type)
+        {
+            object[] values = Enum.GetValues(type).OfType<object>().ToArray();
+            return values.GetValue(random.Next(values.Length));
+        }
+
         public override bool IsValid(PropertyInfo prop, object val)
         {
             return val.IsValid(prop.PropertyType);
         }
     }
 
-    public class Enum16Attribute : SerializableAttributeBase
+    public class Enum16Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
@@ -53,13 +59,20 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
+        public object GetRandom(Random random, Type type)
+        {
+            object[] values = Enum.GetValues(type).OfType<object>().Where(v => Convert.ToInt32(v) <= ushort.MaxValue)
+                .ToArray();
+            return values.GetValue(random.Next(values.Length));
+        }
+
         public override bool IsValid(PropertyInfo prop, object val)
         {
-            return val.IsValid(prop.PropertyType);
+            return val.IsValid(prop.PropertyType) && Convert.ToInt32(val) <= ushort.MaxValue;
         }
     }
 
-    public class Enum8Attribute : SerializableAttributeBase
+    public class Enum8Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
@@ -76,9 +89,16 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
+        public object GetRandom(Random random, Type type)
+        {
+            object[] values = Enum.GetValues(type).OfType<object>().Where(v => Convert.ToInt32(v) <= byte.MaxValue)
+                .ToArray();
+            return values.GetValue(random.Next(values.Length));
+        }
+
         public override bool IsValid(PropertyInfo prop, object val)
         {
-            return val.IsValid(prop.PropertyType);
+            return val.IsValid(prop.PropertyType) && Convert.ToInt32(val) <= byte.MaxValue;
         }
     }
 }

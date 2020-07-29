@@ -44,7 +44,7 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
-        public object GetRandom(Random random)
+        public object GetRandom(Random random, Type type)
         {
             int targetLength = random.Next(_length);
 
@@ -91,7 +91,7 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
-        public object GetRandom(Random random)
+        public object GetRandom(Random random, Type type)
         {
             int len = random.Next((int) _maxlength);
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -136,7 +136,7 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
-        public object GetRandom(Random random)
+        public object GetRandom(Random random, Type type)
         {
             int len = random.Next((int) _maxlength);
             return Enumerable.Repeat(0, len)

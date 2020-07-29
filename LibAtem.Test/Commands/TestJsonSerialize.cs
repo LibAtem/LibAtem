@@ -34,7 +34,7 @@ namespace LibAtem.Test.Commands
 
                 try
                 {
-                    output.WriteLine("Testing: {0}", type.Name);
+                    // output.WriteLine("Testing: {0}", type.Name);
                     TestSingle(type, 10);
                 }
                 catch (Exception e)

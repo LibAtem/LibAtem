@@ -28,7 +28,7 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
-        public object GetRandom(Random random)
+        public object GetRandom(Random random, Type type)
         {
             return random.Next(2) > 0;
         }

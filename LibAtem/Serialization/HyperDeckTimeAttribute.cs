@@ -1,11 +1,12 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using LibAtem.Common;
 
 namespace LibAtem.Serialization
 {
-    public class HyperDeckTimeAttribute : SerializableAttributeBase // TODO - implement randomiser?
+    public class HyperDeckTimeAttribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
-        private UInt8Attribute _uint8 = new UInt8Attribute();
+        private readonly UInt8Attribute _uint8 = new UInt8Attribute();
 
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
@@ -41,6 +42,17 @@ namespace LibAtem.Serialization
 
             return val1a == val2a || (val1a.Hour == val2a.Hour && val1a.Minute == val2a.Minute &&
                                       val1a.Second == val2a.Second && val1a.Frame == val2a.Frame);
+        }
+
+        public object GetRandom(Random random, Type type)
+        {
+            return new HyperDeckTime
+            {
+                Hour = (uint) random.Next(255),
+                Minute = (uint) random.Next(59),
+                Second = (uint) random.Next(59),
+                Frame = (uint) random.Next(20),
+            };
         }
 
         public override bool IsValid(PropertyInfo prop, object val)

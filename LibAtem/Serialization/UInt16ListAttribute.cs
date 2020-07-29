@@ -44,9 +44,9 @@ namespace LibAtem.Serialization
             return ((List<uint>) val1).SequenceEqual((List<uint>) val2);
         }
 
-        public object GetRandom(Random random)
+        public object GetRandom(Random random, Type type)
         {
-            return Enumerable.Range(0, Count).Select(i => (uint) _innerAttr.GetRandom(random)).ToList();
+            return Enumerable.Range(0, Count).Select(i => (uint) _innerAttr.GetRandom(random, type)).ToList();
         }
 
         public override bool IsValid(PropertyInfo prop, object val)

@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.CameraControl
 {
-    [CommandName("CCdo", CommandDirection.ToServer, 8), NoCommandId]
+    [CommandName("CCdo", CommandDirection.ToServer, 8)]
     public class CameraControlDeviceOptionsSetCommand : SerializableCommandBase
     {
         [Flags]

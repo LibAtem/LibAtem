@@ -29,7 +29,7 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
-        public virtual object GetRandom(Random random)
+        public virtual object GetRandom(Random random, Type type)
         {
             var bytes = new byte[8];
             random.NextBytes(bytes);

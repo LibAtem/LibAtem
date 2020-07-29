@@ -34,7 +34,7 @@ namespace LibAtem.Serialization
 
     public interface IRandomGeneratorAttribute
     {
-        object GetRandom(Random random);
+        object GetRandom(Random random, Type type);
         bool IsValid(PropertyInfo prop, object obj);
     }
 }

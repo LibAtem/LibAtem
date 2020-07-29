@@ -14,11 +14,6 @@ namespace LibAtem.Test.Util
 
         public static object Create(Type t)
         {
-            return Create(t, (o) => true);
-        }
-
-        public static object Create(Type t, Func<object, bool> enumIsValid)
-        {
             object cmd = Activator.CreateInstance(t);
             foreach (PropertyInfo prop in t.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
@@ -33,17 +28,18 @@ namespace LibAtem.Test.Util
                 IRandomGeneratorAttribute attr = prop.GetCustomAttributes().OfType<IRandomGeneratorAttribute>().FirstOrDefault();
                 if (attr != null)
                 {
-                    prop.SetValue(cmd, attr.GetRandom(random));
+                    prop.SetValue(cmd, attr.GetRandom(random, prop.PropertyType));
                     continue;
                 }
 
+                /*
                 // If prop is an enum, then take a random value
                 if (prop.PropertyType.GetTypeInfo().IsEnum)
                 {
                     object[] values = Enum.GetValues(prop.PropertyType).OfType<object>().Where(enumIsValid).ToArray();
                     prop.SetValue(cmd, values.GetValue(random.Next(values.Length)));
                     continue;
-                }
+                }*/
 
                 Assert.True(false, string.Format("Missing generator attribute for property: {0}", prop.Name));
             }

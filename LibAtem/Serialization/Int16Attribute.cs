@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace LibAtem.Serialization
 {
-    public class Int16Attribute : SerializableAttributeBase
+    public class Int16Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
     {
         public override void Serialize(bool reverseBytes, byte[] data, uint start, object val)
         {
@@ -26,6 +26,11 @@ namespace LibAtem.Serialization
         public override bool IsValid(PropertyInfo prop, object obj)
         {
             return true; // TODO 
+        }
+
+        public object GetRandom(Random random, Type type)
+        {
+            return random.Next(short.MinValue, short.MaxValue);
         }
     }
 
@@ -63,7 +68,7 @@ namespace LibAtem.Serialization
             return val / Scale;
         }
 
-        public object GetRandom(Random random)
+        public object GetRandom(Random random, Type type)
         {
             int range = ScaledMax - ScaledMin;
             return (random.NextDouble() * range + ScaledMin) / Scale;

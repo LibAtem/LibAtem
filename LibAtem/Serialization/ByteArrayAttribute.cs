@@ -38,7 +38,7 @@ namespace LibAtem.Serialization
             return ((byte[]) val1).SequenceEqual((byte[]) val2);
         }
 
-        public object GetRandom(Random random)
+        public object GetRandom(Random random, Type type)
         {
             if (_length == 0)
                 throw new ArgumentException("Cannot generate random data for a byte array with no length");

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using LibAtem.Commands;
+using LibAtem.Commands.CameraControl;
 using LibAtem.Test.Util;
 using Xunit;
 using Xunit.Abstractions;
@@ -29,6 +30,9 @@ namespace LibAtem.Test.Commands
             foreach (Type type in types)
             {
                 if (type == typeof(SerializableCommandBase))
+                    continue;
+
+                if (type != typeof(CameraControlDeviceOptionsSetCommand))
                     continue;
 
                 try

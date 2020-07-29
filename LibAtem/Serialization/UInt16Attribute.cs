@@ -23,7 +23,7 @@ namespace LibAtem.Serialization
             return Equals(val1, val2);
         }
 
-        public virtual object GetRandom(Random random)
+        public virtual object GetRandom(Random random, Type type)
         {
             return (uint) random.Next(65535);
         }
@@ -57,7 +57,7 @@ namespace LibAtem.Serialization
             return val;
         }
 
-        public override object GetRandom(Random random)
+        public override object GetRandom(Random random, Type type)
         {
             return (uint)random.Next(Min, Max);
         }
@@ -103,7 +103,7 @@ namespace LibAtem.Serialization
             return val;
         }
 
-        public override object GetRandom(Random random)
+        public override object GetRandom(Random random, Type type)
         {
             uint range = ScaledMax - ScaledMin;
             return (random.NextDouble() * range + ScaledMin) / Scale;

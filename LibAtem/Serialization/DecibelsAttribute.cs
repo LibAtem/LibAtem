@@ -31,7 +31,7 @@ namespace LibAtem.Serialization
             return Math.Abs((int) (DecibelToUInt(val1) - DecibelToUInt(val2))) <= tolerance;
         }
 
-        public override object GetRandom(Random random)
+        public override object GetRandom(Random random, Type type)
         {
             return UIntToDecibel((uint) random.Next(65535));
         }
