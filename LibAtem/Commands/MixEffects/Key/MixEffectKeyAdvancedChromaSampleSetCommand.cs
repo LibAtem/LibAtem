@@ -37,7 +37,7 @@ namespace LibAtem.Commands.MixEffects.Key
         public double CursorX { get; set; }
         [Serialize(8), Int16D(1000, -8383, 8383)]
         public double CursorY { get; set; }
-        [Serialize(10), UInt16D(100, 625, 9925)]
+        [Serialize(10), UInt16D(100, 620, 9925)]
         public double CursorSize { get; set; }
         
         [Serialize(12), UInt16D(10000, 0, 10000)]

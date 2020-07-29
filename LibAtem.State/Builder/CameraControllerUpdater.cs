@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using LibAtem.Commands;
 using LibAtem.Commands.CameraControl;
+using LibAtem.Common;
 using LibAtem.State.Util;
 
 namespace LibAtem.State.Builder
@@ -18,22 +19,26 @@ namespace LibAtem.State.Builder
             } else if (state.CameraControl != null) { 
                 if (command is CameraControlGetCommand camCmd)
                 {
-                    if (!state.CameraControl.Cameras.ContainsKey((int) camCmd.Input))
-                        state.CameraControl.Cameras[(int) camCmd.Input] = new CameraControlState.CameraState();
-
-                    UpdaterUtil.TryForKey(result, state.CameraControl.Cameras, (long)camCmd.Input, input =>
+                    if (camCmd.Input != VideoSource.Black)
                     {
-                        try
+                        if (!state.CameraControl.Cameras.ContainsKey((int) camCmd.Input))
+                            state.CameraControl.Cameras[(int) camCmd.Input] = new CameraControlState.CameraState();
+
+                        UpdaterUtil.TryForKey(result, state.CameraControl.Cameras, (long) camCmd.Input, input =>
                         {
-                            string[] path = CameraControlUtil.ApplyToState(input, camCmd, settings.IgnoreUnknownCameraControlProperties);
-                            if (path.Length > 0)
-                                result.SetSuccess(path.Select(p => $"CameraControl.Cameras.{camCmd.Input:D}.p"));
-                        }
-                        catch (Exception e)
-                        {
-                            result.AddError(e.ToString());
-                        }
-                    });
+                            try
+                            {
+                                string[] path = CameraControlUtil.ApplyToState(input, camCmd,
+                                    settings.IgnoreUnknownCameraControlProperties);
+                                if (path.Length > 0)
+                                    result.SetSuccess(path.Select(p => $"CameraControl.Cameras.{camCmd.Input:D}.p"));
+                            }
+                            catch (Exception e)
+                            {
+                                result.AddError(e.ToString());
+                            }
+                        });
+                    }
                 }
             }
         }

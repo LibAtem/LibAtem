@@ -126,6 +126,10 @@ namespace LibAtem.State.Builder
 
                 return me;
             });
+            state.Settings.MultiViewers = UpdaterUtil.UpdateList(state.Settings.MultiViewers, cmd.Multiviewers, i => new MultiViewerState
+            {
+                Windows = new List<MultiViewerState.WindowState>(), // Size gets done in a second
+            });
 
             state.Settings.MixMinusOutputs = UpdaterUtil.CreateList(cmd.MixMinusOutputs, i => new SettingsState.MixMinusOutputState());
 

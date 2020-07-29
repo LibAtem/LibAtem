@@ -117,7 +117,23 @@ namespace LibAtem.State.Builder
 
         private static void UpdateMultiViewers(AtemState state, UpdateResultImpl result, ICommand command)
         {
-            if (command is MultiviewerConfigV8Command multiview8Cmd)
+            if (command is MultiviewerConfigV811Command multiviewer811Cmd)
+            {
+                state.Info.MultiViewers = new InfoState.MultiViewInfoState
+                {
+                    CanRouteInputs = multiviewer811Cmd.CanRouteInputs,
+                    SupportsVuMeters = multiviewer811Cmd.SupportsVuMeters,
+                    SupportsProgramPreviewSwapped = multiviewer811Cmd.CanSwapPreviewProgram,
+                    SupportsQuadrantLayout = multiviewer811Cmd.SupportsQuadrants,
+                    SupportsToggleSafeArea = multiviewer811Cmd.CanToggleSafeArea,
+                };
+
+                state.Settings.MultiViewers.ForEach(mv => mv.Windows = UpdaterUtil.UpdateList(mv.Windows,
+                    multiviewer811Cmd.WindowCount,
+                    w => new MultiViewerState.WindowState()));
+                result.SetSuccess(new[] { $"Info.MultiViewers", $"Settings.MultiViewers" });
+            }
+            else if (command is MultiviewerConfigV8Command multiview8Cmd)
             {
                 state.Info.MultiViewers = new InfoState.MultiViewInfoState
                 {
