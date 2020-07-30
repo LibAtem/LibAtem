@@ -28,13 +28,13 @@ namespace LibAtem.Serialization
             return true; // TODO 
         }
 
-        public object GetRandom(Random random, Type type)
+        public virtual object GetRandom(Random random, Type type)
         {
             return random.Next(short.MinValue, short.MaxValue);
         }
     }
 
-    public class Int16DAttribute : Int16Attribute, IRandomGeneratorAttribute
+    public class Int16DAttribute : Int16Attribute
     {
         public double Scale { get; }
         public int ScaledMin { get; }
@@ -68,7 +68,7 @@ namespace LibAtem.Serialization
             return val / Scale;
         }
 
-        public object GetRandom(Random random, Type type)
+        public override object GetRandom(Random random, Type type)
         {
             int range = ScaledMax - ScaledMin;
             return (random.NextDouble() * range + ScaledMin) / Scale;

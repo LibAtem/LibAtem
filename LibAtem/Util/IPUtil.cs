@@ -16,6 +16,12 @@ namespace LibAtem.Util
         }
         public static byte[] ParseAddress(string str)
         {
+            if (str == "")
+            {
+                // Return all 0
+                return new byte[] { 0, 0, 0, 0 };
+            }
+
             try
             {
                 return ParseAddressUnsafe(str);
@@ -24,9 +30,6 @@ namespace LibAtem.Util
             {
                 throw new Exception($"Failed to parse IP: {str}");
             }
-
-            // Return all 0
-            return new byte[] { 0, 0, 0, 0 };
         }
 
         public static string IPToString(params byte[] arr)
