@@ -13,9 +13,13 @@ namespace LibAtem.Common
         TwoMe4K = 6,
         TwoMEBS4K = 7,
         TVStudioHD = 8,
-        // TVStudioProHD = 9,
-        // TVStudioPro4K = 10,
-        Constellation8K = 11,
+        TVStudioProHD = 9,
+        TVStudioPro4K = 10,
+        Constellation = 11,
+        Constellation8K = 12,
+        Mini = 13,
+        MiniPro = 14,
+        MiniProISO = 15,
     }
 
     public enum MixEffectBlockId
