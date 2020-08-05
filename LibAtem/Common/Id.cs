@@ -89,23 +89,7 @@ namespace LibAtem.Common
         [XmlEnum("3")]
         Four = 3,
     }
-
-    public enum AuxiliaryId
-    {
-        [XmlEnum("0")]
-        One = 0,
-        [XmlEnum("1")]
-        Two = 1,
-        [XmlEnum("2")]
-        Three = 2,
-        [XmlEnum("3")]
-        Four = 3,
-        [XmlEnum("4")]
-        Five = 4,
-        [XmlEnum("5")]
-        Six = 5,
-    }
-
+    
     public enum ColorGeneratorId
     {
         [XmlEnum("0")]
@@ -121,16 +105,7 @@ namespace LibAtem.Common
         [XmlEnum("1")]
         Two = 2,
     }
-
-    public enum FlyKeyAtKeyFrame
-    {
-        None = 0,
-        A = 1,
-        B = 2,
-        Full = 4,
-        Infinite = 8
-    }
-
+    
     // TODO - this may want consolidating with FlyKeyKeyFrameId
     public enum FlyKeyKeyFrameType
     {

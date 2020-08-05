@@ -57,7 +57,7 @@ namespace LibAtem.XmlState
         }
 
         [XmlAttribute("auxiliaryIndex")]
-        public LibAtem.Common.AuxiliaryId AuxiliaryIndex
+        public System.UInt32 AuxiliaryIndex
         {
             get;
             set;
@@ -103,7 +103,7 @@ namespace LibAtem.XmlState
         [XmlAttribute("bevel")]
         public string BevelString
         {
-            get => Bevel.ToString() ; set => Bevel = (LibAtem.Common.BorderBevel)Enum.Parse(typeof (LibAtem.Common.BorderBevel), value) ; }
+            get => Bevel.ToString() ; set => Bevel = (LibAtem.Common.BorderBevel)Enum.Parse(typeof(LibAtem.Common.BorderBevel), value) ; }
 
         public bool ShouldSerializeBevelString()
         {
@@ -1300,17 +1300,17 @@ namespace LibAtem.XmlState
         [XmlIgnore]
         public LibAtem.Common.Pattern Pattern
         {
-            get => (LibAtem.Common.Pattern)Enum.Parse(typeof (LibAtem.Common.Pattern), PatternString) ; set => PatternString = value.ToString() ; }
+            get => (LibAtem.Common.Pattern)Enum.Parse(typeof(LibAtem.Common.Pattern), PatternString) ; set => PatternString = value.ToString() ; }
 
         [XmlIgnore]
         public LibAtem.Common.DVEEffect DVEEffectPattern
         {
-            get => (LibAtem.Common.DVEEffect)Enum.Parse(typeof (LibAtem.Common.DVEEffect), PatternString) ; set => PatternString = value.ToString() ; }
+            get => (LibAtem.Common.DVEEffect)Enum.Parse(typeof(LibAtem.Common.DVEEffect), PatternString) ; set => PatternString = value.ToString() ; }
 
         [XmlIgnore]
         public LibAtem.Common.Pattern PatternKeyPattern
         {
-            get => (LibAtem.Common.Pattern)Enum.Parse(typeof (LibAtem.Common.Pattern), PatternString) ; set => PatternString = value.ToString() ; }
+            get => (LibAtem.Common.Pattern)Enum.Parse(typeof(LibAtem.Common.Pattern), PatternString) ; set => PatternString = value.ToString() ; }
 
         [XmlAttribute("position")]
         public System.Double Position
@@ -1577,7 +1577,7 @@ namespace LibAtem.XmlState
         [XmlAttribute("source")]
         public string TransitionSourceString
         {
-            get => TransitionSource.ToString() ; set => TransitionSource = (LibAtem.Common.TransitionLayer)Enum.Parse(typeof (LibAtem.Common.TransitionLayer), value) ; }
+            get => TransitionSource.ToString() ; set => TransitionSource = (LibAtem.Common.TransitionLayer)Enum.Parse(typeof(LibAtem.Common.TransitionLayer), value) ; }
 
         public bool ShouldSerializeTransitionSourceString()
         {

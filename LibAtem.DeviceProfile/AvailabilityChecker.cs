@@ -48,8 +48,6 @@ namespace LibAtem.DeviceProfile
                 return IsAvailable((UpstreamKeyId)val, profile);
             if (val is DownstreamKeyId)
                 return IsAvailable((DownstreamKeyId)val, profile);
-            if (val is AuxiliaryId)
-                return IsAvailable((AuxiliaryId)val, profile);
             if (val is TransitionStyle)
                 return IsAvailable((TransitionStyle)val, profile);
             if (val is TransitionLayer)
@@ -152,11 +150,6 @@ namespace LibAtem.DeviceProfile
         public static bool IsAvailable(this DownstreamKeyId id, DeviceProfile profile)
         {
             return id.IsValid() && (int)id < profile.DownstreamKeys;
-        }
-
-        public static bool IsAvailable(this AuxiliaryId id, DeviceProfile profile)
-        {
-            return id.IsValid() && (int)id < profile.Auxiliaries;
         }
 
         public static bool IsAvailable(this VideoMode mode, DeviceProfile profile)

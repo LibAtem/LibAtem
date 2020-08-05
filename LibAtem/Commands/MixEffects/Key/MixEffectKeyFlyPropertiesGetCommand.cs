@@ -25,10 +25,6 @@ namespace LibAtem.Commands.MixEffects.Key
         [Serialize(5), Enum8]
         public FlyKeyLocation RunningToInfinite { get; set; }
 
-        // This is a pretty meaningless value, as it is really the LastRunKeyFrame
-        // [Serialize(6), Enum8]
-        // public FlyKeyAtKeyFrame IsAtKeyFrame { get; set; }
-
         public override void Deserialize(ParsedByteArray cmd)
         {
             base.Deserialize(cmd);

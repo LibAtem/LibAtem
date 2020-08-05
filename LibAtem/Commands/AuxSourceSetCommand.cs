@@ -12,8 +12,8 @@ namespace LibAtem.Commands
         public uint Mask => 1;
 
         [CommandId]
-        [Serialize(1), Enum8]
-        public AuxiliaryId Id { get; set; }
+        [Serialize(1), UInt8]
+        public uint Id { get; set; }
 
         [Serialize(2), Enum16]
         public VideoSource Source { get; set; }

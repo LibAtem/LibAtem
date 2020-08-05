@@ -8,9 +8,9 @@ namespace LibAtem.MacroOperations
     public class AuxiliaryInputMacroOp : MacroOpBase
     {
         [CommandId]
-        [Serialize(4), Enum16]
+        [Serialize(4), UInt16]
         [MacroField("AuxiliaryIndex")]
-        public AuxiliaryId Index { get; set; }
+        public uint Index { get; set; }
 
         [Serialize(6), Enum16]
         [MacroField("Input")]
