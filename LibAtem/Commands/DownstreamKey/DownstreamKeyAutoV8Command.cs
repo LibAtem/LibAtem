@@ -7,7 +7,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.DownstreamKey
 {
-    [CommandName("DDsA", CommandDirection.ToServer, ProtocolVersion.V8_0, 4)]
+    [CommandName("DDsA", CommandDirection.ToServer, ProtocolVersion.V8_0_1, 4)]
     public class DownstreamKeyAutoV8Command : SerializableCommandBase
     {
         [Flags]

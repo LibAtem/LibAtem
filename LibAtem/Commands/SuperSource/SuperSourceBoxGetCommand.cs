@@ -8,7 +8,7 @@ namespace LibAtem.Commands.SuperSource
     {
         [CommandId]
         [Serialize(0), Enum8]
-        public SuperSourceBoxId Index { get; set; }
+        public SuperSourceBoxId BoxIndex { get; set; }
         
         [Serialize(1), Bool]
         public bool Enabled { get; set; }
