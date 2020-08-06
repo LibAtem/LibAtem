@@ -39,10 +39,10 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.SuperSources, 0, ssrc =>
                 {
-                    UpdaterUtil.TryForIndex(result, ssrc.Boxes, (int) boxCmd.Index, box =>
+                    UpdaterUtil.TryForIndex(result, ssrc.Boxes, (int) boxCmd.BoxIndex, box =>
                     {
                         UpdaterUtil.CopyAllProperties(boxCmd, box, new []{"Index"});
-                        result.SetSuccess($"SuperSources.0.Boxes.{boxCmd.Index:D}");
+                        result.SetSuccess($"SuperSources.0.Boxes.{boxCmd.BoxIndex:D}");
                     });
                 });
             }
