@@ -77,7 +77,7 @@ namespace LibAtem.Discovery
             }
 
             AddressRecord aRec = records.OfType<AddressRecord>().FirstOrDefault(r => r.Type == DnsType.A && r.Name == srvRec.Target);
-            if (srvRec == null)
+            if (aRec == null)
             {
                 if (_debug) Console.WriteLine("Missing A record for " + answer.DomainName);
                 return;
@@ -86,7 +86,7 @@ namespace LibAtem.Discovery
             TXTRecord txtRec = records.OfType<TXTRecord>().FirstOrDefault(r => r.Type == DnsType.TXT && r.Name == answer.DomainName);
             List<string> strings = txtRec == null ? new List<string>() : txtRec.Strings;
 
-            string name = answer.DomainName.ToString();
+            string name = string.Join(".", answer.DomainName.Labels);
             if (name.EndsWith(AtemDeviceInfo.ServiceName))
                 name = name.Substring(0, name.Length - AtemDeviceInfo.ServiceName.Length - 1);
 

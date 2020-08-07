@@ -51,6 +51,7 @@ namespace LibAtem.Net
 
             _connection = new AtemClientConnection(_remoteEp, new Random().Next(32767));
             _connection.OnDisconnect += sender => OnDisconnect?.Invoke(this);
+            _connection.OnInitComplete += sender => OnConnection?.Invoke(this);
 
             DataTransfer = new DataTransferManager(_connection);
 
@@ -82,6 +83,9 @@ namespace LibAtem.Net
                 {
                     if (!_connection.HasTimedOut)
                         return false;
+
+                    if (_connection.ConnectionVersion != null)
+                        OnDisconnect?.Invoke(this);
 
                     Log.InfoFormat("Attempting Reconnect");
                     _connection.ResetConnStatsInfo();
@@ -188,7 +192,6 @@ namespace LibAtem.Net
                         if (packet.CommandCode.HasFlag(ReceivedPacket.CommandCodeFlags.Handshake))
                         {
                             Log.DebugFormat("Completed handshake");
-                            OnConnection?.Invoke(this);
                             DataTransfer.Reset();
                             _connection.SendAckNow(_client.Client, true);
                             continue;

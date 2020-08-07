@@ -43,9 +43,11 @@ namespace LibAtem.Net
         private readonly List<InFlightMessage> _inFlight;
         private readonly BlockingCollection<ReceivedPacket> _processQueue;
 
+        public delegate void InitCompleteHandler(object sender);
         public delegate void DisconnectHandler(object sender);
         public delegate void PacketHandler(object sender, ReceivedPacket pkt);
 
+        public event InitCompleteHandler OnInitComplete;
         public event DisconnectHandler OnDisconnect;
         public event PacketHandler OnReceivePacket;
 
@@ -209,8 +211,10 @@ namespace LibAtem.Net
                     if (cmd is VersionCommand verCmd)
                     {
                         _protocolVersion = verCmd.ProtocolVersion;
-                        // TODO - ensure version is ok
                         // TODO - log version info
+                    } else if (cmd is InitializationCompleteCommand)
+                    {
+                        OnInitComplete?.Invoke(this);
                     }
                     result.AddIfNotNull(cmd);
                 }
