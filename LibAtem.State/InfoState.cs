@@ -43,6 +43,8 @@ namespace LibAtem.State
             public bool SupportsProgramPreviewSwapped { get; set; }
             public bool SupportsQuadrantLayout { get; set; }
             public bool SupportsToggleSafeArea { get; set; }
+            public bool CanChangeLayout { get; set; }
+            public bool CanChangeVuMeterOpacity { get; set; }
         }
     }
 

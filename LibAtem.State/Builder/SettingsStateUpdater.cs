@@ -131,6 +131,8 @@ namespace LibAtem.State.Builder
                     SupportsProgramPreviewSwapped = multiviewer811Cmd.CanSwapPreviewProgram,
                     SupportsQuadrantLayout = multiviewer811Cmd.SupportsQuadrants,
                     SupportsToggleSafeArea = multiviewer811Cmd.CanToggleSafeArea,
+                    CanChangeLayout = multiviewer811Cmd.CanChangeLayout,
+                    //CanChangeVuMeterOpacity = multiviewer811Cmd.CanChangeVuMeterOpacity,
                 };
 
                 state.Settings.MultiViewers.ForEach(mv => mv.Windows = UpdaterUtil.UpdateList(mv.Windows,
@@ -177,6 +179,9 @@ namespace LibAtem.State.Builder
             }
             else if (command is MultiviewVuOpacityCommand vuOpacityCmd)
             {
+                // TODO - this feels hacky, but dont see a real property anywhere
+                state.Info.MultiViewers.CanChangeVuMeterOpacity = true;
+
                 UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)vuOpacityCmd.MultiviewIndex, mv =>
                 {
                     mv.VuMeterOpacity = vuOpacityCmd.Opacity;
