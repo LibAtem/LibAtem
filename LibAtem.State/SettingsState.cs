@@ -28,6 +28,8 @@ namespace LibAtem.State
 
         public bool SuperSourceCascade { get; set; }
 
+        public TimeCodeMode TimeCodeMode { get; set; }
+
         [Serializable]
         public class MixMinusOutputState
         {

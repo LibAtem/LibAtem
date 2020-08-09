@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using LibAtem.Common;
 using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Streaming
@@ -9,15 +10,6 @@ namespace LibAtem.Commands.Streaming
     {
         [Serialize(0), Bool]
         public bool IsStreaming { get; set; }
-    }
-
-
-    public enum StreamingStatus
-    {
-        Idle = 1 << 0,
-        Connecting = 1 << 1,
-        Streaming = 1 << 2,
-        Stopping = 1 << 3,
     }
 
     [CommandName("StRS", CommandDirection.ToClient, 4), NoCommandId]

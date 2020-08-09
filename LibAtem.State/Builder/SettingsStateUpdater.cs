@@ -72,6 +72,11 @@ namespace LibAtem.State.Builder
                     result.SetSuccess($"Settings.MixMinusOutputs.{mmoCmd.Id:D}");
                 });
             }
+            else if (command is TimeCodeConfigGetCommand tcCommand)
+            {
+                state.Settings.TimeCodeMode = tcCommand.Mode;
+                result.SetSuccess("Settings.TimeCodeMode");
+            }
 
             UpdateInputs(state, result, command);
             UpdateMultiViewers(state, result, command);

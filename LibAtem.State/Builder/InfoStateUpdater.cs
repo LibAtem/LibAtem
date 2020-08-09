@@ -14,7 +14,7 @@ namespace LibAtem.State.Builder
                 state.Info.Version = verCmd.ProtocolVersion;
                 result.SetSuccess("Info.Version");
             }
-            else if (command is TimecodeLockedCommand lockedCmd)
+            else if (command is TimeCodeLockedCommand lockedCmd)
             {
                 state.Info.TimecodeLocked = lockedCmd.Locked;
                 result.SetSuccess("Info.TimecodeLocked");

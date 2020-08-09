@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LibAtem.Commands.Streaming;
+using LibAtem.Common;
 
 namespace LibAtem.State
 {
