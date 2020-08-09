@@ -26,12 +26,17 @@ namespace LibAtem.State.Builder
                 {
                     var pgmState = state.Fairlight.ProgramOut;
                     UpdaterUtil.CopyAllProperties(masterCmd, pgmState,
-                        new[] { "EqualizerGain", "EqualizerEnabled", "MakeUpGain" },
+                        new[] { "EqualizerGain", "EqualizerEnabled", "MakeUpGain", "EqualizerBands" },
                         new[] { "Dynamics", "Equalizer", "AudioFollowVideoCrossfadeTransitionEnabled", "Levels", "Peaks" });
 
                     pgmState.Dynamics.MakeUpGain = masterCmd.MakeUpGain;
                     pgmState.Equalizer.Enabled = masterCmd.EqualizerEnabled;
                     pgmState.Equalizer.Gain = masterCmd.EqualizerGain;
+                    if (masterCmd.EqualizerBands != pgmState.Equalizer.Bands.Count)
+                    {
+                        pgmState.Equalizer.Bands = pgmState.Equalizer.Bands.RebuildToLength(masterCmd.EqualizerBands,
+                            (i) => new FairlightAudioState.EqualizerBandState());
+                    }
 
                     result.SetSuccess(new[]
                     {
@@ -273,6 +278,14 @@ namespace LibAtem.State.Builder
                                 result.SetSuccess($"Fairlight.Inputs.{srcBandCmd.Index:D}.Sources.{srcBandCmd.SourceId:D}.Equalizer.Bands.{srcBandCmd.Band:D}");
                             });
                         }
+                    });
+                }
+                else if (command is FairlightMixerMasterEqualizerBandGetCommand pgmBandCmd)
+                {
+                    UpdaterUtil.TryForIndex(result, state.Fairlight.ProgramOut.Equalizer.Bands, (int)pgmBandCmd.Band, band =>
+                    {
+                        UpdaterUtil.CopyAllProperties(pgmBandCmd, band, new[] {"Band"});
+                        result.SetSuccess($"Fairlight.ProgramOut.Equalizer.Bands.{pgmBandCmd.Band:D}");
                     });
                 }
             }

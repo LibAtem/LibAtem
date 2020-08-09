@@ -45,6 +45,8 @@ namespace LibAtem.Util
 
         public static IReadOnlyList<T> RebuildToLength<T>(this IReadOnlyList<T> rawList, uint target, Func<int, T> generator)
         {
+            if (rawList.Count == target) return rawList;
+
             List<T> list = rawList.ToList();
             while (generator != null && list.Count < target)
                 list.Add(generator(list.Count));
