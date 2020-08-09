@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using LibAtem.Commands;
 using LibAtem.Commands.Audio;
 using LibAtem.Commands.DeviceProfile;
-using LibAtem.Common;
 
 namespace LibAtem.State.Builder
 {
@@ -42,11 +41,6 @@ namespace LibAtem.State.Builder
                         result.SetSuccess("Audio.HeadphoneOutputs.0");
                     });
                 }
-                /*else if (command is AudioMixerTalkbackPropertiesGetCommand talkbackCmd)
-                {
-                    UpdaterUtil.CopyAllProperties(talkbackCmd, state.Audio.Talkback, null, new[] {"Inputs"});
-                    result.SetSuccess("Audio.Talkback");
-                }*/
                 else if (command is AudioMixerInputGetV8Command input8Cmd)
                 {
                     if (!state.Audio.Inputs.ContainsKey((int)input8Cmd.Index)) state.Audio.Inputs[(int)input8Cmd.Index] = new AudioState.InputState();

@@ -1,9 +1,8 @@
 using LibAtem.Common;
 using LibAtem.Serialization;
 
-namespace LibAtem.Commands.Audio
+namespace LibAtem.Commands.Talkback
 {
-    // Note: likely worked since v7.4, but no way to test
     [CommandName("TMIP", CommandDirection.ToClient, ProtocolVersion.V8_0, 8)]
     public class TalkbackMixerInputPropertiesGetCommand : SerializableCommandBase
     {
@@ -14,7 +13,10 @@ namespace LibAtem.Commands.Audio
         [Serialize(2), Enum16]
         public VideoSource Index { get; set; }
 
-        // TODO 4 & 5 look like bools?
+        [Serialize(4), Bool]
+        public bool InputCanMuteSDI { get; set; }
+        [Serialize(5), Bool]
+        public bool CurrentInputSupportsMuteSDI { get; set; }
         [Serialize(6), Bool]
         public bool MuteSDI { get; set; }
     }

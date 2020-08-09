@@ -11,7 +11,7 @@ namespace LibAtem.State
         public IReadOnlyList<MultiViewerState> MultiViewers { get; set; } = new List<MultiViewerState>();
         public Dictionary<VideoSource, InputState> Inputs { get; set; } = new Dictionary<VideoSource, InputState>();
 
-        public IReadOnlyDictionary<TalkbackChannel, TalkbackState> Talkback { get; set; }
+        public IReadOnlyList<TalkbackState> Talkback { get; set; } = new List<TalkbackState>();
         public IReadOnlyList<MixMinusOutputState> MixMinusOutputs { get; set; } = new List<MixMinusOutputState>();
 
         public bool AutoVideoMode { get; set; }
@@ -43,13 +43,15 @@ namespace LibAtem.State
             public bool MuteSDI { get; set; }
 
             //
-            public IReadOnlyList<TalkbackInputState> Inputs { get; set; } = new List<TalkbackInputState>();
+            public Dictionary<VideoSource, TalkbackInputState> Inputs { get; set; } = new Dictionary<VideoSource, TalkbackInputState>();
         }
 
         [Serializable]
         public class TalkbackInputState
         {
-            //
+            public bool MuteSDI { get; set; }
+            public bool InputCanMuteSDI { get; set; }
+            public bool CurrentInputSupportsMuteSDI { get; set; }
         }
     }
 

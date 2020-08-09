@@ -37,6 +37,7 @@ namespace LibAtem.State.Builder
             UpdateInternal(state, result, command);
             AudioStateUpdater.Update(state, result, command);
             FairlightStateUpdater.Update(state, result, command);
+            TalkbackStateUpdater.Update(state, result, command);
             AuxStateUpdater.Update(state, result, command);
             ColorStateUpdater.Update(state, result, command);
             DownstreamKeyerStateUpdater.Update(state, result, command);
@@ -117,6 +118,8 @@ namespace LibAtem.State.Builder
             state.MediaPlayers = UpdaterUtil.CreateList(cmd.MediaPlayers, (i) => new MediaPlayerState());
             state.SuperSources = UpdaterUtil.CreateList(cmd.SuperSource, (i) => new SuperSourceState());
             state.Hyperdecks = UpdaterUtil.CreateList(cmd.HyperDecks, i => new HyperdeckState());
+            state.Settings.Talkback =
+                UpdaterUtil.CreateList(cmd.TalkbackChannels, (i) => new SettingsState.TalkbackState());
 
             state.MixEffects = UpdaterUtil.CreateList(cmd.MixEffectBlocks, (i) =>
             {

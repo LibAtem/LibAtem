@@ -28,6 +28,9 @@ namespace LibAtem.Commands.DeviceProfile
         [Serialize(10), UInt8]
         public uint SuperSource { get; set; }
 
+        [Serialize(12), UInt8]
+        public uint TalkbackChannels { get; set; }
+
         [Serialize(17), Bool]
         public bool CameraControl { get; set; }
 
