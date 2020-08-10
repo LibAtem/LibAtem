@@ -152,11 +152,11 @@ namespace LibAtem.Common
 
         [VideoModeRate(30), VideoModeStandard(VideoModeStandard.HDMI), VideoModeMultiviewerMode(N1080p30)]
         [VideoModeResolution(VideoModeResolution._1080)]
-        [XmlEnum("1080p2997")]
-        N1080p30= 26,
+        [XmlEnum("1080p30")]
+        N1080p30 = 26,
         [VideoModeRate(60), VideoModeStandard(VideoModeStandard.HDMI), VideoModeMultiviewerMode(N1080p60)]
         [VideoModeResolution(VideoModeResolution._1080)]
-        [XmlEnum("1080p5994")]
+        [XmlEnum("1080p60")]
         N1080p60 = 27,
     }
 
