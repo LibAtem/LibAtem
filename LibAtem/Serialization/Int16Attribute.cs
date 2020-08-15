@@ -86,5 +86,10 @@ namespace LibAtem.Serialization
             double tolerance = 1 / (2 * Scale);
             return Math.Abs((double)val1 - (double)val2) <= tolerance;
         }
+        
+        public override string GetHashString()
+        {
+            return $"{Scale},{ScaledMin},{ScaledMax}";
+        }
     }
 }

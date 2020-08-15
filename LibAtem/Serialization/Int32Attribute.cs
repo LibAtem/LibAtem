@@ -93,6 +93,11 @@ namespace LibAtem.Serialization
             double tolerance = Math.Max(1 / (2 * Scale), 0.0001);
             return Math.Abs((double)val1 - (double)val2) <= tolerance;
         }
+        
+        public override string GetHashString()
+        {
+            return $"{Scale},{ScaledMin},{ScaledMax},{NegativeInfinity}";
+        }
     }
 
     public class UInt32Attribute : SerializableAttributeBase, IRandomGeneratorAttribute
@@ -161,6 +166,11 @@ namespace LibAtem.Serialization
         {
             return (uint)obj >= Min && (uint)obj <= Max;
         }
+        
+        public override string GetHashString()
+        {
+            return $"{Min},{Max}";
+        }
     }
 
     public class UInt32DAttribute : UInt32Attribute
@@ -212,6 +222,11 @@ namespace LibAtem.Serialization
         {
             double tolerance = 1 / (2 * Scale);
             return Math.Abs((double)val1 - (double)val2) <= tolerance;
+        }
+        
+        public override string GetHashString()
+        {
+            return $"{Scale},{ScaledMin},{ScaledMax}";
         }
     }
 

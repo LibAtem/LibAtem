@@ -28,6 +28,11 @@ namespace LibAtem.Serialization
         public abstract bool AreEqual(object val1, object val2);
         public abstract bool IsValid(PropertyInfo prop, object val);
 
+        public virtual string GetHashString()
+        {
+            return string.Empty;
+        }
+
         protected byte[] ReverseBytes(bool reverse, IEnumerable<byte> data)
         {
             return reverse ? data.Reverse().ToArray() : data.ToArray();

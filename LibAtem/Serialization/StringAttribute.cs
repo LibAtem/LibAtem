@@ -108,6 +108,11 @@ namespace LibAtem.Serialization
             string str = (string) obj;
             return str.Length <= _maxlength;
         }
+        
+        public override string GetHashString()
+        {
+            return $"{_maxlength}";
+        }
     }
 
     public class BytesLengthAttribute : SerializableAttributeBase, IRandomGeneratorAttribute
@@ -153,6 +158,11 @@ namespace LibAtem.Serialization
         {
             byte[] str = (byte[]) obj;
             return str.Length <= _maxlength;
+        }
+        
+        public override string GetHashString()
+        {
+            return $"{_maxlength}";
         }
     }
 }

@@ -41,5 +41,10 @@ namespace LibAtem.Serialization
         {
             return true;
         }
+
+        public override string GetHashString()
+        {
+            return $"{_index}";
+        }
     }
 }

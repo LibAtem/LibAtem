@@ -32,15 +32,6 @@ namespace LibAtem.Test.Util
                     continue;
                 }
 
-                /*
-                // If prop is an enum, then take a random value
-                if (prop.PropertyType.GetTypeInfo().IsEnum)
-                {
-                    object[] values = Enum.GetValues(prop.PropertyType).OfType<object>().Where(enumIsValid).ToArray();
-                    prop.SetValue(cmd, values.GetValue(random.Next(values.Length)));
-                    continue;
-                }*/
-
                 Assert.True(false, string.Format("Missing generator attribute for property: {0}", prop.Name));
             }
             return cmd;

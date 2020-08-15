@@ -68,6 +68,11 @@ namespace LibAtem.Serialization
         {
             return (uint)obj >= Min && (uint)obj <= Max;
         }
+        
+        public override string GetHashString()
+        {
+            return $"{Min},{Max}";
+        }
     }
 
     public class UInt16DAttribute : UInt16Attribute
@@ -121,6 +126,11 @@ namespace LibAtem.Serialization
             double tolerance = 1 / (2 * Scale);
             return Math.Abs((double) val1 - (double) val2) <= tolerance;
         }
+        
+        public override string GetHashString()
+        {
+            return $"{Scale},{ScaledMin},{ScaledMax}";
+        }
     }
 
     public class UInt16TolAttribute : UInt16Attribute
@@ -135,6 +145,11 @@ namespace LibAtem.Serialization
         public override bool AreEqual(object val1, object val2)
         {
             return Math.Abs((int) ((uint) val1 - (uint) val2)) <= _tolerance;
+        }
+        
+        public override string GetHashString()
+        {
+            return $"{_tolerance}";
         }
     }
 }
