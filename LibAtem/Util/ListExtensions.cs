@@ -55,5 +55,17 @@ namespace LibAtem.Util
 
             return list;
         }
+
+        public static T FirstOrDefault<T>(this IReadOnlyList<T> source, T defVal)
+        {
+            if (source.Count > 0)
+            {
+                return source[0];
+            }
+            else
+            {
+                return defVal;
+            }
+        }
     }
 }

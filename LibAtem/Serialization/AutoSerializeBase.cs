@@ -46,8 +46,10 @@ namespace LibAtem.Serialization
                 if (serAttr == null)
                     throw new SerializationException(t.Name, "Missing serialization definition on property {0}", prop.Name);
 
-                Delegate setter = prop.CanWrite && prop.GetSetMethod() != null ? Delegate.CreateDelegate(Expression.GetActionType(t, prop.PropertyType), prop.GetSetMethod()) : null;
-                Delegate getter = prop.GetGetMethod() != null ? Delegate.CreateDelegate(Expression.GetFuncType(t, prop.PropertyType), prop.GetGetMethod()) : null;
+                MethodInfo tmpSetter = prop.CanWrite ? prop.GetSetMethod(true) : null;
+                MethodInfo tmpGetter = prop.GetGetMethod(true);
+                Delegate setter = tmpSetter != null ? Delegate.CreateDelegate(Expression.GetActionType(t, prop.PropertyType), tmpSetter) : null;
+                Delegate getter = tmpGetter != null ? Delegate.CreateDelegate(Expression.GetFuncType(t, prop.PropertyType), tmpGetter) : null;
 
                 bool isCommandId = prop.GetCustomAttribute<CommandIdAttribute>() != null;
 

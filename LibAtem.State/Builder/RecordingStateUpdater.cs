@@ -24,13 +24,12 @@ namespace LibAtem.State.Builder
                     result.SetSuccess($"Recording.ISORecordAllInputs");
                 }
             }
-            else if (command is RecordingStatusCommand statusCmd)
+            else if (command is RecordingStatusGetCommand statusCmd)
             {
                 if (state.Recording != null)
                 {
-                    var decoded = statusCmd.RecordingStatus.ParseRecordingStatus();
-                    state.Recording.Status.State = decoded.Item1;
-                    state.Recording.Status.Error = decoded.Item2;
+                    state.Recording.Status.State = statusCmd.Status;
+                    state.Recording.Status.Error = statusCmd.Error;
 
                     state.Recording.Status.TotalRecordingTimeAvailable = statusCmd.TotalRecordingTimeAvailable;
                     result.SetSuccess($"Recording.Status");

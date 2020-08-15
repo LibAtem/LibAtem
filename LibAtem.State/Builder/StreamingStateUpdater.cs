@@ -42,13 +42,12 @@ namespace LibAtem.State.Builder
                     result.SetSuccess("Streaming.Status.Duration");
                 }
             }
-            else if (command is StreamingStateCommand stateCmd)
+            else if (command is StreamingStatusGetCommand stateCmd)
             {
                 if (state.Streaming != null)
                 {
-                    var vals = stateCmd.StreamingStatus.ParseStreamingStatus();
-                    state.Streaming.Status.State = vals.Item1;
-                    state.Streaming.Status.Error = vals.Item2;
+                    state.Streaming.Status.State = stateCmd.Status;
+                    state.Streaming.Status.Error = stateCmd.Error;
 
                     result.SetSuccess("Streaming.Status.State");
                 }
