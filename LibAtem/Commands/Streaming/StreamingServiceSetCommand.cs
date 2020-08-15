@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Streaming
 {
-    [CommandName("CRSS", CommandDirection.ToServer, 1100), NoCommandId]
+    [CommandName("CRSS", CommandDirection.ToServer, ProtocolVersion.V8_1_1, 1100), NoCommandId]
     public class StreamingServiceSetCommand : SerializableCommandBase
     {
         [Flags]

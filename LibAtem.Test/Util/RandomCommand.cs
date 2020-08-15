@@ -21,9 +21,6 @@ namespace LibAtem.Test.Util
                 if (!prop.CanWrite || prop.GetSetMethod() == null)
                     continue;
 
-                if (prop.GetCustomAttribute<NoSerializeAttribute>() != null)
-                    continue;
-
                 // Generate random prop value
                 IRandomGeneratorAttribute attr = prop.GetCustomAttributes().OfType<IRandomGeneratorAttribute>().FirstOrDefault();
                 if (attr != null)
@@ -31,6 +28,9 @@ namespace LibAtem.Test.Util
                     prop.SetValue(cmd, attr.GetRandom(random, prop.PropertyType));
                     continue;
                 }
+                
+                if (prop.GetCustomAttribute<NoSerializeAttribute>() != null)
+                    continue;
 
                 Assert.True(false, string.Format("Missing generator attribute for property: {0}", prop.Name));
             }

@@ -5,7 +5,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Commands.Streaming
 {
-    [CommandName("StRS", CommandDirection.ToClient, 4), NoCommandId]
+    [CommandName("StRS", CommandDirection.ToClient, ProtocolVersion.V8_1_1,4), NoCommandId]
     public class StreamingStatusGetCommand : SerializableCommandBase
     {
         [Serialize(0), UInt16]
@@ -31,9 +31,9 @@ namespace LibAtem.Commands.Streaming
             }
         }
 
-        [NoSerialize]
+        [NoSerialize, Enum8]
         public StreamingStatus Status { get; set; }
-        [NoSerialize]
+        [NoSerialize, Enum8]
         public StreamingError Error { get; set; }
     }
 }   

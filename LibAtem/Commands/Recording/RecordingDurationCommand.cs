@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands.Recording
 {
-    [CommandName("RTMR", CommandDirection.ToClient, 8), NoCommandId]
+    [CommandName("RTMR", CommandDirection.ToClient, ProtocolVersion.V8_1_1, 8), NoCommandId]
     public class RecordingDurationCommand : SerializableCommandBase
     {
         [Serialize(0), UInt8Range(0, 23)]

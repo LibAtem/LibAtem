@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Recording
 {
-    [CommandName("RTMD", CommandDirection.ToClient, 76)]
+    [CommandName("RTMD", CommandDirection.ToClient, ProtocolVersion.V8_1_1, 76)]
     public class RecordingDiskInfoCommand : SerializableCommandBase
     {
         [CommandId]

@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands.Streaming
 {
-    [CommandName("StrR", CommandDirection.ToServer, 4), NoCommandId]
+    [CommandName("StrR", CommandDirection.ToServer, ProtocolVersion.V8_1_1, 4), NoCommandId]
     public class StreamingStatusSetCommand : SerializableCommandBase
     {
         [Serialize(0), Bool]

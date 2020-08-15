@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Streaming
 {
-    [CommandName("STAB", CommandDirection.Both, 8), NoCommandId]
+    [CommandName("STAB", CommandDirection.Both, ProtocolVersion.V8_1_1, 8), NoCommandId]
     public class StreamingAudioBitratesCommand : SerializableCommandBase
     {
         [Serialize(0), UInt32List(2)]

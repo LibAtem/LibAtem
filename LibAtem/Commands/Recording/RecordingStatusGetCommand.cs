@@ -5,7 +5,7 @@ using LibAtem.Util;
 
 namespace LibAtem.Commands.Recording
 {
-    [CommandName("RTMS", CommandDirection.ToClient, 8), NoCommandId]
+    [CommandName("RTMS", CommandDirection.ToClient, ProtocolVersion.V8_1_1, 8), NoCommandId]
     public class RecordingStatusGetCommand : SerializableCommandBase
     {
 

@@ -3,7 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Recording
 {
-    [CommandName("CRMS", CommandDirection.ToServer, 144), NoCommandId]
+    [CommandName("CRMS", CommandDirection.ToServer, ProtocolVersion.V8_1_1, 144), NoCommandId]
     public class RecordingSettingsSetCommand : SerializableCommandBase
     {
         [Flags]

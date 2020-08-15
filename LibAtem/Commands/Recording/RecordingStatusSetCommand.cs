@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands.Recording
 {
-    [CommandName("RcTM", CommandDirection.ToServer, 4), NoCommandId]
+    [CommandName("RcTM", CommandDirection.ToServer, ProtocolVersion.V8_1_1, 4), NoCommandId]
     public class RecordingStatusSetCommand : SerializableCommandBase
     {
         [Serialize(0), Bool]

@@ -2,7 +2,7 @@
 
 namespace LibAtem.Commands.Recording
 {
-    [CommandName("RMSu", CommandDirection.ToClient, 140), NoCommandId]
+    [CommandName("RMSu", CommandDirection.ToClient, ProtocolVersion.V8_1_1, 140), NoCommandId]
     public class RecordingSettingsGetCommand : SerializableCommandBase
     {
         [Serialize(0), String(128)]
