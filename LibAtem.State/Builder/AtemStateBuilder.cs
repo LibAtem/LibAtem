@@ -50,6 +50,7 @@ namespace LibAtem.State.Builder
             HyperDeckStateUpdater.Update(state, result, command);
             SuperSourceStateUpdater.Update(state, result, command);
             StreamingStateUpdater.Update(state, result, command);
+            RecordingStateUpdater.Update(state, result, command);
             CameraControllerUpdater.Update(state, result, command, settings);
        
             return result;
