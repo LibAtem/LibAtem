@@ -35,9 +35,9 @@ namespace LibAtem.Commands.Recording
 
         }
 
-        [NoSerialize]
+        [NoSerialize, Enum16]
         public RecordingStatus Status { get; set; }
-        [NoSerialize]
+        [NoSerialize, Enum16]
         public RecordingError Error { get; set; }
 
         [Serialize(4), UInt32]

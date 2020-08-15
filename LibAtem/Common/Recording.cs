@@ -26,7 +26,5 @@ namespace LibAtem.Common
         Unformatted = 1 << 1,
         Active = 1 << 2,
         Recording = 1 << 3,
-
-        Removed = 1 << 5
     }
 }

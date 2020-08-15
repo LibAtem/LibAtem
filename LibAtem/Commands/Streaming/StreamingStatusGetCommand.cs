@@ -31,9 +31,9 @@ namespace LibAtem.Commands.Streaming
             }
         }
 
-        [NoSerialize, Enum8]
+        [NoSerialize, Enum16]
         public StreamingStatus Status { get; set; }
-        [NoSerialize, Enum8]
+        [NoSerialize, Enum16]
         public StreamingError Error { get; set; }
     }
 }   

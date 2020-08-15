@@ -13,8 +13,23 @@ namespace LibAtem.Commands.Recording
         [Serialize(4), UInt32]
         public uint RecordingTimeAvailable { get; set; }
 
-        [Serialize(8), Enum16]
+        private static readonly uint DeleteFlag = 1 << 5;
+        [Serialize(8), UInt16]
+        private uint RawStatus
+        {
+            get => (uint) Status | (IsDelete ? DeleteFlag : 0);
+            set
+            {
+                IsDelete = (value & DeleteFlag) == DeleteFlag;
+                Status = (RecordingDiskStatus) (value & (~DeleteFlag));
+            }
+        }
+
+        [NoSerialize, Enum16]
         public RecordingDiskStatus Status { get; set; }
+        
+        [NoSerialize, Bool]
+        public bool IsDelete { get; set; }
 
         [Serialize(10), String(64)]
         public string VolumeName { get; set; }
