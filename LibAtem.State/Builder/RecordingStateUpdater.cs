@@ -39,7 +39,7 @@ namespace LibAtem.State.Builder
             {
                 if (state.Recording != null)
                 {
-                    if (diskCmd.Status == RecordingDiskStatus.Removed)
+                    if (diskCmd.IsDelete)
                     {
                         state.Recording.Disks.Remove(diskCmd.DiskId);
                     }

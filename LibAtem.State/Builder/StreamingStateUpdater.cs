@@ -27,7 +27,7 @@ namespace LibAtem.State.Builder
                 state.Streaming.Settings.HighAudioBitrate = audioCmd.Bitrates[1];
                 result.SetSuccess("Streaming.Settings");
             }
-            else if (command is StreamingTimecodeCommand timecodeCmd)
+            else if (command is StreamingDurationCommand timecodeCmd)
             {
                 if (state.Streaming != null)
                 {
