@@ -52,7 +52,7 @@ namespace LibAtem.State.Builder
             else if (command is DownConvertModeGetCommand dcModeCmd)
             {
                 state.Settings.DownConvertMode = dcModeCmd.DownConvertMode;
-                result.SetSuccess($"Settings.DownConvertVideoMode");
+                result.SetSuccess($"Settings.DownConvertMode");
             }
             else if (command is SDI3GLevelOutputGetCommand sdiLevelCmd)
             {
@@ -158,7 +158,7 @@ namespace LibAtem.State.Builder
                 state.Settings.MultiViewers.ForEach(mv => mv.Windows = UpdaterUtil.UpdateList(mv.Windows,
                     multiview8Cmd.WindowCount,
                     w => new MultiViewerState.WindowState()));
-                result.SetSuccess(new[] {$"Info.MultiViewers", $"Settings.MultiViewers"});
+                result.SetSuccess(new[] { $"Info.MultiViewers", $"Settings.MultiViewers" });
             }
             else if (command is MultiviewerConfigCommand multiviewCmd)
             {
@@ -207,7 +207,7 @@ namespace LibAtem.State.Builder
                         layout = 0;
                     mv.Properties.Layout = layout;
                     mv.Properties.ProgramPreviewSwapped = propsCmd.ProgramPreviewSwapped;
-                    
+
                     result.SetSuccess($"Settings.MultiViewers.{propsCmd.MultiviewIndex:D}.Properties");
                 });
             }
@@ -215,25 +215,25 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)winCmd.MultiviewIndex, mv =>
                 {
-                    UpdaterUtil.TryForIndex(result, mv.Windows, (int) winCmd.WindowIndex, win =>
-                    {
-                        win.Source = winCmd.Source;
-                        win.SupportsVuMeter = winCmd.SupportVuMeter;
-                        win.SupportsSafeArea = winCmd.SupportsSafeArea;
+                    UpdaterUtil.TryForIndex(result, mv.Windows, (int)winCmd.WindowIndex, win =>
+                   {
+                       win.Source = winCmd.Source;
+                       win.SupportsVuMeter = winCmd.SupportVuMeter;
+                       win.SupportsSafeArea = winCmd.SupportsSafeArea;
 
-                        result.SetSuccess($"Settings.MultiViewers.{winCmd.MultiviewIndex:D}.Windows.{winCmd.WindowIndex:D}");
-                    });
+                       result.SetSuccess($"Settings.MultiViewers.{winCmd.MultiviewIndex:D}.Windows.{winCmd.WindowIndex:D}");
+                   });
                 });
             }
             else if (command is MultiviewWindowVuMeterGetCommand vuMeterCmd)
             {
                 UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)vuMeterCmd.MultiviewIndex, mv =>
                 {
-                    UpdaterUtil.TryForIndex(result, mv.Windows, (int) vuMeterCmd.WindowIndex, win =>
-                    {
-                        win.VuMeterEnabled = vuMeterCmd.VuEnabled;
-                        result.SetSuccess($"Settings.MultiViewers.{vuMeterCmd.MultiviewIndex:D}.Windows.{vuMeterCmd.WindowIndex:D}");
-                    });
+                    UpdaterUtil.TryForIndex(result, mv.Windows, (int)vuMeterCmd.WindowIndex, win =>
+                   {
+                       win.VuMeterEnabled = vuMeterCmd.VuEnabled;
+                       result.SetSuccess($"Settings.MultiViewers.{vuMeterCmd.MultiviewIndex:D}.Windows.{vuMeterCmd.WindowIndex:D}");
+                   });
                 });
             }
             else if (command is MultiviewWindowSafeAreaCommand safeAreaCmd)
@@ -243,7 +243,7 @@ namespace LibAtem.State.Builder
                     UpdaterUtil.TryForIndex(result, mv.Windows, (int)safeAreaCmd.WindowIndex, win =>
                     {
                         win.SafeAreaEnabled = safeAreaCmd.SafeAreaEnabled;
-                        result.SetSuccess($"Settings.MultiViewers.{safeAreaCmd.MultiviewIndex:D}.SafeAreaEnabled");
+                        result.SetSuccess($"Settings.MultiViewers.{safeAreaCmd.MultiviewIndex:D}.Windows.{safeAreaCmd.WindowIndex:D}.SafeAreaEnabled");
                     });
                 });
             }
