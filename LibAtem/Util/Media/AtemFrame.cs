@@ -68,6 +68,17 @@ namespace LibAtem.Util.Media
                     throw new ArgumentOutOfRangeException("colour");
             }
         }
+        
+        public byte[] GetBGRA(ColourSpace colour)
+        {
+            switch (colour)
+            {
+                case ColourSpace.BT709:
+                    return BT709ColourSpaceConverter.ToBGRA8(_data);
+                default:
+                    throw new ArgumentOutOfRangeException("colour");
+            }
+        }
 
         public byte[] GetHash()
         {
