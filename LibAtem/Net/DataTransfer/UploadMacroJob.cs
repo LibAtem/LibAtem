@@ -89,8 +89,12 @@ namespace LibAtem.Net.DataTransfer
                 return DataTransferStatus.Success;
             }
 
+            return DataTransferStatus.Unknown;
+        }
+        
+        public override void Fail()
+        {
             _onComplete(false);
-            return DataTransferStatus.Error;
         }
     }
 }

@@ -33,7 +33,7 @@ namespace LibAtem.Net.DataTransfer
                 return null;
 
             _id = transferID;
-
+            
             return new DataTransferDownloadRequestCommand()
             {
                 TransferId = transferID,
@@ -65,8 +65,12 @@ namespace LibAtem.Net.DataTransfer
                 return DataTransferStatus.Success;
             }
 
+            return DataTransferStatus.Unknown;
+        }
+        
+        public override void Fail()
+        {
             _onComplete(null);
-            return DataTransferStatus.Error;
         }
     }
 }

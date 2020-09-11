@@ -47,9 +47,9 @@ namespace LibAtem.Net.DataTransfer
                 {
                     case DataTransferStatus.OK:
                         return DataTransferStatus.OK;
-                    case DataTransferStatus.Error:
-                        _onComplete(false);
-                        return DataTransferStatus.Error;
+                    case DataTransferStatus.Unknown:
+                        //_onComplete(false);
+                        return DataTransferStatus.Unknown;
                 }
             } else if (command.GetType() != typeof(MediaPoolClipDescriptionCommand)) // TODO - check the command values match
                 return DataTransferStatus.OK;
@@ -74,6 +74,11 @@ namespace LibAtem.Net.DataTransfer
             ICommand cmd = _currentFrame.Start((uint) (_id + index+5)); // TODO - proper id
             connection.QueueCommand(cmd);
             return DataTransferStatus.OK;
+        }
+        
+        public override void Fail()
+        {
+            _onComplete(false);
         }
     }
 }

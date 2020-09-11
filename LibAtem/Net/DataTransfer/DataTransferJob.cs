@@ -1,5 +1,6 @@
 using System;
 using LibAtem.Commands;
+using LibAtem.Common;
 
 namespace LibAtem.Net.DataTransfer
 {
@@ -7,13 +8,13 @@ namespace LibAtem.Net.DataTransfer
     {
         OK,
         Success,
-        Error,
+        Unknown,
     }
 
     public abstract class DataTransferJob
     {
         public uint StoreId { get; }
-        public DateTime? ExpiresAt { get; }
+        public DateTime? ExpiresAt { get; private set; }
 
         public DateTime? StartedAt { get; protected set; }
 
@@ -27,7 +28,14 @@ namespace LibAtem.Net.DataTransfer
 
         public abstract DataTransferStatus OnMessage(ICommand command, AtemConnection connection);
 
+        public void SetExpired()
+        {
+            this.ExpiresAt = DateTime.MinValue;
+        }
         // TODO - add cancel method
         //public abstract void Cancel();
+
+        // Job has failed, notify callback
+        public abstract void Fail();
     }
 }

@@ -18,6 +18,8 @@ namespace LibAtem.Net.DataTransfer
 
     public class DataTransferManager : IDisposable
     {
+        private const uint MacroPoolId = 0xffff;
+        
         private static readonly IReadOnlyList<Type> AcceptedCommands;
 
         private readonly AtemConnection _connection;
@@ -29,7 +31,7 @@ namespace LibAtem.Net.DataTransfer
 
         private readonly object _jobLock;
         private DataTransferJob _currentJob;
-        private bool _currentJobCompleted;
+        private ICommand _currentStartCommand;
         private uint _currentId;
 
         private readonly Dictionary<uint, LockOwner> _owners;
@@ -109,9 +111,8 @@ namespace LibAtem.Net.DataTransfer
                 }
 
                 _currentId = _nextTransferId++;
-                _currentJobCompleted = false;
 
-                if (_currentJob.StoreId == 0xffff) // Macro pool doesnt use a lock
+                if (_currentJob.StoreId == MacroPoolId) // Macro pool doesnt use a lock
                 {
                     GotLock(_currentJob.StoreId);
                     return;
@@ -126,13 +127,13 @@ namespace LibAtem.Net.DataTransfer
         {
             lock (_jobLock)
             {
-                if (_currentJobCompleted)
-                {
-                    // TODO - release lock?
-                }
-
                 if (_currentJob == null || storeId != _currentJob.StoreId)
+                {
+                    // Don't need it
+                    ReleaseLock(storeId);
+                    // TODO - will we get stuck if we then never get our lock?
                     return;
+                }
 
                 // Ensure only run once
                 if (_currentJob.StartedAt != null)
@@ -146,46 +147,22 @@ namespace LibAtem.Net.DataTransfer
                     return;
                 }
 
-                ICommand cmd = _currentJob.Start(_currentId);
-                if (cmd == null)
+                _currentStartCommand = _currentJob.Start(_currentId);
+                if (_currentStartCommand == null)
                 {
                     // Release lock
-                    if (_currentJob.StoreId != 0xffff) // If not macro
-                        ReleaseLock(_currentJob.StoreId);
+                    ReleaseLock(_currentJob.StoreId);
 
                     _currentJob = null;
                     DequeueAndRun();
                     return;
                 }
 
-                _connection.QueueCommand(cmd);
+                _connection.QueueCommand(_currentStartCommand);
             }
         }
 
-        private void LostLock(uint storeId)
-        {
-            lock (_jobLock)
-            {
-                if (_currentJob != null && storeId == _currentJob.StoreId)
-                {
-                    if (_currentJobCompleted)
-                    {
-                        _currentJob = null;
-                        
-                    }
-                    else
-                    {
-                        // TODO - cancel current job instead of just running next
-
-                        DequeueAndRun();
-                        return;
-                    }
-                }
-                
-                DequeueAndRun();
-            }
-        }
-
+        /*
         private bool HoldsLock(uint index)
         {
             lock (_ownersLock)
@@ -196,10 +173,14 @@ namespace LibAtem.Net.DataTransfer
                 return _owners[index] == LockOwner.This;
             }
         }
+        */
 
         private void ReleaseLock(uint index)
         {
-            _connection.QueueCommand(new LockStateSetCommand {Index = index, Locked = false});
+            if (index != MacroPoolId)
+            {
+                _connection.QueueCommand(new LockStateSetCommand {Index = index, Locked = false});
+            }
         }
 
         public bool HandleCommand(ICommand cmd)
@@ -212,9 +193,6 @@ namespace LibAtem.Net.DataTransfer
                         _owners[chCmd.Index] = LockOwner.None;
                     else if (!_owners.ContainsKey(chCmd.Index) || _owners[chCmd.Index] == LockOwner.None)
                         _owners[chCmd.Index] = LockOwner.Other;
-
-                    if (!chCmd.Locked)
-                        LostLock(chCmd.Index);
                 }
 
                 return true;
@@ -239,6 +217,47 @@ namespace LibAtem.Net.DataTransfer
                     // TODO - send error?
                     return false;
                 }
+
+                // The atem sends this 'error' while we are not allowed/able to download the asset. we should keep retrying the same start until it succeeds
+                // Note: perhaps this means that someone else has the lock, but we have the lock which will become valid once their transfer completes?
+                if (cmd is DataTransferErrorCommand errCmd && _currentId == errCmd.TransferId)
+                {
+                    // This can happen sometimes, and we should retry until it works
+                    if (errCmd.ErrorCode == DataTransferError.TryAgain && _currentStartCommand != null)
+                    {
+                        _connection.QueueCommand(_currentStartCommand);
+                        return true;
+                    }
+                    
+                    // The asset was not found, or some unknown error meaning we should fail and move on
+                    if (_currentJob != null)
+                    {
+                        if (errCmd.ErrorCode != DataTransferError.NotFound)
+                        {
+                            // We don't know the error, so abort the transfer
+                            _connection.QueueCommand(new DataTransferAbortCommand
+                            {
+                                TransferId = _currentId
+                            });
+                        }
+
+                        ReleaseLock(_currentJob.StoreId);
+                        _currentJob.Fail();
+                        
+                        _currentStartCommand = null;
+                        _currentJob = null;
+                    }
+                    
+                    // Try and get next job started
+                    DequeueAndRun();
+                    return true;
+                }
+
+                if (cmd is DataTransferCompleteCommand completeCmd && _currentId != completeCmd.TransferId)
+                {
+                    // TODO - should we try and start our job?
+                    return false;
+                }
                 
                 if (!AcceptedCommands.Contains(cmd.GetType()) || !_currentJob.StartedAt.HasValue)
                     return false;
@@ -249,22 +268,19 @@ namespace LibAtem.Net.DataTransfer
                     case DataTransferStatus.OK:
                         break; // Job is still working away 
                     case DataTransferStatus.Success:
-                        _currentJobCompleted = true;
 
-                        if (HoldsLock(_currentJob.StoreId))
-                            ReleaseLock(_currentJob.StoreId);
-                        else
-                            _currentJob = null;
+                        ReleaseLock(_currentJob.StoreId);
+                        
+                        _currentStartCommand = null;
+                        _currentJob = null;
+                        
+                        DequeueAndRun();
+                        
                         break;
-                    case DataTransferStatus.Error:
-                        // TODO - send error
-                        _currentJobCompleted = true;
-
-                        if (HoldsLock(_currentJob.StoreId))
-                            ReleaseLock(_currentJob.StoreId);
-                        else
-                            _currentJob = null;
-                        break;
+                    case DataTransferStatus.Unknown:
+                        // Command was not handled, this is probably ok
+                        // TODO - we should track the time of the last handled command so we can check for stuck transfers
+                        return false;
                 }
 
                 return true;
