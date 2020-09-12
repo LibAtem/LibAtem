@@ -135,6 +135,7 @@ namespace LibAtem.Net
                 }
             });
             _sendThread.Name = "LibAtem.Send";
+            _sendThread.IsBackground = true;
             _sendThread.Start();
         }
 
@@ -155,6 +156,7 @@ namespace LibAtem.Net
                 }
             });
             _handleThread.Name = "LibAtem.Handle";
+            _handleThread.IsBackground = true;
             _handleThread.Start();
         }
 
@@ -213,6 +215,7 @@ namespace LibAtem.Net
                 }
             });
             thread.Name = "LibAtem.Receive";
+            thread.IsBackground = true;
             thread.Start();
         }
 
