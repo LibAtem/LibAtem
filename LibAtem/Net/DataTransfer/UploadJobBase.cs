@@ -46,7 +46,7 @@ namespace LibAtem.Net.DataTransfer
                     if (_sentData >= Data.Length)
                         break;
 
-                    var len = _sentData + chunkSize > Data.Length ? (long)(Data.Length - _sentData) : chunkSize;
+                    long len = Math.Min(chunkSize, Data.Length - _sentData);
                     byte[] b = new byte[len];
                     Array.Copy(Data, _sentData, b, 0, len);
 

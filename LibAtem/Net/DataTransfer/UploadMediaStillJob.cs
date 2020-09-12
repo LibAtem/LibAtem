@@ -19,7 +19,7 @@ namespace LibAtem.Net.DataTransfer
         private readonly AtemFrame _frame;
 
         public UploadMediaFrameJob(uint bank, uint index, AtemFrame frame, Action<bool> onComplete, TimeSpan? timeout = null)
-            : base(bank, frame.GetRLEEncodedYCbCr(), onComplete, timeout)
+            : base(bank, frame.GetYCbCrData() /*.GetRLEEncodedYCbCr() This doesnt work because it needs to line up with command boundaries */, onComplete, timeout)
         {
             _index = index;
             _frame = frame;
