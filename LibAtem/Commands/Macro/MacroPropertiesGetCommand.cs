@@ -23,7 +23,7 @@ namespace LibAtem.Commands.Macro
             base.Serialize(cmd);
 
             cmd.SetString(8, Name);
-            cmd.SetString(8 + Name.Length, Description);
+            cmd.SetString(8 + Name?.Length ?? 0, Description);
         }
 
         public override void Deserialize(ParsedByteArray cmd)

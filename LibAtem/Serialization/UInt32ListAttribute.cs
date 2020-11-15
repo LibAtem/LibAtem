@@ -23,9 +23,12 @@ namespace LibAtem.Serialization
         {
             var vals = (List<uint>)val;
 
-            for (int i = 0; i < Count && i < vals.Count; i++)
+            if (vals != null)
             {
-                _innerAttr.Serialize(reverseBytes, data, (uint)(start + 4 * i), vals[i]);
+                for (int i = 0; i < Count && i < vals.Count; i++)
+                {
+                    _innerAttr.Serialize(reverseBytes, data, (uint) (start + 4 * i), vals[i]);
+                }
             }
         }
 

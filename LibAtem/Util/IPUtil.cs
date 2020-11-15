@@ -16,7 +16,7 @@ namespace LibAtem.Util
         }
         public static byte[] ParseAddress(string str)
         {
-            if (str == "")
+            if (string.IsNullOrEmpty(str))
             {
                 // Return all 0
                 return new byte[] { 0, 0, 0, 0 };

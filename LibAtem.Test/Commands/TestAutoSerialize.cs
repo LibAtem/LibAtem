@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using LibAtem.Commands;
-using LibAtem.Commands.CameraControl;
 using LibAtem.Test.Util;
 using Xunit;
 using Xunit.Abstractions;
@@ -30,9 +29,6 @@ namespace LibAtem.Test.Commands
             foreach (Type type in types)
             {
                 if (type == typeof(SerializableCommandBase))
-                    continue;
-
-                if (type != typeof(CameraControlDeviceOptionsSetCommand))
                     continue;
 
                 try
@@ -67,6 +63,13 @@ namespace LibAtem.Test.Commands
 
                 RandomPropertyGenerator.AssertAreTheSame(raw, cmd);
             }
+            
+            // Create an 'empty' class
+            ICommand raw2 = (ICommand) Activator.CreateInstance(t);
+            var nameAndVersion2 = CommandManager.FindNameAndVersionForType(raw2);
+            ICommand cmd2 = DeserializeSingle(nameAndVersion2.Item2, raw2.ToByteArray());
+            if (!t.GetTypeInfo().IsAssignableFrom(cmd2.GetType()))
+                throw new Exception("Deserialized command of wrong type");
         }
 
         private static ICommand DeserializeSingle(ProtocolVersion version, byte[] arr)
