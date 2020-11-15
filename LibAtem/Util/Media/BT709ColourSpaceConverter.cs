@@ -57,7 +57,7 @@ namespace LibAtem.Util.Media
                 res[i] = (byte) (a1a >> 4);
                 res[i + 1] = (byte) (((a1a & 0x0f) << 4) | (cb >> 6));
                 res[i + 2] = (byte) (((cb & 0x3f) << 2) | (y1 >> 8));
-                res[i + 3] = res[i] = (byte) (y1 & 0xff);
+                res[i + 3] = (byte) (y1 & 0xff);
                 res[i + 4] = (byte) (a2a >> 4);
                 res[i + 5] = (byte) (((a2a & 0x0f) << 4) | (cr >> 6));
                 res[i + 6] = (byte) (((cr & 0x3f) << 2) | (y2 >> 8));
