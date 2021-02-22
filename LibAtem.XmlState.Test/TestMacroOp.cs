@@ -56,7 +56,7 @@ namespace LibAtem.XmlState.Test
             RunForFile("TestMacroFiles/ssrc-v2.macros", "TestMacroFiles/ssrc-v2.xml");
         }
 
-        [Fact]
+        [Fact(Skip = "Macro parsing not finished")]
         public void CheckAllMacroOpsAreCovered()
         {
             string[] files =
@@ -79,8 +79,7 @@ namespace LibAtem.XmlState.Test
                 }
             }
 
-            // TODO - enable this once more complete
-            // Assert.False(failed);
+            Assert.False(failed);
         }
 
         #region Helpers
