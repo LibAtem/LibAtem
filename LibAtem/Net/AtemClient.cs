@@ -224,6 +224,11 @@ namespace LibAtem.Net
             _connection.QueueCommand(cmd);
         }
 
+        public void DirectQueueMessage(OutboundMessage msg)
+        {
+            _connection.QueueMessage(msg);
+        }
+
         public void Dispose()
         {
             // TODO
