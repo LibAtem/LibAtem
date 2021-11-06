@@ -52,7 +52,7 @@ namespace LibAtem.State.Builder
                             state.Recording.Disks.Add(diskCmd.DiskId, disk);
                         }
 
-                        UpdaterUtil.CopyAllProperties(diskCmd, disk); //, new []{"DiskId"});
+                        UpdaterUtil.CopyAllProperties(diskCmd, disk, new[] { "IsDelete" }); //, new []{"DiskId"});
                         result.SetSuccess($"Recording.Disks.{diskCmd.DiskId:D}");
                     }
                 }
