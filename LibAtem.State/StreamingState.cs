@@ -12,6 +12,8 @@ namespace LibAtem.State
 
         public AuthenticationState Authentication { get; } = new AuthenticationState();
 
+        public bool IsLowLatency { get; set; }
+
         [Serializable]
         public class StatusState
         {

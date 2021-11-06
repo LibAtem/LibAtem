@@ -69,6 +69,14 @@ namespace LibAtem.State.Builder
                     result.SetSuccess("Streaming.Stats");
                 }
             }
+            else if (command is StreamingLatencyCommand slCmd)
+            {
+                if (state.Streaming != null)
+                {
+                    state.Streaming.IsLowLatency = slCmd.LowLatency;
+                    result.SetSuccess("Streaming.IsLowLatency");
+                }
+            }
         }
     }
 }
