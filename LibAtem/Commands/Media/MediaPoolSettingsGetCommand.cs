@@ -4,7 +4,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands.Media
 {
-    [CommandName("MPSp", CommandDirection.ToClient, 12), NoCommandId]
+    [CommandName("MPSp", CommandDirection.ToClient, ProtocolVersion.V8_0, 12), NoCommandId]
     public class MediaPoolSettingsGetCommand : SerializableCommandBase
     {
         [Serialize(0), UInt16List(4)]
