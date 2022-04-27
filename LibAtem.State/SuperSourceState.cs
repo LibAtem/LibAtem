@@ -11,7 +11,7 @@ namespace LibAtem.State
         public IReadOnlyList<BoxState> Boxes { get; set; } = new List<BoxState>();
 
         public PropertiesState Properties { get; } = new PropertiesState();
-        public BorderState Border { get; } = new BorderState();
+        public BorderState Border { get; set; }
 
         [Serializable]
         public class BoxState

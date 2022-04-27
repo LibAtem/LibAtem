@@ -20,6 +20,8 @@ namespace LibAtem.Common
         Mini = 13,
         MiniPro = 14,
         MiniProISO = 15,
+        MiniExtreme = 16,
+        MiniExtremeIso = 17,
     }
 
     public enum MixEffectBlockId

@@ -181,7 +181,7 @@ namespace LibAtem.State.Builder
             {
                 // HACK - dont see a real property anywhere
                 state.Info.MultiViewers.CanChangeVuMeterOpacity =
-                    state.Info.Model != ModelId.MiniPro && state.Info.Model != ModelId.MiniProISO;
+                    state.Info.Model != ModelId.MiniPro && state.Info.Model != ModelId.MiniProISO && state.Info.Model != ModelId.MiniExtreme && state.Info.Model != ModelId.MiniExtremeIso;
 
                 UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)vuOpacityCmd.MultiviewIndex, mv =>
                 {

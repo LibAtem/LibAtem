@@ -70,9 +70,13 @@ namespace LibAtem.State.Util
                         input.Camera.ShutterPeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
                         break;
                     case CameraFeature.WhiteBalance:
-                        EnsureDataIsValid(cmd, CameraControlDataType.SInt16, 1);
+                        // TODO
+                        // EnsureDataIsValid(cmd, CameraControlDataType.SInt16, 1);
                         input.Camera.WhiteBalance = (uint) cmd.IntData[0];
                         input.Camera.WhiteBalancePeriodicFlushEnabled = cmd.PeriodicFlushEnabled;
+                        break;
+                    case CameraFeature.Unknown:
+                        // TODO
                         break;
                     default:
                         if (ignoreUnknown) return Array.Empty<string>();

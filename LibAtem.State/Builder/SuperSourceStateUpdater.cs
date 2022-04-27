@@ -58,6 +58,7 @@ namespace LibAtem.State.Builder
             {
                 UpdaterUtil.TryForIndex(result, state.SuperSources, (int) borderCmd.SSrcId, ssrc =>
                 {
+                    if (ssrc.Border == null) ssrc.Border = new SuperSourceState.BorderState();
                     UpdaterUtil.CopyAllProperties(borderCmd, ssrc.Border, new []{"SSrcId"});
                     result.SetSuccess($"SuperSources.{borderCmd.SSrcId:D}.Border");
                 });

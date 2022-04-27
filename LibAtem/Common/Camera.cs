@@ -14,8 +14,8 @@
         WhiteBalance = 2,
         Shutter = 5,
         Detail = 8,
-        Gain = 13
-
+        Gain = 13,
+        Unknown = 16
     }
 
     public enum LensFeature

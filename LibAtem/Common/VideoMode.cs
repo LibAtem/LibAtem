@@ -158,6 +158,15 @@ namespace LibAtem.Common
         [VideoModeResolution(VideoModeResolution._1080)]
         [XmlEnum("1080p60")]
         N1080p60 = 27,
+
+        [VideoModeRate(60), VideoModeStandard(VideoModeStandard.HDMI), VideoModeMultiviewerMode(N720p60)]
+        [VideoModeResolution(VideoModeResolution._720)]
+        [XmlEnum("720p60")]
+        N720p60 = 28, // TODO - verify
+        [VideoModeRate(60), VideoModeStandard(VideoModeStandard.HDMI), VideoModeMultiviewerMode(N1080i60)]
+        [VideoModeResolution(VideoModeResolution._1080)]
+        [XmlEnum("1080p60")]
+        N1080i60 = 29, // TODO - verify
     }
 
     public class VideoModeRateAttribute : Attribute
