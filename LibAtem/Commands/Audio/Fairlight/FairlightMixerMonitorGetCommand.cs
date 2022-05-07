@@ -9,6 +9,8 @@ namespace LibAtem.Commands.Audio.Fairlight
         public double Gain { get; set; }
         [Serialize(4), Int32D(100, -6000, 600)]
         public double InputMasterGain { get; set; }
+        [Serialize(8), Bool]
+        public bool InputMasterEnabled { get; set; }
         [Serialize(12), Int32D(100, -6000, 600)]
         public double InputTalkbackGain { get; set; }
         [Serialize(28), Int32D(100, -6000, 600)]
