@@ -165,7 +165,7 @@ namespace LibAtem.Common
         N720p60 = 28, // TODO - verify
         [VideoModeRate(60), VideoModeStandard(VideoModeStandard.HDMI), VideoModeMultiviewerMode(N1080i60)]
         [VideoModeResolution(VideoModeResolution._1080)]
-        [XmlEnum("1080p60")]
+        [XmlEnum("1080i60")]
         N1080i60 = 29, // TODO - verify
     }
 
