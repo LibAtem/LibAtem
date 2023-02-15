@@ -10,6 +10,7 @@ namespace LibAtem.State
     {
         public IReadOnlyList<AuxState> Auxiliaries { get; set; } = new List<AuxState>();
         public IReadOnlyList<ColorState> ColorGenerators { get; set; } = new List<ColorState>();
+
         public IReadOnlyList<DownstreamKeyerState> DownstreamKeyers { get; set; } = new List<DownstreamKeyerState>();
         public IReadOnlyList<MediaPlayerState> MediaPlayers { get; set; } = new List<MediaPlayerState>();
         public IReadOnlyList<MixEffectState> MixEffects { get; set; } = new List<MixEffectState>();
@@ -20,6 +21,8 @@ namespace LibAtem.State
         public FairlightAudioState Fairlight { get; set; }
 
         public CameraControlState CameraControl { get; } = new CameraControlState();
+
+        public DisplayCounterState DisplayCounter { get; set; }
 
         public MacroState Macros { get; } = new MacroState();
         public MediaPoolState MediaPool { get; } = new MediaPoolState();
