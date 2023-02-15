@@ -3,6 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
+    [NoCommandId]
     [CommandName("DCSC", CommandDirection.ToServer, 4)]
     public class DisplayCounterStateSetCommand : SerializableCommandBase
     {

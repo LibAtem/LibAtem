@@ -4,6 +4,7 @@ using System;
 
 namespace LibAtem.Commands
 {
+    [NoCommandId]
     [CommandName("DCPC", CommandDirection.ToServer, 28)]
     public class DisplayCounterPropertiesSetCommand : SerializableCommandBase
     {
@@ -40,10 +41,10 @@ namespace LibAtem.Commands
         [Serialize(5), UInt8Range(0, 100)]
         public uint Size { get; set; }
 
-        [Serialize(8), Int16D(1000, -16000 * 1000, 16000 * 1000)]
+        [Serialize(8), Int16D(1000, -16 * 1000, 16 * 1000)]
         public double PositionX { get; set; }
 
-        [Serialize(10), Int16D(1000, -9000 * 1000, 9000 * 1000)]
+        [Serialize(10), Int16D(1000, -9 * 1000, 9 * 1000)]
         public double PositionY { get; set; }
 
         [Serialize(12), Bool]

@@ -3,6 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
+    [NoCommandId]
     [CommandName("DSTV", CommandDirection.ToClient, 8)]
     public class DisplayCounterCurrentTimeCommand : SerializableCommandBase
     {

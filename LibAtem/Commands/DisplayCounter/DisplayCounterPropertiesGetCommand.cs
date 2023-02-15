@@ -3,6 +3,7 @@ using LibAtem.Serialization;
 
 namespace LibAtem.Commands
 {
+    [NoCommandId]
     [CommandName("DCPV", CommandDirection.ToClient, 20)]
     public class DisplayCounterPropertiesGetCommand : SerializableCommandBase
     {
@@ -22,10 +23,10 @@ namespace LibAtem.Commands
         [Serialize(3), UInt8Range(0, 100)]
         public uint Size { get; set; }
 
-        [Serialize(6), Int16D(1000, -16000 * 1000, 16000 * 1000)]
+        [Serialize(6), Int16D(1000, -16 * 1000, 16 * 1000)]
         public double PositionX { get; set; }
 
-        [Serialize(8), Int16D(1000, -9000 * 1000, 9000 * 1000)]
+        [Serialize(8), Int16D(1000, -9 * 1000, 9 * 1000)]
         public double PositionY { get; set; }
 
         [Serialize(10), Bool]
