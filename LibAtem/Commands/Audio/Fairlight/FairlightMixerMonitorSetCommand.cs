@@ -11,6 +11,7 @@ namespace LibAtem.Commands.Audio.Fairlight
         {
             Gain = 1 << 0,
             InputMasterGain = 1 << 1,
+            InputMasterEnabled = 1 << 2,
             InputTalkbackGain = 1 << 3,
             InputSidetoneGain = 1 << 7,
         }
@@ -23,6 +24,9 @@ namespace LibAtem.Commands.Audio.Fairlight
 
         [Serialize(8), Int32D(100, -6000, 600)]
         public double InputMasterGain { get; set; }
+        [Serialize(12), Bool]
+        public bool InputMasterEnabled { get; set; }
+
         [Serialize(16), Int32D(100, -6000, 0)]
         public double InputTalkbackGain { get; set; }
         [Serialize(32), Int32D(100, -6000, 600)]

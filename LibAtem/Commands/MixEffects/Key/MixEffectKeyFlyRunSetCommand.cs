@@ -7,17 +7,8 @@ namespace LibAtem.Commands.MixEffects.Key
     [CommandName("RFlK", CommandDirection.ToServer, 8)]
     public class MixEffectKeyFlyRunSetCommand : SerializableCommandBase
     {
-        /*
-        [Flags]
-        public enum MaskFlags
-        {
-            KeyFrame = 1 << 0,
-            RunToInfinite = 1 << 1,
-        }
-
-        [Serialize(0), Enum8]
-        public MaskFlags Mask { get; set; }
-        */
+        [Serialize(0), UInt8]
+        public uint Mask { get { return KeyFrame == FlyKeyKeyFrameType.RunToInfinite ? 2u : 0u; } }
 
         [CommandId]
         [Serialize(1), Enum8]
@@ -25,7 +16,7 @@ namespace LibAtem.Commands.MixEffects.Key
         [CommandId]
         [Serialize(2), Enum8]
         public UpstreamKeyId KeyerIndex { get; set; }
-        
+
         [Serialize(4), Enum8]
         public FlyKeyKeyFrameType KeyFrame { get; set; }
 
