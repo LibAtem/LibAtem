@@ -5,7 +5,7 @@ namespace LibAtem.Commands
 {
     [NoCommandId]
     [CommandName("DCPV", CommandDirection.ToClient, 20)]
-    public class DisplayCounterPropertiesGetCommand : SerializableCommandBase
+    public class DisplayClockPropertiesGetCommand : SerializableCommandBase
     {
         /*
         [CommandId]
@@ -36,9 +36,9 @@ namespace LibAtem.Commands
         public HyperDeckTime StartFrom { get; set; }
 
         [Serialize(15), Enum8]
-        public DisplayCounterClockMode ClockMode { get; set; }
+        public DisplayClockClockMode ClockMode { get; set; }
 
         [Serialize(16), Enum8]
-        public DisplayCounterClockState ClockState { get; set; }
+        public DisplayClockClockState ClockState { get; set; }
     }
 }

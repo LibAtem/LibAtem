@@ -4,8 +4,8 @@ using LibAtem.Serialization;
 namespace LibAtem.Commands
 {
     [NoCommandId]
-    [CommandName("DCSC", CommandDirection.ToServer, 4)]
-    public class DisplayCounterStateSetCommand : SerializableCommandBase
+    [CommandName("DSTV", CommandDirection.ToClient, 8)]
+    public class DisplayClockCurrentTimeCommand : SerializableCommandBase
     {
         /*
         [CommandId]
@@ -13,7 +13,7 @@ namespace LibAtem.Commands
         public uint Id { get; set; }
         */
 
-        [Serialize(1), Enum8]
-        public DisplayCounterClockState State { get; set; }
+        [Serialize(1), HyperDeckTime]
+        public HyperDeckTime Time { get; set; }
     }
 }

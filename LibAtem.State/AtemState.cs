@@ -22,7 +22,7 @@ namespace LibAtem.State
 
         public CameraControlState CameraControl { get; } = new CameraControlState();
 
-        public DisplayCounterState DisplayCounter { get; set; }
+        public DisplayClockState DisplayClock { get; set; }
 
         public MacroState Macros { get; } = new MacroState();
         public MediaPoolState MediaPool { get; } = new MediaPoolState();

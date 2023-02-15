@@ -6,7 +6,7 @@ namespace LibAtem.Commands
 {
     [NoCommandId]
     [CommandName("DCPC", CommandDirection.ToServer, 28)]
-    public class DisplayCounterPropertiesSetCommand : SerializableCommandBase
+    public class DisplayClockPropertiesSetCommand : SerializableCommandBase
     {
         [Flags]
         public enum MaskFlags
@@ -57,6 +57,6 @@ namespace LibAtem.Commands
         public uint StartFromFrames { get; set; }
 
         [Serialize(24), Enum8]
-        public DisplayCounterClockMode ClockMode { get; set; }
+        public DisplayClockClockMode ClockMode { get; set; }
     }
 }

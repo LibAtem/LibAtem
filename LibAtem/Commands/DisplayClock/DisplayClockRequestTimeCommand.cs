@@ -2,7 +2,7 @@
 {
     [NoCommandId]
     [CommandName("DSTR", CommandDirection.ToServer, 4)]
-    public class DisplayCounterRequestTimeCommand : SerializableCommandBase
+    public class DisplayClockRequestTimeCommand : SerializableCommandBase
     {
         /*
         [CommandId]

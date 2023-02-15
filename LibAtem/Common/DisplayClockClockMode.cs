@@ -1,6 +1,6 @@
 ﻿namespace LibAtem.Common
 {
-    public enum DisplayCounterClockMode
+    public enum DisplayClockClockMode
     {
         Countdown = 0,
         Countup = 1,

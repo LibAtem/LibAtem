@@ -5,7 +5,7 @@ using System;
 namespace LibAtem.State
 {
     [Serializable]
-    public class DisplayCounterState
+    public class DisplayClockState
     {
         public PropertiesState Properties { get; } = new PropertiesState();
 
@@ -30,9 +30,9 @@ namespace LibAtem.State
 
             public HyperDeckTime StartFrom { get; set; }
 
-            public DisplayCounterClockMode ClockMode { get; set; }
+            public DisplayClockClockMode ClockMode { get; set; }
 
-            public DisplayCounterClockState ClockState { get; set; }
+            public DisplayClockClockState ClockState { get; set; }
         }
     }
 }

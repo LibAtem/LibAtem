@@ -1,6 +1,6 @@
 ﻿namespace LibAtem.Common
 {
-    public enum DisplayCounterClockState
+    public enum DisplayClockClockState
     {
         Stopped = 0,
         Running = 1,

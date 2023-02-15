@@ -52,7 +52,7 @@ namespace LibAtem.State.Builder
             StreamingStateUpdater.Update(state, result, command);
             RecordingStateUpdater.Update(state, result, command);
             CameraControllerUpdater.Update(state, result, command, settings);
-            DisplayCounterStateUpdater.Update(state, result, command);
+            DisplayClockStateUpdater.Update(state, result, command);
        
             return result;
         }
