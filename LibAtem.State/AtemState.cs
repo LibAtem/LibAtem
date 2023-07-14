@@ -33,6 +33,8 @@ namespace LibAtem.State
 
         public InfoState Info { get; } = new InfoState();
 
+        public AudioRoutingState AudioRouting { get; set; } 
+
         public bool[] Power { get; set; } = {false};
 
         #region Clone

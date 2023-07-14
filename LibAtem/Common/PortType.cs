@@ -46,6 +46,23 @@ namespace LibAtem.Common
         TSJack = 512,
         MADI = 1024,
         TRSJack = 2048,
+        RJ45 = 4096,
+    }
+
+    public enum AudioInternalPortType
+    {
+        NotInternal = 0, // TODO - verify
+        NoAudio = 1, // TODO - verify
+        TalkbackMix = 2, // TODO - verify
+        EngineeringTalkbackMix = 3, // TODO - verify
+        ProductionTalkbackMix = 4, // TODO - verify
+        MediaPlayer = 5, // TODO - verify
+        Program = 6,
+        Return = 7,
+        Monitor = 8, // TODO - verify
+        Madi = 9,
+        AuxOut = 10,
+        AudioAuxOut = 11 // TODO - verify
     }
 
     public enum MacroPortType

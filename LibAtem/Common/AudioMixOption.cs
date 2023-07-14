@@ -58,9 +58,23 @@ namespace LibAtem.Common
     [Flags]
     public enum FairlightAnalogInputLevel
     {
+        None = 0,
         Microphone = 1,
         ConsumerLine = 2,
         [Since(ProtocolVersion.V8_1_1)]
         ProLine = 4
+    }
+
+    public enum AudioChannelPair
+    {
+        // TODO verify values
+        Channel1_2 = 0,
+        Channel3_4 = 1,
+        Channel5_6 = 2,
+        Channel7_8 = 3,
+        Channel9_10 = 4,
+        Channel11_12 = 5,
+        Channel13_14 = 6,
+        Channel15_16 = 7,
     }
 }

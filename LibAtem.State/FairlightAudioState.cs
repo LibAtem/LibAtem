@@ -47,6 +47,7 @@ namespace LibAtem.State
         public class MonitorOutputState
         {
             public double Gain { get; set; }
+            public bool InputMasterEnabled { get; set; }
             public double InputMasterGain { get; set; }
             public double InputTalkbackGain { get; set; }
             public double InputSidetoneGain { get; set; }
