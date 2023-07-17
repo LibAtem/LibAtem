@@ -369,24 +369,31 @@ namespace LibAtem.Net
 
         private void SendMessage(Socket socket, InFlightMessage msg)
         {
-            byte[] body = CompileMessage(msg);
-            msg.LastSent = DateTime.Now;
-
             try
             {
-                socket.SendTo(body, SocketFlags.None, Endpoint);
-            }
-            catch (SocketException e)
-            {
-                Log.ErrorFormat("Send failed: {0}", e);
-            }
-            catch (ObjectDisposedException)
-            {
-                Log.ErrorFormat("{0} - Discarding message due to socket being disposed", Endpoint);
-                // Mark as timed out. This will cause it to be cleaned up shortly
-                _lastReceivedTime = DateTime.MinValue;
+                byte[] body = CompileMessage(msg);
+                msg.LastSent = DateTime.Now;
 
-                OnDisconnect?.Invoke(this);
+                try
+                {
+                    socket.SendTo(body, SocketFlags.None, Endpoint);
+                }
+                catch (SocketException e)
+                {
+                    Log.ErrorFormat("Send failed: {0}", e);
+                }
+                catch (ObjectDisposedException)
+                {
+                    Log.ErrorFormat("{0} - Discarding message due to socket being disposed", Endpoint);
+                    // Mark as timed out. This will cause it to be cleaned up shortly
+                    _lastReceivedTime = DateTime.MinValue;
+
+                    OnDisconnect?.Invoke(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("Generic error on SendMessage: {0}", ex.StackTrace);
             }
         }
 
