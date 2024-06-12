@@ -62,7 +62,9 @@ namespace LibAtem.Common
         Monitor = 8, // TODO - verify
         Madi = 9,
         AuxOut = 10,
-        AudioAuxOut = 11 // TODO - verify
+        AudioAuxOut = 11, // TODO - verify
+        ReturnStreaming = 12, // TODO - verify
+        MixMinus = 13, // TODO - verify
     }
 
     public enum MacroPortType

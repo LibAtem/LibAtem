@@ -63,6 +63,8 @@ namespace LibAtem.Common
         ConsumerLine = 2,
         [Since(ProtocolVersion.V8_1_1)]
         ProLine = 4
+
+
     }
 
     public enum AudioChannelPair
