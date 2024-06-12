@@ -152,8 +152,9 @@ namespace LibAtem.Commands.CameraControl
                     SerializePostLength(cmd);
                     cmd.PadToNearestMultipleOf8();
 
-                        foreach (double val in data)
-                        cmd.AddInt16(0x7ff, val); // TODO
+                    foreach (double val in data)
+                        // Values are encoded as 5.11 fixed point floats
+                        cmd.AddInt16(0x800, val); 
                     cmd.PadToNearestMultipleOf8();
 
                     break;
@@ -229,7 +230,8 @@ namespace LibAtem.Commands.CameraControl
                     for (int i = 0; i < count16; i++)
                     {
                         double raw = cmd.GetUInt16();
-                        FloatData[i] = raw / 0x7ff;
+                        // Values are encoded as 5.11 fixed point floats
+                        FloatData[i] = raw / 0x800;
                     }
 
                     break;
