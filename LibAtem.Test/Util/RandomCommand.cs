@@ -32,7 +32,7 @@ namespace LibAtem.Test.Util
                 if (prop.GetCustomAttribute<NoSerializeAttribute>() != null)
                     continue;
 
-                Assert.True(false, string.Format("Missing generator attribute for property: {0}", prop.Name));
+                Assert.Fail(string.Format("Missing generator attribute for property: {0}", prop.Name));
             }
             return cmd;
         }

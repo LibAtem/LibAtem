@@ -68,7 +68,7 @@ namespace LibAtem.State.Test
             {
                 _output.WriteLine("Failed: {0} {1}\n", cmd.GetType().FullName, string.Join('\n', res.Errors));
             }
-            Assert.Equal(0, res.Errors.Count);
+            Assert.Empty(res.Errors);
 
             if (!res.Success)
                 throw new Exception("State update was not successful");
