@@ -246,6 +246,55 @@ namespace LibAtem.State.Builder
                     });
                 });
             }
+            else if (command is MultiviewWindowOverlayGetCommand winOverlayCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)winOverlayCmd.MultiviewIndex, mv =>
+                {
+                    UpdaterUtil.TryForIndex(result, mv.Windows, (int)winOverlayCmd.WindowIndex, win =>
+                    {
+                        win.LabelVisible = winOverlayCmd.LabelVisible;
+                        win.BorderVisible = winOverlayCmd.BorderVisible;
+
+                        result.SetSuccess($"Settings.MultiViewers.{winOverlayCmd.MultiviewIndex:D}.Windows.{winOverlayCmd.WindowIndex:D}");
+                    });
+                });
+            }
+            else if (command is MultiviewWindowOverlaySupportCommand winOverlaySupportCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)winOverlaySupportCmd.MultiviewIndex, mv =>
+                {
+                    UpdaterUtil.TryForIndex(result, mv.Windows, (int)winOverlaySupportCmd.WindowIndex, win =>
+                    {
+                        win.SupportsLabelOverlay = winOverlaySupportCmd.CurrentInputSupportsLabelOverlay;
+
+                        result.SetSuccess($"Settings.MultiViewers.{winOverlaySupportCmd.MultiviewIndex:D}.Windows.{winOverlaySupportCmd.WindowIndex:D}");
+                    });
+                });
+            }
+            else if (command is MultiviewBorderColorGetCommand mwBorderColorCmd)
+            {
+                UpdaterUtil.TryForIndex(result, state.Settings.MultiViewers, (int)mwBorderColorCmd.MultiviewIndex, mv =>
+                {
+                    mv.BorderColor = new MultiViewerState.BorderColorState
+                    {
+                        Red = mwBorderColorCmd.Red,
+                        Green = mwBorderColorCmd.Green,
+                        Blue = mwBorderColorCmd.Blue,
+                        Alpha = mwBorderColorCmd.Alpha,
+                    };
+
+                    result.SetSuccess($"Settings.MultiViewers.{mwBorderColorCmd.MultiviewIndex:D}.BorderColor");
+
+                    // This isn't ideal, but is the best we can do for now
+                    if (!state.Info.MultiViewers.SupportsOverlayProperties)
+                    {
+                        state.Info.MultiViewers.SupportsOverlayProperties = true;
+
+                        result.SetSuccess($"Info.MultiViewers");
+
+                    }
+                });
+            }
         }
     }
 }

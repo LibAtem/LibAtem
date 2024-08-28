@@ -45,6 +45,7 @@ namespace LibAtem.State
             public bool SupportsToggleSafeArea { get; set; }
             public bool CanChangeLayout { get; set; }
             public bool CanChangeVuMeterOpacity { get; set; }
+            public bool SupportsOverlayProperties { get; set; }
         }
     }
 

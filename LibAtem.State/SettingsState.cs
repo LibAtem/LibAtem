@@ -94,6 +94,8 @@ namespace LibAtem.State
         public double VuMeterOpacity { get; set; }
         public PropertiesState Properties { get; } = new PropertiesState();
 
+        public BorderColorState BorderColor { get; set; }
+
         public IReadOnlyList<WindowState> Windows { get; set; } = new List<WindowState>();
 
         [Serializable]
@@ -102,7 +104,16 @@ namespace LibAtem.State
             public MultiViewLayoutV8 Layout { get; set; }
             public bool ProgramPreviewSwapped { get; set; }
         }
-        
+
+        [Serializable]
+        public class BorderColorState
+        {
+            public double Red { get; set; }
+            public double Green { get; set; }
+            public double Blue{ get; set; }
+            public double Alpha { get; set; }
+        }
+
         [Serializable]
         public class WindowState
         {
@@ -113,6 +124,10 @@ namespace LibAtem.State
             
             public bool SupportsSafeArea { get; set; }
             public bool SafeAreaEnabled { get; set; }
+
+            public bool SupportsLabelOverlay { get; set; }
+            public bool LabelVisible{  get; set; }
+            public bool BorderVisible { get; set; }
         }
     }
 }
