@@ -98,6 +98,10 @@ namespace LibAtem.Net
             {
                 Log.DebugFormat("Failed to reconnect: {0}", e);
             }
+            catch (Exception ex)
+            {
+                Log.Error($"Generic Exception {ex.StackTrace}", ex);
+            }
 
             return true;
         }
@@ -106,10 +110,17 @@ namespace LibAtem.Net
         {
             _timeoutTimer = new Timer(o =>
             {
-                if (!_connection.HasTimedOut)
-                    return;
+                try
+                {
+                    if (!_connection.HasTimedOut)
+                        return;
 
-                Reconnect();
+                    Reconnect();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Generic Exception {ex.StackTrace}", ex);
+                }
             }, null, 0, AtemConstants.TimeoutInterval);
         }
 
@@ -117,10 +128,17 @@ namespace LibAtem.Net
         {
             _ackTimer = new Timer(o =>
             {
-                if (!_connection.HasTimedOut)
-                    return;
+                try
+                {
+                    if (!_run || !_connection.HasTimedOut)
+                        return;
 
-                _connection.SendAckNow(_client.Client);
+                    _connection.SendAckNow(_client.Client);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Generic Exception {ex.StackTrace}", ex);
+                }
             }, null, 0, AtemConstants.AckInterval);
         }
 
@@ -128,10 +146,17 @@ namespace LibAtem.Net
         {
             _sendThread = new Thread(o =>
             {
-                while (!_connection.HasTimedOut)
+                while (_run || !_connection.HasTimedOut)
                 {
-                    if (!_connection.TrySendQueued(_client.Client))
-                        Thread.Sleep(1);
+                    try
+                    {
+                        if (!_connection.TrySendQueued(_client.Client))
+                            Thread.Sleep(1);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error($"Generic Exception {ex.StackTrace}", ex);
+                    }
                 }
             });
             _sendThread.Name = "LibAtem.Send";
@@ -145,14 +170,21 @@ namespace LibAtem.Net
             {
                 while (_run || _connection.HasCommandsToProcess)
                 {
-                    List<ICommand> cmds = _connection.GetNextCommands();
-                    int rawCount = cmds.Count;
+                    try
+                    {
+                        List<ICommand> cmds = _connection.GetNextCommands();
+                        int rawCount = cmds.Count;
 
-                    cmds = cmds.Where(c => !DataTransfer.HandleCommand(c)).ToList();
-                    Log.DebugFormat("Recieved {0} commands. {1} to be handle by user code", rawCount, cmds.Count);
+                        cmds = cmds.Where(c => !DataTransfer.HandleCommand(c)).ToList();
+                        Log.DebugFormat("Recieved {0} commands. {1} to be handle by user code", rawCount, cmds.Count);
 
-                    if (cmds.Any())
-                        OnReceive?.Invoke(this, cmds);
+                        if (cmds.Any())
+                            OnReceive?.Invoke(this, cmds);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error($"Generic Exception {ex.StackTrace}", ex);
+                    }
                 }
             });
             _handleThread.Name = "LibAtem.Handle";
@@ -212,6 +244,10 @@ namespace LibAtem.Net
                     {
                         Log.ErrorFormat("Socket Exception");
                     }
+                    catch (Exception ex)
+                    {
+                        Log.Error($"Generic Exception {ex.StackTrace}", ex);
+                    }
                 }
             });
             thread.Name = "LibAtem.Receive";
@@ -232,10 +268,14 @@ namespace LibAtem.Net
         public void Dispose()
         {
             // TODO
+            _run = false;
 
             DataTransfer?.Dispose();
 
             _timeoutTimer?.Dispose();
+            _ackTimer?.Dispose();
+
+            _client?.Dispose();
         }
 
         public bool HasQueuedOutbound()
