@@ -307,7 +307,7 @@ namespace LibAtem.XmlState.GenerateMacroOperation
 
         private static IEnumerable<StatementSyntax> GenerateMacroOpToXml(Operation op)
         {
-            string[] nameParts = op.Classname.Split(".");
+            string[] nameParts = op.Classname.Split('.');
             string id = nameParts[nameParts.Count() - 1];
 
             var props = SyntaxFactory.SeparatedList<ExpressionSyntax>()
